@@ -1,0 +1,9 @@
+<view class="leadBox">
+  <view class="leadTop" style="background:url({{imageUrl}}position_bg.png) 0 0 / 100% 100% no-repeat">
+    <image class="lead_ing" src="{{imageUrl}}position_tit.png" />
+  </view>
+  <view class="leadBot">
+    <image class="lead_position" src="{{imageUrl}}position_icon.png"  />
+    <view>{{city}}</view>
+  </view>
+</view>

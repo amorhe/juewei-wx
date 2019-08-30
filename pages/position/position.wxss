@@ -1,0 +1,23 @@
+/* pages/position/position.wxss */
+.leadBox {
+  width: 100vw;
+  height: 100vh;
+  background: #E60012;
+}
+.leadTop {
+  height: 942rpx;
+}
+.lead_ing {
+  width: 522rpx;
+  height: 244rpx;
+  margin: 160rpx 0 0 114rpx
+}
+.lead_position {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 16rpx;
+}
+.leadBot {
+  text-align: center;
+  color: #fff
+}

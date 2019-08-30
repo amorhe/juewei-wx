@@ -1,13 +1,142 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/position/position",
+    "pages/home/goodslist/goodslist",
+    "pages/my/index/index",
+    "pages/vip/index/index",
+    "pages/order/list/list",
+    "pages/login/protocol/protocol",
+    "pages/login/verifycode/verifycode",
+    "pages/login/auth/auth",
+    "pages/noposition/noposition",
+    "pages/noNet/noNet",
+    "pages/skip/togoodslist/togoodslist",
+    "pages/skip/tomy/tomy",
+    "pages/skip/tovip/tovip",
+    "pages/skip/tocoupon/tocoupon",
+    "pages/skip/tonearbyshop/tonearbyshop",
+    "pages/home/orderform/orderform",
+    "pages/home/orderError/orderError",
+    "pages/home/orderfinish/orderfinish",
+    "pages/home/orderform/remarks/remarks",
+    "pages/home/orderform/selectaddress/selectaddress",
+    "pages/home/goodslist/goodsdetail/goodsdetail",
+    "pages/home/selfshop/selfshop",
+    "pages/home/orderform/agreement/agreement",
+    "pages/home/orderform/chooseCoupon/chooseCoupon",
+    "pages/home/switchshop/switchshop",
+    "pages/home/selecttarget/selecttarget"
   ],
+  "subpackages": [
+    {
+      "root": "package_vip/pages/",
+      "pages": [
+        "detail/detail",
+        "exchangelist/exchangelist",
+        "exchangelist/exchangedetail/exchangedetail",
+        "pointlist/pointlist",
+        "pointlist/rules/rules",
+        "waitpay/waitpay",
+        "finish/finish"
+      ]
+    },
+    {
+      "root": "package_order/pages/",
+      "pages": [
+        "orderdetail/orderdetail",
+        "comment/comment",
+        "comment/comment-success/comment-success"
+      ]
+    },
+    {
+      "root": "package_my/pages/",
+      "pages": [
+        "coupon/coupon",
+        "membercard/membercard",
+        "coupon/exchange/exchange",
+        "coupon/explain/explain",
+        "coupon/changedetails/changedetails",
+        "mycenter/mycenter",
+        "mycenter/bindphone/bindphone",
+        "mycenter/newphone/newphone",
+        "myaddress/myaddress",
+        "myaddress/addaddress/addaddress",
+        "myaddress/selectaddress/selectaddress",
+        "entitlement/entitlement",
+        "coupon/redeemCodeRecord/redeemCodeRecord",
+        "coupon/couponRecord/couponRecord",
+        "nearshop/nearshop",
+        "onlineservice/onlineservice"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/order/list/list": {
+      "network": "all",
+      "packages": [
+        "package_order/pages/"
+      ]
+    },
+    "pages/home/orderfinish/orderfinish": {
+      "network": "all",
+      "packages": [
+        "package_order/pages/"
+      ]
+    },
+    "pages/vip/index/index": {
+      "network": "all",
+      "packages": [
+        "package_vip/pages/"
+      ]
+    },
+    "pages/my/index/index": {
+      "network": "all",
+      "packages": [
+        "package_my/pages/"
+      ]
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "绝味鸭脖",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7F8389",
+    "selectedColor": "#E60012",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/goodslist/goodslist",
+        "iconPath": "pages/common/img/menu_home1.png",
+        "selectedIconPath": "pages/common/img/menu_home1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/vip/index/index",
+        "iconPath": "pages/common/img/menu_vip1.png",
+        "selectedIconPath": "pages/common/img/menu_vip2.png",
+        "text": "会员专享"
+      },
+      {
+        "pagePath": "pages/order/list/list",
+        "iconPath": "pages/common/img/menu_order1.png",
+        "selectedIconPath": "pages/common/img/menu_order2.png",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/my/index/index",
+        "iconPath": "pages/common/img/menu_my1.png",
+        "selectedIconPath": "pages/common/img/menu_my2.png",
+        "text": "我"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于定位附近门店" 
+    }
   },
   "sitemapLocation": "sitemap.json"
 }
