@@ -7,9 +7,9 @@ export const imageUrl3 = 'https://images.juewei.com';
 //jsonUrl
 export const jsonUrl='https://imgcdnjwd.juewei.com/static/check';
 //百度测试ak
-export const ak = 'pRtqXqnajTytAzWDL3HOnPRK';
+// export const ak = 'pRtqXqnajTytAzWDL3HOnPRK';
 export const geotable_id='134917';
-
+export const ak = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 
 
 
@@ -35,18 +35,20 @@ export const img_url = isTestUrl?imageUrl2:imageUrl3;
 
 // 异步获取缓存
 export const wxGet = (key) => {
-  wx.getStorage({
-    key,
-    success: function (res) {
-      return res
-    },
-  })
+  try {
+    var value = wx.getStorageSync(key)
+    if (value) {
+      // Do something with return value
+      return value
+    }
+  } catch (e) {
+    // Do something when catch error
+  }
 }
 
 // 异步存储数据
 export const wxSet = (key, data) => {
-  wx.setStorage({
-    key,
-    data,
-  })
+  try {
+    wx.setStorageSync(key, data)
+  } catch (e) { }
 }

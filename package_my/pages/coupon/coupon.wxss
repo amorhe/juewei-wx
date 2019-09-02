@@ -1,1 +1,307 @@
-/* package_my/pages/coupon/coupon.wxss */
+.activeFont {
+  font-weight: bold
+}
+
+page {
+  background: #fff;
+}
+
+.couponUl {
+  padding: 16rpx 32rpx;
+  background: #F5F5F5;
+}
+
+.couponLi {
+  width: 686rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 10rpx;
+  padding: 28rpx 24rpx 0 32rpx;
+  box-sizing: border-box;
+  margin-bottom: 16rpx;
+  position: relative;
+  overflow: hidden;
+  transition: all .3s;
+}
+
+.quan {
+  width: 287rpx;
+  height: 334rpx;
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0
+}
+
+.couponLi>view:nth-child(1), .couponLi>view:nth-child(3), .couponLi>view:nth-child(4) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.couponNumber {
+  color: #FFE100
+}
+
+.couponNumber>text:nth-child(1) {
+  font-size: 120rpx;
+  font-weight: 600
+}
+
+.couponMiddle {
+  /* width: 154rpx; */
+  display: flex;
+  flex-direction: column;
+  color: #fff
+}
+
+.couponMiddle>view {
+  margin-bottom: 8rpx
+}
+
+.useBtn {
+  width: 140rpx;
+  height: 64rpx;
+  background: linear-gradient(135deg, rgba(253, 235, 113, 1) 0%, rgba(248, 216, 0, 1) 100%);
+  border-radius: 32rpx;
+  text-align: center;
+  line-height: 64rpx;
+  color: #E60012
+}
+
+.couponLi>view:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.whiteCircleLeft {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #fff;
+  margin-left: -48rpx;
+}
+
+.whiteCircleRight {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #fff;
+  margin-right: -36rpx;
+}
+
+.dashLine {
+  width: 638rpx;
+  border-bottom: 1px #C81802 dashed
+}
+
+.arrow_down_icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 8rpx;
+}
+
+.couponLi>view:nth-child(3) {
+  /* height: 64rpx; */
+}
+
+.qr {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.cardMiddle {
+  margin-top: 24rpx;
+  font-size: 22rpx;
+  color: #999;
+  padding-bottom: 208rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.grayLine {
+  margin: 0 8rpx;
+}
+
+.couponPosition {
+  position: fixed;
+  width: 750rpx;
+  height: 96rpx;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  z-index: 10;
+  font-size: 34rpx;
+}
+
+.couponPosition>image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.couponContainer {
+  background: #F5F5F5;
+  min-height: 100vh
+}
+
+/* 兑换码 */
+
+.redeemCode {
+  background: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16rpx;
+}
+
+.redeemCode>view {
+  padding: 24rpx;
+  width: 686rpx;
+  height: 168rpx;
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.codeSize {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 24rpx;
+}
+
+.redeemContent {
+  height: 110rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
+}
+
+.tabBox {
+  height: 100vh;
+  overflow-y: scroll;
+  background: #F5F5F5
+}
+
+.codeMiddle {
+  margin-top: 24rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #999;
+  padding-bottom: 128rpx;
+}
+
+.modalInfo {
+  padding: 50rpx 0;
+}
+
+.footerButton {
+  display: flex;
+}
+
+.modalButton {
+  flex: 1;
+  text-align: center;
+}
+
+.am-modal-footer {
+  background: rgba(0, 0, 0, 0)
+}
+
+.confirm {
+  color: #999;
+}
+
+.cancel {
+  color: #E60012;
+}
+
+.to-use {
+  width: 140rpx;
+  height: 64rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 32rpx;
+  text-align: center;
+  line-height: 64rpx;
+  color: white;
+  align-self: flex-end
+}
+
+.code-img {
+  width: 380rpx;
+  height: 380rpx;
+  background: red;
+  padding: 24rpx;
+  margin: 24rpx;
+}
+
+.code-head {
+  text-align: right;
+}
+
+.code-wrap {
+  width: 580rpx;
+  padding: 10rpx 0 56rpx;
+  border-radius: 10rpx;
+  overflow: hidden
+}
+
+.code-phone {
+  font-size: 52rpx;
+  font-family: PingFangSC-Semibold;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+}
+
+.close {
+  height: 32rpx;
+  width: 32rpx;
+}
+
+.code-pay {
+  width: 512rpx;
+  height: 94rpx;
+  line-height: 94rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 47px;
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  margin: 40rpx auto 0;
+}
+
+.rule {
+  margin: 10rpx 0;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.rule view {
+  line-height: 1.5
+}
+
+.noShow {
+  display: block;
+  width: 320rpx;
+  height: 320rpx;
+  margin: 200rpx auto;
+}
+
+.am-modal-show {
+  position: fixed;
+  z-index: 99;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.am-modal-body{
+  max-width: 600rpx;
+}

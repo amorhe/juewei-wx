@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "confirm": "../../components/confirm/confirm",
+    "shopcart-model": "../../components/shopcartModel/shopcartModel",
+    "goods-modal": "../../components/goodsModal/goodsModal"
+  }
 }

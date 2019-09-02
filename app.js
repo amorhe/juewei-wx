@@ -1,6 +1,10 @@
 //app.js
 App({
   onLaunch: function () {
+    wx.setStorage({
+      key: '_sid',
+      data: '756sv2hhbd2nkd4hhdtt3s1sur',
+    })
     // 登录
     wx.login({
       success: res => {
@@ -37,6 +41,20 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    query: null,
+    location: { //获取地区
+      longitude: null,
+      latitude: null
+    },
+    address: null,
+    _sid: null,
+    userInfo: null, //拉去支付宝用户信息
+    authCode: null, //静默授权
+    phone: null, //获取手机号权限
+    addressInfo: null,   //切换定位地址
+    gifts: null,    //加购商品
+    type: 1,     // 默认外卖
+    coupon_code: null,   //优惠券
+    scrollTop: null
   }
 })

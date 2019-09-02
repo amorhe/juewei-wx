@@ -1,7 +1,7 @@
-import { baseUrl, ak, geotable_id } from './baseUrl'
+import { baseUrl, ak, geotable_id, wxSet, wxGet } from './baseUrl'
 import { gd_decrypt } from './map'
-import parse from 'mini-html-parser2';
-
+// import parse from 'mini-html-parser2';
+// var wxParse = require('../../../wxParse/wxParse.js') 
 
 /**
  * @function 获取 sid
@@ -28,13 +28,13 @@ export const getSid = () => {
  * @return Promise<any>
  */
 export const ajax = async (url, data = {}, method = 'POST') => {
-  my.showLoading({
-    content: '加载中...',
+  wx.showLoading({
+    title: '加载中...',
   });
   let _sid = await getSid()
   data._sid = _sid
   return new Promise((resolve, reject) => {
-    let task = my.request({
+    let task = wx.request({
       url: baseUrl + url,
       data,
       method,
@@ -42,18 +42,12 @@ export const ajax = async (url, data = {}, method = 'POST') => {
       success: (res) => {
         // log(res.data)
         res.data.task = task
-        my.hideLoading()
+        wx.hideLoading()
         const code = res.data.CODE || res.data.code
         if ([100, 'A100', 0, 3212, 3218].includes(code)) {
           resolve(res.data)
         } else if ([30106, 'A103', 101].includes(code)) {
-          // return my.navigateTo({
-          //   url: '/pages/login/auth/auth'
-          // });
-          my.setStorageSync({
-            key: '_sid', // 缓存数据的key
-            data: '', // 要缓存的数据
-          });
+          wxSet('_sid','')
           resolve({ code: -1, data: '' })
         } else {
           resolve(res.data)
@@ -62,8 +56,8 @@ export const ajax = async (url, data = {}, method = 'POST') => {
 
       },
       fail: (err) => {
-        my.hideLoading()
-        reject(my.alert({
+        wx.hideLoading()
+        reject(wx.showToast({
           title: '服务器错误'
         }))
       }
@@ -75,15 +69,15 @@ export const ajax = async (url, data = {}, method = 'POST') => {
  * @function 获取富文本数组
  * @param {string} html字符串
  */
-export const parseData = async (html) => {
-  return new Promise(resolve => {
-    parse(html, (err, nodes) => {
-      if (!err) {
-        resolve(nodes)
-      }
-    })
-  })
-}
+// export const parseData = async (html) => {
+//   return new Promise(resolve => {
+//     parse(html, (err, nodes) => {
+//       if (!err) {
+//         resolve(nodes)
+//       }
+//     })
+//   })
+// }
 
 /**
  * @function 重定向

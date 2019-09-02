@@ -1,4 +1,5 @@
 import { upAliMiniFormId } from './home'
+import { wxGet } from './baseUrl.js'
 // 比较两个日期时间相差多少天
 export const datedifference = (sDate1, sDate2) => {
   var dateSpan, iDays;
@@ -105,7 +106,7 @@ export const getNowDate = () => {
 
 // 上传formid，模版消息
 export const upformId = (formId) => {
-  upAliMiniFormId(my.getStorageSync({ key: '_sid' }).data, my.getStorageSync({ key: 'ali_uid' }).data, formId).then((res) => {
+  upAliMiniFormId(wxGet('_sid'), wxGet('ali_uid'), formId).then((res) => {
     // console.log(res)
   })
 }
