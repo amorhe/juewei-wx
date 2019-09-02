@@ -33,3 +33,20 @@ const isTestUrl = baseUrl.includes('test');
 // 套餐图片路径
 export const img_url = isTestUrl?imageUrl2:imageUrl3;
 
+// 异步获取缓存
+export const wxGet = (key) => {
+  wx.getStorage({
+    key,
+    success: function (res) {
+      return res
+    },
+  })
+}
+
+// 异步存储数据
+export const wxSet = (key, data) => {
+  wx.setStorage({
+    key,
+    data,
+  })
+}

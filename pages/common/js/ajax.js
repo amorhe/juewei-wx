@@ -1,10 +1,16 @@
-import { baseUrl } from './baseUrl';
+import {
+  baseUrl
+} from './baseUrl';
 export const ajax = (url, data = {}, method = "POST") => {
   let headers;
   if (method == "POST") {
-    headers = { 'content-type': 'application/x-www-form-urlencoded' };
+    headers = {
+      'content-type': 'application/x-www-form-urlencoded'
+    };
   } else {
-    headers = { 'content-type': 'application/json' };
+    headers = {
+      'content-type': 'application/json'
+    };
   }
   let promise = new Promise(function(resolve, reject) {
     wx.request({
@@ -52,4 +58,3 @@ export const ajax = (url, data = {}, method = "POST") => {
   })
   return promise;
 }
-

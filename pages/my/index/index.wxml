@@ -1,2 +1,90 @@
-<!--pages/my/index/index.wxml-->
-<text>pages/my/index/index.wxml</text>
+<view class="myContent">
+  <form bindsubmit="onSubmit" bindreset="onReset" report-submit="true">
+    <view class="myTop flexNormal">
+      <view class="flexSpecial" bindtap="isloginFn">
+        <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:30%;height:104rpx" form-type="submit"></button>
+        <image class="avatar" mode="scaleToFill" src="{{ userInfo.user_id?userInfo.head_img?userInfo.head_img:imageUrl+'default_head1.png':imageUrl+'default_head2.png' }}"/>
+        <view class="fontFourtyWeight">
+          <text>{{ userInfo.user_id?userInfo.nick_name?userInfo.nick_name:'绝味会员':'登录' }}</text>
+        </view>
+      </view>
+      <view bindtap="isloginFn">
+        <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:5%;height:44rpx;right:30rpx" form-type="submit"></button>
+        <image class="ImageFourty" mode="scaleToFill" src="{{imageUrl}}settings.png" />
+      </view>
+    </view>
+  </form>
+  <view class="vipView">
+    <view class="flexNormal" data-url="/package_my/pages/membercard/membercard" bindtap="toUrl">
+      <form style="width:100%" class="flexNormal" onSubmit="onSubmit" onReset="onReset" report-submit="true">
+        <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:622rpx;height:100rpx" form-type="submit"></button>
+        <view>会员卡</view>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}qrcode.png"/>
+      </form>
+    </view>
+    <image class="vipcardPng" mode="scaleToFill" src="{{imageUrl}}position_tit.png"/>
+    <image class="qingxie" mode="scaleToFill" src="{{imageUrl}}my_cardbg.png"/>
+  </view>
+  <!-- 下面的菜单 -->
+  <view class="my_menu">
+    <view class="fontBold">我的服务</view>
+    <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
+      <view class="menuList">
+        <view bindtap="toUrl" data-url='/package_my/pages/coupon/coupon'>
+          <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
+          <view>
+            <view>
+              <image mode="scaleToFill" src="{{imageUrl}}my_coupon.png"/>
+              <view>卡券</view>
+            </view>
+          </view>
+        </view>
+        <view bindtap="toUrl" data-url='/package_vip/pages/pointlist/pointlist'>
+          <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
+          <view>
+            <view>
+              <image mode="scaleToFill" src="{{imageUrl}}my_points.png"/>
+              <view>积分</view>
+            </view>
+          </view>
+        </view>
+        <view bindtap="toUrl" data-url='/package_my/pages/myaddress/myaddress'>
+          <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
+          <view>
+            <view>
+              <image mode="scaleToFill" src="{{imageUrl}}my_address.png"/>
+              <view>地址</view>
+            </view>
+          </view>
+        </view>
+        <navigator url='/package_my/pages/nearshop/nearshop'>
+          <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
+          <view>
+            <view>
+              <image mode="scaleToFill" src="{{imageUrl}}my_nearshop.png"/>
+              <view>附近门店</view>
+            </view>
+          </view>
+        </navigator>
+        <navigator url="/package_my/pages/entitlement/entitlement">
+          <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
+          <view>
+            <view>
+              <view>
+                <image mode="scaleToFill" src="{{imageUrl}}my_quity.png"/>
+                <view>专享权益</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </form>
+  </view>
+</view>
+<!--<navigator url="/package_my/pages/onlineservice/onlineservice"><image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png"/></navigator> -->
+<form onSubmit="onSubmit" onReset="onReset" report-submit="true">
+  <view class="customerService" bindtap="makePhoneCall">
+    <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:110rpx;height:110rpx" form-type="submit"></button>
+    <image mode="scaleToFill" src="{{imageUrl}}service.png"/>
+  </view>
+</form>

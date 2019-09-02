@@ -1,1 +1,97 @@
 /* pages/my/index/index.wxss */
+.myContent {
+  background: #fff;
+}
+.myTop {
+  padding: 40rpx 32rpx;
+  background: #f5f5f5;
+}
+.avatar {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  background: #eee;
+}
+.vipView {
+  width: 100vw;
+  height: 255rpx;
+  position: relative;
+  background: #f5f5f5;
+}
+.vipView>view {
+  width:686rpx;
+  height: 100%;
+  background:rgba(249,0,0,1);
+  border-radius:20rpx;
+  margin-bottom: -241rpx;
+  margin-left: 32rpx;
+  padding: 42rpx 32rpx;
+  box-sizing: border-box;
+  color: #fff;
+  align-items: flex-start
+}
+.vipcardPng {
+  position: absolute;
+  z-index: 1;
+  height: 180rpx;
+  left: 99rpx;
+  top: 75rpx;
+}
+.qingxie{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  height: 194rpx;
+  width: 100%
+}
+.my_menu {
+  width:686rpx;
+  height:434rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0 0 10rpx 0 rgba(153,153,153,0.2);
+  border-radius:10rpx;
+  margin-left: 32rpx;
+  padding: 30rpx 24rpx 32rpx;
+  box-sizing: border-box
+}
+.menuList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center
+}
+.menuList>view {
+  width: 25%;
+  margin-top: 32rpx;
+}
+.menuList>navigator {
+  width: 25%;
+  margin-top: 32rpx;
+}
+.menuList>view>view {
+  display: flex;
+  flex-direction: column;
+}
+.menuList>view>view>view {
+  text-align: center;
+  width: 104rpx;
+  font-size: 26rpx;
+}
+.menuList image {
+  width: 94rpx;
+  height: 94rpx;
+}
+.customerService {
+  width: 110rpx;
+  height: 110rpx;
+  position: fixed;
+  right: 24rpx;
+  bottom: 56rpx;
+  z-index: 100;
+}
+.customerService>image {
+  width: 100%;
+  height: 100%;
+}
