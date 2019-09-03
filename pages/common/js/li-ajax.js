@@ -1,7 +1,19 @@
-import { baseUrl, ak, geotable_id, wxSet, wxGet } from './baseUrl'
-import { gd_decrypt } from './map'
+import {
+  baseUrl,
+  ak,
+  geotable_id,
+  wxSet,
+  wxGet
+} from './baseUrl'
+
+import VIP from './vip.js'
+
+const my = wx;
+
 // import parse from 'mini-html-parser2';
 // var wxParse = require('../../../wxParse/wxParse.js') 
+
+export const log = console.log
 
 /**
  * @function 获取 sid
@@ -10,7 +22,7 @@ export const getSid = () => {
   return new Promise((resolve, reject) => {
     my.getStorage({
       key: '_sid', // 缓存数据的key
-      success: async (res) => {
+      success: async(res) => {
         resolve(res.data)
       },
       fail: err => {
@@ -27,10 +39,19 @@ export const getSid = () => {
  * @param method 请求方式
  * @return Promise<any>
  */
-export const ajax = async (url, data = {}, method = 'POST') => {
-  wx.showLoading({
-    title: '加载中...',
-  });
+export const ajax = async({
+  url,
+  data = {},
+  method = 'POST',
+  loading = true
+}) => {
+  if (loading) {
+
+    wx.showLoading({
+      title: '加载中...',
+    });
+  }
+
   let _sid = await getSid()
   data._sid = _sid
   return new Promise((resolve, reject) => {
@@ -38,17 +59,21 @@ export const ajax = async (url, data = {}, method = 'POST') => {
       url: baseUrl + url,
       data,
       method,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
       success: (res) => {
         // log(res.data)
-        res.data.task = task
         wx.hideLoading()
         const code = res.data.CODE || res.data.code
         if ([100, 'A100', 0, 3212, 3218].includes(code)) {
           resolve(res.data)
         } else if ([30106, 'A103', 101].includes(code)) {
-          wxSet('_sid','')
-          resolve({ code: -1, data: '' })
+          wxSet('_sid', '')
+          resolve({
+            code: -1,
+            data: ''
+          })
         } else {
           resolve(res.data)
           // reject({ errormsg: rest.msg, code: -1 });
@@ -64,6 +89,32 @@ export const ajax = async (url, data = {}, method = 'POST') => {
     });
   })
 }
+
+const RequestConfig = {
+  ...VIP
+};
+
+
+const Request = {};
+Object.entries(RequestConfig).forEach(([name, {
+  defaultData,
+  url,
+  methods,
+  loading
+}]) => {
+  Request[name] = params => ajax({
+    url,
+    methods,
+    loading,
+    data: {
+      ...defaultData,
+      ...params
+    },
+    loading
+  })
+})
+
+export default Request;
 
 /**
  * @function 获取富文本数组
@@ -90,12 +141,10 @@ export const redirect = (url) => {
 }
 
 
-export const log = console.log
-
 /**
  * @function 获取地址列表
  */
-export const getRegion = async () => {
+export const getRegion = async() => {
   return new Promise((resolve, reject) => {
     my.request({
       dataType: 'text',
@@ -113,10 +162,12 @@ export const getRegion = async () => {
 }
 
 /**
-  * @function 剪切板
-  */
+ * @function 剪切板
+ */
 export const handleCopy = (e) => {
-  const { text } = e.currentTarget.dataset
+  const {
+    text
+  } = e.currentTarget.dataset
   log(text)
   my.setClipboard({
     text,
@@ -135,9 +186,13 @@ export const handleCopy = (e) => {
  * @param _lng 经纬度中 没有 超过 100的那个 => 纬度
  */
 
-export const getDistance = async (_lng, _lat) => {
-  let lat = my.getStorageSync({ key: 'lat' }).data;
-  let lng = my.getStorageSync({ key: 'lng' }).data;
+export const getDistance = async(_lng, _lat) => {
+  let lat = my.getStorageSync({
+    key: 'lat'
+  }).data;
+  let lng = my.getStorageSync({
+    key: 'lng'
+  }).data;
   return new Promise((resolve, reject) => {
     my.request({
       url: `https://api.map.baidu.com/directionlite/v1/driving?origin=${lng},${lat}&destination=${_lng},${_lat}&ak=${ak}`,
@@ -153,10 +208,15 @@ export const getDistance = async (_lng, _lat) => {
  */
 
 export const guide = e => {
-  const { shop_longitude, shop_latitude, shop_name, address } = e.currentTarget.dataset;
+  const {
+    shop_longitude,
+    shop_latitude,
+    shop_name,
+    address
+  } = e.currentTarget.dataset;
   my.openLocation({
     longitude: shop_longitude,
-    latitude:shop_latitude,
+    latitude: shop_latitude,
     name: shop_name,
     address,
   });
@@ -167,7 +227,9 @@ export const guide = e => {
  */
 
 export const contact = () => {
-  my.makePhoneCall({ number: '4009995917' });
+  my.makePhoneCall({
+    number: '4009995917'
+  });
 }
 
 /**
@@ -175,9 +237,14 @@ export const contact = () => {
  */
 
 export const getNavHeight = () => {
-  let { titleBarHeight, statusBarHeight, model } = my.getSystemInfoSync()
-  return {
+  let {
     titleBarHeight,
+    statusBarHeight,
+    model
+  } = my.getSystemInfoSync()
+
+  return {
+    titleBarHeight: titleBarHeight || 44,
     statusBarHeight
   }
 }
@@ -192,7 +259,12 @@ export const getAddressId = () => {
       type: 2,
       success(res) {
         console.log('address', res)
-        const { cityAdcode, districtAdcode, longitude, latitude } = res
+        const {
+          cityAdcode,
+          districtAdcode,
+          longitude,
+          latitude
+        } = res
         resolve({
           city_id: cityAdcode,
           district_id: districtAdcode,
@@ -202,7 +274,9 @@ export const getAddressId = () => {
       },
       fail() {
         my.hideLoading();
-        reject(my.alert({ title: '定位失败' }))
+        reject(my.alert({
+          title: '定位失败'
+        }))
       },
     })
   })
@@ -223,8 +297,22 @@ export const isloginFn = () => {
  */
 
 export const liTo = e => {
-  const { url } = e.currentTarget.dataset;
+  const {
+    url
+  } = e.currentTarget.dataset;
   my.navigateTo({
     url
   })
+}
+
+/**
+ * @function 获取用户积分
+ */
+export const getUserPoint = async() => {
+  let res = await Request.reqUserPoint()
+  if (res.CODE === 'A100') {
+    this.setData({
+      userPoint: res.DATA
+    })
+  }
 }
