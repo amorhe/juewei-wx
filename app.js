@@ -46,6 +46,10 @@ App({
       longitude: null,
       latitude: null
     },
+    position:{
+      longitude: null,
+      latitude: null
+    },
     address: null,
     _sid: null,
     userInfo: null, //拉去支付宝用户信息
@@ -55,6 +59,8 @@ App({
     gifts: null,    //加购商品
     type: 1,     // 默认外卖
     coupon_code: null,   //优惠券
-    scrollTop: null
+    scrollTop: null,
+    province:null,
+    city:null
   }
 })
