@@ -1,7 +1,6 @@
 import {
   baseUrl,
   ak,
-  geotable_id,
   wxSet,
   wxGet
 } from './baseUrl'
@@ -11,14 +10,14 @@ import VIP from './vip.js'
 const my = wx;
 
 // import parse from 'mini-html-parser2';
-// var wxParse = require('../../../wxParse/wxParse.js') 
+// var wxParse = require('../../../wxParse/wxParse.js')
 
-export const log = console.log
+export const log = console.log;
 
 /**
  * @function 获取 sid
  */
-export const getSid = () => {
+export const event_getSid = () => {
   return new Promise((resolve, reject) => {
     my.getStorage({
       key: '_sid', // 缓存数据的key
@@ -30,13 +29,14 @@ export const getSid = () => {
       }
     });
   })
-}
+};
 
 /**
  * @function ajax 请求
  * @param url 地址 string
  * @param data 数据
  * @param method 请求方式
+ * @param loading
  * @return Promise<any>
  */
 export const ajax = async({
@@ -52,8 +52,8 @@ export const ajax = async({
     });
   }
 
-  let _sid = await getSid()
-  data._sid = _sid
+  let _sid = await event_getSid();
+  data._sid = _sid;
   return new Promise((resolve, reject) => {
     let task = wx.request({
       url: baseUrl + url,
@@ -64,12 +64,12 @@ export const ajax = async({
       },
       success: (res) => {
         // log(res.data)
-        wx.hideLoading()
-        const code = res.data.CODE || res.data.code
+        wx.hideLoading();
+        const code = res.data.CODE || res.data.code;
         if ([100, 'A100', 0, 3212, 3218].includes(code)) {
           resolve(res.data)
         } else if ([30106, 'A103', 101].includes(code)) {
-          wxSet('_sid', '')
+          wxSet('_sid', '');
           resolve({
             code: -1,
             data: ''
@@ -81,14 +81,14 @@ export const ajax = async({
 
       },
       fail: (err) => {
-        wx.hideLoading()
+        wx.hideLoading();
         reject(wx.showToast({
           title: '服务器错误'
         }))
       }
     });
   })
-}
+};
 
 const RequestConfig = {
   ...VIP
@@ -110,7 +110,6 @@ Object.entries(RequestConfig).forEach(([name, {
       ...defaultData,
       ...params
     },
-    loading
   })
 })
 
@@ -236,18 +235,18 @@ export const contact = () => {
  * @function 获取导航高度
  */
 
-export const getNavHeight = () => {
+export const event_getNavHeight = () => {
   let {
     titleBarHeight,
     statusBarHeight,
     model
-  } = my.getSystemInfoSync()
+  } = my.getSystemInfoSync();
 
   return {
     titleBarHeight: titleBarHeight || 44,
     statusBarHeight
   }
-}
+};
 
 /**
  * 获取 地址ID
@@ -308,7 +307,7 @@ export const liTo = e => {
 /**
  * @function 获取用户积分
  */
-export const getUserPoint = async() => {
+export const event_getUserPoint = async() => {
   let res = await Request.reqUserPoint()
   if (res.CODE === 'A100') {
     this.setData({

@@ -4,11 +4,9 @@ import {
   imageUrl2
 } from '../../common/js/baseUrl'
 import Request, {
-  getSid,
-  log,
-  getNavHeight,
-  getAddressId,
-  getUserPoint
+  event_getSid,
+  event_getNavHeight,
+  event_getUserPoint
 } from '../../common/js/li-ajax'
 import {
   upformId
@@ -81,8 +79,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    await getUserPoint()
-    let _sid = await getSid()
+    await event_getUserPoint();
+    let _sid = await event_getSid();
     //获取当前所需要的分子公司id,城市id，门店id,区域id
     const {
       company_sale_id: company_id,
@@ -90,7 +88,7 @@ Page({
       shop_id,
       district_id
     } = (app.globalData.shopTakeOut || my.getStorageSync('takeout')[0]);
-    let navHeight = getNavHeight()
+    let navHeight = event_getNavHeight();
     this.setData({
       _sid,
       navHeight,
@@ -101,12 +99,12 @@ Page({
       loginFinsih: true,
       cur: 0
     }, async() => {
-      this.getBanner()
-      this.getPositionList()
-      this.getCouponsList()
+      this. event_getBanner();
+      this. event_getPositionList();
+      this. event_getCouponsList();
 
-      await this.getCategory()
-      this.getGoodsList()
+      await this. event_getCategory();
+      this. event_getGoodsList();
     })
   },
 
@@ -149,7 +147,7 @@ Page({
   /**
    * @function 获取轮播
    */
-  async getBanner() {
+  async  event_getBanner() {
     const {
       city_id,
       district_id,
@@ -159,8 +157,8 @@ Page({
       city_id,
       district_id,
       release_channel
-    }
-    let res = await Request.reqBanner(bannerListOption)
+    };
+    let res = await Request.reqBanner(bannerListOption);
     if (res.code === 100) {
       this.setData({
         bannerList: res.data
@@ -171,7 +169,7 @@ Page({
   /**
    * @function 获取位置列表
    */
-  async getPositionList() {
+  async  event_getPositionList() {
     let {
       city_id,
       district_id,
@@ -183,7 +181,7 @@ Page({
       district_id,
       company_id,
       release_channel
-    }
+    };
     let res = await Request.reqPositionList(positionListOption)
     if (res.code === 100) {
       if (!res.data.length) {
@@ -211,7 +209,7 @@ Page({
   /**
    * @function 获取礼包列表
    */
-  async getCouponsList() {
+  async  event_getCouponsList() {
     let res = await Request.reqCouponsList()
     if (res.CODE === 'A100') {
       this.setData({
@@ -227,7 +225,7 @@ Page({
   /**
    * @function 获取分类
    */
-  async getCategory() {
+  async  event_getCategory() {
     const {
       cur
     } = this.data;
@@ -246,7 +244,7 @@ Page({
   /**
    * @function 获取商品列表
    */
-  async getGoodsList() {
+  async  event_getGoodsList() {
     let {
       shop_id,
       district_id,
@@ -264,7 +262,7 @@ Page({
       cate_id,
       page_num,
       page_size
-    }
+    };
     let res = await Request.reqGoodsList(goodslistOption)
     if (res.code === 100) {
       this.setData({
@@ -274,4 +272,4 @@ Page({
     }
   },
 
-})
+});
