@@ -18,7 +18,7 @@ import {
   sortNum
 } from '../common/js/time'
 var app = getApp();
-var bmap = require('../../libs/bmap-wx.js');
+var bmap = require('../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
   ak: ak
 });

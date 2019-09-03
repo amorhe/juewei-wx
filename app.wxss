@@ -1,4 +1,4 @@
-@import "./wxParse/wxParse.wxss";
+@import "./utils/wxParse/wxParse.wxss";
 page {
   font-size: 28rpx;
   color: #333;
