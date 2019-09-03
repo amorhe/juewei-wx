@@ -7,3 +7,5 @@
     <view>{{city}}</view>
   </view>
 </view>
+<!-- 提示框 -->
+<confirm content="{{content}}" confirmButtonText="{{confirmButtonText}}" cancelButtonText="{{cancelButtonText}}" modalShow="{{modalShow}}" mask="{{mask}}"  onCounterPlusOne="onCounterPlusOne" isType="noShop" />
