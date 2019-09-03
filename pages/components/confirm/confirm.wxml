@@ -1,2 +1,11 @@
-<!--pages/components/confirm/confirm.wxml-->
-<text>pages/components/confirm/confirm.wxml</text>
+<!-- 遮罩层 -->
+<view wx:if="{{mask}}" class="mask" bindtap="eveHiddenShopcart" style="z-index:1004"></view>
+
+<view class="modalView" wx:if="{{modalShow}}">
+  <view wx:if="{{title}}" class="modalTitle">{{title}}</view>
+  <view class="modalContent">{{content}}</view>
+  <view class="modalBtn">
+   <button bindtap="eveConfirmTap" hover-class="none">{{confirmButtonText}}</button>
+   <button bindtap="eveCancelTap" hover-class="none">{{cancelButtonText}}</button>
+  </view>
+</view>

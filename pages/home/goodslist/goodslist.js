@@ -220,10 +220,10 @@ Page({
     if (wxGet('user_id')) {
       user_id = wxGet('user_id');
     }
-    this.getCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品
-    this.getBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
-    this.getShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
-    this.getActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id) //营销活动
+    this.funGetCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品
+    this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
+    this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
+    this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id) //营销活动
     wxSet('vip_address', app.globalData.shopTakeOut)
 
     // 自定义跳转页面
@@ -232,64 +232,63 @@ Page({
     wx.removeStorage({
       key: 'query'
     }); //删除
-    // console.log('topage',topage);
-    if (topage != '') {
-      switch (topage) {
-        //会员
-        case '/pages/home/goodslist/goodslist':
-          //就是当前页不用跳转任何
-          break;
-          //会员
-        case '/pages/vip/index/index':
-          wx.switchTab({
-            url: topage
-          });
-          break;
-          // 订单
-        case '/pages/order/list/list':
-          wx.switchTab({
-            url: topage
-          });
-          break;
-          // 个人中心
-        case '/pages/my/index/index':
-          wx.switchTab({
-            url: topage
-          });
-          break;
-          // 优惠券
-        case '/package_my/pages/coupon/coupon':
-          setTimeout(function() {
-            wx.navigateTo({
-              url: topage
-            });
-          }, 200)
-          break;
-          // 会员卡
-        case '/package_my/pages/membercard/membercard':
-          setTimeout(function() {
-            wx.navigateTo({
-              url: topage
-            });
-          }, 200)
-          break;
-          //  附近门店
-        case '/package_my/pages/nearshop/nearshop':
-          setTimeout(function() {
-            wx.navigateTo({
-              url: topage
-            });
-          }, 500)
-          break;
-        default:
-          setTimeout(function() {
-            wx.navigateTo({
-              url: topage
-            });
-          }, 200)
-          break;
-      }
-    }
+    // if (topage != '') {
+    //   switch (topage) {
+    //     //会员
+    //     case '/pages/home/goodslist/goodslist':
+    //       //就是当前页不用跳转任何
+    //       break;
+    //       //会员
+    //     case '/pages/vip/index/index':
+    //       wx.switchTab({
+    //         url: topage
+    //       });
+    //       break;
+    //       // 订单
+    //     case '/pages/order/list/list':
+    //       wx.switchTab({
+    //         url: topage
+    //       });
+    //       break;
+    //       // 个人中心
+    //     case '/pages/my/index/index':
+    //       wx.switchTab({
+    //         url: topage
+    //       });
+    //       break;
+    //       // 优惠券
+    //     case '/package_my/pages/coupon/coupon':
+    //       setTimeout(function() {
+    //         wx.navigateTo({
+    //           url: topage
+    //         });
+    //       }, 200)
+    //       break;
+    //       // 会员卡
+    //     case '/package_my/pages/membercard/membercard':
+    //       setTimeout(function() {
+    //         wx.navigateTo({
+    //           url: topage
+    //         });
+    //       }, 200)
+    //       break;
+    //       //  附近门店
+    //     case '/package_my/pages/nearshop/nearshop':
+    //       setTimeout(function() {
+    //         wx.navigateTo({
+    //           url: topage
+    //         });
+    //       }, 500)
+    //       break;
+    //     default:
+    //       setTimeout(function() {
+    //         wx.navigateTo({
+    //           url: topage
+    //         });
+    //       }, 200)
+    //       break;
+    //   }
+    // }
   },
 
   /**
@@ -327,13 +326,13 @@ Page({
 
   },
   // 关闭提醒
-  closeOpen() {
+  eveCloseOpen() {
     this.setData({
       isClose: true
     })
   },
   // 切换外卖自提
-  chooseTypes(e) {
+  eveChooseTypes(e) {
     // js节流防短时间重复点击
     if (this.data.btnClick == false) {
       return
@@ -341,14 +340,12 @@ Page({
     this.setData({
       btnClick: false
     })
-    console.log('切换');
     let user_id = 1;
     if (wxGet('user_id')) {
       user_id = wxGet('user_id')
     }
 
     if (e.currentTarget.dataset.type == 'ziti') {
-      console.log('ziti');
       let shopTakeOut = wxGet('self')[0] || '';
       this.setData({
         shopTakeOut,
@@ -356,10 +353,10 @@ Page({
         jingxuan: true
       });
       app.globalData.type = 2;
-      this.getActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
-      this.getCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
-      this.getBannerList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id); //banner
-      this.getShowpositionList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id);
+      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
+      this.funGetCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
+      this.funGetBannerList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id); //banner
+      this.funGetShowpositionList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id);
     } else {
       console.log('外卖');
       //切换外卖
@@ -376,10 +373,10 @@ Page({
         jingxuan: true
       })
       app.globalData.type = 1;
-      this.getActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
-      this.getCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
-      this.getBannerList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id); //banner
-      this.getShowpositionList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id);
+      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
+      this.funGetCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
+      this.funGetBannerList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id); //banner
+      this.funGetShowpositionList(app.globalData.position.cityAdcode, app.globalData.position.districtAdcode, shopTakeOut.company_sale_id);
     }
     app.globalData.shopTakeOut = this.data.shopTakeOut;
     const status = cur_dateTime(this.data.shopTakeOut.start_time, this.data.shopTakeOut.end_time);
@@ -392,8 +389,8 @@ Page({
     app.globalData.shopIng = null;
   },
   // 首页banner列表
-  async getBannerList(city_id, district_id, company_id) {
-    await bannerList(city_id, district_id, company_id, 1).then((data) => {
+  funGetBannerList(city_id, district_id, company_id) {
+    bannerList(city_id, district_id, company_id, 2).then((data) => {
       if (data.data.length == 1) {
         this.setData({
           indicatorDots: false,
@@ -417,15 +414,15 @@ Page({
     });
   },
   // 首页商品展位
-  getShowpositionList(city_id, district_id, company_id) {
-    showPositionList(city_id, district_id, company_id, 1).then((res) => {
+  funGetShowpositionList(city_id, district_id, company_id) {
+    showPositionList(city_id, district_id, company_id, 2).then((res) => {
       this.setData({
         showListObj: res.data
       })
     })
   },
   // 门店营销活动(折扣和套餐)
-  getActivityList(city_id, district_id, company_id, buy_type, user_id) {
+  funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
     activityList(city_id, district_id, company_id, buy_type, user_id).then((res) => {
       // 获取加价购商品
       if (res.data.MARKUP) {
@@ -446,12 +443,12 @@ Page({
       this.setData({
         activityList: res.data
       }, () => {
-        this.getShopGoodsList(this.data.shopTakeOut.shop_id);
+        this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
       })
     })
   },
   // 公司商品列表
-  getCompanyGoodsList(company_id) {
+  funGetCompanyGoodsList(company_id) {
     const timestamp = new Date().getTime();
     wx.request({
       url: `${jsonUrl}/api/product/company_sap_goods${company_id}.json?v=${timestamp}`,
@@ -465,9 +462,8 @@ Page({
   },
 
   // 门店商品列表
-  getShopGoodsList(shop_id) {
+  funGetShopGoodsList(shop_id) {
     GetShopGoods(shop_id).then((res) => {
-      wx.hideLoading();
       const shopGoodsList = res.data[`${shop_id}`];
       const companyGoodsList = this.data.companyGoodsList;
       //  获取某公司下的某一个门店的所有商品
@@ -579,7 +575,7 @@ Page({
           app.globalData.DIS = DIS;
           app.globalData.PKG = PKG;
           // 最终商品总数据
-          // console.log(goodsNew)
+          console.log(goodsNew)
           this.setData({
             shopGoodsAll: goodsNew,
             shopGoods: arr
@@ -594,7 +590,7 @@ Page({
               repurse_price = 0, // 换购活动提示价
               snum = 0,
               goodsList = wxGet('goodsList');
-            if (goodsList == null) {
+            if (goodsList == undefined) {
               shopcartAll = [];
               shopcartNum = 0;
               priceFree = 0;
@@ -675,24 +671,24 @@ Page({
               }
             }
             // 购物车活动提示
-            this.shopcartPrompt(nextProps.fullActivity, priceFree, repurse_price);
-            if (!wxGet('goodsList')) {
-              this.onchangeShopcart({}, [], 0, 0, 0);
-            }
+            // this.shopcartPrompt(nextProps.fullActivity, priceFree, repurse_price);
+            // if (!wxGet('goodsList')) {
+            //   this.onchangeShopcart({}, [], 0, 0, 0);
+            // }
             this.setData({
               shopcartList: shopcartObj,
               priceAll,
               shopcartAll,
               shopcartNum,
               priceFree,
-              freeMoney: nextProps.freeMoney,
+              // freeMoney: nextProps.freeMoney,
               repurse_price
             })
+            console.log(shopcartObj)
             wxSet('goodsList', shopcartObj);
-
-
             // 获取商品模块的节点
             wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
+              console.log(ret)
               if (ret[0] == null) {
                 return;
               }
@@ -700,6 +696,7 @@ Page({
               let arr = ret[0].map((item, index) => {
                 return item.top = item.top - top - 37;
               })
+              
               app.globalData.ret = arr;
             })
             wx.createSelectorQuery().selectAll('#pagesinfo').boundingClientRect().exec((e) => {
@@ -729,6 +726,22 @@ Page({
       });
 
     })
+  },
+  bindscroll(){
+    if (!this.data.isTab) {
+      wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
+        // console.log(ret)
+        // console.log(app.globalData.ret)
+      //   retArr.push(ret[0].scrollTop);
+      //   retArr.sort((a, b) => a - b);
+      //   let sum = retArr.findIndex(item => item >= ret[0].scrollTop);
+      //   if (this.data.goodsType != sum) {
+      //     this.setData({
+      //       goodsType: sum
+      //     })
+      //   }
+      })
+    }
   },
   //  活动跳转链接
   imageLink(e) {

@@ -1,6 +1,7 @@
 import {
   imageUrl,
   ak,
+  ak_wx,
   geotable_id,
   wxGet,
   wxSet
@@ -20,7 +21,7 @@ import {
 var app = getApp();
 var bmap = require('../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
-  ak: ak
+  ak: ak_wx
 });
 Page({
 
@@ -30,6 +31,11 @@ Page({
   data: {
     imageUrl: imageUrl,
     city: '定位中...',
+    content:'',
+    confirmButtonText:'',
+    cancelButtonText:'',
+    modalShow:false,
+    mask:false
   },
 
   /**
@@ -45,10 +51,9 @@ Page({
       success(ott) {
         wx.hideLoading();
         // 腾讯转百度
-        let mapPosition = bd_encrypt(ott.longitude, ott.latitude);
-        console.log(mapPosition)
+        // let mapPosition = bd_encrypt(ott.longitude, ott.latitude);
+        // console.log(mapPosition)
         let res = {};
-        console.log(ott)
         wxSet('txPos', ott)
         // 发起regeocoding检索请求 
         BMap.regeocoding({
@@ -66,14 +71,10 @@ Page({
             wxSet('lat', res.location.lat); // 纬度
             wxSet('lng', res.location.lng); // 经度
             wxSet('nearPois', res.pois); // 附近地址
-            that.getLbsShop(res.location.lng, res.location.lat);
+            that.funGetLbsShop(res.location.lng, res.location.lat);
+            that.funGetNearbyShop(res.location.lng, res.location.lat);
           }
         });
-
-
-
-        // that.getNearbyShop();
-
       },
       fail() {
         // 定位失败
@@ -134,7 +135,7 @@ Page({
 
   },
   // 外卖附近门店
-  getLbsShop(lng, lat) {
+  funGetLbsShop(lng, lat) {
     const location = `${lng},${lat}`
     const shopArr1 = [];
     const shopArr2 = [];
@@ -174,13 +175,12 @@ Page({
           modalShow: true,
           mask: true
         })
-
       }
 
     })
   },
   // 自提附近门店
-  getNearbyShop(lng,lat) {;
+  funGetNearbyShop(lng,lat) {;
     const location = `${lng},${lat}`
     const str = new Date().getTime();
     wx.request({
@@ -188,14 +188,14 @@ Page({
       success: (res) => {
         // 3公里有门店
         if (res.data.contents && res.data.contents.length > 0) {
-          this.getSelf(res.data.contents)
+          this.funGetSelf(res.data.contents)
         } else {
           // 没有扩大搜索范围到1000000公里
           wx.request({
             url: `https://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${lng}%2C${lat}&ak=${ak}&radius=1000000000&sortby=distance%3A1&_=1504837396593&page_index=0&page_size=50&_=${str}`,
             success: (conf) => {
               if (conf.data.contents.length > 0) {
-                this.getSelf(conf.data.contents)
+                this.funGetSelf(conf.data.contents)
               } else {
                 // 提示切换地址
                 wx.showToast({
@@ -207,14 +207,14 @@ Page({
                   },
                 });
               }
-            },
+            }
           });
         }
       },
     });
   },
   // 自提
-  getSelf(obj) {
+  funGetSelf(obj) {
     let shopArr1 = [];
     let shopArr2 = [];
     NearbyShop(JSON.stringify(obj)).then((res) => {
@@ -234,5 +234,27 @@ Page({
       shopArray[0]['jingxuan'] = true;  // 默认设置第一个为精选门店
       wxSet('self', shopArray);  // 保存自提门店到本地
     })
+  },
+  bindCounterPlusOne(e) {
+    console.log(e)
+    // 点击左边去自提
+    if (e.detail.type == 1 && e.detail.isType == "noShop") {
+      console.log(e)
+      this.setData({
+        modalShow: e.detail.modalShow,
+        mask: e.detail.mask,
+        type: 2
+      })
+      app.globalData.type = 2;
+      //存储app.golbalData
+      wxSet('appglobalData', app.globalData)
+      wx.reLaunch({
+        url: '/pages/home/goodslist/goodslist'
+      })
+    } else {
+      wx.redirectTo({
+        url: '/pages/home/selecttarget/selecttarget?type=true'
+      });
+    }
   },
 })
