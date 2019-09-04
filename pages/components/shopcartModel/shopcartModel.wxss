@@ -1,1 +1,13 @@
 /* pages/components/shopcartModel/shopcartModel.wxss */
+@import '../../home/goodslist/goodslist.wxss';
+.orcle {
+  border: 1rpx #E60012 solid;
+  margin-left: 8rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 17rpx;
+}
+.format_view {
+  font-weight: normal!important;
+  color: rgb(153, 153, 153)!important;
+  font-size: 22rpx!important;
+}

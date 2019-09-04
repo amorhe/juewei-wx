@@ -8,15 +8,15 @@
         <image src="{{imageUrl}}arrow_right1.png" />
       </navigator>
       <view class="positionRight">
-        <view class="{{type==1?'activeType':''}}" catchtap="chooseTypes" data-type='waimai'>外卖</view>
-        <view class="{{type==2?'activeType':''}}" catchtap="chooseTypes" data-type='ziti'>自提</view>
+        <view class="{{type==1?'activeType':''}}" catchtap="eveChooseTypes" data-type='waimai'>外卖</view>
+        <view class="{{type==2?'activeType':''}}" catchtap="eveChooseTypes" data-type='ziti'>自提</view>
       </view>
     </view>
     <view class="null"></view>
     <view class="closeIng" wx:if="{{!isClose && isOpen!= 1}}">
       <view wx:if="{{isOpen == 2}}">您的定位地址门店未在营业时间 营业时间：{{shopTakeOut.start_time}}-{{shopTakeOut.end_time}}</view>
       <view wx:if="{{isOpen == 3}}">当前门店开放时间不足一小时</view>
-      <image wx:if="{{isOpen != 1}}" src="{{imageUrl}}close2.png" bindtap="closeOpen" />
+      <image wx:if="{{isOpen != 1}}" src="{{imageUrl}}close2.png" bindtap="eveCloseOpen" />
     </view>
     <view class="homeSwiper" wx:if="{{imgUrls.length>0}}">
       <swiper indicator-dots="{{imgUrls.length>1?true:false}}" autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" indicator-active-color="#E60012" indicator-color="#E8E8E8">
@@ -131,7 +131,7 @@
     </navigator>
   </view>
   <view style="padding-right:36rpx">
-    <view class="closeIng sticky" wx:if="{{isShow}}" style="top: 208rpx;">
+    <view class="closeIng sticky" wx:if="{{isShow}}">
       <!-- 满减 -->
       <view wx:if="{{couponsExpire.full_money!=0 && couponsExpire.days!=0}}">
         <text>您的满</text>
@@ -166,10 +166,10 @@
       </view>
       <image src="{{imageUrl}}close2.png" bindtap="closeCouponView" />
     </view>
-    <view id="pagesinfo" style="top:{{isShow?'254rpx':'208rpx'}}" class="pages_scroll">
+    <view id="pagesinfo" class="pages_scroll">
       <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;padding-bottom:200rpx;box-sizing:border-box" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
         <view class="goodsUl">
-          <view bindtap="chooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsList}}" wx:key="unique">
+          <view bindtap="chooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">
             <image wx:if="{{goodsType != index + 1}}" src="{{imageUrl}}m_{{type[item.key]}}_1.png" />
             <image wx:if="{{goodsType == index + 1 && item.key!='解辣神器'}}" src="{{imageUrl}}m_{{type[item.key]}}_2.png" />
             <image wx:if="{{goodsType == index + 1 && item.key=='解辣神器'}}" src="{{imageUrl}}m_13_3.png" />
@@ -178,9 +178,9 @@
         </view>
       </scroll-view>
       <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;padding-bottom:500rpx;box-sizing:border-box" scroll-into-view="{{goodsType}}" scroll-with-animation="true" scroll-animation-duration="50" bindtouchEnd="onTouchEnd" class="scrolllist" bindtouchStart="onTouchStart"
-        bindscroll="onScroll">
+        bindscroll="bindscroll">
         <view>
-          <view id="{{index + 1}}" wx:for="{{shopGoodsList}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
+          <view id="{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
             <view class="goodsTypeEv">{{item.key}}</view>
             <!-- 折扣套餐爆款 -->
             <view class="goodsBox" wx:for="{{item.last}}" wx:key="unique" wx:for-index="i" wx:for-item="v" catchtap="goodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-goods_id="{{v.goods_id}}" data-shop_id="{{v}}" data-key="{{item.key}}"

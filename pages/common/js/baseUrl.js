@@ -7,9 +7,9 @@ export const imageUrl3 = 'https://images.juewei.com';
 //jsonUrl
 export const jsonUrl='https://imgcdnjwd.juewei.com/static/check';
 //百度测试ak
-// export const ak = 'pRtqXqnajTytAzWDL3HOnPRK';
+export const ak = 'pRtqXqnajTytAzWDL3HOnPRK';
 export const geotable_id='134917';
-export const ak = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
+export const ak_wx = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 
 
 

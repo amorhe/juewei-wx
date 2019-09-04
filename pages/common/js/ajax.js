@@ -2,23 +2,24 @@ import {
   baseUrl
 } from './baseUrl';
 export const ajax = (url, data = {}, method = "POST") => {
-  let headers;
+  let header;
   if (method == "POST") {
-    headers = {
+    header = {
       'content-type': 'application/x-www-form-urlencoded'
     };
   } else {
-    headers = {
+    header = {
       'content-type': 'application/json'
     };
   }
   let promise = new Promise(function(resolve, reject) {
     wx.request({
       url: baseUrl + url,
-      headers,
+      header,
       data,
       method,
       success: (res) => {
+        wx.hideLoading();
         let rest = {
           code: (res.code || res.CODE || ""),
           data: (res.data || res.DATA),
@@ -33,7 +34,7 @@ export const ajax = (url, data = {}, method = "POST") => {
           });
         } else {
           //提示接口的信息，并且跳错误页
-          reject(wx.alert({
+          reject(wx.showToast({
             title: rest.msg,
             success() {
               wx.redirectTo({
@@ -45,7 +46,7 @@ export const ajax = (url, data = {}, method = "POST") => {
       },
       fail: (err) => {
         wx.hideLoading();
-        reject(wx.alert({
+        reject(wx.showToast({
           title: '网络请求错误',
           success() {
             wx.redirectTo({
