@@ -243,7 +243,7 @@ export const event_getNavHeight = () => {
   } = my.getSystemInfoSync();
 
   return {
-    titleBarHeight: titleBarHeight || 44,
+    titleBarHeight: titleBarHeight || 40,
     statusBarHeight
   }
 };

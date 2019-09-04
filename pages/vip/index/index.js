@@ -8,9 +8,6 @@ import Request, {
   event_getNavHeight,
   event_getUserPoint
 } from '../../common/js/li-ajax'
-import {
-  upformId
-} from '../../common/js/time'
 
 const app = getApp();
 const my = wx;
@@ -30,7 +27,7 @@ Page({
 
     _sid: '',
     navHeight: '',
-    loginFinsih: false,
+    loginFinish: false,
 
     menuTop: 0,
     menuFixed: false,
@@ -96,15 +93,15 @@ Page({
       district_id,
       company_id,
       shop_id,
-      loginFinsih: true,
+      loginFinish: true,
       cur: 0
     }, async() => {
-      this. event_getBanner();
-      this. event_getPositionList();
-      this. event_getCouponsList();
+      this.event_getBanner();
+      this.event_getPositionList();
+      this.event_getCouponsList();
 
-      await this. event_getCategory();
-      this. event_getGoodsList();
+      await this.event_getCategory();
+      this.event_getGoodsList();
     })
   },
 
@@ -147,7 +144,7 @@ Page({
   /**
    * @function 获取轮播
    */
-  async  event_getBanner() {
+  async event_getBanner() {
     const {
       city_id,
       district_id,
@@ -169,7 +166,7 @@ Page({
   /**
    * @function 获取位置列表
    */
-  async  event_getPositionList() {
+  async event_getPositionList() {
     let {
       city_id,
       district_id,
@@ -198,7 +195,7 @@ Page({
           pic,
           url: link_url[index]
         }
-      })
+      });
 
       this.setData({
         positionList
@@ -209,8 +206,8 @@ Page({
   /**
    * @function 获取礼包列表
    */
-  async  event_getCouponsList() {
-    let res = await Request.reqCouponsList()
+  async event_getCouponsList() {
+    let res = await Request.reqCouponsList();
     if (res.CODE === 'A100') {
       this.setData({
         new_user: res.DATA.new_user
@@ -225,13 +222,13 @@ Page({
   /**
    * @function 获取分类
    */
-  async  event_getCategory() {
+  async event_getCategory() {
     const {
       cur
     } = this.data;
     let res = await Request.reqCategory({
       type: 1
-    })
+    });
     if (res.code === 100) {
       this.setData({
         list: res.data,
@@ -244,7 +241,7 @@ Page({
   /**
    * @function 获取商品列表
    */
-  async  event_getGoodsList() {
+  async event_getGoodsList() {
     let {
       shop_id,
       district_id,
@@ -255,7 +252,7 @@ Page({
     } = this.data;
 
 
-    let goodslistOption = {
+    let goodsListOption = {
       shop_id,
       district_id,
       city_id,
@@ -263,7 +260,7 @@ Page({
       page_num,
       page_size
     };
-    let res = await Request.reqGoodsList(goodslistOption)
+    let res = await Request.reqGoodsList(goodsListOption);
     if (res.code === 100) {
       this.setData({
         finish: true,
