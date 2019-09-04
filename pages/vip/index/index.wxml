@@ -1,8 +1,7 @@
 <view class="vip" onTap="hideToast">
   <!-- 头部 -->
-  <view class="header-title-s" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
+  <view class="header-title-s" style="width: 90vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
     <text 
-    wx:if="{{navHeight.statusBarHeight}}" 
     style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px"> 会员专享 </text>
   </view>
   <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>

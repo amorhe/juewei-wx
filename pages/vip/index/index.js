@@ -3,14 +3,12 @@ import {
   imageUrl,
   imageUrl2
 } from '../../common/js/baseUrl'
-import Request, {
+import Request from '../../common/js/li-ajax'
+import {
   event_getSid,
   event_getNavHeight,
   event_getUserPoint
-} from '../../common/js/li-ajax'
-import {
-  upformId
-} from '../../common/js/time'
+} from '../../common/js/utils'
 
 const app = getApp();
 const my = wx;
@@ -30,7 +28,7 @@ Page({
 
     _sid: '',
     navHeight: '',
-    loginFinsih: false,
+    loginFinish: false,
 
     menuTop: 0,
     menuFixed: false,
@@ -64,14 +62,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
@@ -96,50 +94,50 @@ Page({
       district_id,
       company_id,
       shop_id,
-      loginFinsih: true,
+      loginFinish: true,
       cur: 0
-    }, async() => {
-      this. event_getBanner();
-      this. event_getPositionList();
-      this. event_getCouponsList();
+    }, async () => {
+      this.event_getBanner();
+      this.event_getPositionList();
+      this.event_getCouponsList();
 
-      await this. event_getCategory();
-      this. event_getGoodsList();
+      await this.event_getCategory();
+      this.event_getGoodsList();
     })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
@@ -147,7 +145,7 @@ Page({
   /**
    * @function 获取轮播
    */
-  async  event_getBanner() {
+  async event_getBanner() {
     const {
       city_id,
       district_id,
@@ -169,7 +167,7 @@ Page({
   /**
    * @function 获取位置列表
    */
-  async  event_getPositionList() {
+  async event_getPositionList() {
     let {
       city_id,
       district_id,
@@ -182,7 +180,7 @@ Page({
       company_id,
       release_channel
     };
-    let res = await Request.reqPositionList(positionListOption)
+    let res = await Request.reqPositionList(positionListOption);
     if (res.code === 100) {
       if (!res.data.length) {
         return this.setData({
@@ -198,7 +196,7 @@ Page({
           pic,
           url: link_url[index]
         }
-      })
+      });
 
       this.setData({
         positionList
@@ -209,8 +207,8 @@ Page({
   /**
    * @function 获取礼包列表
    */
-  async  event_getCouponsList() {
-    let res = await Request.reqCouponsList()
+  async event_getCouponsList() {
+    let res = await Request.reqCouponsList();
     if (res.CODE === 'A100') {
       this.setData({
         new_user: res.DATA.new_user
@@ -225,13 +223,13 @@ Page({
   /**
    * @function 获取分类
    */
-  async  event_getCategory() {
+  async event_getCategory() {
     const {
       cur
     } = this.data;
     let res = await Request.reqCategory({
       type: 1
-    })
+    });
     if (res.code === 100) {
       this.setData({
         list: res.data,
@@ -244,7 +242,7 @@ Page({
   /**
    * @function 获取商品列表
    */
-  async  event_getGoodsList() {
+  async event_getGoodsList() {
     let {
       shop_id,
       district_id,
@@ -255,7 +253,7 @@ Page({
     } = this.data;
 
 
-    let goodslistOption = {
+    let goodsListOption = {
       shop_id,
       district_id,
       city_id,
@@ -263,7 +261,7 @@ Page({
       page_num,
       page_size
     };
-    let res = await Request.reqGoodsList(goodslistOption)
+    let res = await Request.reqGoodsList(goodsListOption);
     if (res.code === 100) {
       this.setData({
         finish: true,
