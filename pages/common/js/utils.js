@@ -21,7 +21,6 @@ export const event_getSid = () => {
   })
 };
 
-
 /**
  * @function 获取富文本数组
  * @param {string} html字符串
