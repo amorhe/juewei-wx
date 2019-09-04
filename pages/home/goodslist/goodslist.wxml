@@ -245,7 +245,7 @@
               </view>
             </view>
             <!-- 超辣 -->
-            <view class="goodsContent" wx:for="{{item.last}}" wx:for-index="i" wx:for-item="v" bindtap="goodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-key="{{item.key}}" data-goods_id="{{v.goods_id}}" wx:if="{{item.key!='套餐' && item.key!='爆款' &&item.key!='折扣'}}"
+            <view class="goodsContent" wx:for="{{item.last}}" wx:for-index="i" wx:for-item="v" bindtap="eveGoodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-key="{{item.key}}" data-goods_id="{{v.goods_id}}" wx:if="{{item.key!='套餐' && item.key!='爆款' &&item.key!='折扣'}}"
               wx:key="unique">
               <view class="discountImg">
                 <image wx:if="{{v.huangou==1}}" class="huangouPng" mode="scaleToFill" src="{{imageUrl}}markup_icon.png" />
@@ -298,6 +298,6 @@
     <!-- 购物车 -->
     <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart" />
     <!-- 加入购物车选择商品规格 -->
-    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" />
+    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" />
   </view>
 </view>

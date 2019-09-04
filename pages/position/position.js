@@ -18,6 +18,10 @@ import {
   compare,
   sortNum
 } from '../common/js/time'
+import {
+  reLaunch,
+  redirectTo
+} from '../common/js/router.js'
 var app = getApp();
 var bmap = require('../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
@@ -79,7 +83,7 @@ Page({
       fail() {
         // 定位失败
         wx.hideLoading();
-        wx.reLaunch({
+        reLaunch({
           url: '/pages/noposition/noposition'
         })
       },
@@ -164,7 +168,7 @@ Page({
         wxSet('takeout', shopArray); // 保存外卖门店到本地
         //存储app.golbalData
         wxSet('appglobalData', app.globalData);
-        wx.reLaunch({
+        reLaunch({
           url: '/pages/home/goodslist/goodslist'
         });
       } else if (res.code == 5 || res.data.length == 0) {
@@ -201,7 +205,7 @@ Page({
                 wx.showToast({
                   title: "当前定位地址无可浏览的门店，请切换地址！",
                   success: (res) => {
-                    wx.redirectTo({
+                    redirectTo({
                       url: '/pages/home/selecttarget/selecttarget?type=true'
                     });
                   },
@@ -246,11 +250,11 @@ Page({
       app.globalData.type = 2;
       //存储app.golbalData
       wxSet('appglobalData', app.globalData)
-      wx.reLaunch({
+      reLaunch({
         url: '/pages/home/goodslist/goodslist'
       })
-    } else {
-      wx.redirectTo({
+    } else if (e.detail.type == 0 && e.detail.isType == "noShop") {
+      redirectTo({
         url: '/pages/home/selecttarget/selecttarget?type=true'
       });
     }

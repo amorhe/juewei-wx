@@ -33,6 +33,9 @@ import {
 import {
   bd_encrypt
 } from '../../common/js/map'
+import {
+  navigateTo
+} from '../../common/js/router.js'
 var app = getApp();
 let tim = null,
   goodsret = [];
@@ -623,7 +626,7 @@ Page({
               priceFree,
               repurse_price
             })
-            console.log(shopcartObj)
+            // console.log(shopcartObj)
             wxSet('goodsList', shopcartObj);
             // 获取商品模块的节点
             wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
@@ -818,7 +821,7 @@ Page({
   // sku商品
   funCart(data) {
     this.setData({
-      shopcartList: data.detail.goodsList,
+      shopcartList: data.detail.goodlist,
       shopcartAll: data.detail.shopcartAll,
       priceAll: data.detail.priceAll,
       shopcartNum: data.detail.shopcartNum,
@@ -827,13 +830,14 @@ Page({
     })
   },
   // 购物车
-  funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
-    this.funCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+  funChangeShopcart(data) {
+    this.funCart(data)
   },
   // 选择商品系列
   eveChooseGoodsType(e) {
     this.setData({
-      goodsType: e.currentTarget.dataset.type
+      goodsType: e.currentTarget.dataset.type,
+      shopcartList:wxGet('goodsList')
     })
   },
   eveCloseModal(data) {
@@ -912,37 +916,41 @@ Page({
   },
   // 去商品详情页
   eveGoodsdetailContent(e){
-    wx.navigateTo({
+    navigateTo({
       url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code + '&goodsKey=' + e.currentTarget.dataset.key + '&freeMoney=' + e.currentTarget.dataset.freeMoney
     });
   },
   // 清空购物车
   funClearshopcart() {
     this.setData({
-      shopcartList: {}
+      shopcartList: {},
+      shopcartAll:{},
+      shopcartNum:0,
+      priceAll:0,
     })
+    wxSet('goodsList',{})
   },
   //  活动跳转链接
   imageLink(e) {
-    wx.navigateTo({
+    navigateTo({
       url: e.currentTarget.dataset.link
     });
   },
   // banner图跳转链接
   linkUrl(e) {
-    wx.navigateTo({
+    navigateTo({
       url: e.currentTarget.dataset.link
     });
   },
   // 会员卡，卡券
   navigate(e) {
     if (wxGet('user_id') == null) {
-      wx.navigateTo({
+      navigateTo({
         url: '/pages/login/auth/auth'
       });
       return
     }
-    wx.navigateTo({
+    navigateTo({
       url: e.currentTarget.dataset.url
     });
   },

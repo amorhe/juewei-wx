@@ -48,7 +48,11 @@ Component({
     isOpen: '',
     priceAll: 0
   },
-
+  observers: {
+    '**': function() {
+      this.data === this.data
+    }
+  },
   /**
    * 组件的方法列表
    */
@@ -59,8 +63,9 @@ Component({
       shopcartNum: this.properties.shopcartNum,
       priceAll: this.properties.priceAll
     })
-    this.getSendPrice();
+    this.funGetSendPrice();
   },
+
   methods: {
     // 打开购物车
     eveOpenShopcart() {
@@ -77,20 +82,26 @@ Component({
       })
     },
     // 清空购物车
-    eveClearShopcart(){
+    eveClearShopcart() {
+      var that = this;
       wx.showModal({
         content: '清空购物车？',
+        cancelText: "确定",
+        confirmText: "取消",
+        cancelColor: "#999999",
+        confirmColor: "#E60012",
         success(res) {
           if (res.confirm) {
-            console.log('用户点击确定')
-          } else if (res.cancel) {
             console.log('用户点击取消')
+          } else if (res.cancel) {
+            console.log('用户点击确定')
+            that.triggerEvent('Clearshopcart');
           }
         }
       })
     },
     // 获取起送价格
-    getSendPrice() {
+    funGetSendPrice() {
       const timestamp = new Date().getTime();
       let opencity = (wxGet('opencity') || null);
       let cityAdcode = '';
@@ -126,6 +137,98 @@ Component({
           },
         });
       }
+    },
+    eveAddshopcart(e) {
+      let goodlist = wxGet('goodsList') || {};
+      let goods_code = e.currentTarget.dataset.goods_code;
+      let goods_format = e.currentTarget.dataset.goods_format
+      goodlist[`${goods_code}_${goods_format}`].num += 1;
+      let shopcartAll = [],
+        priceAll = 0,
+        shopcartNum = 0,
+        priceFree = 0,
+        repurse_price = 0;
+      for (let keys in goodlist) {
+        if (e.currentTarget.dataset.goods_discount && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+          wx.showToast({
+            title: `折扣商品限购${goodlist[keys].goods_order_limit}份，超过${goodlist[keys].goods_order_limit}份恢复原价`
+          });
+          priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+        } else {
+          priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+        // 包邮商品价格
+        if (!goodlist[keys].goods_discount) {
+          priceFree += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+        // 计算可换购商品价格
+        if (goodlist[keys].huangou) {
+          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+        shopcartAll.push(goodlist[keys]);
+        shopcartNum += goodlist[keys].num
+      }
+      let arr = shopcartAll.filter(item => item.goods_code == goods_code)
+      for (let item of arr) {
+        goodlist[`${item.goods_code}_${item.goods_format}`].sumnum += 1;
+      }
+      this.funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+      wxSet('goodsList', goodlist)
+    },
+    eveReduceshopcart(e) {
+      let code = e.currentTarget.dataset.goods_code;
+      let format = e.currentTarget.dataset.goods_format
+      let goodlist = wxGet('goodsList') || {};
+
+      goodlist[`${code}_${format}`].num -= 1;
+      // 删除
+      let shopcartAll = [],
+        priceAll = 0,
+        shopcartNum = 0,
+        priceFree = 0,
+        repurse_price = 0;
+      for (let keys in goodlist) {
+        if (goodlist[keys].goods_order_limit && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+          priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+        } else {
+          priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+        if (!goodlist[keys].goods_discount) {
+          priceFree += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+        // 计算可换购商品价格
+        if (goodlist[keys].huangou) {
+          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+        shopcartAll.push(goodlist[keys]);
+        shopcartNum += goodlist[keys].num
+      }
+      let arr = this.data.shopcartAll.filter(item => item.goods_code == code)
+      for (let item of arr) {
+        goodlist[`${item.goods_code}_${item.goods_format}`].sumnum -= 1;
+      }
+      if (goodlist[`${code}_${format}`].num == 0) {
+        shopcartAll = this.data.shopcartAll.filter(item => `${item.goods_code}_${item.goods_format}` != `${code}_${format}`)
+        delete(goodlist[`${code}_${format}`]);
+      } else {
+        shopcartAll = [];
+        for (let keys in goodlist) {
+          shopcartAll.push(goodlist[keys])
+        }
+      }
+      this.funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
+      wxSet('goodsList', goodlist)
+    },
+    funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
+      let data = {
+        goodlist,
+        shopcartAll,
+        priceAll,
+        shopcartNum,
+        priceFree,
+        repurse_price
+      }
+      this.triggerEvent('ChangeShopcart',data)
     },
   }
 })
