@@ -78,15 +78,22 @@ export const redirectTo = ({
  * @param {Function} success
  * @param {Function} fail
  * @param {Function} complete
+ * @param {Object} currentTarget
  * @return {Function}
  */
 export const navigateTo = ({
  url,
  query,
+ currentTarget,
  success = () => {},
  fail = () => {},
  complete = () => {}
 }) => {
+  // 如果在行内调用
+    url  = url || currentTarget.dataset.url;
+    query = query || currentTarget.dataset.query;
+
+  // 方法调用
   if (query) {
     let queryArr = Object.entries(query);
     url = url + '?';
@@ -95,6 +102,7 @@ export const navigateTo = ({
     });
     url = url.slice(0, -1);
   }
+  console.log('navigateToUrl',url);
   return wx.navigateTo({
   url,
   success,

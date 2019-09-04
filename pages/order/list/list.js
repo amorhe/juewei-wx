@@ -146,7 +146,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.getMore()
   },
 
   /**
@@ -359,15 +359,6 @@ Page({
     setTimeout(async () => {
       await this.getOrderList()
     }, 300)
-  },
-
-  /**
-   * @function 触底
-   */
-
-  async onReachBottom() {
-
-    this.getMore()
   },
 
   /**

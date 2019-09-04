@@ -36,18 +36,6 @@ export const event_getSid = () => {
 // }
 
 /**
- * @function 重定向
- * @param url
- */
-
-export const redirect = (url) => {
-  wx.redirectTo({
-    url,
-  });
-};
-
-
-/**
  * @function 获取地址列表
  */
 export const getRegion = async () => {
@@ -70,7 +58,7 @@ export const getRegion = async () => {
 /**
  * @function 剪切板
  */
-export const handleCopy = (e) => {
+export const handleCopy = e => {
   const {
     text
   } = e.currentTarget.dataset;
@@ -156,46 +144,12 @@ export const event_getNavHeight = () => {
 };
 
 /**
- * 获取 地址ID
- */
-
-export const getAddressId = () => {
-  return new Promise((resolve, reject) => {
-    wx.getLocation({
-      type: 2,
-      success(res) {
-        console.log('address', res);
-        const {
-          cityAdcode,
-          districtAdcode,
-          longitude,
-          latitude
-        } = res;
-        resolve({
-          city_id: cityAdcode,
-          district_id: districtAdcode,
-          longitude,
-          latitude
-        })
-      },
-      fail() {
-        wx.hideLoading();
-        reject(wx.alert({
-          title: '定位失败'
-        }))
-      },
-    })
-  })
-};
-
-/**
  * @function 跳转登录页面
  */
 export const isloginFn = () => {
   wx.navigateTo({
     url: '/pages/login/auth/auth'
   });
-
 };
 
 /**
