@@ -236,10 +236,8 @@ Page({
     })
   },
   bindCounterPlusOne(e) {
-    console.log(e)
     // 点击左边去自提
     if (e.detail.type == 1 && e.detail.isType == "noShop") {
-      console.log(e)
       this.setData({
         modalShow: e.detail.modalShow,
         mask: e.detail.mask,

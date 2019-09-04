@@ -110,7 +110,7 @@
       {
         "pagePath": "pages/home/goodslist/goodslist",
         "iconPath": "pages/common/img/menu_home1.png",
-        "selectedIconPath": "pages/common/img/menu_home1.png",
+        "selectedIconPath": "pages/common/img/menu_home2.png",
         "text": "首页"
       },
       {

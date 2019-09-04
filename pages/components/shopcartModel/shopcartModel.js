@@ -11,14 +11,18 @@ import {
 let log = console.log
 var app = getApp();
 Component({
+  // 组件样式隔离
+  options: {
+    styleIsolation: 'apply-shared'
+  },
   /**
    * 组件的属性列表
    */
   properties: {
-    shopcartAll:Array,
-    activityText:String,
-    shopcartNum:Number,
-
+    shopcartAll: Array,
+    activityText: String,
+    shopcartNum: Number,
+    priceAll: Number
   },
 
   /**
@@ -41,7 +45,8 @@ Component({
     btnClick: true,
     freeId: false, // 是否有包邮活动
     isTake: false,
-    isOpen: ''
+    isOpen: '',
+    priceAll: 0
   },
 
   /**
@@ -50,25 +55,59 @@ Component({
   attached() {
     this.setData({
       activityText: this.properties.activityText,
-      shopcartAll:this.properties.shopcartAll,
-      shopcartNum:this.properties.shopcartNum
+      shopcartAll: this.properties.shopcartAll,
+      shopcartNum: this.properties.shopcartNum,
+      priceAll: this.properties.priceAll
     })
     this.getSendPrice();
   },
   methods: {
+    // 打开购物车
+    eveOpenShopcart() {
+      this.setData({
+        showShopcar: true,
+        mask1: true
+      })
+    },
+    // 隐藏购物车
+    eveHiddenShopcart() {
+      this.setData({
+        showShopcar: false,
+        mask1: false
+      })
+    },
+    // 清空购物车
+    eveClearShopcart(){
+      wx.showModal({
+        content: '清空购物车？',
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    },
     // 获取起送价格
     getSendPrice() {
       const timestamp = new Date().getTime();
       let opencity = (wxGet('opencity') || null);
+      let cityAdcode = '';
+      if (app.globalData.type == 1) {
+        cityAdcode = wxGet('takeout')[0].city_id;
+      } else {
+        cityAdcode = wxGet('self')[0].city_id
+      }
       if (opencity) {
         this.setData({
-          send_price: opencity[app.globalData.position.cityAdcode].shop_send_price,
-          dispatch_price: opencity[app.globalData.position.cityAdcode].shop_dispatch_price
+          send_price: opencity[cityAdcode].shop_send_price,
+          dispatch_price: opencity[cityAdcode].shop_dispatch_price
         });
         //存储一个起送起购价格
-        wxSet('send_price', opencity[app.globalData.position.cityAdcode].shop_send_price)
+        wxSet('send_price', opencity[cityAdcode].shop_send_price)
         //存储一个配送费
-        wxSet('dispatch_price', opencity[app.globalData.position.cityAdcode].shop_dispatch_price)
+        wxSet('dispatch_price', opencity[cityAdcode].shop_dispatch_price)
       } else {
         wx.request({
           url: `${jsonUrl}/api/shop/open-city.json?v=${timestamp}`,
@@ -76,13 +115,13 @@ Component({
             //app.globalData.position.cityAdcode这个参数在手动修改地址的时候缺失。
             //这里采用通过门店的具体地址来确定起送价地址
             this.setData({
-              send_price: res.data.data[app.globalData.position.cityAdcode].shop_send_price,
-              dispatch_price: res.data.data[app.globalData.position.cityAdcode].shop_dispatch_price
+              send_price: res.data.data[cityAdcode].shop_send_price,
+              dispatch_price: res.data.data[cityAdcode].shop_dispatch_price
             })
             //存储一个起送起购价格
-            wxSet('send_price', res.data.data[app.globalData.position.cityAdcode].shop_send_price)
+            wxSet('send_price', res.data.data[cityAdcode].shop_send_price)
             //存储一个配送费
-            wxSet('dispatch_price', res.data.data[app.globalData.position.cityAdcode].shop_dispatch_price)
+            wxSet('dispatch_price', res.data.data[cityAdcode].shop_dispatch_price)
             wxSet('opencity', res.data.data)
           },
         });

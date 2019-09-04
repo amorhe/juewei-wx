@@ -1,9 +1,9 @@
-<view style="width:750rpx;height:100rpx;"></view>
+<view style="width:750rpx;height:64rpx;"></view>
 <view class="goodsBottom">
   <view class="fullReduce" wx:if="{{activityText!='' && !showShopcar}}">{{activityText}}</view>
   <view class="shopcart">
     <image class="shopcarImage" wx:if="{{ shopcartNum== 0}}" src="{{imageUrl}}shopcart_empty.png" />
-    <image bindtap="openShopcart" wx:if="{{shopcartNum>0}}" class="shopcarImage" src="{{imageUrl}}shopcart.png" />
+    <image bindtap="eveOpenShopcart" wx:if="{{shopcartNum>0}}" class="shopcarImage" src="{{imageUrl}}shopcart.png" />
     <view class="addcount" wx:if="{{shopcartNum>0}}">{{shopcartNum}}</view>
     <view class="haveGoods">
       <view wx:if="{{shopcartNum>0}}">
@@ -31,7 +31,7 @@
 <!-- 购物车弹框 -->
 <view wx:if="{{showShopcar && shopcartAll.length>0}}" class="shopcarContent">
   <view class="fullReduce fontSmall" wx:if="{{activityText!=''}}">{{activityText}}</view>
-  <view class="clearShopcar" bindtap="clearShopcart">
+  <view class="clearShopcar" bindtap="eveClearShopcart">
     <image src="{{imageUrl}}deleteIcon.png" />
     <text>清空购物车</text>
   </view>
@@ -63,7 +63,5 @@
     <view class="nullView"></view>
   </view>
 </view>
-<!-- 弹框组件 -->
-<!-- <confirm confirmButtonText="{{confirmButtonText}}" cancelButtonText="{{cancelButtonText}}" content="{{content}}" mask="{{mask}}" modalShow="{{modalShow}}" onCounterPlusOne="onCounterPlusOne" isType="{{isType}}" /> -->
 <!-- 遮罩层 -->
-<view wx:if="{{mask1 && shopcartAll.length>0}}" class="mask" bindtap="hiddenShopcart"></view>
+<view wx:if="{{mask1 && shopcartAll.length>0}}" class="mask" bindtap="eveHiddenShopcart"></view>

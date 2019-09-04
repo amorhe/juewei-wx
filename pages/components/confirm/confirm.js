@@ -31,7 +31,6 @@ Component({
     cancelButtonText: ''
   },
   attached() {
-    console.log(this.properties)
     if (this.properties.confirmButtonText && this.properties.cancelButtonText) {
       this.setData({
         mask: this.properties.mask,

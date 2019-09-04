@@ -1,2 +1,42 @@
-<!--pages/components/goodsModal/goodsModal.wxml-->
-<text>pages/components/goodsModal/goodsModal.wxml</text>
+<!-- 遮罩层 -->
+<view class="mask" style="z-index:1004" wx:if="{{maskView}}" bindtap="eveCloseModal"></view>
+<view class="goodsModalBox" wx:if="{{goodsModal}}">
+  <view class="goodsTop">
+    <view>
+      <image class="goods_image" mode="scaleToFill" src="{{goodsItem.goods_small_img[0]}}"/>
+      <view>
+        <view class="fontThirtyFour marginBSixteen">{{goodsItem.goods_name}}</view>
+        <view class="fontSmallGray">已售:{{goodsItem.goods_buy_sum}}{{goodsItem.goods_unit}}</view>
+      </view>
+    </view>
+    <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}close1.png" bindtap="eveCloseModal"/>
+  </view>
+  <view class="goods_size">
+    <view class="fontTwentySix marginBSixteen">规格</view>
+    <view class="goods_size_item">
+      <view wx:for="{{goodsItem.goods_format}}" class="{{size==index?'itemActive':''}}" bindtap="eveChooseSize" data-size="{{index}}" wx:key="unique">{{goodsItem.goods_format[index].type}}</view>
+    </view>
+  </view>
+  <view class="goods_bottom_view">
+    <view class="numberColor flexNormal">
+      <text>￥</text>
+      <view wx:if="{{size==999}}">
+        <text class="goods_prices">{{goodsItem.goods_format[0].goods_price / 100< goodsItem.goods_format[1].goods_price / 100 ?goodsItem.goods_format[0].goods_price / 100 :goodsItem.goods_format[1].goods_price / 100}}</text>
+        <text>起</text>
+      </view>
+      <text wx:if="{{size!=999}}" class="goods_prices">{{price}}</text>
+      <text class="colorNine" wx:if="{{size!=999}}">（{{sizeText}}）</text>
+    </view>
+    <view bindtap="eveAddshopcart" wx:if="{{!goodsList[goodsItem.goods_channel + goodsItem.goods_type + goodsItem.company_goods_id + '_' + goodsItem.goods_format[size].type]}}" class="{{size==999?'add_shopcart noChoose':'add_shopcart hasChoose'}}" disabled="{{size==999?'true':'false'}}" data-goods_code="{{goodsItem.goods_channel + goodsItem.goods_type + goodsItem.company_goods_id}}" data-goods_format_all="{{goodsItem.goods_format}}" data-goods_format="{{sizeText}}" data-goods_price="{{price}}" data-goods_img="{{goodsItem.goods_small_img[0]}}" data-goods_name="{{goodsItem.goods_name}}" data-taste_name="{{goodsItem.taste_name}}"  data-key="{{goodsKey}}" data-sap_code="{{goodsItem.sap_code}}" data-huangou="{{goodsItem.huangou}}" data-goods_unit="{{goodsItem.goods_unit}}">
+      <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}shopcart_1.png"/>
+      <view class="marginLEight">加入购物车</view>
+    </view>
+    <view class="goodsNumber" wx:if="{{goodsList[goodsItem.goods_channel+ goodsItem.goods_type + goodsItem.company_goods_id + '_' + goodsItem.goods_format[size].type].num>0}}">
+      <!-- 减 -->
+      <image wx:if="{{goodsList[goodsItem.goods_channel+ goodsItem.goods_type + goodsItem.company_goods_id + '_' + sizeText].num>0}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart" data-goods_code="{{goodsItem.goods_channel + goodsItem.goods_type + goodsItem.company_goods_id}}" data-goods_format="{{sizeText}}" data-goods_format_all="{{goodsItem.goods_format}}"/>
+      <text wx:if="{{goodsList[goodsItem.goods_channel+ goodsItem.goods_type + goodsItem.company_goods_id + '_' + sizeText].num>0}}">{{goodsList[goodsItem.goods_channel+ goodsItem.goods_type + goodsItem.company_goods_id + '_' + sizeText].num}}</text>
+      <!-- 加 -->
+      <image src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{goodsItem.goods_channel + goodsItem.goods_type + goodsItem.company_goods_id}}" data-goods_format_all="{{goodsItem.goods_format}}" data-goods_format="{{sizeText}}" data-goods_price="{{price}}" data-goods_img="{{goodsItem.goods_small_img[0]}}" data-goods_name="{{goodsItem.goods_name}}" data-taste_name="{{goodsItem.taste_name}}" data-key="{{goodsKey}}" data-sap_code="{{goodsItem.sap_code}}" data-huangou="{{goodsItem.huangou}}" data-goods_unit="{{goodsItem.goods_unit}}"/>
+    </view>
+  </view>
+</view>
