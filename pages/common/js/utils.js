@@ -1,8 +1,7 @@
 // import parse from 'mini-html-parser2';
-// var wxParse = require('../../../wxParse/wxParse.js')
+// var wxParse = require('../../../utils/wxParse/wxParse.js');
 
 import Request from "./li-ajax";
-
 export const log = console.log;
 
 /**
@@ -10,7 +9,7 @@ export const log = console.log;
  */
 export const event_getSid = () => {
   return new Promise((resolve, reject) => {
-    my.getStorage({
+    wx.getStorage({
       key: '_sid', // 缓存数据的key
       success: async (res) => {
         resolve(res.data)
@@ -22,7 +21,6 @@ export const event_getSid = () => {
   })
 };
 
-const my = wx;
 
 /**
  * @function 获取富文本数组
@@ -40,10 +38,11 @@ const my = wx;
 
 /**
  * @function 重定向
+ * @param url
  */
 
 export const redirect = (url) => {
-  my.redirectTo({
+  wx.redirectTo({
     url,
   });
 };
@@ -54,14 +53,14 @@ export const redirect = (url) => {
  */
 export const getRegion = async () => {
   return new Promise((resolve, reject) => {
-    my.request({
+    wx.request({
       dataType: 'text',
       url: 'https://imgcdnjwd.juewei.com/prod/vipstatic/region_min.js',
       success: (res) => {
         resolve(JSON.parse(res.data.split('=')[1].slice(0, -1)))
       },
       fail: res => {
-        my.alert({
+        wx.alert({
           title: res
         });
       }
@@ -77,10 +76,10 @@ export const handleCopy = (e) => {
     text
   } = e.currentTarget.dataset;
   log(text);
-  my.setClipboard({
+  wx.setClipboard({
     text,
     success() {
-      my.showToast({
+      wx.showToast({
         type: 'success',
         content: '操作成功'
       });
@@ -95,14 +94,14 @@ export const handleCopy = (e) => {
  */
 
 export const getDistance = async (_lng, _lat) => {
-  let lat = my.getStorageSync({
+  let lat = wx.getStorageSync({
     key: 'lat'
   }).data;
-  let lng = my.getStorageSync({
+  let lng = wx.getStorageSync({
     key: 'lng'
   }).data;
   return new Promise((resolve, reject) => {
-    my.request({
+    wx.request({
       url: `https://api.map.baidu.com/directionlite/v1/driving?origin=${ lng },${ lat }&destination=${ _lng },${ _lat }&ak=${ ak }`,
       success: (res) => {
         resolve(res)
@@ -122,7 +121,7 @@ export const guide = e => {
     shop_name,
     address
   } = e.currentTarget.dataset;
-  my.openLocation({
+  wx.openLocation({
     longitude: shop_longitude,
     latitude: shop_latitude,
     name: shop_name,
@@ -135,7 +134,7 @@ export const guide = e => {
  */
 
 export const contact = () => {
-  my.makePhoneCall({
+  wx.makePhoneCall({
     number: '4009995917'
   });
 };
@@ -149,7 +148,7 @@ export const event_getNavHeight = () => {
     titleBarHeight,
     statusBarHeight,
     model
-  } = my.getSystemInfoSync();
+  } = wx.getSystemInfoSync();
 
   return {
     titleBarHeight: titleBarHeight || 40,
@@ -163,7 +162,7 @@ export const event_getNavHeight = () => {
 
 export const getAddressId = () => {
   return new Promise((resolve, reject) => {
-    my.getLocation({
+    wx.getLocation({
       type: 2,
       success(res) {
         console.log('address', res);
@@ -181,8 +180,8 @@ export const getAddressId = () => {
         })
       },
       fail() {
-        my.hideLoading();
-        reject(my.alert({
+        wx.hideLoading();
+        reject(wx.alert({
           title: '定位失败'
         }))
       },
@@ -194,7 +193,7 @@ export const getAddressId = () => {
  * @function 跳转登录页面
  */
 export const isloginFn = () => {
-  my.navigateTo({
+  wx.navigateTo({
     url: '/pages/login/auth/auth'
   });
 
@@ -208,7 +207,7 @@ export const liTo = e => {
   const {
     url
   } = e.currentTarget.dataset;
-  my.navigateTo({
+  wx.navigateTo({
     url
   })
 };
