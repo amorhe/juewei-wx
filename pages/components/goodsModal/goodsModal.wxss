@@ -1,1 +1,71 @@
-/* pages/components/goodsModal/goodsModal.wxss */
+.goodsModalBox {
+  width:560rpx;
+  background:rgba(255,255,255,1);
+  border-radius:10rpx;
+  position: fixed;
+  left: 95rpx;
+  top: 290rpx; 
+  z-index: 1300
+}
+.goodsTop {
+  padding: 32rpx;
+  display: flex;
+  justify-content: space-between
+}
+.goodsTop>view {
+  display: flex
+}
+.goods_image {
+  width: 160rpx;
+  height: 136rpx;
+  margin-right: 24rpx;
+}
+.goods_size {
+  padding: 0 32rpx 56rpx;
+}
+.goods_size_item {
+  display: flex;
+  align-items: center
+}
+.goods_size_item>view {
+  background: #F5F5F5;
+  font-size: 26rpx;
+  width:180rpx;
+  height:64rpx;
+  border-radius:8rpx;
+  text-align: center;
+  line-height: 64rpx;
+  margin-right: 16rpx;
+}
+.goods_bottom_view {
+  height:100rpx;
+  background:rgba(242,242,242,1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+}
+.goods_prices {
+  font-size: 48rpx;
+  font-weight: 600
+}
+.add_shopcart {
+  width:218rpx;
+  height:52rpx;
+  border-radius:26rpx;
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  font-size: 26rpx;
+}
+.itemActive {
+  background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)!important;
+  color: #fff
+}
+.hasChoose {
+  background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%);
+}
+.noChoose {
+  background:linear-gradient(135deg,rgba(251,83,50,.4) 0%,rgba(230,0,18,.4) 100%);
+}

@@ -34,8 +34,10 @@
   width: 50%;
   height: 100%;
   font-size: 32rpx;
-  border:none
+  border: none;
+  background: #fff
 }
+
 .modalBtn>button:nth-child(1){
   color: #999;
   border-right: 1px #DDDDDD solid; 

@@ -164,26 +164,26 @@
         <text class="numberColor">{{couponsExpire.money}}</text>
         <text>元立减券今日即将过期</text>
       </view>
-      <image src="{{imageUrl}}close2.png" bindtap="closeCouponView" />
+      <image src="{{imageUrl}}close2.png" bindtap="eveCloseCouponView" />
     </view>
     <view id="pagesinfo" class="pages_scroll">
-      <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;padding-bottom:200rpx;box-sizing:border-box" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
+      <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
         <view class="goodsUl">
-          <view bindtap="chooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">
-            <image wx:if="{{goodsType != index + 1}}" src="{{imageUrl}}m_{{type[item.key]}}_1.png" />
-            <image wx:if="{{goodsType == index + 1 && item.key!='解辣神器'}}" src="{{imageUrl}}m_{{type[item.key]}}_2.png" />
+          <view bindtap="eveChooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">
+            <image wx:if="{{goodsType != index + 1}}" src="{{imageUrl}}m_{{goodsClass[item.key]}}_1.png" />
+            <image wx:if="{{goodsType == index + 1 && item.key!='解辣神器'}}" src="{{imageUrl}}m_{{goodsClass[item.key]}}_2.png" />
             <image wx:if="{{goodsType == index + 1 && item.key=='解辣神器'}}" src="{{imageUrl}}m_13_3.png" />
             <view class="{{goodsType== index + 1?'activeView':''}}">{{item.key}}</view>
           </view>
         </view>
       </scroll-view>
-      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;padding-bottom:500rpx;box-sizing:border-box" scroll-into-view="{{goodsType}}" scroll-with-animation="true" scroll-animation-duration="50" bindtouchEnd="onTouchEnd" class="scrolllist" bindtouchStart="onTouchStart"
+      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;" scroll-into-view="s{{goodsType}}" scroll-with-animation="true" scroll-animation-duration="50" bindtouchEnd="onTouchEnd" class="scrolllist" bindtouchStart="onTouchStart"
         bindscroll="bindscroll">
         <view>
-          <view id="{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
+          <view id="s{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
             <view class="goodsTypeEv">{{item.key}}</view>
             <!-- 折扣套餐爆款 -->
-            <view class="goodsBox" wx:for="{{item.last}}" wx:key="unique" wx:for-index="i" wx:for-item="v" catchtap="goodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-goods_id="{{v.goods_id}}" data-shop_id="{{v}}" data-key="{{item.key}}"
+            <view class="goodsBox" wx:for="{{item.last}}" wx:key="unique" wx:for-index="i" wx:for-item="v" catchtap="eveGoodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-goods_id="{{v.goods_id}}" data-shop_id="{{v}}" data-key="{{item.key}}"
               wx:if="{{item.key=='套餐'||item.key=='爆款'||item.key=='折扣'}}">
               <view class="discountImg">
                 <image wx:if="{{item.key=='折扣'}}" class="discountPng" src="{{imageUrl}}discount_img.png" />
@@ -213,10 +213,10 @@
                   <view class="goodsNumber" wx:if="{{v.goods_format.length==1}}">
                     <!-- 减 -->
                     <!-- 折扣套餐 -->
-                    <image wx:if="{{shopcartList[v.goods_format[0].goods_activity_code + '_' + v.goods_format[0].type].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}" src="{{imageUrl}}goods_reduce.png" catchtap="reduceshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}"
+                    <image wx:if="{{shopcartList[v.goods_format[0].goods_activity_code + '_' + v.goods_format[0].type].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}"
                       data-goods_format="{{v.goods_format[0].type}}" data-goods_activity_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" />
                     <!-- 爆款 -->
-                    <image wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && item.key=='爆款'}}" src="{{imageUrl}}goods_reduce.png" catchtap="reduceshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
+                    <image wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && item.key=='爆款'}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
                       data-goods_format="{{v.goods_format[0].type}}" />
                     <!-- 爆款 -->
                     <text wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && item.key=='爆款'}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].num}}</text>
@@ -224,15 +224,15 @@
                     <text wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].num}}</text>
                     <!-- 加 -->
                     <!-- 折扣套餐 -->
-                    <image wx:if="{{item.key=='折扣' || item.key=='套餐'}}" src="{{imageUrl}}goods_add.png" catchtap="addshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
+                    <image wx:if="{{item.key=='折扣' || item.key=='套餐'}}" src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
                       data-goods_img="{{item.key=='套餐'?imageUrl2 + v.goods_img[0]:v.goods_img[0]}}" data-goods_name="{{v.goods_name}}" data-taste_name="{{v.taste_name?v.taste_name:''}}" data-goods_activity_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
                       data-goods_discount="{{v.goods_format[0].goods_discount}}" data-goods_original_price="{{v.goods_format[0].goods_original_price}}" data-goods_discount_user_limit="{{v.goods_format[0].goods_discount_user_limit}}" data-goods_order_limit="{{v.goods_format[0].goods_order_limit}}"
                       data-key="{{item.key}}" data-sap_code="{{v.sap_code}}" data-huangou="{{v.huangou}}" data-goods_unit="{{v.goods_unit}}" />
                     <!-- 爆款 -->
-                    <image wx:if="{{item.key=='爆款'}}" src="{{imageUrl}}goods_add.png" catchtap="addshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
+                    <image wx:if="{{item.key=='爆款'}}" src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
                       data-goods_img="{{v.goods_img[0]}}" data-goods_name="{{v.goods_name}}" data-taste_name="{{v.taste_name?v.taste_name:''}}" data-goods_unit="{{v.goods_unit}}" />
                   </view>
-                  <view class="goodsSize" data-item="{{item}}" data-key="{{item.key}}" data-type="{{index}}" data-index="{{i}}" catchtap="chooseSizeTap" wx:if="{{v.goods_format.length>1}}">
+                  <view class="goodsSize" data-item="{{item}}" data-key="{{item.key}}" data-type="{{index}}" data-index="{{i}}" catchtap="eveChooseSizeTap" wx:if="{{v.goods_format.length>1}}">
                     <view>选规格</view>
                     <!-- 购物车中该商品数量 -->
                     <view wx:if="{{shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 || shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum>0}}">{{shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type]?shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum:shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum}}</view>
@@ -273,14 +273,14 @@
                   </view>
                   <view class="goodsNumber" wx:if="{{v.goods_format.length==1}}">
                     <!-- 减 -->
-                    <image wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0}}" src="{{imageUrl}}goods_reduce.png" catchtap="reduceshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
+                    <image wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
                       data-goods_format="{{v.goods_format[0].type}}" />
                     <text wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].num}}</text>
                     <!-- 加 -->
-                    <image src="{{imageUrl}}goods_add.png" catchtap="addshopcart" data-key="{{item.key}}" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
+                    <image src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-key="{{item.key}}" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
                       data-goods_img="{{v.goods_small_img[0]}}" data-goods_name="{{v.goods_name}}" data-taste_name="{{v.taste_name}}" data-key="{{item.key}}" data-sap_code="{{v.sap_code}}" data-huangou="{{v.huangou}}" />
                   </view>
-                  <view class="goodsSize" data-item="{{item}}" data-key="{{item.key}}" data-type="{{index}}" data-index="{{i}}" catchtap="chooseSizeTap" wx:if="{{v.goods_format.length>1}}">
+                  <view class="goodsSize" data-item="{{item}}" data-key="{{item.key}}" data-type="{{index}}" data-index="{{i}}" catchtap="eveChooseSizeTap" wx:if="{{v.goods_format.length>1}}">
                     <view>选规格</view>
                     <view wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 || shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum>0}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type]?shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum:shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum}}</view>
                   </view>
@@ -296,8 +296,8 @@
       <view class="ball" animation="{{animationX}}" style="position:fixed;left:{{ballX}}px;"></view>
     </view>
     <!-- 购物车 -->
-    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" onClear="onClear" activityText="{{activityText}}" freeText="{{freeText}}" onChangeShopcart="onchangeShopcart" />
+    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart" />
     <!-- 加入购物车选择商品规格 -->
-    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" onCloseModal="closeModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" onCart="onCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" />
+    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" />
   </view>
 </view>
