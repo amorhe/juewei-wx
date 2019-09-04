@@ -68,9 +68,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/vip/index/index",
+					"id": 2,
+					"name": "vip首页",
 					"pathName": "pages/vip/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单列表",
+					"pathName": "pages/order/list/list",
+					"query": "",
 					"scene": null
 				}
 			]

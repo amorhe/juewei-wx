@@ -1,2 +1,126 @@
 <!--pages/order/list/list.wxml-->
-<text>pages/order/list/list.wxml</text>
+<view>
+  <!-- 订单列表页<br/>
+  分为外卖和自提列表 -->
+  <view class="menus">
+    <view data-cur="{{index}}" wx:key="{{index}}" onTap="changeMenu" class="menu {{cur === index ? 'active':''}}" wx:for="{{menuList}}">
+        {{item.key}}
+    </view>
+  </view>
+  <!-- 官方外卖订单 -->
+  <view class="out-list" wx:if="{{cur === 0 && menuList[cur].list.length && menuList[cur].finish}}">
+    <view class="out-item" wx:for="{{ menuList[cur].list}}" onTap="toDetail" data-order_no="{{item.order_no}}">
+      <view class="out-header">
+        <view class="out-header-title">
+          <view class="top">
+            {{item.shop_name}}
+          </view>
+          <view class="bottom">
+           {{item.order_ctime}}
+          </view>
+        </view>
+        <view class="out-item-state" style="color:{{(item.order_status == 0 && item.remaining_pay_minute > 0)? '#E60012' : ''}}">
+         {{(item.order_status == 0 && item.remaining_pay_minute < 0)? '订单已取消' : (item.order_status == 2 && item.dis_status == 2 && item.dis_tag != 'ZPS' && item.dis_get_time) ? '骑手已接单' : takeOutState[item.order_status]}}
+        </view>
+      </view>
+      <view class="out-body">
+        <view class="left">
+          {{item.goods[0].goods_name }} <text wx:if="{{item.goods[0].goods_taste}}">{{ '('+ item.goods[0].goods_taste +')'}}</text>  等{{item.goods.length}}件商品
+        </view>
+        <view class="right">
+          <text class="y">￥</text>
+          <!-- <text class="price">{{ (item.real_price / 100).toFixed(2) }}</text> -->
+        </view>
+      </view>
+      <view class="out-footer">
+        <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1 }}" style="color:{{item.channel != 1 ?'#ccc':''}};border-color:{{item.channel != 1 ?'#ccc':''}}">
+          去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
+        </view>
+        <view class="cancel-order" wx:if="{{[1,2].includes(item.order_status)}}">
+          取消订单
+        </view>
+         <view class="cancel-order" wx:if="{{[2,3].includes(item.order_status) && [2,4].includes(item.dis_status)  && item.dis_tag != 'ZPS' && item.dis_get_time}}"  data-dis_tel="{{item.dis_tel}}" catchTap="makePhoneCall">
+          联系骑手
+        </view>
+
+         <view class="cancel-order" wx:if="{{[3].includes(item.order_status) && item.dis_tag == 'ZPS'}}" data-dis_tel="{{item.shop_tel}}"  catchTap="makePhoneCall">
+          联系门店
+        </view>
+        <view class="cancel-order" catchTap="toComment" data-order_no="{{item.order_no}}" wx:if="{{[4].includes(item.order_status) && item.is_comment == 0}}">
+          评价订单
+        </view>
+
+        <view class="cancel-order" wx:if="{{[4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="buyAgain">
+          再来一单
+        </view>
+        <view class="cancel-order" wx:if="{{[1,2,3,4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="contact">
+          联系客服
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 门店自提订单 -->
+  <view class="come-list out-list" wx:if="{{cur === 1 && menuList[cur].list.length}}">
+    <view class="out-item" wx:for="{{menuList[cur].list}}" onTap="toDetail" data-order_no="{{item.order_no}}">
+      <view class="out-header">
+        <view class="out-header-title">
+          <view class="top">
+             {{item.shop_name}}
+          </view>
+          <view class="bottom">
+           {{item.order_ctime}}
+          </view>
+        </view>
+        <view class="out-item-state" style="color:{{(item.order_status == 0 && item.remaining_pay_minute > 0)? '#E60012' : ''}}">
+          {{(item.order_status == 0 && item.remaining_pay_minute < 0)? '订单已取消' : pickUpState[item.order_status]}}
+        </view>
+      </view>
+      <view class="out-body">
+        <view class="left">
+         {{item.goods[0].goods_name + '('+ item.goods[0].goods_taste +')'}} 等{{item.goods.length}}件商品
+        </view>
+        <view class="right">
+          <text class="y">￥</text>
+          <!-- <text class="price">{{(item.real_price/100).toFixed(2)}}</text> -->
+        </view>
+      </view>
+      <view class="out-footer">
+        <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1}}" style="color:{{item.channel != 1 ?'#ccc':''}};border-color:{{item.channel != 1 ?'#ccc':''}}">
+         去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
+        </view>
+        <view class="cancel-order" wx:if="{{[0].includes(item.order_status)}}">
+          取消订单
+        </view>
+
+        <view class="cancel-order" wx:if="{{[4].includes(item.order_status) && item.is_comment == 0}}" catchTap="toComment" data-order_no="{{item.order_no}}">
+          评价订单
+        </view>
+      
+        <view class="cancel-order" wx:if="{{[4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="buyAgain">
+          再来一单
+        </view>
+        <view class="cancel-order" wx:if="{{[2,3,4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="contact">
+          联系客服
+        </view>
+        <view class="cancel-order" wx:if="{{[2,3].includes(item.order_status)}}" data-shop_longitude="{{item.shop_gd_longitude }}" data-shop_latitude="{{item.shop_gd_latitude}}" data-shop_name="{{item.shop_name}}" data-address="{{item.shop_address}}" catchTap="guide">
+          导航
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 空状态 -->
+  <view class="none" wx:if="{{(menuList[cur].finish && menuList[cur].list.length === 0) }}">
+    <image mode="scaleToFill" src="{{imageUrl}}bg_order.png"/>
+    <view class="txt">暂无订单</view>
+  </view>
+</view>
+<!--未登录提示 -->
+<modal show="{{loginOpened}}" showClose="{{ false }}">
+  <view class="modalInfo">
+      用户未登录
+  </view>
+  <view slot="footer" class="footerButton">
+    <view class="modalButton confirm " onTap="onModalClose">取消</view>
+    <view class="modalButton cancel " onTap="isloginFn">登录</view>
+  </view>
+</modal>

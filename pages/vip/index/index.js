@@ -3,11 +3,12 @@ import {
   imageUrl,
   imageUrl2
 } from '../../common/js/baseUrl'
-import Request, {
+import Request from '../../common/js/li-ajax'
+import {
   event_getSid,
   event_getNavHeight,
   event_getUserPoint
-} from '../../common/js/li-ajax'
+} from '../../common/js/utils'
 
 const app = getApp();
 const my = wx;
@@ -61,14 +62,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
@@ -95,7 +96,7 @@ Page({
       shop_id,
       loginFinish: true,
       cur: 0
-    }, async() => {
+    }, async () => {
       this.event_getBanner();
       this.event_getPositionList();
       this.event_getCouponsList();
@@ -108,35 +109,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
@@ -179,7 +180,7 @@ Page({
       company_id,
       release_channel
     };
-    let res = await Request.reqPositionList(positionListOption)
+    let res = await Request.reqPositionList(positionListOption);
     if (res.code === 100) {
       if (!res.data.length) {
         return this.setData({
