@@ -1,11 +1,23 @@
-// pages/home/selecttarget/selecttarget.js
+import { imageUrl, ak, geotable_id } from '../../common/js/baseUrl'
+import { addressList, GetLbsShop, NearbyShop } from '../../common/js/home'
+import { bd_encrypt } from '../../common/js/map'
+import { cur_dateTime, compare, sortNum } from '../../common/js/time'
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    imageUrl,
+    city: '',      //城市
+    addressIng: '',    // 定位地址
+    canUseAddress: [],   // 我的地址
+    nearAddress: [],   // 附近地址
+    isSuccess: false,
+    info: '',   // 一条地址信息
+    inputAddress: '',  //手动输入的地址
+    loginOpened: false
   },
 
   /**

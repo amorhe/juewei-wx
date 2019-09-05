@@ -67,7 +67,7 @@ page {
   background: #fff;
   width: 750rpx;
 }
-#pagesinfo {
+.pagesinfo {
   width: 750rpx;
   padding-right: 36rpx;
   box-sizing: border-box;

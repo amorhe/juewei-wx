@@ -1,1 +1,126 @@
-/* package_my/pages/nearshop/nearshop.wxss */
+.searchView {
+  padding: 18rpx 32rpx;
+}
+.searchView>view {
+  width: 686rpx;
+  height: 64rpx;
+  background: #EEE;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  overflow: hidden
+}
+.positionAddress {
+  display: flex;
+  align-items: center;
+  height: 40rpx;
+  border-right: 1rpx #ccc solid;
+  padding-left: 32rpx;
+  padding-right: 16rpx;
+}
+.positionAddress>image {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 8rpx;
+}
+.positionAddress>text {
+  white-space: nowrap
+}
+.searchBox {
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  flex: 1
+}
+.searchIcon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 16rpx;
+}
+.searchBox>input {
+  width: 432rpx;
+  margin-left: 8rpx;
+  background: #EEE
+}
+.colorGray {
+  color: #ccc
+}
+.mapView {
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+}
+.shopBox {
+  position: fixed;
+  width: 686rpx;
+  left: 32rpx;
+  bottom: 0;
+  background: transparent;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+.shopLi {
+  background: #fff;
+  margin-bottom: 16rpx;
+  box-shadow:0 2rpx 10rpx 0 rgba(153,153,153,0.2);
+  border-radius:10rpx;
+  padding: 24rpx 24rpx 16rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.shopIcon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+}
+.shopLi>cover-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  white-space: pre-wrap;
+  line-height: 30rpx!important;
+}
+.shopTxt {
+  display: flex;
+  align-items: center
+}
+.menuBtn {
+  display: flex;
+  justify-content: flex-end!important;
+  margin-top: 16rpx;
+}
+.menuBtn>cover-view {
+  width:140rpx;
+  height:64rpx;
+  border-radius:32rpx;
+  text-align: center;
+  line-height: 64rpx;
+  font-size: 26rpx;
+}
+.menuBtn>cover-view:nth-child(1){
+  color: #999;
+  border:1px solid rgba(153,153,153,1);
+  margin-right: 16rpx;
+}
+.menuBtn>cover-view:nth-child(2){
+  color: #fff;
+  /* background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%); */
+  background: #E60012;
+  border: 1px solid #E60012;
+}
+.paddingLeft {
+  padding-left: 48rpx;
+  width: 100%
+}
+.modalTap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100rpx;
+  z-index: 1000;
+  background: transparent;
+}
