@@ -1,6 +1,6 @@
 <view class="searchView" style="background:#fff">
   <view>
-    <view class="positionAddress" bindtap="choosecityTap">
+    <view class="positionAddress" bindtap="eveChoosecityTap">
       <text>{{city}}</text>
       <image src="{{imageUrl}}arrow_down1.png" />
     </view>
@@ -13,19 +13,19 @@
 <view class="positionIng">
   <view class="fontGray">当前定位</view>
   <view class="positionTxt">
-    <view class="flexSpecial address_view" bindtap="switchAddress" data-info="{{info}}" data-type="1" data-address="{{addressIng}}">
-      <image src="{{imageUrl}}position.png"/>
+    <view class="flexSpecial address_view" bindtap="eveSwitchAddress" data-info="{{info}}" data-type="1" data-address="{{addressIng}}">
+      <image src="{{imageUrl}}position.png" />
       <text wx:if="{{isSuccess}}">{{addressIng}}</text>
       <text wx:if="{{!isSuccess}}">定位失败</text>
     </view>
-    <view class="numberColor fontTwentySix" bindtap="rePosition">重新定位</view>
+    <view class="numberColor fontTwentySix" bindtap="eveRePosition">重新定位</view>
   </view>
 </view>
 <!-- 收货地址 -->
 <view class="delivery">
   <view class="fontGray">收货地址</view>
   <view class="addressList">
-    <view wx:for="{{canUseAddress}}" wx:if="{{canUseAddress.length>0}}" bindtap="switchPositionAddress" data-info="{{item}}" wx:key="unique">
+    <view wx:for="{{canUseAddress}}" wx:if="{{canUseAddress.length>0}}" bindtap="eveSwitchPositionAddress" data-info="{{item}}" wx:key="unique">
       <view class="addressTxt">
         <view class="fontBold addClass">{{item.user_address_map_addr}} {{item.user_address_address}}</view>
         <view wx:if="{{item.tag!=0}}" class="{{item.tag==1?'addressTabbar bar1':item.tag==2?'addressTabbar bar2':'addressTabbar bar3'}}">{{item.tag==1?'家':item.tag==2?'公司':'学校'}}</view>
@@ -33,22 +33,22 @@
       <view class="fontGray">{{item.user_address_name}}（{{item.user_address_sex==0?'先生':'女士'}}） {{item.user_address_phone}}</view>
     </view>
   </view>
-  <view bindtap="addAddressTap" class="addAddressTxt" wx:if="{{canUseAddress.length<=10}}">
+  <view bindtap="eveAddAddressTap" class="addAddressTxt" wx:if="{{canUseAddress.length<=10}}">
     <text>新增地址</text>
-    <image class="normalImage" src="{{imageUrl}}arrow_right1.png"/>
+    <image class="normalImage" src="{{imageUrl}}arrow_right1.png" />
   </view>
 </view>
-  <!-- 附近地址 -->
-  <view class="nearAddressBox">
-    <view class="fontGray">附近地址</view>
-    <view class="nearList" wx:for="{{nearAddress}}" bindtap="switchAddress" data-info="{{item}}" data-type="3" data-address="{{item.name}}" wx:key="unique">{{item.name}}</view>
+<!-- 附近地址 -->
+<view class="nearAddressBox">
+  <view class="fontGray">附近地址</view>
+  <view class="nearList" wx:for="{{nearAddress}}" bindtap="eveSwitchAddress" data-info="{{item}}" data-type="3" data-address="{{item.name}}" wx:key="unique">{{item.name}}</view>
+</view>
+<!--未登录提示 -->
+<!-- <modal show="{{loginOpened}}" showClose="{{ false }}">
+  <view class="modalInfo">
+    当前选择地址无可浏览的门店!
   </view>
-  <!--未登录提示 -->
-  <modal show="{{loginOpened}}" showClose="{{ false }}">
-    <view class="modalInfo">
-      当前选择地址无可浏览的门店!
-    </view>
-    <view slot="footer" class="footerButton">
-      <view class="modalButton" bindtap="onModalRepurse">去自提</view>
-    </view>
-  </modal>
+  <view slot="footer" class="footerButton">
+    <view class="modalButton" bindtap="eveOnModalRepurse">去自提</view>
+  </view>
+</modal> -->

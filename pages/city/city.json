@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText":"选择城市",
+  "usingComponents": {
+    "i-index": "../../iview-weapp/index/index",
+    "i-index-item": "../../iview-weapp/index-item/index"
+  }
+}

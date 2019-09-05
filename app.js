@@ -61,6 +61,7 @@ App({
     coupon_code: null,   //优惠券
     scrollTop: null,
     province:null,
-    city:null
+    city:null,
+    chooseBool:false
   }
 })

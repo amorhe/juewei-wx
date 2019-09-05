@@ -25,7 +25,8 @@
     "pages/home/orderform/agreement/agreement",
     "pages/home/orderform/chooseCoupon/chooseCoupon",
     "pages/home/switchshop/switchshop",
-    "pages/home/selecttarget/selecttarget"
+    "pages/home/selecttarget/selecttarget",
+    "pages/city/city"
   ],
   "subpackages": [
     {
@@ -135,7 +136,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于定位附近门店" 
+      "desc": "你的位置信息将用于定位附近门店"
     }
   },
   "sitemapLocation": "sitemap.json"

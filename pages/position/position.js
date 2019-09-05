@@ -23,6 +23,7 @@ import {
   redirectTo
 } from '../common/js/router.js'
 var app = getApp();
+// 引入百度地图微信小程序
 var bmap = require('../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
   ak: ak_wx
@@ -54,9 +55,6 @@ Page({
       type: 'gcj02',
       success(ott) {
         wx.hideLoading();
-        // 腾讯转百度
-        // let mapPosition = bd_encrypt(ott.longitude, ott.latitude);
-        // console.log(mapPosition)
         let res = {};
         wxSet('txPos', ott)
         // 发起regeocoding检索请求 
