@@ -52,12 +52,13 @@
 }
 .shopBox {
   position: fixed;
-  width: 686rpx;
-  left: 32rpx;
+  width: 750rpx;
+  left: 0;
   bottom: 0;
-  background: transparent;
-  max-height: 50vh;
+  background: #fff;
   overflow-y: scroll;
+  padding: 40rpx 32rpx;
+  box-sizing: border-box;
 }
 .shopLi {
   background: #fff;
@@ -92,7 +93,10 @@
   justify-content: flex-end!important;
   margin-top: 16rpx;
 }
-.menuBtn>cover-view {
+.navigate_btn{
+  color: #999;
+  border:1px solid rgba(153,153,153,1);
+  margin-right: 16rpx;
   width:140rpx;
   height:64rpx;
   border-radius:32rpx;
@@ -100,16 +104,17 @@
   line-height: 64rpx;
   font-size: 26rpx;
 }
-.menuBtn>cover-view:nth-child(1){
-  color: #999;
-  border:1px solid rgba(153,153,153,1);
-  margin-right: 16rpx;
-}
-.menuBtn>cover-view:nth-child(2){
+.self_btn{
   color: #fff;
   /* background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%); */
   background: #E60012;
   border: 1px solid #E60012;
+  width:140rpx;
+  height:64rpx;
+  border-radius:32rpx;
+  text-align: center;
+  line-height: 64rpx;
+  font-size: 26rpx;
 }
 .paddingLeft {
   padding-left: 48rpx;

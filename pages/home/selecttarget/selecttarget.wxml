@@ -6,7 +6,7 @@
     </view>
     <view class="searchBox">
       <image class="searchIcon" src="{{imageUrl}}search.png" />
-      <input value="{{inputAddress}}" confirm-type="搜索" onInput="handleSearch" onConfirm="searchShop" type="text" placeholder="小区/写字楼/学校等" placeholder-class="colorGray" />
+      <input value="{{inputAddress}}" type="search" placeholder="小区/写字楼/学校等" placeholder-class="colorGray" bindinput="funInputword"/>
     </view>
   </view>
 </view>

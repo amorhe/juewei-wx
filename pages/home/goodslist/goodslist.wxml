@@ -2,7 +2,7 @@
   <view wx:if="{{!isSelf}}">
     <!-- 定位 -->
     <view class="goodsPosition">
-      <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft">
+      <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft" hover-class="none">
         <image src="{{imageUrl}}position.png" />
         <text>{{firstAddress}}</text>
         <image src="{{imageUrl}}arrow_right1.png" />
@@ -38,7 +38,7 @@
             <view>会员卡</view>
           </view>
         </view>
-        <navigator url="/pages/vip/index/index" open-type="switchTab">
+        <navigator url="/pages/vip/index/index" open-type="switchTab" hover-class="none">
           <view>
             <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button>
             <image src="{{imageUrl}}home_vip.png" />
@@ -52,7 +52,7 @@
             <view>卡券</view>
           </view>
         </view>
-        <navigator url="/package_my/pages/nearshop/nearshop">
+        <navigator url="/package_my/pages/nearshop/nearshop" hover-class="none">
           <view>
             <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button>
             <image src="{{imageUrl}}home_nearshop.png" />

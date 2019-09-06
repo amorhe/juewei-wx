@@ -167,7 +167,8 @@ Page({
       type: app.globalData.type,
       shopTakeOut: {}
     })
-    if (app.globalData.isSelf) {
+    console.log(app.globalData.isSelf)
+    if (app.globalData.isSelf != undefined) {
       this.setData({
         isSelf: true
       })
@@ -669,7 +670,7 @@ Page({
             // 购物车活动提示
             this.funShopcartPrompt(this.data.fullActivity, priceFree, repurse_price)
             if (!wxGet('goodsList')) {
-              this.onchangeShopcart({}, [], 0, 0, 0);
+              this.funChangeShopcart({}, [], 0, 0, 0);
             }
             this.setData({
               shopcartList: shopcartObj,

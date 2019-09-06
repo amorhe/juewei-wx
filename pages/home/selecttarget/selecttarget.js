@@ -90,7 +90,7 @@ Page({
       const location = `${lng},${lat}`;
       this.funGetAddressList(location, lat, lng);
     }
-    if (app.globalData.chooseBool){
+    if (app.globalData.chooseBool) {
       this.setData({
         city: app.globalData.city
       })
@@ -135,29 +135,31 @@ Page({
   eveChoosecityTap() {
     app.globalData.chooseBool = false;
     navigateTo({
-      url:'/pages/city/city'
+      url: '/pages/city/city'
     })
   },
-  handleSearch(e) {
-    this.setData({
-      inputAddress: e.detail.value
-    })
+  funInputword(e) {
+    this.searchShop(e.detail.value)
   },
   // 输入地址搜索门店
-  searchShop() {
+  searchShop(value) {
     let that = this;
     //附近地址列表
-    if (this.data.city + this.data.inputAddress != '') {
-      let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${this.data.inputAddress}&output=json&ak=${ak}`
+    if (value != '') {
+      let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
       url = encodeURI(url);
       wx.request({
         url,
         success: (res) => {
-          // wx.hideKeyboard();
-          const lng = res.data.result.location.lng;
-          const lat = res.data.result.location.lat;
-          const location = `${lng},${lat}`;
-          that.funGetAddressList(location, lat, lng);
+          if (res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
+            let lng = res.data.result.location.lng;
+            let lat = res.data.result.location.lat;
+            let location = `${lng},${lat}`;
+            this.setData({
+              level: res.data.result.level
+            })
+            that.funGetAddressList(location, lat, lng);
+          }
         },
       });
     }
@@ -191,7 +193,7 @@ Page({
   // 重新定位
   eveRePosition() {
     wx.showLoading({
-      title:"定位中..."
+      title: "定位中..."
     });
     var that = this;
     wx.getLocation({
@@ -347,10 +349,10 @@ Page({
         // 无外卖去自提
         wx.showModal({
           content: '当前选择地址无可浏览的门店!',
-          confirmText:'去自提',
-          showCancel:false,
-          confirmColor:"#E60012",
-          success(res){
+          confirmText: '去自提',
+          showCancel: false,
+          confirmColor: "#E60012",
+          success(res) {
             if (res.confirm) {
               that.funOnModalRepurse();
             }
@@ -378,7 +380,7 @@ Page({
                 this.funGetSelf(conf.data.contents, address)
               } else {
                 // 无自提门店
-                
+
               }
             },
           });
