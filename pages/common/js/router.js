@@ -90,8 +90,10 @@ export const navigateTo = ({
  complete = () => {}
 }) => {
   // 如果在行内调用
+  if (currentTarget) {
     url  = url || currentTarget.dataset.url;
     query = query || currentTarget.dataset.query;
+  }
 
   // 方法调用
   if (query) {

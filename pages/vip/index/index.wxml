@@ -125,3 +125,5 @@
     </view>
   </view>
 </view>
+
+<tab-bar cur="{{ 1 }}"></tab-bar>
