@@ -28,7 +28,7 @@ const ajaxUrl = {
   addressList: '/juewei-api/useraddress/list',              // 定位页我的地址列表
 } 
 
-export const bannerList = (city_id,district_id,company_id,release_channel) => ajax(ajaxUrl.bannerList,{city_id,district_id,company_id,release_channel});
+export const bannerList = (city_id,district_id,company_id) => ajax(ajaxUrl.bannerList,{city_id,district_id,company_id});
 
 export const upAliMiniFormId = (_sid,aliUid,formId) => ajax(ajaxUrl.upAliMiniFormId,{_sid,aliUid,formId},"GET");
 
@@ -46,7 +46,7 @@ export const MyNearbyShop = (data) => ajax(ajaxUrl.MyNearbyShop,{data});
 
 export const activityList = (city_id,district_id,company_id,join_way,user_id) => ajax(ajaxUrl.activityList,{city_id,district_id,company_id,join_way,user_id});
 
-export const showPositionList = (city_id,district_id,company_id,release_channel) => ajax(ajaxUrl.showPositionList,{city_id,district_id,company_id,release_channel});
+export const showPositionList = (city_id,district_id,company_id) => ajax(ajaxUrl.showPositionList,{city_id,district_id,company_id});
 
 export const GetLbsShop = (location) => ajax(ajaxUrl.GetLbsShop,{location});
 

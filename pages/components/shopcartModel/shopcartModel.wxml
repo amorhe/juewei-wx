@@ -21,7 +21,7 @@
         <text wx:if="{{type==2}}">购</text>
       </view>
       <view class="buyBtn" wx:if="{{isOpen == 2}}">未营业</view>
-      <view class="buyBtn canBuy" bindtap="goOrderSubmit" wx:if="{{(priceAll/100>=send_price && shopcartNum>0) && isOpen !=2}}">
+      <view class="buyBtn canBuy" bindtap="eveGoOrderSubmit" wx:if="{{(priceAll/100>=send_price && shopcartNum>0) && isOpen !=2}}">
         去结算
         <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:240rpx;right:0;bottom:0;height:100rpx" formType="submit"></button>
       </view>
@@ -52,9 +52,9 @@
           <text class="numberColor">￥{{item.num>item.goods_order_limit?item.goods_order_limit*item.goods_price/100 + (item.num-item.goods_order_limit) * item.goods_original_price/100:item.goods_price * item.num/100}}</text>
         </view>
         <view class="goodsNumber">
-          <image src="{{imageUrl}}goods_reduce.png" bindtap="reduceshopcart" data-goods_code="{{item.goods_code}}" data-goods_format="{{item.goods_format}}" />
+          <image src="{{imageUrl}}goods_reduce.png" bindtap="eveReduceshopcart" data-goods_code="{{item.goods_code}}" data-goods_format="{{item.goods_format}}" />
           <text>{{item.num}}</text>
-          <image src="{{imageUrl}}goods_add.png" bindtap="addshopcart" data-goods_code="{{item.goods_code}}" data-goods_format="{{item.goods_format}}" data-goods_discount="{{item.goods_discount}}" />
+          <image src="{{imageUrl}}goods_add.png" bindtap="eveAddshopcart" data-goods_code="{{item.goods_code}}" data-goods_format="{{item.goods_format}}" data-goods_discount="{{item.goods_discount}}" />
         </view>
       </view>
     </view>

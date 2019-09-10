@@ -1,7 +1,7 @@
 <view class="bindPhone">
   <view class="TitleName">欢迎登录绝味鸭脖</view>
   <view class="inputView">
-    <input class="inputClass" type="number" maxlength="11" placeholder="请输入手机号" onInput="inputValue"/>
+    <input class="inputClass" type="number" maxlength="11" placeholder="请输入手机号" bindinput="inputValue"/>
   </view>
   <view class="loginTitel">未注册的手机号验证后自动创建绝味鸭脖账号</view>
   <view>

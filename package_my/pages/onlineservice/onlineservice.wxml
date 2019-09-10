@@ -1,2 +1,1 @@
-<!--package_my/pages/onlineservice/onlineservice.wxml-->
-<text>package_my/pages/onlineservice/onlineservice.wxml</text>
+<web-view src="{{src}}"></web-view>

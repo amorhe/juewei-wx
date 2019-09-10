@@ -1,2 +1,244 @@
-<!--pages/home/orderform/orderform.wxml-->
-<text>pages/home/orderform/orderform.wxml</text>
+<view class="orderContainer">
+  <!-- 外卖 -->
+  <view class="addressView" wx:if="{{orderType==1}}">
+    <navigator url="/pages/home/orderform/selectaddress/selectaddress" class="noAddress">
+      <!-- 选择地址前 -->
+      <text wx:if="{{(!address || addressList.length==0) && !addressInfo.user_address_name}}">选择收货地址</text>
+      <!-- 选择地址后 -->
+      <view wx:if="{{(address && addressList.length>0) || addressInfo.user_address_name }}">
+        <view class="fontFourty fontBold marginBEight">{{addressInfo.user_address_map_addr + addressInfo.user_address_address}}</view>
+        <view class="fontGray fontTwentySix">{{addressInfo.user_address_name}}（{{addressInfo.user_address_sex == 0?'先生':'女士'}}） {{addressInfo.user_address_phone}}</view>
+      </view>
+      <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+    </navigator>
+  </view>
+  <!-- 自提 -->
+  <view class="deliverView" wx:if="{{orderType==2}}">
+    <view class="fontThirtySix fontBold">{{shopObj.address}}</view>
+    <view class="mapBox">
+      <map id="map" style="width:100%;height:100%" longitude="{{longitude}}}" latitude="{{latitude}}" markers="{{markersArray}}" scale="13"></map>
+    </view>
+    <view class="deliverMiddle flexNormal">
+      <view>
+        <text class="colorNine marginBEight">自提时间</text>
+        <text>今日 {{shopObj.start_time}}-{{shopObj.end_time}}</text>
+      </view>
+      <view>
+        <text class="colorNine marginBEight">会员电话</text>
+        <text>{{phone}}</text>
+      </view>
+    </view>
+    <view class="flexSpecial" style="line-height:22rpx">
+      <image wx:if="{{!isCheck}}" bindtap="checkedTrueTap" class="normalImage" mode="scaleToFill" src="{{imageUrl}}disagree.png" />
+      <image wx:if="{{isCheck}}" bindtap="checkedTrueTap" class="normalImage" mode="scaleToFill" src="{{imageUrl}}agree.png" />
+      <view class="flexNormal marginLEight fontTwentyTwo">
+        <text>同意</text>
+        <navigator url="/pages/home/orderform/agreement/agreement" style="color:#108EE9" hover-class="none">《到店自提服务协议》</navigator>
+      </view>
+    </view>
+  </view>
+  <view class="orderList_box">
+    <view class="ordershopName borderBottomSolid">{{shopObj.title}}</view>
+    <view class="order_list">
+      <view wx:for="{{goodsReal}}" wx:key="unique">
+        <view class="listLeft" wx:if="{{!item.is_gifts}}">
+          <image class="ordergoodsImage" mode="scaleToFill" src="{{item.goods_img}}" />
+          <view>
+            <view>
+              <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}discount2.png" wx:if="{{item.goods_original_price > item.goods_price}}" />
+              <text class="marginLEight">{{item.goods_name}}</text>
+              <text class="fontSmallGray" wx:if="{{item.taste_name}}">（{{item.goods_taste}}）</text>
+            </view>
+            <view class="fontSmallGray">{{item.goods_format}}</view>
+          </view>
+        </view>
+        <view class="listLeft" wx:if="{{item.is_gifts}}">
+          <image class="ordergoodsImage" mode="scaleToFill" wx:if="{{item.gift_img && item.gift_img != ''}}" src="{{item.gift_img}}" />
+          <image class="ordergoodsImage" mode="scaleToFill" wx:if="{{!item.gift_img || item.gift_img == ''}}" src="{{imageUrl}}present_bg.png" />
+          <view>
+            <view>
+              <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}present.png" />
+              <text class="marginLEight">{{item.goods_name}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="listRight">
+          <view class="ordergoodsCount">x{{item.goods_quantity}}</view>
+          <view class="flexNormal">
+            <view class="ordergoodsOld" wx:if="{{item.goods_original_price > item.goods_price}}">
+              <text class="fontTwentyTwo">￥</text>
+              <text>{{item.goods_original_price * item.goods_quantity / 100}}</text>
+            </view>
+            <view>
+              <text class="fontTwentyTwo">￥</text>
+              <text>{{item.goods_price / 100 * item.goods_quantity}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="track" wx:if="{{orderType==1}}">
+      <text>配送费</text>
+      <view>
+        <view class="ordergoodsOld" wx:if="{{orderDetail.dispatch_price != orderInfo.dispatch_price}}">
+          <text class="fontTwentyTwo">￥</text>
+          <text>{{orderDetail.dispatch_price / 100}}</text>
+        </view>
+        <view class="numberColor">
+          <text class="fontTwentyTwo">￥</text>
+          <text>{{orderInfo.dispatch_price/100 || 0}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="track paddingBThirty borderBottomSolid">
+      <view>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}reduce.png" />
+        <text class="marginLSixteen">满减活动</text>
+      </view>
+      <view>
+        <view class="numberColor">
+          <text class="fontTwentyTwo">-￥</text>
+          <text>{{orderInfo.full_reduce_price/100 || 0}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="track paddingBThirty borderBottomSolid" bindtap="eveChooseCoupon" data-coupon="{{orderInfo.use_coupons[0]}}" data-money="{{orderInfo.qlt_price}}">
+      <view>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}coupon.png" />
+        <text class="marginLSixteen">优惠券</text>
+      </view>
+      <view>
+        <text class="colorNine" wx:if="{{orderInfo.use_coupons.length==0 && !notUse}}">无可用红包</text>
+        <text class="colorNine" wx:if="{{notUse}}">点击选择</text>
+        <text class="colorNine" wx:if="{{orderInfo.use_coupons.length>0 && !notUse}}">- ¥{{coupon_money/100}}</text>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+      </view>
+    </view>
+    <!-- 赠品 -->
+    <view class="track paddingBThirty borderBottomSolid" wx:for="{{goodsInvented}}" wx:key="unique">
+      <view>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}present.png" />
+        <text class="marginLSixteen">{{item.goods_name}}</text>
+      </view>
+      <view class="invented">
+        <text>¥{{item.goods_original_price/100}}</text>
+        <text class="numberColor">¥{{item.goods_price/100}}</text>
+      </view>
+    </view>
+    <view class="track">
+      <navigator url="/package_my/pages/coupon/explain/explain" class="flexSpecial">
+        <text class="fontTwentyTwo">优惠说明</text>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}explain2.png" />
+      </navigator>
+      <view>
+        <view class="fontTwentySix">
+          <text>已优惠</text>
+          <text class="numberColor">¥{{orderInfo.reduce_price/100 || 0}}</text>
+        </view>
+        <view class="marginLEight">
+          <text class="fontTwentySix">小计¥</text>
+          <text class="fontFourtyWeight">{{orderInfo.real_price/100 || 0}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 换购商品 -->
+  <view class="repurse" wx:if="{{repurseList.length!=0 && showRepurse}}">
+    <view class="reqpurseBox">
+      <view class="fontBold">超值换购</view>
+      <view class="fontSmallGray marginLEight">只能换购一件商品</view>
+    </view>
+    <!-- 换购商品有多个 -->
+    <scroll-view class="repurseView" scroll-x wx:if="{{repurseList.length>1}}">
+      <view style="width:{{581*repurseList.length}}rpx">
+        <view class="repurseGoodsInfo" wx:for="{{repurseList}}" wx:key="unique">
+          <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{item.gift_img_url}}" />
+          <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
+          <view>
+            <view>
+              <text>{{item.gift_name}}</text>
+            </view>
+            <view class="flexNormal">
+              <view class="repurseBottom fontSmallGray">
+                <view>
+                  <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?item.cash/100:item.cash/100+item.point + '积分'}}</text>
+                  <text class="purseGoodsOld">￥{{item.gift_price/100}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="goodsNumber flexRow" wx:if="{{gifts[item.id].num}}">
+            <image src="{{imageUrl}}goods_reduce.png" bindtap="reduceBtnTap" />
+            <text>{{gifts[item.id].num}}</text>
+            <image mode="scaleToFill" src="{{imageUrl}}goods_add2.png" />
+          </view>
+          <button class="repurseBtn" hover-class="none" bindtap="addRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
+            wx:if="{{!gifts[item.id].num}}">换购</button>
+        </view>
+      </view>
+    </scroll-view>
+    <!-- 换购商品只有一个 -->
+    <view class="repurseGoodsInfo" wx:for="{{repurseList}}" style="width:654rpx" wx:if="{{repurseList.length==1}}" wx:key="unique">
+      <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{item.gift_img_url}}" />
+      <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
+      <view>
+        <view>
+          <text>{{item.gift_name}}</text>
+        </view>
+        <view class="flexNormal">
+          <view class="repurseBottom fontSmallGray">
+            <view>
+              <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?item.cash/100:item.cash/100+item.point + '积分'}}</text>
+              <text class="purseGoodsOld">￥{{item.gift_price/100}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="goodsNumber flexRow" wx:if="{{gifts[item.id].num}}">
+        <image src="{{imageUrl}}goods_reduce.png" bindtap="eveReduceBtnTap" />
+        <text>{{gifts[item.id].num}}</text>
+        <image mode="scaleToFill" src="{{imageUrl}}goods_add2.png" />
+      </view>
+      <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
+        wx:if="{{!gifts[item.id].num}}">换购</button>
+    </view>
+    <view class="repursePrice" wx:if="{{gifts[gift_id].num}}">
+      <text class="fontTwentySix">小计</text>
+      <text class="fontFourty fontBold">{{gifts_price}}</text>
+    </view>
+  </view>
+  <view>
+    <navigator url="/pages/home/orderform/remarks/remarks" class="flexNormal remarks paddingRTwenty">
+      <view class="fontBold">备注</view>
+      <view class="colorNine">
+        <text class="remark">{{remark}}</text>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+      </view>
+    </navigator>
+  </view>
+</view>
+<view class="null"></view>
+<!-- 底部支付 -->
+<view class="orderConfirm">
+  <view class="colorNine">已优惠¥{{orderInfo.reduce_price/100 || 0}}</view>
+  <view class="orderPrimary">
+    <view>
+      <text>合计</text>
+      <text class="numberColor fontFourty fontBold">{{order_price}}</text>
+    </view>
+    <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
+      <view bindtap="eveConfirmPay" class="primaryBtn" wx:if="{{trueprice>=send_price}}">
+        确认支付
+        <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:240rpx;height:100rpx;right:0" formType="submit">
+        </button>
+      </view>
+      <view class="noprimaryBtn" wx:else>
+        ￥{{send_price}}元起
+        <text wx:if="{{orderType==1}}">送</text>
+        <text wx:if="{{orderType==2}}">购</text>
+      </view>
+    </form>
+  </view>
+</view>
+<!-- 各种订单商品状态 -->
+<confirm content="{{content}}" confirmButtonText="重新选择" cancelButtonText="继续结算" mask="{{mask}}" modalShow="{{modalShow}}" binCounterPlusOne="bindCounterPlusOne" isType="orderConfirm" />

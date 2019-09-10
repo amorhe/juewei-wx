@@ -33,6 +33,9 @@ import {
 import {
   bd_encrypt
 } from '../../common/js/map'
+import {
+  navigateTo
+} from '../../common/js/router.js'
 var app = getApp();
 let tim = null,
   goodsret = [];
@@ -164,7 +167,8 @@ Page({
       type: app.globalData.type,
       shopTakeOut: {}
     })
-    if (app.globalData.isSelf) {
+    console.log(app.globalData.isSelf)
+    if (app.globalData.isSelf != undefined) {
       this.setData({
         isSelf: true
       })
@@ -264,6 +268,59 @@ Page({
   onShareAppMessage: function() {
 
   },
+  setDelayTime(sec) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => { resolve() }, sec)
+    });
+  },
+  // 创建动画
+  createAnimation(ballX, ballY) {
+    let that = this,
+      bottomX = 30,
+      bottomY = 30,
+      animationX = that.flyX(bottomX, ballX),      // 创建小球水平动画
+      animationY = that.flyY(bottomY, ballY);			 // 创建小球垂直动画
+    that.setData({
+      showBall: true,
+      ballX,
+      ballY
+    })
+    that.setDelayTime(100).then(() => {
+      // 100ms延时,  确保小球已经显示
+      that.setData({
+        animationX: animationX.export(),
+        animationY: animationY.export()
+      })
+      // 400ms延时, 即小球的抛物线时长
+      return that.setDelayTime(400);
+    }).then(() => {
+      that.setData({
+        showBall: true,
+        animationX: that.flyX(0, 0, 0).export(),
+        animationY: that.flyY(0, 0, 0).export(),
+        ballX: 0,
+        ballY: 0
+      })
+    })
+  },
+  // 水平动画
+  flyX(bottomX, ballX, duration) {
+    let animation = wx.createAnimation({
+      duration: duration || 400,
+      timingFunction: 'linear',
+    })
+    animation.translateX(bottomX - ballX).step();
+    return animation;
+  },
+  // 垂直动画
+  flyY(bottomY, ballY, duration) {
+    let animation = wx.createAnimation({
+      duration: duration || 400,
+      timingFunction: 'ease-in',
+    })
+    animation.translateY(ballY - bottomY).step();
+    return animation;
+  },
   // 关闭提醒
   eveCloseOpen() {
     this.setData({
@@ -330,7 +387,7 @@ Page({
   },
   // 首页banner列表
   funGetBannerList(city_id, district_id, company_id) {
-    bannerList(city_id, district_id, company_id, 2).then((data) => {
+    bannerList(city_id, district_id, company_id).then((data) => {
       if (data.data.length == 1) {
         this.setData({
           indicatorDots: false,
@@ -355,7 +412,7 @@ Page({
   },
   // 首页商品展位
   funGetShowpositionList(city_id, district_id, company_id) {
-    showPositionList(city_id, district_id, company_id, 2).then((res) => {
+    showPositionList(city_id, district_id, company_id).then((res) => {
       this.setData({
         showListObj: res.data
       })
@@ -613,7 +670,7 @@ Page({
             // 购物车活动提示
             this.funShopcartPrompt(this.data.fullActivity, priceFree, repurse_price)
             if (!wxGet('goodsList')) {
-              this.onchangeShopcart({}, [], 0, 0, 0);
+              this.funChangeShopcart({}, [], 0, 0, 0);
             }
             this.setData({
               shopcartList: shopcartObj,
@@ -623,7 +680,7 @@ Page({
               priceFree,
               repurse_price
             })
-            console.log(shopcartObj)
+            // console.log(shopcartObj)
             wxSet('goodsList', shopcartObj);
             // 获取商品模块的节点
             wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
@@ -636,7 +693,7 @@ Page({
               })
               goodsret = arr;
             })
-            wx.createSelectorQuery().selectAll('#pagesinfo').boundingClientRect().exec((e) => {
+            wx.createSelectorQuery().selectAll('.pagesinfo').boundingClientRect().exec((e) => {
               if (e[0] == null) {
                 return;
               }
@@ -764,9 +821,9 @@ Page({
     })
     wxSet('goodsList', goodlist)
     // console.log(e)
-    // 购物车小球动画
-    // let ballX = e.detail.clientX,
-    //   ballY = e.detail.clientY;
+    // // 购物车小球动画
+    // let ballX = e.touches[0].clientX,
+    //   ballY = e.touches[0].clientY;
     // this.createAnimation(ballX, ballY);
   },
   eveReduceshopcart(e) {
@@ -818,7 +875,7 @@ Page({
   // sku商品
   funCart(data) {
     this.setData({
-      shopcartList: data.detail.goodsList,
+      shopcartList: data.detail.goodlist,
       shopcartAll: data.detail.shopcartAll,
       priceAll: data.detail.priceAll,
       shopcartNum: data.detail.shopcartNum,
@@ -827,13 +884,14 @@ Page({
     })
   },
   // 购物车
-  funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
-    this.funCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+  funChangeShopcart(data) {
+    this.funCart(data)
   },
   // 选择商品系列
   eveChooseGoodsType(e) {
     this.setData({
-      goodsType: e.currentTarget.dataset.type
+      goodsType: e.currentTarget.dataset.type,
+      shopcartList:wxGet('goodsList')
     })
   },
   eveCloseModal(data) {
@@ -912,37 +970,41 @@ Page({
   },
   // 去商品详情页
   eveGoodsdetailContent(e){
-    wx.navigateTo({
+    navigateTo({
       url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code + '&goodsKey=' + e.currentTarget.dataset.key + '&freeMoney=' + e.currentTarget.dataset.freeMoney
     });
   },
   // 清空购物车
   funClearshopcart() {
     this.setData({
-      shopcartList: {}
+      shopcartList: {},
+      shopcartAll:{},
+      shopcartNum:0,
+      priceAll:0,
     })
+    wxSet('goodsList',{})
   },
   //  活动跳转链接
   imageLink(e) {
-    wx.navigateTo({
+    navigateTo({
       url: e.currentTarget.dataset.link
     });
   },
   // banner图跳转链接
   linkUrl(e) {
-    wx.navigateTo({
+    navigateTo({
       url: e.currentTarget.dataset.link
     });
   },
   // 会员卡，卡券
   navigate(e) {
     if (wxGet('user_id') == null) {
-      wx.navigateTo({
+      navigateTo({
         url: '/pages/login/auth/auth'
       });
       return
     }
-    wx.navigateTo({
+    navigateTo({
       url: e.currentTarget.dataset.url
     });
   },

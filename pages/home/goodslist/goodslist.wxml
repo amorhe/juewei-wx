@@ -2,7 +2,7 @@
   <view wx:if="{{!isSelf}}">
     <!-- 定位 -->
     <view class="goodsPosition">
-      <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft">
+      <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft" hover-class="none">
         <image src="{{imageUrl}}position.png" />
         <text>{{firstAddress}}</text>
         <image src="{{imageUrl}}arrow_right1.png" />
@@ -38,7 +38,7 @@
             <view>会员卡</view>
           </view>
         </view>
-        <navigator url="/pages/vip/index/index" open-type="switchTab">
+        <navigator url="/pages/vip/index/index" open-type="switchTab" hover-class="none">
           <view>
             <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button>
             <image src="{{imageUrl}}home_vip.png" />
@@ -52,7 +52,7 @@
             <view>卡券</view>
           </view>
         </view>
-        <navigator url="/package_my/pages/nearshop/nearshop">
+        <navigator url="/package_my/pages/nearshop/nearshop" hover-class="none">
           <view>
             <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button>
             <image src="{{imageUrl}}home_nearshop.png" />
@@ -166,7 +166,7 @@
       </view>
       <image src="{{imageUrl}}close2.png" bindtap="eveCloseCouponView" />
     </view>
-    <view id="pagesinfo" class="pages_scroll">
+    <view class="pages_scroll pagesinfo">
       <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
         <view class="goodsUl">
           <view bindtap="eveChooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">
@@ -245,7 +245,7 @@
               </view>
             </view>
             <!-- 超辣 -->
-            <view class="goodsContent" wx:for="{{item.last}}" wx:for-index="i" wx:for-item="v" bindtap="goodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-key="{{item.key}}" data-goods_id="{{v.goods_id}}" wx:if="{{item.key!='套餐' && item.key!='爆款' &&item.key!='折扣'}}"
+            <view class="goodsContent" wx:for="{{item.last}}" wx:for-index="i" wx:for-item="v" bindtap="eveGoodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-key="{{item.key}}" data-goods_id="{{v.goods_id}}" wx:if="{{item.key!='套餐' && item.key!='爆款' &&item.key!='折扣'}}"
               wx:key="unique">
               <view class="discountImg">
                 <image wx:if="{{v.huangou==1}}" class="huangouPng" mode="scaleToFill" src="{{imageUrl}}markup_icon.png" />
@@ -298,6 +298,6 @@
     <!-- 购物车 -->
     <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart" />
     <!-- 加入购物车选择商品规格 -->
-    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" />
+    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" />
   </view>
 </view>

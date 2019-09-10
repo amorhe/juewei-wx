@@ -15,6 +15,9 @@ import {
 import {
   upformId
 } from '../../common/js/time'
+import {
+  navigateTo
+} from '../../common/js/router.js'
 var app = getApp();
 Page({
 
@@ -49,7 +52,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getAliId()
+    this.funGetAuth()
   },
 
   /**
@@ -185,7 +188,7 @@ Page({
         wx.showToast({
           title: '短信发送成功'
         })
-        wx.navigateTo({
+        navigateTo({
           url: '/pages/login/verifycode/verifycode?phone=' + data.phone
         });
       } else {
@@ -194,8 +197,7 @@ Page({
         })
         wx.hideLoading();
         wx.showToast({
-          title: code.msg,
-          icon: 'none'
+          title: '短信发送失败',
         })
       }
     }
@@ -206,104 +208,104 @@ Page({
       imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
     })
   },
-  getAliId() {
+  funGetAuth() {
     var that = this
-    let ali_uid = wxGet('ali_uid');
     let _sid = wxGet('_sid');
-    if (ali_uid && _sid) {
+    if (_sid) {
       this.setData({
-        ali_uid: ali_uid,
         _sid: _sid
       })
     } else {
-      wx.authorize({
-        scope: 'scope.userInfo',
-        success: (res) => {
-          console.log(res)
-          // my.setStorageSync({
-          //   key: 'authCode', // 缓存数据的key
-          //   data: res.authCode, // 要缓存的数据
-          // });
-          // wxSet('authCode', res.authCode);
-          loginByAliUid(res.authCode).then((data) => {
-            if (data.code == 0 && data.data.user_id) {
-              wxSet('ali_uid', data.data.ali_uid);
-              wxSet('_sid', data.data._sid);
-              that.setData({
-                ali_uid: data.data.ali_uid,
-                _sid: data.data._sid
-              })
-            } else {
-              wxSet('ali_uid', data.data.ali_uid);
-              wxSet('_sid', data.data._sid);
-              that.setData({
-                ali_uid: data.data.ali_uid,
-                _sid: data.data._sid
-              })
-            }
-          })
-        },
-      });
+      let code = '',
+        userInfo = {},
+        rawData = '',
+        signature = '',
+        encryptedData = '',
+        iv = '';
+      this.funLoginByAuthFn(this.data.phone, code, userInfo, rawData, signature, encryptedData, iv)
+      // wx.authorize({
+      //   scope: 'scope.userInfo',
+      //   success: (res) => {
+      //     console.log(res)
+      //     // my.setStorageSync({
+      //     //   key: 'authCode', // 缓存数据的key
+      //     //   data: res.authCode, // 要缓存的数据
+      //     // });
+      //     // wxSet('authCode', res.authCode);
+      //     // loginByAliUid(res.authCode).then((data) => {
+      //     //   if (data.code == 0 && data.data.user_id) {
+      //     //     wxSet('ali_uid', data.data.ali_uid);
+      //     //     wxSet('_sid', data.data._sid);
+      //     //     that.setData({
+      //     //       ali_uid: data.data.ali_uid,
+      //     //       _sid: data.data._sid
+      //     //     })
+      //     //   } else {
+      //     //     wxSet('ali_uid', data.data.ali_uid);
+      //     //     wxSet('_sid', data.data._sid);
+      //     //     that.setData({
+      //     //       ali_uid: data.data.ali_uid,
+      //     //       _sid: data.data._sid
+      //     //     })
+      //     //   }
+      //     // })
+      //   },
+      // });
     }
   },
   // 授权获取用户信息
   getPhoneNumber(res) {
     var that = this
-    my.getPhoneNumber({
-      success: (res) => {
-        my.showLoading({
-          content: '加载中...',
-          delay: 1000,
-        });
+    // wx.getPhoneNumber({
+    //   success: (res) => {
+    //     wx.showLoading({
+    //       content: '加载中...',
+    //       delay: 1000,
+    //     });
 
-        let userInfo = JSON.parse(res.response); // 以下方的报文格式解析两层 response
-        var data = {
-          response: userInfo.response
-        }
-        decryptPhone(data).then(res => {
-          if (res.code == 0) {
-            that.loginByAuthFn(that.data.ali_uid, res.data.phone);
-          }
-        })
-      },
-      fail() {
-        my.alert({
-          title: '获取用户信息失败'
-        });
-      }
-    });
+    //     let userInfo = JSON.parse(res.response); // 以下方的报文格式解析两层 response
+    //     var data = {
+    //       response: userInfo.response
+    //     }
+    //     decryptPhone(data).then(res => {
+    //       if (res.code == 0) {
+    //         that.loginByAuthFn(that.data.ali_uid, res.data.phone);
+    //       }
+    //     })
+    //   },
+    //   fail() {
+    //     wx.showToast({
+    //       title: '获取用户信息失败'
+    //     });
+    //   }
+    // });
   },
-  // 授权登录
-  loginByAuthFn(ali_uid, phone) {
-    console.log('授权函数')
-    loginByAuth(ali_uid, phone, '', '').then((res) => {
-      if (res.code == 0) {
-        my.setStorageSync({
-          key: '_sid', // session_id
-          data: res.data._sid,
-        });
-        my.setStorageSync({
-          key: 'user_id', // 缓存数据的key
-          data: res.data.user_id, // 要缓存的数据
-        });
-        app.globalData._sid = res.data._sid
-        this.getUserInfo(res.data._sid);
-      } else {
-        my.showToast({
-          type: 'none',
-          content: res.msg,
-          duration: 2000
-        });
-      }
-
+  // 自动登录
+  funLoginByAuthFn(phone, code, userInfo, rawData, signature, encryptedData, iv) {
+    loginByAuth(phone, code, userInfo, rawData, signature, encryptedData, iv).then((res) => {
+      console.log(res)
     })
+    // loginByAuth(ali_uid, phone, '', '').then((res) => {
+    //   if (res.code == 0) {
+    //     wxSet('_sid', res.data._sid)
+    //     wxSet('user_id', res.data.user_id)
+    //     app.globalData._sid = res.data._sid
+    //     this.getUserInfo(res.data._sid);
+    //   } else {
+    //     wx.showToast({
+    //       title: res.msg,
+    //       duration: 2000
+    //     });
+    //   }
+
+    // })
   },
   // 用户信息
   getUserInfo(_sid) {
     getuserInfo(_sid).then((res) => {
       app.globalData.userInfo = res.data;
-      my.hideLoading();
-      my.navigateBack({
+      wx.hideLoading();
+      wx.navigateBack({
         delta: 1
       })
     })
@@ -311,7 +313,7 @@ Page({
   // 页面跳转
   toUrl(e) {
     var url = e.currentTarget.dataset.url
-    my.navigateTo({
+    navigateTo({
       url: url
     });
   },

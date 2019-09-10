@@ -1,0 +1,16 @@
+<view class="searchBox">
+  <image class="searchIcon" src="{{imageUrl}}search.png" />
+  <input value="{{inputAddress}}" bindinput="funHandleSearch" type="search" placeholder="请输入城市名称进行搜索" placeholder-class="colorGray"/>
+</view>
+<view wx:for="{{searches}}" wx:key="unique"hidden="{{searches.length==0}}">
+  <view class="i-index-demo-item" bindtap="eveChoosecity" data-name="{{item.name}}">{{item.name}}</view>
+</view>
+<view class="i-index-demo" hidden="{{searches.length!=0}}">
+  <i-index height="100%">
+    <i-index-item wx:for="{{ cities }}" wx:for-index="index" wx:key="{{index}}" wx:for-item="item" name="{{item.key}}">
+      <view class="i-index-demo-item" wx:for="{{item.list}}" wx:for-index="in" wx:key="{{in}}" wx:for-item="it" bindtap="eveChoosecity" data-name="{{it.name}}">
+        {{it.name}}
+      </view>
+    </i-index-item>
+  </i-index>
+</view>

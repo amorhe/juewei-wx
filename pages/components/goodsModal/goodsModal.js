@@ -46,7 +46,7 @@ Component({
       goodsItem: this.properties.goodsItem,
       priceAll: this.properties.priceAll,
       shopcartNum: this.properties.shopcartNum,
-      goodsList: wxGet('goodsList')
+      goodsList: this.properties.goodsList
     })
   },
   /**
@@ -71,6 +71,7 @@ Component({
         size: e.currentTarget.dataset.size,
         price: this.data.goodsItem.goods_format[e.currentTarget.dataset.size].goods_price / 100,
         sizeText: this.data.goodsItem.goods_format[e.currentTarget.dataset.size].type,
+        goodsList:wxGet('goodsList')
       })
     },
     eveAddshopcart(e) {
@@ -186,7 +187,7 @@ Component({
       }
       this.triggerEvent('Cart', data)
     },
-    eveReduceshopcart(e){
+    eveReduceshopcart(e) {
       let code = e.currentTarget.dataset.goods_code;
       let format = e.currentTarget.dataset.goods_format
       let goodlist = wxGet('goodsList') || {};
@@ -200,7 +201,11 @@ Component({
         }
       }
       goodlist[`${code}_${format}`].num -= 1;
-      let shopcartAll = [], priceAll = 0, shopcartNum = 0, priceFree = 0, repurse_price = 0;
+      let shopcartAll = [],
+        priceAll = 0,
+        shopcartNum = 0,
+        priceFree = 0,
+        repurse_price = 0;
       for (let keys in goodlist) {
         if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
@@ -224,7 +229,7 @@ Component({
       // 删除
       if (goodlist[`${code}_${format}`].num == 0) {
         shopcartAll = this.data.shopcartAll.filter(item => `${item.goods_code}_${item.goods_format}` != `${code}_${format}`)
-        delete (goodlist[`${code}_${format}`]);
+        delete(goodlist[`${code}_${format}`]);
       } else {
         for (let keys in goodlist) {
           shopcartAll.push(goodlist[keys])

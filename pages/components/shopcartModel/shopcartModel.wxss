@@ -1,4 +1,3 @@
-/* pages/components/shopcartModel/shopcartModel.wxss */
 @import '../../home/goodslist/goodslist.wxss';
 .orcle {
   border: 1rpx #E60012 solid;

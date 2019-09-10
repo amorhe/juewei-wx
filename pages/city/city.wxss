@@ -1,0 +1,30 @@
+/* pages/city/city.wxss */
+.i-index-demo,page{
+    width:100%;
+    height:100%;
+}
+.i-index-demo-item{
+    padding:10px;
+    border-bottom:#ddd solid 1rpx;
+    font-size:14px;
+}
+
+.searchBox {
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  width: 686rpx;
+  background: #EEE;
+  border-radius: 32rpx;
+  margin:0 auto 20rpx;
+}
+.searchIcon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 16rpx;
+}
+.searchBox>input {
+  width: 90%;
+  margin-left: 12rpx;
+  background: #EEE
+}

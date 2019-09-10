@@ -1,2 +1,37 @@
-<!--package_my/pages/nearshop/nearshop.wxml-->
-<text>package_my/pages/nearshop/nearshop.wxml</text>
+<view class="searchView">
+  <view>
+    <view class="positionAddress" bindtap="eveChoosecityTap">
+      <text>{{city}}</text>
+      <image src="{{imageUrl}}arrow_down1.png" />
+    </view>
+    <view class="searchBox">
+      <image class="searchIcon" src="{{imageUrl}}search.png" />
+      <input type="text" value="{{inputAddress}}" onInput="handleSearch" onConfirm="addressSearch" placeholder="地址名称" placeholder-class="colorGray" />
+    </view>
+  </view>
+</view>
+<view class="mapView">
+  <map id="map" style="width:100%;height:100%" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markersArray}}" scale="12" />
+  <cover-view class="shopBox" style="max-height: {{height}}rpx">
+    <cover-view class="shopLi" wx:for="{{shopList}}" wx:key="unique">
+      <cover-view>
+        <cover-view class="flexNormal">
+          <cover-view class="shopTxt">
+            <cover-image wx:if="{{activeIndex==index}}" class="shopIcon" src="{{imageUrl}}position_map1.png" />
+            <cover-image wx:if="{{activeIndex!=index}}" class="shopIcon" src="{{imageUrl}}order2.png" />
+            <cover-view>{{item.title}}</cover-view>
+          </cover-view>
+          <cover-view class="fontTwentyTwo">距离{{item.distance}}米</cover-view>
+        </cover-view>
+        <cover-view class="fontTwentyTwo paddingLeft">营业时间：{{item.start_time}}-{{item.end_time}}</cover-view>
+        <cover-view class="fontSmallGray paddingLeft">{{item.address}}</cover-view>
+      </cover-view>
+      <cover-view bindtap="eveSwitchShop" data-index="{{index}}" class="modalTap"></cover-view>
+      <cover-view class="menuBtn">
+        <cover-view data-shop_latitude="{{item.shop_gd_latitude}}" data-shop_longitude="{{item.shop_gd_longitude}}" data-shop_name="{{item.title}}" data-address="{{item.address}}" class="navigate_btn">导航</cover-view>
+        <cover-view bindtap="goSelf" data-info="{{item}}" data-shop_id="{{item.shop_id}}" data-company_id="{{item.company_sale_id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-goods_num="{{item.goods_num}}" data-distance="{{item.distance}}"
+          wx:if="{{item.isOpen && item.shop_takeout_self_lifting_status==1}}" class="self_btn">去自提</cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+</view>

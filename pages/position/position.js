@@ -18,7 +18,12 @@ import {
   compare,
   sortNum
 } from '../common/js/time'
+import {
+  reLaunch,
+  redirectTo
+} from '../common/js/router.js'
 var app = getApp();
+// 引入百度地图微信小程序
 var bmap = require('../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
   ak: ak_wx
@@ -50,9 +55,6 @@ Page({
       type: 'gcj02',
       success(ott) {
         wx.hideLoading();
-        // 腾讯转百度
-        // let mapPosition = bd_encrypt(ott.longitude, ott.latitude);
-        // console.log(mapPosition)
         let res = {};
         wxSet('txPos', ott)
         // 发起regeocoding检索请求 
@@ -79,7 +81,7 @@ Page({
       fail() {
         // 定位失败
         wx.hideLoading();
-        wx.reLaunch({
+        reLaunch({
           url: '/pages/noposition/noposition'
         })
       },
@@ -164,7 +166,7 @@ Page({
         wxSet('takeout', shopArray); // 保存外卖门店到本地
         //存储app.golbalData
         wxSet('appglobalData', app.globalData);
-        wx.reLaunch({
+        reLaunch({
           url: '/pages/home/goodslist/goodslist'
         });
       } else if (res.code == 5 || res.data.length == 0) {
@@ -201,7 +203,7 @@ Page({
                 wx.showToast({
                   title: "当前定位地址无可浏览的门店，请切换地址！",
                   success: (res) => {
-                    wx.redirectTo({
+                    redirectTo({
                       url: '/pages/home/selecttarget/selecttarget?type=true'
                     });
                   },
@@ -246,11 +248,11 @@ Page({
       app.globalData.type = 2;
       //存储app.golbalData
       wxSet('appglobalData', app.globalData)
-      wx.reLaunch({
+      reLaunch({
         url: '/pages/home/goodslist/goodslist'
       })
-    } else {
-      wx.redirectTo({
+    } else if (e.detail.type == 0 && e.detail.isType == "noShop") {
+      redirectTo({
         url: '/pages/home/selecttarget/selecttarget?type=true'
       });
     }

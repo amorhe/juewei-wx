@@ -17,6 +17,7 @@ Component({
       type: String,
       value: ''
     },
+    isType:String
   },
 
   /**
@@ -78,11 +79,14 @@ Component({
     },
     eveCancelTap() {
       let isType = '';
-      if (this.props.isType == "checkshopcart") {
+      if (this.properties.isType == "checkshopcart") {
         isType = 'checkshopcart'
       }
-      if (this.props.isType == "orderConfirm") {
+      if (this.properties.isType == "orderConfirm") {
         isType = 'orderConfirm'
+      }
+      if (this.properties.isType == "noShop") {
+        isType = 'noShop'
       }
       const modalObj = {
         modalShow: false,
