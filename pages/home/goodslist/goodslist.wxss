@@ -582,7 +582,7 @@ page {
 .goodsBottom {
   width: 750rpx;
   left: 0;
-  bottom: 0;
+  bottom: 98rpx;
   position: fixed;
   z-index: 1003
 }
