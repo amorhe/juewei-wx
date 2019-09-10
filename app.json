@@ -103,37 +103,6 @@
     "navigationBarTitleText": "绝味鸭脖",
     "navigationBarTextStyle": "black"
   },
-  "tabBar": {
-    "color": "#7F8389",
-    "selectedColor": "#E60012",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/home/goodslist/goodslist",
-        "iconPath": "pages/common/img/menu_home1.png",
-        "selectedIconPath": "pages/common/img/menu_home2.png",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/vip/index/index",
-        "iconPath": "pages/common/img/menu_vip1.png",
-        "selectedIconPath": "pages/common/img/menu_vip2.png",
-        "text": "会员专享"
-      },
-      {
-        "pagePath": "pages/order/list/list",
-        "iconPath": "pages/common/img/menu_order1.png",
-        "selectedIconPath": "pages/common/img/menu_order2.png",
-        "text": "订单"
-      },
-      {
-        "pagePath": "pages/my/index/index",
-        "iconPath": "pages/common/img/menu_my1.png",
-        "selectedIconPath": "pages/common/img/menu_my2.png",
-        "text": "我"
-      }
-    ]
-  },
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于定位附近门店"

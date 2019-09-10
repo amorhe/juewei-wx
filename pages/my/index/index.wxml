@@ -90,3 +90,5 @@
     <image mode="scaleToFill" src="{{imageUrl}}service.png"/>
   </view>
 </form> -->
+
+<tab-bar cur="{{ 3 }}"></tab-bar>

@@ -78,26 +78,36 @@ export const redirectTo = ({
  * @param {Function} success
  * @param {Function} fail
  * @param {Function} complete
+ * @param {Object} currentTarget
  * @return {Function}
  */
 export const navigateTo = ({
  url,
  query,
+ currentTarget,
  success = () => {},
  fail = () => {},
  complete = () => {}
 }) => {
+  // 如果在行内调用
+  if (currentTarget) {
+    url  = url || currentTarget.dataset.url;
+    query = query || currentTarget.dataset.query;
+  }
+
+  // 方法调用
   if (query) {
-    let queryArr = Object.entries(query);
     url = url + '?';
-    queryArr.forEach(([key, value]) => {
+    Object.entries(query).forEach(([key, value]) => {
       url += `${ key }=${ value }&`
     });
     url = url.slice(0, -1);
   }
+  console.log('navigateToUrl',url);
   return wx.navigateTo({
-  url,
-  success,
-  fail,
-  complete,
-})};
+    url,
+    success,
+    fail,
+    complete,
+  })
+};

@@ -95,7 +95,7 @@
         <view class="cancel-order" wx:if="{{[4].includes(item.order_status) && item.is_comment == 0}}" catchTap="toComment" data-order_no="{{item.order_no}}">
           评价订单
         </view>
-      
+
         <view class="cancel-order" wx:if="{{[4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="buyAgain">
           再来一单
         </view>
@@ -114,13 +114,5 @@
     <view class="txt">暂无订单</view>
   </view>
 </view>
-<!--未登录提示 -->
-<modal show="{{loginOpened}}" showClose="{{ false }}">
-  <view class="modalInfo">
-      用户未登录
-  </view>
-  <view slot="footer" class="footerButton">
-    <view class="modalButton confirm " onTap="onModalClose">取消</view>
-    <view class="modalButton cancel " onTap="isloginFn">登录</view>
-  </view>
-</modal>
+
+<tab-bar cur="{{ 2 }}"></tab-bar>

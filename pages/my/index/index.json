@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的",
-  "usingComponents": {}
+  "usingComponents": {
+    "tab-bar": "/pages/components/tab-bar/tab-bar"
+  }
 }

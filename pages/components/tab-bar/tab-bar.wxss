@@ -1,0 +1,35 @@
+/* pages/components/tab-bar.wxss */
+
+.my-tabs{
+    z-index: 9999999;
+    position: fixed;
+    height: 98rpx;
+    width: 100vw;
+    bottom: 0;
+    background: #F8F8F8;
+    display: flex;
+}
+
+button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    padding: 0;
+    margin: 0;
+}
+
+image{
+    width: 54rpx;
+    height: 54rpx;
+}
+
+text{
+    font-size:20rpx;
+    height: 36rpx;
+    margin-top: -6rpx;
+    font-family:PingFangSC;
+    font-weight:400;
+    color:rgba(127,131,137,1);
+}

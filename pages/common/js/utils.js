@@ -36,18 +36,6 @@ export const event_getSid = () => {
 // }
 
 /**
- * @function 重定向
- * @param url
- */
-
-export const redirect = (url) => {
-  wx.redirectTo({
-    url,
-  });
-};
-
-
-/**
  * @function 获取地址列表
  */
 export const getRegion = async () => {
@@ -70,7 +58,7 @@ export const getRegion = async () => {
 /**
  * @function 剪切板
  */
-export const handleCopy = (e) => {
+export const handleCopy = e => {
   const {
     text
   } = e.currentTarget.dataset;
@@ -156,46 +144,12 @@ export const event_getNavHeight = () => {
 };
 
 /**
- * 获取 地址ID
- */
-
-export const getAddressId = () => {
-  return new Promise((resolve, reject) => {
-    wx.getLocation({
-      type: 2,
-      success(res) {
-        console.log('address', res);
-        const {
-          cityAdcode,
-          districtAdcode,
-          longitude,
-          latitude
-        } = res;
-        resolve({
-          city_id: cityAdcode,
-          district_id: districtAdcode,
-          longitude,
-          latitude
-        })
-      },
-      fail() {
-        wx.hideLoading();
-        reject(wx.alert({
-          title: '定位失败'
-        }))
-      },
-    })
-  })
-};
-
-/**
  * @function 跳转登录页面
  */
 export const isloginFn = () => {
   wx.navigateTo({
     url: '/pages/login/auth/auth'
   });
-
 };
 
 /**
@@ -223,3 +177,47 @@ export const event_getUserPoint = async () => {
   }
 };
 
+/**
+ * @function 展示 MODAL 弹窗
+ * @param {String} title
+ * @param {String} content
+ * @param {Boolean} showCancel
+ * @param {String} cancelText
+ * @param {String} cancelColor
+ * @param {String} confirmText
+ * @param {String} confirmColor
+ * @param {Function} confirm
+ * @param {Function} cancel
+ * @param {Function} fail
+ * @param {Function} complete
+ */
+export const MODAL = ({
+  title,
+  content,
+  showCancel = true,
+  cancelText = '取消',
+  cancelColor = '#999',
+  confirmText = '确定',
+  confirmColor = '#E60012',
+  confirm = () => {console.log('用户点击确定')},
+  cancel = () => {console.log('用户点击取消')},
+  fail = () => {},
+  complete = () => {}
+}) => wx.showModal({
+  title,
+  content,
+  showCancel,
+  cancelText,
+  cancelColor,
+  confirmText,
+  confirmColor,
+  success (res) {
+    if (res.confirm) {
+      confirm()
+    } else if (res.cancel) {
+      cancel()
+    }
+  },
+  fail,
+  complete
+});

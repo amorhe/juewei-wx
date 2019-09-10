@@ -9,6 +9,7 @@ import {
   event_getNavHeight,
   event_getUserPoint
 } from '../../common/js/utils'
+import { navigateTo } from "../../common/js/router";
 
 const app = getApp();
 const my = wx;
@@ -23,7 +24,6 @@ Page({
     imageUrl2,
 
     finish: false,
-
     toast: false,
 
     _sid: '',
@@ -45,15 +45,10 @@ Page({
     cur: 0,
 
     userPoint: '',
-
     bannerList: [],
-
     positionList: [],
-
     new_user: [],
-
     list: [],
-
     goodsList: [],
 
   },
@@ -77,6 +72,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
+    // 查看用户登录状态
     await event_getUserPoint();
     let _sid = await event_getSid();
     //获取当前所需要的分子公司id,城市id，门店id,区域id
@@ -97,14 +93,17 @@ Page({
       loginFinish: true,
       cur: 0
     }, async () => {
+      //  获取列表信息
       this.event_getBanner();
       this.event_getPositionList();
       this.event_getCouponsList();
-
+      // 先获取 目录 之后才能获取 商品列表
       await this.event_getCategory();
       this.event_getGoodsList();
     })
   },
+
+  navigateTo,
 
   /**
    * 生命周期函数--监听页面隐藏
