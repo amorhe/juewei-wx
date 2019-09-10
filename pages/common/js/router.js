@@ -19,7 +19,7 @@ export const switchTab = ({
   success = () => {},
   fail = () => {},
   complete = () => {}
-}) => wx.switchTab({
+}) => wx.redirectTo({
   url,
   success,
   fail,

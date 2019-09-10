@@ -61,6 +61,7 @@ App({
     scrollTop: null,
     province:null,
     city:null,
-    chooseBool:false
+    chooseBool:false,
+    isSelf:false
   }
 })

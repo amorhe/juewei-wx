@@ -167,7 +167,7 @@ Page({
       type: app.globalData.type,
       shopTakeOut: {}
     })
-    if (app.globalData.isSelf != undefined) {
+    if (app.globalData.isSelf == true) {
       this.setData({
         isSelf: true
       })
@@ -244,7 +244,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    app.globalData.isSelf = false;
   },
 
   /**
@@ -269,7 +269,9 @@ Page({
   },
   setDelayTime(sec) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => { resolve() }, sec)
+      setTimeout(() => {
+        resolve()
+      }, sec)
     });
   },
   // 创建动画
@@ -277,8 +279,8 @@ Page({
     let that = this,
       bottomX = 30,
       bottomY = 30,
-      animationX = that.flyX(bottomX, ballX),      // 创建小球水平动画
-      animationY = that.flyY(bottomY, ballY);			 // 创建小球垂直动画
+      animationX = that.flyX(bottomX, ballX), // 创建小球水平动画
+      animationY = that.flyY(bottomY, ballY); // 创建小球垂直动画
     that.setData({
       showBall: true,
       ballX,
@@ -890,7 +892,7 @@ Page({
   eveChooseGoodsType(e) {
     this.setData({
       goodsType: e.currentTarget.dataset.type,
-      shopcartList:wxGet('goodsList')
+      shopcartList: wxGet('goodsList')
     })
   },
   eveCloseModal(data) {
@@ -968,7 +970,7 @@ Page({
     })
   },
   // 去商品详情页
-  eveGoodsdetailContent(e){
+  eveGoodsdetailContent(e) {
     navigateTo({
       url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code + '&goodsKey=' + e.currentTarget.dataset.key + '&freeMoney=' + e.currentTarget.dataset.freeMoney
     });
@@ -977,11 +979,11 @@ Page({
   funClearshopcart() {
     this.setData({
       shopcartList: {},
-      shopcartAll:{},
-      shopcartNum:0,
-      priceAll:0,
+      shopcartAll: {},
+      shopcartNum: 0,
+      priceAll: 0,
     })
-    wxSet('goodsList',{})
+    wxSet('goodsList', {})
   },
   //  活动跳转链接
   imageLink(e) {

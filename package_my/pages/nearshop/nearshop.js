@@ -16,7 +16,8 @@ import {
 } from '../../../pages/common/js/map'
 import {
   navigateTo,
-  switchTab
+  switchTab,
+  reLaunch
 } from '../../../pages/common/js/router.js'
 var app = getApp();
 Page({
@@ -78,7 +79,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    app.globalData.isSelf = false;
+    // app.globalData.isSelf = false;
     app.globalData.shopIng = null;
   },
 
@@ -193,8 +194,8 @@ Page({
     app.globalData.isSelf = true;
     app.globalData.shopIng = e.currentTarget.dataset.info;
     app.globalData.type = 2;
-    switchTab({
-      url: '/pages/home/goodslist/goodslist'
+    wx.navigateBack({
+      delta:1
     });
   },
 })

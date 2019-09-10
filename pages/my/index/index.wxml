@@ -5,7 +5,7 @@
         <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:30%;height:104rpx" form-type="submit"></button>
         <image class="avatar" mode="scaleToFill" src="{{ userInfo.user_id?userInfo.head_img?userInfo.head_img:imageUrl+'default_head1.png':imageUrl+'default_head2.png' }}" />
         <view class="fontFourtyWeight">
-          <text>{{ userInfo.user_id?userInfo.nick_name?userInfo.nick_name:'绝味会员':'登录' }}</text>
+          <view>{{ userInfo.user_id?userInfo.nick_name?userInfo.nick_name:'绝味会员':'登录' }}</view>
         </view>
       </view>
       <view bindtap="isloginFn">

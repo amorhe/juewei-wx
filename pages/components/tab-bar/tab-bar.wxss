@@ -10,7 +10,7 @@
     display: flex;
 }
 
-button{
+.button{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,12 +20,12 @@ button{
     margin: 0;
 }
 
-image{
+.image{
     width: 54rpx;
     height: 54rpx;
 }
 
-text{
+.text{
     font-size:20rpx;
     height: 36rpx;
     margin-top: -6rpx;
