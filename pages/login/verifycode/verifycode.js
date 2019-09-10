@@ -1,66 +1,265 @@
-// pages/login/verifycode/verifycode.js
+import {
+  imageUrl,
+  baseUrl,
+  wxGet,
+  wxSet
+} from '../../common/js/baseUrl'
+import {
+  sendCode,
+  captcha,
+  loginByPhone
+} from '../../common/js/login'
+import {
+  navigateTo
+} from '../../common/js/router.js'
+let timeCount
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    imageUrl,
+    baseUrl,
+    focus: false,
+    value: '',
+    type: '1',
+    phone: '',
+    countTime: 60,
+    isnew: true,
+    img_code: '',
+    modalOpened: false,
+    getCode: true,
+    cursor: 0,
+    timestamp: 0, //当前时间戳
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    var ali_uid = my.getStorageSync({
+      key: 'ali_uid', // 缓存数据的key
+    }).data;
+    var _sid = my.getStorageSync({
+      key: '_sid'
+    }).data;
+    this.setData({
+      phone: e.phone,
+      ali_uid: ali_uid,
+      _sid: _sid
+    })
+    this.timeDate()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function() {
+    if (this.data.timestamp != 0) {
+      let timestampNew = new Date().getTime();
+      let counts = parseInt((timestampNew - this.data.timestamp) / 1000);
+      console.log(counts)
+      if (counts > 0) {
+        this.setData({
+          countTime: this.data.countTime - counts
+        })
+      } else {
+        this.setData({
+          isnew: true,
+          countTime: 60,
+        })
+      }
+    }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
+  onHide: function() {
+    let timestamp = new Date().getTime();
+    this.setData({
+      timestamp,
+      countTime: this.data.countTime
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
+  onUnload: function() {
+    // 页面被关闭
+    this.setData({
+      isnew: false,
+      countTime: 60,
+    })
+    clearInterval(timeCount)
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
-  }
+  },
+  bindFocus() {
+    setTimeout(() => {
+      this.onFocus();
+    }, 100);
+  },
+  onFocus() {
+    this.setData({
+      focus: true,
+    });
+  },
+  onBlur() {
+    this.setData({
+      focus: false,
+    });
+    var data = {
+      ali_uid: this.data.ali_uid,
+      phone: this.data.phone,
+      code: this.data.value
+    }
+    loginByPhone(data).then(res => {
+      if (res.code == 0) {
+        // 成功
+        app.globalData._sid = res.data._sid
+        wxSet('_sid', res.data._sid)
+        wxSet('user_id', res.data.user_id)
+        wx.navigateBack({
+          delta: 2
+        })
+      } else {
+        // 其他
+        wx.showToast({
+          title: res.msg
+        });
+      }
+
+    })
+  },
+  // 倒计时60
+  timeDate(e) {
+    var that = this;
+    that.setData({
+      isnew: true,
+    })
+    if (e && e.currentTarget.dataset.is == 1) {
+      that.getcodeFn()
+    }
+    var time = that.data.countTime;
+    timeCount = setInterval(function() {
+      time--
+      that.setData({
+        countTime: time
+      })
+      if (time == 0) {
+        that.setData({
+          isnew: false,
+          countTime: 60
+        })
+        clearInterval(timeCount)
+      }
+    }, 1000)
+  },
+  inputValue(e) {
+    var value = e.detail.value
+    var cursor = value.length + 1
+    this.setData({
+      value: value,
+      cursor: cursor
+    })
+    if (value.length == 4) {
+      this.onBlur()
+    }
+  },
+  //页面跳转
+  toUrl(e) {
+    var url = e.currentTarget.dataset.url
+    navigateTo({
+      url: url
+    });
+  },
+  getcodeImg(e) {
+    var img_code = e.detail.value
+    this.setData({
+      img_code: img_code
+    })
+  },
+  // 获取短信验证码
+  async getcodeFn() {
+    var that = this
+    if (this.data.getCode) {
+      var time = wxGet('time');
+      if (time) {
+        if (time != new Date().toLocaleDateString()) {
+          wx.removeStorageSync({
+            key: 'time',
+          });
+          wx.removeStorageSync({
+            key: 'count',
+          });
+        }
+      }
+
+      var count = wxGet('count') || 0;
+      if (count == 0) {
+        wxSet('time', new Date().toLocaleDateString())
+      }
+      if (count >= 5 && !this.data.modalOpened) {
+        wx.hideLoading();
+        this.setData({
+          modalOpened: true,
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
+        })
+        return
+      }
+      var data = {
+        _sid: this.data._sid,
+        phone: this.data.phone,
+        img_code: this.data.img_code
+      }
+      let code = await sendCode(data)
+      if (code.code == 0 && code.msg == 'OK') {
+        wxSet('count', count - '' + 1)
+        this.setData({
+          modalOpened: false,
+          img_code: ''
+        })
+        // 成功
+      } else {
+        that.setData({
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
+        })
+        my.showToast({
+          type: 'none',
+          duration: 2000,
+          content: code.msg
+        });
+      }
+    }
+  },
 })

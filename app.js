@@ -1,10 +1,10 @@
 //app.js
 App({
   onLaunch: function () {
-    wx.setStorage({
-      key: '_sid',
-      data: '756sv2hhbd2nkd4hhdtt3s1sur',
-    })
+    // wx.setStorage({
+    //   key: '_sid',
+    //   data: '756sv2hhbd2nkd4hhdtt3s1sur',
+    // })
     // 登录
     wx.login({
       success: res => {
@@ -13,9 +13,8 @@ App({
     })
     // 获取用户信息
     wx.getSetting({
-      success: res => {
-        console.log(res)
-        if (res.authSetting['scope.userInfo']) {
+      success: ott => {
+        if (ott.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {

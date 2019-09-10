@@ -40,9 +40,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // const lng = wxGet('lng');
-    // const lat = wxGet('lat');
-    // let ott = gd_decrypt(lng, lat);
     this.nearShop(wxGet('lng'), wxGet('lat'));
     let lng = wxGet('txPos').longitude;
     let lat = wxGet('txPos').latitude;
@@ -65,7 +62,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      city: app.globalData.city
+    })
   },
 
   /**
@@ -161,15 +160,9 @@ Page({
   // },
   // 切换城市
   eveChoosecityTap() {
-    my.chooseCity({
-      showLocatedCity: true,
-      showHotCities: true,
-      success: (res) => {
-        this.setData({
-          city: res.city + '市'
-        })
-      },
-    });
+    navigateTo({
+      url:'../../../pages/city/city'
+    })
   },
   // 切换门店
   eveSwitchShop(e) {

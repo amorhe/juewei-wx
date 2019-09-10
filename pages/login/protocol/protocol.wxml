@@ -1,2 +1,140 @@
-<!--pages/login/protocol/protocol.wxml-->
-<text>pages/login/protocol/protocol.wxml</text>
+<view class="topTitle">绝味注册协议及用户服务条款</view>
+<view class="rules">
+  <view>绝味鸭脖是由绝味食品股份有限公司运营的品牌（以下统称：绝味鸭脖）。绝味鸭脖致力于向用户提供优质的商品及相关服务，并严格遵守本协议及相关承诺。</view>
+  <view>
+    <view class="itemTitle">
+      一、协议的确认和接纳
+    </view>
+    <view class="itemInfo">
+      用户成为绝味鸭脖的注册用户并登录后，本服务协议即在用户和绝味鸭脖之间产生法律效力。请用户务必在注册/登录之前认真阅读全部服务协议内容，如有任何疑问，可向绝味鸭脖咨询。无论用户事实上是否在注册/登录之前认真阅读了本服务协议，只要用户成功注册并登录，即表示同意并签署了本服务协议。
+    </view>
+    <view class="itemInfo">
+      用户确认：本协议条款是处理双方权利义务的当然约定依据，除非违反国家强制性法律，否则始终有效。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      二、用户应当
+    </view>
+    <view class="itemInfo">
+      1、自行配备上网的所需设备，包括手机、电脑、调制解调器或其他必备上网装置等。
+    </view>
+    <view class="itemInfo">
+      2、自行负担个人上网所支付的电话费用、网络费用等。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      三、用户不得发布下列违法信息
+    </view>
+    <view class="itemInfo">
+      1、反对宪法所确定的基本原则的；
+    </view>
+    <view class="itemInfo">
+      2、危害国家安全，泄露国家秘密，颠覆国家政权，破坏 国家统一的；
+    </view>
+    <view class="itemInfo">
+      3、损害国家荣誉和利益的；
+    </view>
+    <view class="itemInfo">
+      4、煽动民族仇恨、民族歧视，破坏民族团结的；
+    </view>
+    <view class="itemInfo">
+      5、破坏国家宗教政策，宣扬邪教和封建迷信的；
+    </view>
+    <view class="itemInfo">
+      6、散布谣言，扰乱社会秩序，破坏社会稳定的；
+    </view>
+    <view class="itemInfo">
+      7、散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆 犯罪的；
+    </view>
+    <view class="itemInfo">
+      8、侮辱或者诽谤他人，侵害他人合法权益的；
+    </view>
+    <view class="itemInfo">
+      9、含有法律、行政法规禁止的其他内容的。
+    </view>
+    <view class="itemInfo">
+      未经绝味鸭脖同意，用户不得在网站发布任何形式的广告，一经发现，绝味鸭脖有权采取暂停或关闭用户账号等措施。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      四、用户个人资料
+    </view>
+    <view class="itemInfo">
+      用户同意：
+    </view>
+    <view class="itemInfo">
+      提供及时、详尽及准确的个人资料；
+    </view>
+    <view class="itemInfo">
+      同意接收来自绝味鸭脖的信息，包括电子邮件、短信、微信等；
+    </view>
+    <view class="itemInfo">
+      不断更新注册资料，符合及时、详尽准确的要求；
+    </view>
+    <view class="itemInfo">
+      绝味鸭脖不公开用户的姓名、地址、电子邮箱和笔名，但符合本协议第七条第4款的情况除外。
+    </view>
+    <view class="itemInfo">
+      如果用户提供的资料包含有不正确的信息，绝味鸭脖保留结束用户使用绝味鸭脖信息服务资格的权利。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      五、信息接收
+    </view>
+    <view class="itemInfo">
+      用户在注册/登录时应当填写正确、有效的手机号码等信息，且注册/登录完成后同意接收绝味鸭脖发往用户的各类信息(包括短信、微信等)。如用户未及时从自己的手机接受短信或因用户手机或程序问题使信息无法正常接收或阅读的，在此情况下，应当视为绝味鸭脖成功发送且用户已经接收到相关的信息。
+    </view>
+    <view class="itemTitle">
+      六、服务条款的修改
+    </view>
+    <view class="itemInfo">
+      绝味鸭脖有权在必要时修改服务条款，用户应当在登录绝味鸭脖系统时，阅读服务条款的内容。如果不同意所改动的内容，用户可以主动退出。如果用户继续登录或接受绝味鸭脖的提供的服务或继续购买产品，则视为接受服务条款的变动。
+    </view>
+    <view class="itemTitle">
+      七、用户隐私制度
+    </view>
+    <view class="itemInfo">
+      1、绝味鸭脖不会向任何人出售或出借用户的个人信息，除非事先得到用户的许可或符合本协议的约定的情形。
+    </view>
+    <view class="itemInfo">
+      2、绝味鸭脖亦不允许任何第三方以任何手段收集、编辑、出售或者无偿传播用户的个人信息。任何用户如从事上述活动，一经发现，绝味鸭脖有权立即终止与该用户的服务协议，查封其账号。
+    </view>
+    <view class="itemInfo">
+      3、为服务用户的目的，绝味鸭脖可能通过使用用户的个人信息，向用户提供服务，包括但不限于向用户发出商品和服务信息，或者与绝味鸭脖合作伙伴共享信息以便他们向用户发送有关其商品和服务的信息。
+    </view>
+    <view class="itemInfo">
+      4、信息披露；用户的个人信息将在下述情况下部分或全部被披露：
+    </view>
+    <view class="itemInfo">
+      (a)经用户同意，向第三方披露；
+    </view>
+    <view class="itemInfo">
+     (b)如用户提起投诉，被投诉人不包括或不止包括绝味鸭脖，应其他被投诉人要求，向被投诉人披露，以便双方处理可能的权利纠纷；
+    </view>
+    <view class="itemInfo">
+     (c)根据法律的有关规定，或者行政或司法机构的要求，向第三方或者行政、司法机构披露；
+    </view>
+    <view class="itemInfo">
+      (d)如果用户出现违反中国有关法律或者网站政策的情况，需要向第三方披露；
+    </view>
+    <view class="itemInfo">
+      (e)为提供用户所要求的商品和服务，而必须和第三方分享用户的个人信息；
+    </view>
+    <view class="itemInfo">
+      (f)其它绝味鸭脖根据法律或者本协议的约定认为合适的披露。
+    </view>
+    <view class="itemTitle">
+      八、用户的帐号和安全性
+    </view>
+    <view class="itemInfo">
+      为保证交易安全，用户应当妥善保管用户名和验证码等信息，并对他人使用用户的设备设定限制。如果因为用户的疏忽或管理不善，造成用户名和验证码外泄、被盗等后果的，用户应当自行承担由此所引发的一切损失。
+    </view>
+    <view class="itemInfo">
+      用户不得将用户注册/登录的用户名转让、出借或出租给任何第三方使用，用户应当为在该用户名下所发生的一切行为负责。如果用户是在监护人参与下完成用户注册/登录的不具备完全民事权利能力或完全民事行为能力的自然人，用户及用户的监护人同意为在该用户名下所发生的一切行为负责。
+    </view>
+  </view>
+</view>

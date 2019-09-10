@@ -1,1 +1,17 @@
 /* pages/login/protocol/protocol.wxss */
+.topTitle{
+  text-align: center;
+  font-size: 36rpx;
+  color: #333;
+  padding: 46rpx 0 0;
+  font-weight: bold
+}
+
+.rules{
+  padding: 40rpx 32rpx;
+}
+.itemTitle{
+  font-size: 32rpx;
+  font-weight: 600;
+  margin: 20rpx 0 10rpx;
+}
