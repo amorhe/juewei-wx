@@ -1,6 +1,6 @@
 // pages/order/list/list.js
-import { imageUrl, imageUrl2 } from '../../common/js/baseUrl'
-import { ajax, log, contact, isloginFn, guide, getSid } from '../../common/js/li-ajax'
+import { imageUrl } from '../../common/js/baseUrl'
+import { ajax, log, contact, isloginFn, guide, egetSid } from '../../common/js/utils'
 import { reqUserPoint } from '../../common/js/vip'
 Page({
 
@@ -404,5 +404,14 @@ Page({
       });
     }
   }
-
+  // <!--未登录提示 -->
+  // <modal show="{{loginOpened}}" showClose="{{ false }}">
+  // <view class="modalInfo">
+  // 用户未登录
+  // </view>
+  // <view slot="footer" class="footerButton">
+  // <view class="modalButton confirm " onTap="onModalClose">取消</view>
+  // <view class="modalButton cancel " onTap="isloginFn">登录</view>
+  // </view>
+  // </modal>
 })

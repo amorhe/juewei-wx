@@ -95,17 +95,17 @@ export const navigateTo = ({
 
   // 方法调用
   if (query) {
-    let queryArr = Object.entries(query);
     url = url + '?';
-    queryArr.forEach(([key, value]) => {
+    Object.entries(query).forEach(([key, value]) => {
       url += `${ key }=${ value }&`
     });
     url = url.slice(0, -1);
   }
   console.log('navigateToUrl',url);
   return wx.navigateTo({
-  url,
-  success,
-  fail,
-  complete,
-})};
+    url,
+    success,
+    fail,
+    complete,
+  })
+};

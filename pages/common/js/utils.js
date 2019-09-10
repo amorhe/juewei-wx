@@ -177,3 +177,47 @@ export const event_getUserPoint = async () => {
   }
 };
 
+/**
+ * @function 展示 MODAL 弹窗
+ * @param {String} title
+ * @param {String} content
+ * @param {Boolean} showCancel
+ * @param {String} cancelText
+ * @param {String} cancelColor
+ * @param {String} confirmText
+ * @param {String} confirmColor
+ * @param {Function} confirm
+ * @param {Function} cancel
+ * @param {Function} fail
+ * @param {Function} complete
+ */
+export const MODAL = ({
+  title,
+  content,
+  showCancel = true,
+  cancelText = '取消',
+  cancelColor = '#999',
+  confirmText = '确定',
+  confirmColor = '#E60012',
+  confirm = () => {console.log('用户点击确定')},
+  cancel = () => {console.log('用户点击取消')},
+  fail = () => {},
+  complete = () => {}
+}) => wx.showModal({
+  title,
+  content,
+  showCancel,
+  cancelText,
+  cancelColor,
+  confirmText,
+  confirmColor,
+  success (res) {
+    if (res.confirm) {
+      confirm()
+    } else if (res.cancel) {
+      cancel()
+    }
+  },
+  fail,
+  complete
+});
