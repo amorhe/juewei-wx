@@ -71,7 +71,6 @@ Component({
       if ('/' + _url === url) {
         return
       }
-      app.globalData.isSelf = false;
       redirectTo({
         url
       })
