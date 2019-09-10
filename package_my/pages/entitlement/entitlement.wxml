@@ -1,2 +1,27 @@
-<!--package_my/pages/entitlement/entitlement.wxml-->
-<text>package_my/pages/entitlement/entitlement.wxml</text>
+<view class="entitlement">
+  <view class="cardView">
+    <image class="membercard" src="{{imageUrl}}jwdcard.png" />
+  </view>
+  <view class="entInfo">
+    <view class="vipTitle">会员专享权益</view>
+    <block wx:for="{{list}}" wx:key="unique">
+      <view class="entListItem">
+        <view class="iconView">
+          <image class="iconClass" src="{{ item.icon }}"/>
+        </view>
+        <view class="ItemInfo">
+          <view class="ItemTitle">{{ item.title }}</view>
+          <view class="ItemText">{{ item.info }}</view>
+        </view>  
+      </view> 
+    </block>
+    <view class="entListItem">
+      <view class="iconView">
+      </view>
+      <view class="ItemInfo">
+        <view class="ItemTitle">更多权益敬请期待～</view>
+        <view class="ItemText"></view>
+      </view>  
+    </view> 
+  </view>
+</view>

@@ -9,6 +9,7 @@ import {
 import {
   upformId
 } from '../../common/js/time'
+import { navigateTo } from '../../common/js/router.js'
 let log = console.log
 var app = getApp()
 Page({
@@ -113,24 +114,10 @@ Page({
       }
     });
   },
-  // 取本地缓存_sid
-  getSid() {
-    return new Promise((resolve, reject) => {
-      wx.getStorage({
-        key: '_sid', // 缓存数据的key
-        success: (res) => {
-          resolve(res)
-        },
-        fail: err => {
-          reject(err)
-        }
-      });
-    })
-  },
   // 获取用户信息
   async getUserInfos() {
     var that = this
-    let _sid = await this.getSid()
+    let _sid = wxGet('_sid');
     let res = await getuserInfo(_sid.data || '')
     if (res.code == 30106) {
       this.setData({
@@ -146,37 +133,31 @@ Page({
   isloginFn() {
     if (this.data.userInfo.user_id) {
       if (this.data.userInfo.hasOwnProperty('head_img')) {
-        wx.navigateTo({
+        navigateTo({
           url: '/package_my/pages/mycenter/mycenter?img=' + this.data.userInfo.head_img + '&name=' + this.data.userInfo.nick_name
         });
       }
     } else {
-      wx.navigateTo({
+      navigateTo({
         url: '/pages/login/auth/auth'
       });
     }
   },
   // 跳转页面
   toUrl(e) {
-    wx.navigateTo({
+    navigateTo({
       url: e.currentTarget.dataset.url
     });
     // if (this.data.userInfo.user_id) {
     //   var url = e.currentTarget.dataset.url
-    //   wx.navigateTo({
+    //   navigateTo({
     //     url: url
     //   });
     // } else {
-    //   wx.navigateTo({
+    //   navigateTo({
     //     url: '/pages/login/auth/auth',
     //   });
     // }
-  },
-  // 打客服电话
-  makePhoneCall() {
-    wx.makePhoneCall({
-      phoneNumber: '4009995917'
-    });
   },
   // 上传模版消息
   onSubmit(e) {

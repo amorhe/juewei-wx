@@ -1,2 +1,44 @@
-<!--package_vip/pages/pointlist/pointlist.wxml-->
-<text>package_vip/pages/pointlist/pointlist.wxml</text>
+<view class="header-title-s" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
+</view>
+<view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
+<view class="body_bg" style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + (userPoint.freeze_point?200: 180)}}rpx"></view>
+<view class="pointlistTop" style="top:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + 74}}rpx" onTap="hideToast">
+  <view class="pittopItema">
+    <view>当前积分：
+      <text class="n">{{userPoint.points || 0}}</text>
+    </view>
+    <view class="pitrule" onTap="toUrl" data-url='/package_vip/pages/pointlist/rules/rules'>积分规则</view>
+  </view>
+  <view class="pittopItemb" a:if="{{userPoint.freeze_point}}">
+    <view class="pittopItembinfo">冻结积分：{{userPoint.freeze_point}}</view>
+    <image class="imgicon" src="{{ imageUrl }}explain.png" catchTap="showToast" />
+    <view class="toast" a:if="{{toast}}">订单积分24小时后解冻，冻结期间不能使用。</view>
+  </view>
+</view>
+<view class="pitInfo" a:if="{{list.length && finish}}">
+  <view class="listItem {{item.point_is_del == 2?'freeze':''}}" data-point_id="{{item.point_id}}" a:for="{{list}}">
+    <view>
+      <view>{{item.point_content}}</view>
+      <view class="itemTime">{{item.point_ctime}}</view>
+    </view>
+    <view class="itemcount">{{item.point_type == 1 ? '+' : '-'}}{{item.point_num}}</view>
+  </view>
+  <view class="bottomview">
+    <view class="bottomprompt">仅显示最近三个月的积分明细</view>
+    <view class="bottomBorder"></view>
+  </view>
+</view>
+<view class="no-good" a:if="{{list.length==0 && finish}}">
+  <image mode="scaleToFill" src="{{imageUrl}}bg_point.png" />
+  <view>暂无积分</view>
+</view>
+<!--未登录提示 -->
+<i-modal visible="{{loginOpened}}" show-ok="{{ false }}" show-cancel="false">
+  <view class="modalInfo">
+    用户未登录
+  </view>
+  <view slot="footer" class="footerButton">
+    <view class="modalButton confirm " onTap="onModalClose">取消</view>
+    <view class="modalButton cancel " onTap="isloginFn">登录</view>
+  </view>
+</i-modal>

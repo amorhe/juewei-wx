@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 7,
 			"list": [
 				{
 					"id": -1,
@@ -92,6 +92,20 @@
 					"id": -1,
 					"name": "登录",
 					"pathName": "pages/login/auth/auth",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "到店自提协议",
+					"pathName": "pages/home/orderform/agreement/agreement",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "优惠券使用说明",
+					"pathName": "package_my/pages/coupon/explain/explain",
 					"scene": null
 				}
 			]

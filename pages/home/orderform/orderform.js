@@ -151,11 +151,12 @@ Page({
     if (app.globalData.type == 2) {
       const shop_id = wxGet('shop_id');
       const phone = wxGet('phone');
-      let ott = (wxGet('txPos').longitude, wxGet('txPos').latitude);
+      let lng = wxGet('txPos').longitude;
+      let lat = wxGet('txPos').latitude;
       let location_s = tx_decrypt(self.location[0], self.location[1]);
       let arr = [{
-          longitude: ott.lng,
-          latitude: ott.lat,
+          longitude: lng,
+          latitude: lat,
           iconPath: `${imageUrl}position_map1.png`,
           width: 20,
           height: 20,

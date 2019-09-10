@@ -1,1 +1,412 @@
-/* package_my/pages/myaddress/addaddress/addaddress.wxss */
+.wait-pay {
+  width: 750rpx;
+  height: 50rpx;
+  background: rgba(255, 241, 240, 1);
+  text-align: center;
+  line-height: 50rpx;
+}
+
+.wait-pay-title {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(230, 0, 18, 1);
+}
+
+.wait-pay-time {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: rgba(230, 0, 18, 1);
+}
+
+.address {
+  background: white;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 32rpx;
+}
+
+.address-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+}
+
+.arrow {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.p-good, .store {
+  padding: 24rpx 32rpx;
+  background: white;
+  border-radius: 20rpx;
+}
+
+.store {
+  margin-bottom: 20rpx;
+}
+
+.p-detail {
+  display: flex;
+  padding: 0 0 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.p-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.p-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+}
+
+.p-price {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: rgba(230, 0, 18, 1);
+}
+
+.p-img {
+  width: 110rpx;
+  height: 112rpx;
+  border: 1px solid #eee;
+  margin-right: 32rpx;
+}
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-title {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+
+.order-num {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.total {
+  text-align: right;
+  padding: 30rpx 0 0;
+}
+
+.total-vip {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: rgba(230, 0, 18, 1);
+}
+
+.total-sm {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(230, 0, 18, 1);
+}
+
+.total-j {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: rgba(230, 0, 18, 1);
+}
+
+.wait-pay-btn {
+  width: 670rpx;
+  height: 96rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 0.3) 0%, rgba(230, 0, 18, 0.3) 100%);
+  border-radius: 47rpx;
+  font-size: 36rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 96rpx;
+  text-align: center;
+  margin: 100rpx auto 0;
+}
+
+.rmButton {
+  box-sizing: border-box;
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  margin-top: 40rpx;
+}
+
+.address-sm {
+  font-size: 26rpx;
+  color: rgba(153, 153, 153, 1);
+  font-weight: 400;
+}
+
+/* 地址 */
+
+.list {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #eee;
+  height: 88rpx;
+}
+
+.item {
+  width: 180rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+input {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  margin-right: 64rpx;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.post-address {
+  background: white;
+  padding: 26rpx 32rpx;
+}
+
+.post-name {
+  display: flex;
+  /* align-items: baseline; */
+}
+
+.post-name-left {
+  height: 72rpx;
+  line-height: 72rpx;
+  margin: 0;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.post-name-right {
+  height: 72rpx;
+  line-height: 72rpx;
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  margin-right: 64rpx;
+  background: transparent;
+  border-bottom: 1px solid #eee;
+  margin: 0;
+  /* padding: 0 0 20rpx; */
+}
+
+.post-sex {
+  display: flex;
+  padding: 20rpx 0;
+}
+
+.post-sex view, .label {
+  width: 120rpx;
+  height: 56rpx;
+  border-radius: 28rpx;
+  border: 1px solid rgba(204, 204, 204, 1);
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(204, 204, 204, 1);
+  line-height: 56rpx;
+  text-align: center;
+  margin-right: 30rpx;
+}
+
+.post-sex-active, .label-active {
+  border-color: #e60012 !important;
+  color: #e60012 !important;
+}
+
+.real-address {
+  flex: 1;
+}
+
+/* 选择地址 */
+
+.pop-wrap {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 750rpx;
+  height: 200000rpx;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.pop-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 20rpx 0;
+  background: #fff;
+}
+
+.pop-top text {
+  font-size: 28rpx;
+  font-weight: 300;
+}
+
+.pop-top text.title {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.pop-top text.sure {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(230, 0, 18, 1);
+}
+
+.my-pop {
+  position: fixed;
+  bottom: 0;
+  width: 670rpx;
+  height: 500rpx;
+  background: #fff;
+  padding: 20rpx 40rpx;
+}
+
+.pick {
+  height: 380rpx;
+  width: 100%;
+}
+
+.selecter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 300;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 30rpx;
+  margin: auto;
+  width: 150rpx;
+  height: 1rpx;
+  background: #999;
+}
+
+.line.left {
+  left: 30rpx;
+}
+
+.line.right {
+  right: 30rpx;
+}
+
+/* 门店 */
+
+.shop {
+  background: white;
+  padding: 32rpx 32rpx 0;
+}
+
+.shop-search {
+  display: flex;
+  align-items: center;
+  width: 620rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  border-radius: 32rpx;
+  padding: 0 32rpx;
+  background: #eee;
+}
+
+.search-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+
+.shop-ul {
+  padding: 28rpx 0 0;
+}
+
+.shop-item {
+  display: flex;
+  padding: 24rpx 0;
+  border-bottom: 1px solid #eee;
+}
+
+.shop-detail {
+  flex: 1;
+}
+
+.shop-detail-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.shop-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+}
+
+.shop-distance {
+  display: flex;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #e60012;
+}
+
+.shop-address {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+
+.shop-position {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+
+/* 弹框 */
+
+.modalInfo {
+  padding: 50rpx 0;
+}
+
+.footerButton {
+  display: flex;
+}
+
+.modalButton {
+  flex: 1;
+  text-align: center;
+}
+
+.am-modal-footer {
+  background: rgba(0, 0, 0, 0);
+}
+
+.confirm {
+  color: #999;
+}
+
+.cancel {
+  color: #e60012;
+}

@@ -1,2 +1,63 @@
-<!--package_my/pages/coupon/explain/explain.wxml-->
-<text>package_my/pages/coupon/explain/explain.wxml</text>
+<!--<view>
+  优惠券使用说明</view> -->
+<!--<view class="explain"><block a:for="{{ list }}"><view class="itemTwo" a:if="{{ item.type==1 }}"><view class="itemTwoRight"><view>
+          {{ item.info }}</view></view><image mode="scaleToFill" class="imgIcon" src="{{imageUrl+'goods_add.png'}}"/></view><view class="itemOne" a:else><image mode="scaleToFill" class="imgIcon" src="{{imageUrl+'goods_add.png'}}"/><view class="itemOneRight"><view a:if="{{ item.info }}">
+          {{ item.info }}</view><view a:if="{{ item.info1 }}">
+          {{ item.info1 }}</view><view a:if="{{ item.info2 }}">
+          {{ item.info2 }}</view></view></view></block></view> -->
+<view class="rules">
+  <view>
+    <view class="itemTitle">
+      1.  如何获取优惠券？
+    </view>
+    <view class="itemInfo">
+      新用户注册成功，即可通过新用户链接注册获得对应优惠券；
+    </view>
+    <view class="itemInfo">
+      新用户注册成功后，30天内首单数字支付后，可获得对应优惠券礼包；
+    </view>
+    <view class="itemInfo">
+     参与不定时优惠券活动，可得相应优惠券。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      2.  优惠券的使用条件？
+    </view>
+    <view class="itemInfo">
+     可根据优惠券对应提示查看相应的使用条件（全场通用、外卖专享、门店专享）、使用时间。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      3.  下单的时候使用了优惠券，但是后来订单取消了，优惠券还会返还吗？
+    </view>
+    <view class="itemInfo">
+     会返还的，订单取消后优惠券会自动返还到您的账户，查询返还情况可进入绝味公众号或生活号登陆个人中心进行查看。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      4.  优惠券能找零兑换吗？
+    </view>
+    <view class="itemInfo">
+      优惠券不找零不兑换，一切优惠活动最终解释权归绝味鸭脖所有。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      5.	优惠券的使用类型？
+    </view>
+    <view class="itemInfo">
+     优惠券分为满减券和立减券。
+    </view>
+  </view>
+  <view>
+    <view class="itemTitle">
+      6.	优惠券的使用限制？
+    </view>
+    <view class="itemInfo">
+     优惠券每笔订单只能使用一张优惠券，优惠券与满赠活动、免运费活动是绝对互斥的（不可同时参加），优惠券与单品折扣、组合套餐是相对互斥（不叠加，可同享：例如 订单金额满50元减免配送费，当订单中存在单品折扣时，需要去除单品折扣后，剩余订单进行计算是否满足满免配送费）。
+    </view>
+  </view>
+</view>

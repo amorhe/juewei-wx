@@ -1,2 +1,94 @@
-<!--package_my/pages/myaddress/addaddress/addaddress.wxml-->
-<text>package_my/pages/myaddress/addaddress/addaddress.wxml</text>
+<view>
+  <!-- 地址 -->
+  <view class="post-address">
+    <view class="post-name">
+      <view class="item post-name-left">联系人</view>
+      <input class="post-name-right" placeholder="姓名" maxlength="12" controlled="{{true}}" type="text" value="{{name}}" data-key="name" onInput="handelChange" />
+    </view>
+    <view class="post-sex">
+      <text class="item"></text>
+      <view bindtap="changeSex" class="{{sex==1?'post-sex-active':''}}">女士</view>
+      <view bindtap="changeSex" class="{{sex==0?'post-sex-active':''}}">先生</view>
+    </view>
+    <view class="list">
+      <view class="item">电话</view>
+      <input placeholder="手机号码" type="numberpad" value="{{phone}}" maxlength="11" data-key="phone" bindinput="handelChange" />
+    </view>
+    <view class="select-address list" bindtap="chooseLocation">
+      <view class="item">地址</view>
+      <image class="arrow" mode="scaleToFill" src="{{imageUrl}}position_map1.png" />
+      <view class="real-address">{{map_address}}</view>
+      <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+    </view>
+    <view class="list">
+      <view class="item">门牌号</view>
+      <input placeholder="例：6号楼606室" controlled="{{true}}" value="{{addressdetail}}" data-key="addressdetail" onInput="handelChange" />
+      <image class="arrow" mode="scaleToFill" bindtap="closeFN" src="{{imageUrl}}close3.png" />
+    </view>
+    <view class="list">
+      <view class="item">标签</view>
+      <view bindtap="changeCur" wx:for="{{labelList}}" data-type="{{ item.type }}" class="label {{item.type==curLabel?'label-active':''}}" wx:key="unique"> {{item.name}}</view>
+    </view>
+    <view bindtap="Addaddress" class="wait-pay-btn" style="background:{{(name==='' && phone==='' && addressdetail==='') ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)':'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
+      保存地址
+    </view>
+
+    <view class="wait-pay-btn rmButton" bindtap="modalShowFN" wx:if="{{ addressId!='' }}">
+      删除地址
+    </view>
+  </view>
+</view>
+
+
+<!-- 退出提示 -->
+<!-- <modal show="{{modalShow}}" showClose="{{ false }}">
+  <view class="modalInfo">
+    是否删除该配送地址
+  </view>
+  <view slot="footer" class="footerButton">
+    <view class="modalButton confirm" bindtap="modalhideFN">取消</view>
+    <view class="modalButton cancel" bindtap="rmaddress">确定</view>
+  </view>
+</modal> -->
+
+
+<!-- 退出提示 -->
+<!-- <modal show="{{modalidShow}}" showClose="{{ false }}">
+  <view class="modalInfo">
+    您所选的地址周边无可配送门店，请换个地址试试吧！
+  </view>
+  <view slot="footer" class="footerButton">
+    <view class="modalButton cancel" bindtap="modalidShoFN">确定</view>
+  </view>
+</modal> -->
+
+
+
+<!-- 选择地址 -->
+<view class="pop-wrap" wx:if="{{selectAddress}}">
+  <view class="my-pop">
+    <view class="pop-top">
+      <text></text>
+      <text class="title">城市</text>
+      <text class="sure" bindtap="hideSelectAddress">确定</text>
+    </view>
+
+    <picker-view class="pick" indicator-style="height: 40px;" onChange="changeAddress">
+      <picker-view-column>
+        <view class="selecter" wx:for="{{ provinceList }}" wx:key="unique">
+          <view class="value">{{item.name}}</view>
+        </view>
+      </picker-view-column>
+      <picker-view-column>
+        <view class="selecter" wx:for="{{cityList}}" wx:key="unique">
+          <view class="value">{{item.name}}</view>
+        </view>
+      </picker-view-column>
+      <picker-view-column>
+        <view class="selecter" wx:for="{{countryList}}" wx:key="unique">
+          <view class="value">{{item.name}}</view>
+        </view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+</view>

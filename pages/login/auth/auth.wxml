@@ -9,7 +9,7 @@
   <view class="bindButton {{ getCode?'':'bgColor' }}" bindtap="getcodeFn">获取短信验证码</view>
   <form bindsubmit="onSubmit" bindreset="onReset" report-submit="true">
     <button form-type="submit" class="bindButton" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
-      <image class="alipayIcon" src="{{imageUrl}}weixin2.png"/>
+      <image class="alipayIcon" src="{{imageUrl}}weixin.png"/>
       <text>微信快捷登录</text>
     </button>
   </form>

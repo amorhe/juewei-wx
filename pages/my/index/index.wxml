@@ -14,13 +14,10 @@
       </view>
     </view>
   </form>
-  <view class="vipView">
-    <view class="flexNormal" data-url="/package_my/pages/membercard/membercard" bindtap="toUrl">
-      <form style="width:100%" class="flexNormal" onSubmit="onSubmit" onReset="onReset" report-submit="true">
-        <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:622rpx;height:100rpx" form-type="submit"></button>
+  <view class="vipView" data-url="/package_my/pages/membercard/membercard" bindtap="toUrl">
+    <view class="flexNormal">
         <view>会员卡</view>
         <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}qrcode.png" />
-      </form>
     </view>
     <image class="vipcardPng" mode="scaleToFill" src="{{imageUrl}}position_tit.png" />
     <image class="qingxie" mode="scaleToFill" src="{{imageUrl}}my_cardbg.png" />
@@ -81,7 +78,9 @@
     </form>
   </view>
 </view>
-<navigator url="/package_my/pages/onlineservice/onlineservice"><image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png"/></navigator>
+<navigator url="/package_my/pages/onlineservice/onlineservice">
+  <image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png" />
+</navigator>
 <!-- <web-view src="https://test-wap.juewei.com/m/shop/onlineservice.html?uid=用户id&name=昵称&mobile=手机号">
   <image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png" />
 </web-view> -->

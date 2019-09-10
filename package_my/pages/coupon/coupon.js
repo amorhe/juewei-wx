@@ -46,8 +46,8 @@ Page({
    */
   onLoad: function(options) {
     const _sid = wxGet('_sid');
-    this.getCouponsList(_sid);
-    this.getExchangeCode(_sid);
+    this.funGetCouponsList(_sid);
+    this.funGetExchangeCode(_sid);
     let phone = wxGet('phone');
     this.setData({
       phone
@@ -103,42 +103,41 @@ Page({
 
   },
   // 优惠券
-  getCouponsList(_sid) {
+  funGetCouponsList(_sid) {
     couponsList(_sid, 'use').then((res) => {
-      const {
-        tabs
-      } = this.data
-      tabs[0].title = `优惠券${res.DATA.use.length}张`;
-      res.DATA.use.forEach(item => {
-        item.start_time = formatTime(item.start_time, 'Y-M-D');
-        item.end_time = formatTime(item.end_time, 'Y-M-D');
-        item.toggleRule = false
-      })
-      this.setData({
-        couponList: res.DATA.use,
-        tabs
-      })
+      if (res.code == "A100"){
+        const { tabs } = this.data
+        tabs[0].title = `优惠券${res.DATA.use.length}张`;
+        res.DATA.use.forEach(item => {
+          item.start_time = formatTime(item.start_time, 'Y-M-D');
+          item.end_time = formatTime(item.end_time, 'Y-M-D');
+          item.toggleRule = false
+        })
+        this.setData({
+          couponList: res.DATA.use,
+          tabs
+        })
+      }
     })
   },
   // 兑换码
-  getExchangeCode(_sid) {
+  funGetExchangeCode(_sid) {
     exchangeCode(_sid, 'use').then((res) => {
-      console.log(res)
-      const {
-        tabs
-      } = this.data
-      tabs[1].title = `兑换码${res.DATA.length}个`;
-      this.setData({
-        exchangeList: res.DATA,
-        tabs
-      })
+      if(res.code == "A100"){
+        const {
+          tabs
+        } = this.data;
+        tabs[1].title = `兑换码${res.DATA.length}个`;
+        this.setData({
+          exchangeList: res.DATA,
+          tabs
+        })
+      }
     })
   },
-  handleTabClick({
-    index
-  }) {
+  handleTabClick({ detail }) {
     this.setData({
-      activeTab: index,
+      activeTab: detail.key,
     });
   },
   // 兑换详情
@@ -159,10 +158,8 @@ Page({
    */
 
   showCode(e) {
-    let {
-      code
-    } = e.currentTarget.dataset
-    let _sid = getSid()
+    let { code } = e.currentTarget.dataset
+    let _sid = getSid();
     let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code
     this.setData({
       open2: true,
@@ -252,7 +249,7 @@ Page({
    * @function 展示规则
    */
 
-  toggleRule(e) {
+  evetoggleRule(e) {
     const {
       index
     } = e.currentTarget.dataset;

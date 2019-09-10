@@ -1,1 +1,35 @@
-/* package_my/pages/coupon/redeemCodeRecord/redeemCodeRecord.wxss */
+.redeemCode {
+  background: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16rpx;
+  min-height: 100vh
+}
+.redeemCode>view {
+  padding: 24rpx;
+  width: 686rpx;
+  height: 168rpx;
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+  justify-content: space-between
+}
+.codeSize {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 24rpx;
+}
+.redeemContent {
+  height: 110rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #ccc
+}
+.guoqi {
+  width: 140rpx;
+  height: 140rpx;
+}

@@ -1,2 +1,16 @@
-<!--package_my/pages/coupon/redeemCodeRecord/redeemCodeRecord.wxml-->
-<text>package_my/pages/coupon/redeemCodeRecord/redeemCodeRecord.wxml</text>
+<view class="redeemCode" wx:for="{{exchageArr}}" wx:key="unique" x:if="{{exchageArr.length>0}}">
+  <view>
+    <image class="codeSize" src="{{imageUrl2 + item.gift_img_url}}" /> 
+    <view class="redeemContent">
+      <view class="fontBold">{{item.gift_name}}</view> 
+      <view class="fontSmallGray">{{item.source==1?'活动赠品':'积分兑换'}}</view> 
+      <view class="fontTwentyTwo">有效时间 {{item.gift_use_time}}</view>
+    </view> 
+    <image class="guoqi" src="{{imageUrl}}overdue.png" />            
+  </view>
+</view>
+ <!-- 空状态 -->
+<view class="nullBox" style="height:85vh;padding-top:207rpx;box-sizing:border-box" wx:if="{{exchageArr.length==0}}">
+  <image class='nullImg' src="{{ imageUrl}}bg_coupon.png"/>
+  <text>暂无历史兑换码</text>
+</view>

@@ -25,7 +25,7 @@ export const bd_encrypt = (lng, lat) => {
 
 
 //百度坐标转腾讯（传入经度、纬度）
-export const tx_decrypt = (bd_lng, bd_lat) => {
+export const tx_decrypt = (lng, lat) => {
   let x_pi = 3.14159265358979324 * 3000.0 / 180.0;
 
   let x = lng - 0.0065;

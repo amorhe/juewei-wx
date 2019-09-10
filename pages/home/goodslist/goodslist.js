@@ -167,7 +167,6 @@ Page({
       type: app.globalData.type,
       shopTakeOut: {}
     })
-    console.log(app.globalData.isSelf)
     if (app.globalData.isSelf != undefined) {
       this.setData({
         isSelf: true

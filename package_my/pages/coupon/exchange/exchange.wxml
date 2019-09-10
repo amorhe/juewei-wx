@@ -1,2 +1,5 @@
-<!--package_my/pages/coupon/exchange/exchange.wxml-->
-<text>package_my/pages/coupon/exchange/exchange.wxml</text>
+<view class="exchangeBox">
+  <image src="{{imageUrl}}bg_exchange.png"/>
+  <input type="text" placeholder="请输入优惠券兑换码" auto-focus placeholder-class="colorGray" value="{{code}}" bindinput="writeCode" />
+  <button class="{{code.length>0?'hasCode redeemBtn':'noneCode redeemBtn'}}" type="default" hover-class="none" bindtap="eveexchangeBtn">立即兑换</button>
+</view>

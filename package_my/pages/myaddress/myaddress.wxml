@@ -1,2 +1,25 @@
-<!--package_my/pages/myaddress/myaddress.wxml-->
-<text>package_my/pages/myaddress/myaddress.wxml</text>
+<view class="addressList">
+  <image class='nullImg' wx:if="{{ list.length==0 }}" src="{{ imageUrl }}bg_address.png"/>
+  <view class="listItme" wx:for="{{ list }}" bindtap="back" data-i="{{index}}" wx:key="unique">
+    <view class="tiemleft">
+      <view class="lefttop">
+        <view wx:if="{{ item.tag==1 }}" class="spanClass spajiaColor">家</view>
+        <view wx:if="{{ item.tag==2 }}" class="spanClass spangsColor">公司</view>
+        <view wx:if="{{ item.tag==3 }}" class="spanClass spanColor">学校</view>
+        <text class="addClass">{{item.user_address_map_addr}} {{item.user_address_address}}</text>
+      </view>
+      <view class="itemInfo">
+        {{ item.user_address_name }}
+        <text>{{ item.user_address_sex==0?'（先生）':'（女士）' }}</text>{{item.user_address_phone}}
+      </view>
+    </view>
+    <view class="tiemright" catchTap="toUrl" data-item="{{ item }}">
+      <image class='editicon' src="{{imageUrl}}edit.png"/>
+    </view>
+  </view>
+</view>
+<view class="bottomView" bindtap="addressFn" wx:if="{{list.length<=10}}">
+  <image class='addIcon' src="{{imageUrl}}add.png"/>
+  <text>新增收货地址</text>
+</view>
+<view style="height:60rpx"></view>

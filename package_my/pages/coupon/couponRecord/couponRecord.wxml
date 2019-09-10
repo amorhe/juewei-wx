@@ -1,2 +1,44 @@
-<!--package_my/pages/coupon/couponRecord/couponRecord.wxml-->
-<text>package_my/pages/coupon/couponRecord/couponRecord.wxml</text>
+<view class="couponUl" wx:if="{{couponList.length>0}}">
+  <view class="couponLi" wx:for="{{couponList}}" wx:key="unique" style="{{item.toggleRule?'max-height:900rpx':'max-height:254rpx'}}">
+    <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="widthFix" />
+    <view>
+      <view class="couponNumber">
+        <text>{{item.money /100}}</text>
+        <text>元</text>
+      </view>
+      <view class="couponMiddle">
+        <view>{{item.way==1?'外卖专享券':item.way==2?'门店专享券':'全场通享券'}}</view>
+        <view class="fontTwentyTwo">{{item.start_time}}至{{item.end_time}}</view>
+        <view class="fontTwentyTwo">{{item.full_money>0?"'满'+ item.full_money / 100 + '可用'":'立减券'}}</view>
+      </view>
+      <image class="guoqi" src="{{imageUrl + (item.use_order_id != 0 ? 'used' : 'overdue')}}.png" />
+    </view>
+    <view>
+      <view class="whiteCircleLeft"></view>
+      <view class="dashLine"></view>
+      <view class="whiteCircleRight"></view>
+    </view>
+
+    <view>
+      <view data-index="{{index}}" bindtap="toggleRule" style="position:relative;z-index:1;display:flex;align-item:center;padding-bottom:20rpx">
+        <text class="fontTwentyTwo">更多使用规则</text>
+        <image class="arrow_down_icon" src="{{imageUrl}}arrow_down1.png" style="transform:rotate({{item.toggleRule?0:-180}}deg);transition:all .3s" />
+      </view>
+    </view>
+    <view class="rule" style="color:#ccc">
+      <view wx:if="{{item.gift_usage_rule}}">1、{{item.gift_usage_rule}}</view>
+      <view wx:if="{{!item.gift_usage_rule}}">1、该优惠券仅限部分门店使用。</view>
+      <view>2、可与平台活动同享，不可与门店线下活动同享使用。</view>
+      <view>3、优惠券不可叠加使用。</view>
+      <view>4、同一会员账户，每天最多使用两张优惠券。</view>
+      <view>5、每个订单仅限使用一张优惠券。</view>
+      <view>6、满足同一微信号、同一手机号码、同一身份证号码和同一手机设备中的任意一个条件者，即视为同一用户。</view>
+      <view>7、若您对本活动规则有任何疑问，绝味鸭脖将会在法律允许的范围内对本活动规则给与必要的说明和解释，联系绝味鸭脖全国在线闪电客服400-999-5917</view>
+    </view>
+  </view>
+
+</view>
+<view class="nostatus" wx:if="{{couponList.length== 0}}">
+  <image class='nullImg' src="{{ imageUrl }}bg_coupon.png" />
+  <text class="colorNine">暂无历史优惠券</text>
+</view>

@@ -29,7 +29,7 @@
   padding: 42rpx 32rpx;
   box-sizing: border-box;
   color: #fff;
-  align-items: flex-start
+  align-items: flex-start;
 }
 .vipcardPng {
   position: absolute;

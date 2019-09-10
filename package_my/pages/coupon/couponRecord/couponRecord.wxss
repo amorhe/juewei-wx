@@ -1,1 +1,140 @@
-/* package_my/pages/coupon/couponRecord/couponRecord.wxss */
+@import '../coupon.wxss';
+.listAll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f5f5;
+  min-height: 100vh
+}
+.listItem {
+  margin-top: 16rpx;
+  width:686rpx;
+  height:264rpx;
+  background:rgba(255,255,255,1);
+  position: relative;
+  overflow: hidden
+}
+.quan {
+  width: 287rpx;
+  height: 334rpx;
+  position: absolute;
+  left: 0;
+  top: 0
+}
+
+.couponUl {
+  padding: 16rpx 32rpx;
+  background: #F5F5F5;
+}
+.couponLi {
+  width:686rpx;
+  /* height:264rpx; */
+  background:#fff;
+  border-radius: 10rpx;
+  padding: 28rpx 24rpx 0 32rpx;
+  box-sizing: border-box;
+  margin-bottom: 16rpx;
+  position: relative;
+  overflow: hidden;
+  color: #CCCCCC
+}
+.couponLi>view:nth-child(1),.couponLi>view:nth-child(3) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.couponNumber {
+  color: #CCCCCC
+}
+.couponNumber>text:nth-child(1) {
+  font-size: 120rpx;
+  font-weight: 600
+}
+.couponMiddle {
+  /* width: 154rpx; */
+  display: flex;
+  flex-direction: column;
+  color: #ccc
+}
+.couponMiddle>view {
+  margin-bottom: 8rpx
+}
+.useBtn {
+  width:140rpx;
+  height:64rpx;
+  background:linear-gradient(135deg,rgba(253,235,113,1) 0%,rgba(248,216,0,1) 100%);
+  border-radius:32rpx;
+  text-align: center;
+  line-height: 64rpx;
+  color: #E60012
+}
+.couponLi>view:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+.whiteCircleLeft {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  margin-left: -48rpx;
+}
+.whiteCircleRight {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  margin-right: -36rpx;
+}
+.dashLine {
+  width: 638rpx;
+  border-bottom: 1px #CCCCCC dashed
+}
+.arrow_down_icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 8rpx;
+}
+.couponLi>view:nth-child(3) {
+  height: 50rpx;
+}
+.qr {
+  width: 40rpx;
+  height: 40rpx;
+}
+.cardMiddle {
+  margin-top: 24rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #999;
+  padding-bottom: 208rpx;
+}
+.grayLine {
+  margin: 0 8rpx;
+}
+.couponPosition {
+  position: fixed;
+  width: 750rpx;
+  height: 96rpx;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  z-index: 10;
+  font-size: 34rpx;
+}
+.couponPosition>image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.couponContainer {
+  background: #F5F5F5;
+  min-height: 100vh
+}
+.guoqi {
+  width: 140rpx;
+  height: 140rpx;
+}

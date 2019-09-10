@@ -1,1 +1,88 @@
 /* package_my/pages/myaddress/myaddress.wxss */
+.addressList {
+  padding: 32rpx;
+  padding-bottom: 50rpx;
+}
+
+.listItme {
+  padding: 16rpx 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spanClass {
+  min-width: 64rpx;
+  height: 32rpx;
+  font-size: 22rpx;
+  text-align: center;
+  line-height: 32rpx;
+  border-radius: 5rpx;
+  margin-right: 10rpx;
+}
+
+.spanColor {
+  color: rgba(143, 215, 95, 1);
+  background: rgba(143, 215, 95, 0.3)
+}
+
+.spangsColor {
+  color: rgba(16, 142, 233, 1);
+  background: rgba(16, 142, 233, 0.3)
+}
+
+.spajiaColor {
+  color: rgba(230, 0, 18, 1);
+  background: rgba(230, 0, 18, 0.3)
+}
+
+.lefttop {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.itemInfo {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.editicon {
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.bottomView {
+  background: #fff;
+  width: 100%;
+  padding: 20rpx 0;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #eee;
+}
+
+.addIcon {
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.nullImg {
+  display: block;
+  margin: 295rpx auto;
+  width: 320rpx;
+  height: 320rpx;
+}
+
+.addClass {
+  display: block;
+  width: 500rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,1 +1,50 @@
-/* package_my/pages/entitlement/entitlement.wxss */
+.entitlement {
+  padding: 32rpx 32rpx 0;
+}
+
+.cardView {
+  position: relative;
+}
+
+.membercard {
+  display: block;
+  margin-bottom: 32rpx;
+  width: 100%;
+  height: 376rpx;
+}
+
+.vipTitle {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+}
+
+.iconView {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 16rpx;
+  margin-top: 16rpx;
+}
+
+.iconClass {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.entListItem {
+  display: flex;
+  margin-top: 32rpx;
+}
+
+.ItemTitle {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  margin-bottom: 8rpx;
+}
+
+.ItemText {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
