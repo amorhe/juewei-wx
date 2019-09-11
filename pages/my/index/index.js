@@ -131,33 +131,33 @@ Page({
   },
   // 判断是否去登录
   isloginFn() {
-    if (this.data.userInfo.user_id) {
-      if (this.data.userInfo.hasOwnProperty('head_img')) {
-        navigateTo({
-          url: '/package_my/pages/mycenter/mycenter?img=' + this.data.userInfo.head_img + '&name=' + this.data.userInfo.nick_name
-        });
-      }
-    } else {
-      navigateTo({
-        url: '/pages/login/auth/auth'
-      });
-    }
+    navigateTo({
+      url: '/package_my/pages/mycenter/mycenter?img=' + this.data.userInfo.head_img + '&name=' + this.data.userInfo.nick_name
+    });
+    // if (this.data.userInfo.user_id) {
+    //   if (this.data.userInfo.hasOwnProperty('head_img')) {
+    //     navigateTo({
+    //       url: '/package_my/pages/mycenter/mycenter?img=' + this.data.userInfo.head_img + '&name=' + this.data.userInfo.nick_name
+    //     });
+    //   }
+    // } else {
+    //   navigateTo({
+    //     url: '/pages/login/auth/auth'
+    //   });
+    // }
   },
   // 跳转页面
   toUrl(e) {
-    navigateTo({
-      url: e.currentTarget.dataset.url
-    });
-    // if (this.data.userInfo.user_id) {
-    //   var url = e.currentTarget.dataset.url
-    //   navigateTo({
-    //     url: url
-    //   });
-    // } else {
-    //   navigateTo({
-    //     url: '/pages/login/auth/auth',
-    //   });
-    // }
+    if (this.data.userInfo.user_id) {
+      var url = e.currentTarget.dataset.url
+      navigateTo({
+        url: url
+      });
+    } else {
+      navigateTo({
+        url: '/pages/login/auth/auth',
+      });
+    }
   },
   // 上传模版消息
   onSubmit(e) {

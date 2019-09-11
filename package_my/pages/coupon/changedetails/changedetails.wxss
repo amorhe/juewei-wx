@@ -1,1 +1,129 @@
-/* package_my/pages/coupon/changedetails/changedetails.wxss */
+.activity_box {
+  width: 100vw;
+  min-height: 100vh;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+}
+
+.activity_wrap {
+  width: 686rpx;
+  background: #fff;
+  margin-top: 16rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
+  margin-bottom: 100rpx;
+}
+
+.goodsView {
+  padding-bottom: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.goodsView>view {
+  display: flex;
+  align-items: center;
+}
+
+.goodsImage {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+}
+
+.goodsInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 110rpx;
+}
+
+.contactBtn {
+  width: 140rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  border: 1rpx solid rgba(153, 153, 153, 1);
+  justify-content: center;
+  font-size: 26rpx;
+  align-items: center;
+  display: flex;
+}
+
+.redeemCodeDetail {
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.redeemCodeDetail>view>text {
+  margin-right: 32rpx;
+}
+
+.middleShow {
+  padding: 24rpx 0 8rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.middleShow>view {
+  margin-bottom: 16rpx;
+}
+
+.typeFont {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.orderInfos {
+  height: 168rpx;
+  padding: 24rpx 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.orderInfos>view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orderInfos>view>view:nth-child(1) {
+  color: #878383;
+}
+
+.orderInfos>view>view:nth-child(2) {
+  display: flex;
+  align-items: center;
+}
+
+.copy {
+  width: 80rpx;
+  height: 52rpx;
+  border-radius: 26rpx;
+  border: 1px solid rgba(153, 153, 153, 1);
+  text-align: center;
+  line-height: 52rpx;
+  margin-left: 16rpx;
+  font-size: 26rpx;
+}
+
+.copyScore {
+  width: 80rpx;
+  height: 52rpx;
+  border-radius: 26rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  text-align: center;
+  line-height: 52rpx;
+  margin-left: 16rpx;
+  color: #fff;
+  font-size: 26rpx;
+}

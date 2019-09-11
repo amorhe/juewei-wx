@@ -1,10 +1,3 @@
-<!--<view>
-  优惠券使用说明</view> -->
-<!--<view class="explain"><block a:for="{{ list }}"><view class="itemTwo" a:if="{{ item.type==1 }}"><view class="itemTwoRight"><view>
-          {{ item.info }}</view></view><image mode="scaleToFill" class="imgIcon" src="{{imageUrl+'goods_add.png'}}"/></view><view class="itemOne" a:else><image mode="scaleToFill" class="imgIcon" src="{{imageUrl+'goods_add.png'}}"/><view class="itemOneRight"><view a:if="{{ item.info }}">
-          {{ item.info }}</view><view a:if="{{ item.info1 }}">
-          {{ item.info1 }}</view><view a:if="{{ item.info2 }}">
-          {{ item.info2 }}</view></view></view></block></view> -->
 <view class="rules">
   <view>
     <view class="itemTitle">

@@ -1,4 +1,7 @@
-// package_my/pages/onlineservice/onlineservice.js
+import {
+  serviceUrl,
+  wxGet
+} from '../../../pages/common/js/baseUrl'
 Page({
 
   /**
@@ -12,8 +15,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let userid = '',
+      nickname = '',
+      phone = '';
+    userid = (wxGet('user_id') || '');
+    nickname = (wxGet('nick_name') || '');
+    phone = (wxGet('phone') || '');
     this.setData({
-      src: 'https://test-wap.juewei.com/m/shop/onlineservice.html?uid=用户id&name=昵称&mobile=手机号'
+      src: serviceUrl + '/m/shop/onlineservice.html?uid=' + userid + '&name=' + nickname + '&mobile=' + phone + '&channel=微信小程序'
     })
   },
 

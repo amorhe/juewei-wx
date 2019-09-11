@@ -88,7 +88,7 @@
   height: 110rpx;
   position: fixed;
   right: 24rpx;
-  bottom: 56rpx;
+  bottom: 156rpx;
   z-index: 100;
 }
 .customerService>image {

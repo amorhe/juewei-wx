@@ -1,1 +1,173 @@
-/* package_my/pages/mycenter/mycenter.wxss */
+.usercenter {
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid #eee;
+  padding: 26rpx 0;
+}
+
+.Itemlabel {
+  flex-shrink: 0;
+}
+
+.ItimInfo {
+  flex: 1;
+  overflow: hidden;
+  text-align: right;
+}
+
+.arrow_right {
+  width: 32rpx;
+  height: 32rpx;
+  flex-shrink: 0;
+}
+
+.SignOutButton {
+  width: 670rpx;
+  height: 94rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 0.5) 0%, rgba(230, 0, 18, 0.5) 100%);
+  border-radius: 47rpx;
+  text-align: center;
+  line-height: 94rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  font-size: 36rpx;
+  margin: 175rpx auto 0;
+}
+
+.userImg {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background: #eee;
+}
+
+.onPopupInfo {
+  background: #cdcdd1;
+}
+
+.InfoItem {
+  width: 100%;
+  text-align: center;
+  background: #fff;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.ItemBorder {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.ItemMargin {
+  margin-top: 12rpx;
+}
+
+/* 弹框 */
+
+.modalInfo {
+  padding: 50rpx 0;
+}
+
+.footerButton {
+  display: flex;
+}
+
+.modalButton {
+  flex: 1;
+  text-align: center;
+}
+
+.am-modal-footer {
+  background: rgba(0, 0, 0, 0);
+}
+
+.confirm {
+  color: #999;
+}
+
+.cancel {
+  color: #e60012;
+}
+
+/* 选择地址 */
+
+.pop-wrap {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 750rpx;
+  height: 200000rpx;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.pop-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 20rpx 0;
+  background: #fff;
+}
+
+.pop-top text {
+  font-size: 28rpx;
+  font-weight: 300;
+}
+
+.pop-top text.title {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.pop-top text.sure {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(230, 0, 18, 1);
+}
+
+.my-pop {
+  position: fixed;
+  bottom: 0;
+  width: 670rpx;
+  height: 500rpx;
+  background: #fff;
+  padding: 20rpx 40rpx;
+}
+
+.pick {
+  height: 380rpx;
+  width: 100%;
+}
+
+.selecter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 300;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 30rpx;
+  margin: auto;
+  width: 150rpx;
+  height: 1rpx;
+  background: #999;
+}
+
+.line.left {
+  left: 30rpx;
+}
+
+.line.right {
+  right: 30rpx;
+}

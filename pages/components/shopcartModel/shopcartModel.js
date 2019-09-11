@@ -253,12 +253,12 @@ Component({
         return
       }
       // 未登录
-      // if (wxGet('user_id') == undefined) {
-      //   navigateTo({
-      //     url: '/pages/login/auth/auth'
-      //   })
-      //   return
-      // }
+      if (wxGet('user_id') == undefined) {
+        navigateTo({
+          url: '/pages/login/auth/auth'
+        })
+        return
+      }
       let goodsList = wxGet('goodsList');
       let
         num = 0, // 购物车总数量

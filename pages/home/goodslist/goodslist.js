@@ -64,7 +64,6 @@ Page({
     isOpen: '', //门店是否营业
     shopTakeOut: {}, // 附近门店列表
     shopGoodsList: [], // 门店商品列表
-    companyGoodsList: [],
     typeList1: {
       "折扣": "zk",
       "套餐": "zhsm",
@@ -702,19 +701,6 @@ Page({
                 app.globalData.scrollTop = e[0][0].top
               }
             })
-            // let h = 0,
-            //   heightArr = [];
-            // wx.createSelectorQuery().selectAll('.sc_right_item').boundingClientRect().exec((rect) => {
-            //   if (rect[0].length > 0) {
-            //     rect[0].forEach((item) => {
-            //       h += item.height;
-            //       heightArr.push(h);
-            //     })
-            //     app.globalData.heightArr = heightArr;
-            //   } else {
-            //     app.globalData.heightArr = []
-            //   }
-            // });
           })
           wxSet('shopGoods', goodsArr)
         },

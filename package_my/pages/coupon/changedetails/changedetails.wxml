@@ -1,2 +1,61 @@
-<!--package_my/pages/coupon/changedetails/changedetails.wxml-->
-<text>package_my/pages/coupon/changedetails/changedetails.wxml</text>
+<view class="activity_box">
+  <view class="activity_wrap">
+    <view class="goodsView borderBottom">
+      <view>
+        <image class="goodsImage" src="{{imageUrl2 + exchangeObj.gift_img_url}}" />
+        <view class="goodsInfo">
+          <text class="fontBold">{{exchangeObj.gift_name}}</text>
+          <text>{{source == 1?'活动赠品':'积分兑换'}}</text>
+        </view>
+      </view>
+      <navigator url="/package_my/pages/onlineservice/onlineservice" class="contactBtn">联系客服</navigator>
+      <!-- <view class="contactBtn" catchtap="contact">联系客服</view> -->
+    </view>
+    <view class="redeemCodeDetail borderBottom">
+      <view>
+        <text>兑换码:</text>
+        <text>{{exchangeObj.gift_code}}</text>
+      </view>
+      <view class="copyScore" bindtap="eveHandleCopy" data-code="{{exchangeObj.gift_code}}">复制</view>
+    </view>
+    <view class="middleShow borderBottom">
+      <view>
+        <view class="typeFont">商品有效期时间</view>
+        <view>{{exchangeObj.order_ctime.split(' ')[0]}}至{{exchangeObj.gift_use_time.split(' ')[0]}}</view>
+      </view>
+      <view>
+        <view class="typeFont">兑换次数</view>
+        <view>每人一天1次</view>
+      </view>
+      <view>
+        <view class="typeFont">使用范围</view>
+        <rich-text nodes="{{exchangeObj.gift_application_store}}"></rich-text>
+      </view>
+      <view>
+        <view class="typeFont">兑换说明</view>
+        <rich-text nodes="{{exchangeObj.gift_exchange_process}}"></rich-text>
+      </view>
+      <view>
+        <view class="typeFont">商品详情</view>
+        <rich-text nodes="{{exchangeObj.gift_desciption}}"></rich-text>
+      </view>
+      <view>
+        <view class="typeFont">客服电话</view>
+        <rich-text nodes="{{exchangeObj.gift_service_telephone}}"></rich-text>
+      </view>
+    </view>
+    <view class="orderInfos">
+      <view>
+        <view>订单编号</view>
+        <view>
+          <text>{{exchangeObj.order_id}}</text>
+          <view class="copy" bindtap="eveHandleCopy" data-code="{{exchangeObj.order_id}}">复制</view>
+        </view>
+      </view>
+      <view>
+        <view>订单时间</view>
+        <view>{{exchangeObj.order_ctime}}</view>
+      </view>
+    </view>
+  </view>
+</view>

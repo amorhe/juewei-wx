@@ -51,7 +51,7 @@
           </view>
         </view>
       </view>
-      <navigator url='/package_my/pages/nearshop/nearshop'>
+      <navigator url='/package_my/pages/nearshop/nearshop' hover-class="none">
         <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
         <view>
           <view>
@@ -73,17 +73,7 @@
     </view>
   </view>
 </view>
-<navigator url="/package_my/pages/onlineservice/onlineservice">
+<navigator url="/package_my/pages/onlineservice/onlineservice" hover-class="none">
   <image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png" />
 </navigator>
-<!-- <web-view src="https://test-wap.juewei.com/m/shop/onlineservice.html?uid=用户id&name=昵称&mobile=手机号">
-  <image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png" />
-</web-view> -->
-<!-- <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
-  <view class="customerService" bindtap="makePhoneCall">
-    <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:110rpx;height:110rpx" form-type="submit"></button>
-    <image mode="scaleToFill" src="{{imageUrl}}service.png"/>
-  </view>
-</form> -->
-
 <tab-bar cur="{{ 3 }}"></tab-bar>
