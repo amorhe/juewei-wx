@@ -256,6 +256,7 @@ Page({
  async getPhoneNumber(e) {
     console.log(e);
     const {encryptedData,iv} = e.detail;
+    const _sid = wxGet('_sid');
     await decryptPhone({encryptedData,iv,_sid});
     // wx.getPhoneNumber({
     //   success: (res) => {
