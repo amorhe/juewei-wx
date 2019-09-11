@@ -1,6 +1,6 @@
 <!--pages/components/tab-bar.wxml-->
 <view class="my-tabs">
-    <button  class="my-tab button" wx:for="{{ tabBar.list }}" wx:key="text" data-url="{{ item.pagePath }}" open-type="{{ item.openType }}"  bindtap="buttonClick">
+    <button  class="my-tab button" wx:for="{{ tabBar.list }}" wx:key="text" data-url="{{ item.pagePath }}" bindgetuserinfo="bindgetuserinfo" open-type="{{ item.openType }}"  bindtap="buttonClick">
         <image class="image" src="{{ cur === index ? item.selectedIconPath : item.iconPath }}"/>
         <text class="text" style="color: {{ cur === index ? tabBar.selectedColor : '' }}">{{ item.text }}</text>
     </button>

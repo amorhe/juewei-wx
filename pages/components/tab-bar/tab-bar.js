@@ -2,7 +2,10 @@
 import {
   redirectTo
 } from "../../common/js/router";
-var app = getApp();
+
+import { wxGet, wxSet } from "../../common/js/baseUrl";
+
+const app = getApp();
 Component({
   options: {
     styleIsolation: 'apply-shared'
@@ -26,12 +29,12 @@ Component({
       "selectedColor": "#E60012",
       "backgroundColor": "#ffffff",
       "list": [{
-          "pagePath": "/pages/home/goodslist/goodslist",
-          "iconPath": "/pages/common/img/menu_home1.png",
-          "selectedIconPath": "/pages/common/img/menu_home2.png",
-          "text": "首页",
-          "openType": "",
-        },
+        "pagePath": "/pages/home/goodslist/goodslist",
+        "iconPath": "/pages/common/img/menu_home1.png",
+        "selectedIconPath": "/pages/common/img/menu_home2.png",
+        "text": "首页",
+        "openType": "",
+      },
         {
           "pagePath": "/pages/vip/index/index",
           "iconPath": "/pages/common/img/menu_vip1.png",
@@ -68,12 +71,27 @@ Component({
       const pages = getCurrentPages(); //获取加载的页面
       const currentPage = pages[pages.length - 1]; //获取当前页面的对象
       const _url = currentPage.route; //当前页面url
+      if (url === '/pages/my/index/index') {
+        return;
+      }
       if ('/' + _url === url) {
-        return
+        return;
       }
       redirectTo({
         url
       })
+    },
+
+    bindgetuserinfo(e) {
+      console.log(e);
+      const { errMsg, userInfo } = e.detail;
+      if (errMsg === 'getUserInfo:ok') {
+        wxSet('userInfo', userInfo);
+        return redirectTo({
+          url: e.currentTarget.dataset.url
+        })
+      }
     }
+
   }
 });
