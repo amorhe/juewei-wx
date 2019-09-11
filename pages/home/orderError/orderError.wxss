@@ -1,1 +1,2 @@
 /* pages/home/orderError/orderError.wxss */
+@import '../orderfinish/orderfinish.wxss';

@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "选择地址",
+  "backgroundColor": "#fff",
+  "usingComponents": {
+    "confirm": "../../../components/confirm/confirm"
+  }
 }

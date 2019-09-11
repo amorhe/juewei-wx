@@ -1,2 +1,7 @@
-<!--pages/home/orderError/orderError.wxml-->
-<text>pages/home/orderError/orderError.wxml</text>
+<view class="orderfinishView">
+  <view>
+    <image class="successIcon" mode="scaleToFill" src="{{imageUrl}}fail.png"/>
+    <view class="fontThirtyFour">支付失败</view>
+  </view>
+  <button size="default" class="checkOrder" hover-class="none" bindtap="eveContinue">继续购买</button>
+</view>

@@ -12,7 +12,7 @@ import {
   cur_dateTime
 } from '../../../pages/common/js/time'
 import {
-  gd_decrypt
+  tx_decrypt
 } from '../../../pages/common/js/map'
 import {
   navigateTo,
@@ -42,11 +42,10 @@ Page({
    */
   onLoad(options) {
     this.nearShop(wxGet('lng'), wxGet('lat'));
-    let lng = wxGet('txPos').longitude;
-    let lat = wxGet('txPos').latitude;
+    let ott = tx_decrypt(wxGet('lng'), wxGet('lat'))
     this.setData({
-      longitude: lng,
-      latitude: lat,
+      longitude: ott.lng,
+      latitude: ott.lat,
       selfshop: false,
       city: app.globalData.position.city || app.globalData.city
     })
@@ -79,7 +78,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    // app.globalData.isSelf = false;
     app.globalData.shopIng = null;
   },
 

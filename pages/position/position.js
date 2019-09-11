@@ -56,7 +56,6 @@ Page({
       success(ott) {
         wx.hideLoading();
         let res = {};
-        wxSet('txPos', ott)
         // 发起regeocoding检索请求 
         BMap.regeocoding({
           success(data) {

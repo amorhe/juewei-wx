@@ -1,1 +1,177 @@
 /* pages/home/orderfinish/orderfinish.wxss */
+
+.orderfinishView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orderfinishView>view:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+}
+
+.successIcon {
+  width: 136rpx;
+  height: 136rpx;
+  margin-bottom: 17rpx;
+}
+
+.checkOrder {
+  width: 670rpx;
+  height: 96rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 47rpx;
+  color: #fff;
+  font-size: 36rpx;
+  margin-bottom: 80rpx;
+}
+
+.adView {
+  width: 686rpx;
+}
+
+.adView>image {
+  width: 100%;
+  height: 260rpx;
+  margin-bottom: 16rpx;
+  border-radius: 10rpx;
+}
+
+.am-modal-body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  max-width: 1000rpx;
+}
+
+.am-modal {
+  width: auto;
+  background: transparent;
+}
+
+.wrap {
+  width: 600rpx;
+  height: 757rpx;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  border-top: 1px solid transparent;
+}
+
+.wrap>.ul {
+  max-height: 500rpx;
+  width: 560rpx;
+  overflow: scroll;
+  margin: 220rpx auto 0;
+}
+
+.wrap>.ul>.li {
+  width: 540rpx;
+  height: 144rpx;
+  background-size: 560rpx 144rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10rpx;
+  margin-top: 20rpx;
+}
+
+.left {
+  margin-top: 20rpx;
+}
+
+.num {
+  font-size: 70rpx;
+  font-weight: 600;
+  color: #e60012;
+}
+
+.price {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #e60012;
+}
+
+.con {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(204, 204, 204, 1);
+}
+
+.li-btn {
+  width: 150rpx;
+  height: 64rpx;
+  background: rgba(230, 0, 18, 1);
+  border-radius: 32rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 64rpx;
+}
+
+.type {
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.time {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(204, 204, 204, 1);
+  margin-top: 15rpx;
+}
+
+.giftsBox {
+  width: 600rpx;
+  height: 396rpx;
+  border-radius: 30rpx;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+}
+
+.giftsBox>image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.giftsContent {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  padding: 40rpx 30rpx 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal_titles {
+  font-size: 30rpx;
+}
+
+.confirmBtn {
+  width: 100%;
+  color: #e60012;
+  background: #ffe100;
+  outline: none;
+  border: none;
+}
+
+.colorY {
+  color: #ffe100;
+}

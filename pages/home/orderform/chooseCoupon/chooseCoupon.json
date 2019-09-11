@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "选择优惠券",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    
+  }
 }

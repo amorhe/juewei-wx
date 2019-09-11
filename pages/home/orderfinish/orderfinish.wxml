@@ -1,2 +1,50 @@
-<!--pages/home/orderfinish/orderfinish.wxml-->
-<text>pages/home/orderfinish/orderfinish.wxml</text>
+<view class="orderfinishView">
+  <view>
+    <image class="successIcon" mode="scaleToFill" src="{{imageUrl}}success.png" />
+    <view class="fontThirtyFour">支付成功</view>
+  </view>
+  <button size="default" class="checkOrder" hover-class="none" onTap="eveCheckOrder">查看订单</button>
+  <view class="adView"></view>
+</view>
+<!-- 百元 礼包券 -->
+<modal show="{{newUserShow}}" showClose="{{ false }}">
+  <view class="wrap" style="background-image:url({{imageUrl}}redBg.png)" onTap="eveClose">
+    <view class="ul" catchTap="">
+      <view class="li" style="background-image:url({{imageUrl}}couponBg.png)" wx:for="{{new_user}}" catchTap="eveToTakeIn" wx:key="unique">
+        <view class="left">
+          <view>
+            <text class="num">{{item.money/100}}</text>
+            <text class="price">元</text>
+          </view>
+          <view class="con">满{{item.full_money/100}}元可用</view>
+        </view>
+        <view class="center">
+          <view class="type">外卖专享</view>
+          <view class="time">{{item.end_time}}到期</view>
+        </view>
+        <view class="li-btn">
+          立即使用
+        </view>
+      </view>
+    </view>
+  </view>
+</modal>
+<modal show="{{gifts}}" showClose="{{false}}">
+  <view class="giftsBox">
+    <image mode="scaleToFill" src="{{imageUrl}}lachine.png" />
+    <view class="giftsContent">
+      <view class="modal_titles">下单成功</view>
+      <view wx:if="{{gift_type==1}}">优惠券会在
+        <span>订单完成后3小时</span>发至您的
+        <br>下单账户请在我的</br>
+        <text class="colorY">“我的卡券-优惠券”</text>里查看
+      </view>
+      <view wx:if="{{gift_type==2}}">兑换码会在
+        <span>订单完成后3小时</span>发至您的
+        <br>下单账户请在我的</br>
+        <text class="colorY">“我的卡券-兑换码”</text>里查看
+      </view>
+      <button class="confirmBtn" onTap="confirmTap" hover-class="none">确定</button>
+    </view>
+  </view>
+</modal>

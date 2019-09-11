@@ -1,1 +1,65 @@
-/* pages/home/orderform/selectaddress/selectaddress.wxss */
+page {
+  background: #fff;
+}
+
+.addressView {
+  min-height: 100vh;
+}
+
+.addressBox {
+  border-bottom: 16rpx #f5f5f5 solid;
+}
+
+.radio-group>view {
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+}
+
+.receiverView {
+  margin-left: 16rpx;
+}
+
+.receiverView>view:nth-child(1) {
+  margin-bottom: 8rpx;
+}
+
+.noUseView {
+  border-top: 16rpx #f5f5f5 solid;
+  padding: 0 32rpx;
+}
+
+.viewTitle {
+  padding: 30rpx 0 14rpx;
+}
+
+.addressUl {
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.receives {
+  margin-left: 4rpx;
+}
+
+.radio-group>view:last-child, .addressUl:last-child {
+  border: none;
+}
+
+.addView {
+  width: 750rpx;
+  height: 96rpx;
+  background: rgba(255, 255, 255, 1);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

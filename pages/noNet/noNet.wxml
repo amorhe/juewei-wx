@@ -1,2 +1,5 @@
-<!--pages/noNet/noNet.wxml-->
-<text>pages/noNet/noNet.wxml</text>
+<view class="boxView">
+  <image class="position_icon" mode="scaleToFill" src="{{imageUrl}}bg_nowifi.png"/>
+  <text class="text">网络异常</text>
+  <button class="reload" hover-class="none" bindtap="eveReloadTap">重新加载</button>
+</view>

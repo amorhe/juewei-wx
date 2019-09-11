@@ -1,2 +1,44 @@
-<!--pages/home/orderform/selectaddress/selectaddress.wxml-->
-<text>pages/home/orderform/selectaddress/selectaddress.wxml</text>
+<view class="addressView">
+  <view wx:if="{{addressList.length>0}}" class="addressBox">
+    <radio-group class="radio-group" name="lib">
+      <view class="borderBottomSolid" wx:for="{{addressList}}" bindtap="eveChooseAddress" data-id="{{item.user_address_id}}" wx:key="unique">
+        <view class="flexSpecial">
+          <radio value="{{item.user_address_id}}" checked="{{item.is_default==1}}" color="#E60012" />
+          <view class="receiverView">
+            <view>{{item.user_address_map_addr + item.user_address_address}}</view>
+            <view class="fontSmallGray">{{item.user_address_name}} {{item.user_address_phone}}</view>
+          </view>
+        </view>
+        <image class="ImageFourty" catchtap="eveEditAddress" mode="scaleToFill" src="{{imageUrl}}edit.png" data-id="{{item.user_address_id}}" />
+      </view>
+    </radio-group>
+  </view>
+  <view class="noUseView" wx:if="{{ addressListNoUse.length>0 }}">
+    <view class="viewTitle">以下地址超出配送范围</view>
+    <view class="borderBottomSolid addressUl colorNine" wx:for="{{addressListNoUse}}" bindtap="eveChooseNewAddress" data-lng="{{item.lng}}" data-lat="{{item.lat}}" data-address="{{item.user_address_map_addr + item.user_address_address}}" wx:key="unique">
+      <view class="flexSpecial">
+        <view class="receives">
+          <view>{{item.user_address_map_addr + item.user_address_address}}</view>
+          <view class="fontSmallGray">{{item.user_address_name}} {{item.user_address_phone}}</view>
+        </view>
+      </view>
+      <image class="ImageFourty" catchtap="editAddress" mode="scaleToFill" src="{{imageUrl}}edit.png" data-id="{{item.user_address_id}}" />
+    </view>
+  </view>
+
+
+  <view class="nostatus" wx:if="{{addressList.length== 0 && addressListNoUse.length==0}}">
+    <image class='nullImg' src="{{ imageUrl }}bg_address.png" />
+    <text>暂无配送地址</text>
+  </view>
+  <!-- 添加新地址 -->
+  <view style="height:96rpx;"></view>
+  <navigator url="/package_my/pages/myaddress/addaddress/addaddress?order=1" class="addView">
+    <image class="ImageFourty" mode="scaleToFill" src="{{imageUrl}}add.png" />
+    <view class="fontThirtySix marginLSixteen">新增收货地址</view>
+  </navigator>
+</view>
+
+
+<!-- 弹框 -->
+<confirm title="超出配送范围" content="该地址与商家距离较远，是否使用该地址为定位地址" mask="{{mask}}" modalShow="{{modalShow}}" onCounterPlusOne="onCounterPlusOne" />

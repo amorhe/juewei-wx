@@ -1,2 +1,27 @@
-<!--pages/home/switchshop/switchshop.wxml-->
-<text>pages/home/switchshop/switchshop.wxml</text>
+<view class="mapView">
+  <map id="map" style="width:100%;height:100%" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markersArray}}" scale="12"></map>
+  <cover-view class="shopBox">
+    <cover-view class="shopWrap" wx:for="{{shopList}}" wx:key="unique">
+      <cover-view class="jing" wx:if="{{item.jingxuan}}">
+        <cover-view>精</cover-view>
+        <cover-view>选</cover-view>
+      </cover-view>
+      <cover-image wx:if="{{!item.jingxuan}}" class="shopIcon" src="{{imageUrl}}order2.png" />
+      <cover-view class="shopMiddle">
+        <cover-view>
+          <cover-view>
+            <cover-view class="shopTxt">
+              <cover-view>{{item.title}}</cover-view>
+            </cover-view>
+            <cover-view class="fontTwentyTwo">在售商品：{{item.goods_num}}</cover-view>
+          </cover-view>
+          <cover-view>
+            <cover-view class="fontSmallGray preWrap">{{item.address}}</cover-view>
+            <cover-view class="fontSmallGray">距离{{item.distance}}米</cover-view>
+            <cover-view bindtap="eveChooseshop" class="tapCoverView" data-id="{{item.shop_id}}" data-index="{{index}}" data-shopIng="{{item}}"></cover-view>
+          </cover-view>
+        </cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+</view>
