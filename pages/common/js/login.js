@@ -2,7 +2,7 @@ import { ajax } from './ajax';
 const loginPage = {
   loginByAuth: '/juewei-api/wxmini/LoginByAuth',  //用户自动登录
   loginByPhone: '/juewei-api/wxmini/Login', // 手机号登录
-  decryptPhone: '/juewei-api/wxmini/DecryptPhone', // 解密手机
+  decryptPhone: '/juewei-api/wxmini/decryptPhone', // 解密手机
 
 
 

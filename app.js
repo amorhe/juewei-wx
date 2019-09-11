@@ -1,23 +1,32 @@
 //app.js
-import {loginByAuth} from "./pages/common/js/login";
-import { wxSet } from "./pages/common/js/baseUrl";
+import {
+  loginByAuth
+} from "./pages/common/js/login";
+import {
+  wxSet
+} from "./pages/common/js/baseUrl";
 
 App({
-  onLaunch: function () {
-    // wx.setStorage({
-    //   key: '_sid',
-    //   data: '756sv2hhbd2nkd4hhdtt3s1sur',
-    // })
-    // 登录
-    wx.login({
-      success: async res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-       let r =   await loginByAuth(res.code);
-        if (r.code === 0) {
-          wxSet('_sid',r.data.data._sid)
-        }
+  onLaunch: function() {
+    wx.checkSession({
+      success() {
+        //session_key 未过期，并且在本生命周期一直有效
+      },
+      fail() {
+        // session_key 已经失效，需要重新执行登录流程
+        // 登录
+        wx.login({
+          success: async res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId
+            let r = await loginByAuth(res.code);
+            if (r.code === 0) {
+              wxSet('_sid', r.data.data._sid)
+            }
+          }
+        })
       }
     })
+
     // 获取用户信息
     // wx.getSetting({
     //   success: ott => {
@@ -52,7 +61,7 @@ App({
       longitude: null,
       latitude: null
     },
-    position:{
+    position: {
       longitude: null,
       latitude: null
     },
@@ -61,14 +70,14 @@ App({
     userInfo: null, //拉去支付宝用户信息
     authCode: null, //静默授权
     phone: null, //获取手机号权限
-    addressInfo: null,   //切换定位地址
-    gifts: null,    //加购商品
-    type: 1,     // 默认外卖
-    coupon_code: null,   //优惠券
+    addressInfo: null, //切换定位地址
+    gifts: null, //加购商品
+    type: 1, // 默认外卖
+    coupon_code: null, //优惠券
     scrollTop: null,
-    province:null,
-    city:null,
-    chooseBool:false,
-    isSelf:false
+    province: null,
+    city: null,
+    chooseBool: false,
+    isSelf: false
   }
 })

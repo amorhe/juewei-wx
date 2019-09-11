@@ -215,13 +215,13 @@ Page({
         _sid: _sid
       })
     } else {
-      let code = '',
-        userInfo = {},
-        rawData = '',
-        signature = '',
-        encryptedData = '',
-        iv = '';
-      this.funLoginByAuthFn(this.data.phone, code, userInfo, rawData, signature, encryptedData, iv)
+      // let code = '',
+      //   userInfo = {},
+      //   rawData = '',
+      //   signature = '',
+      //   encryptedData = '',
+      //   iv = '';
+      // this.funLoginByAuthFn(this.data.phone, code, userInfo, rawData, signature, encryptedData, iv)
       // wx.authorize({
       //   scope: 'scope.userInfo',
       //   success: (res) => {
@@ -283,10 +283,7 @@ Page({
     // });
   },
   // 自动登录
-  funLoginByAuthFn(phone, code, userInfo, rawData, signature, encryptedData, iv) {
-    loginByAuth(phone, code, userInfo, rawData, signature, encryptedData, iv).then((res) => {
-      console.log(res)
-    })
+  funLoginByAuthFn() {
     // loginByAuth(ali_uid, phone, '', '').then((res) => {
     //   if (res.code == 0) {
     //     wxSet('_sid', res.data._sid)
