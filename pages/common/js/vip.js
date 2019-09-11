@@ -3,8 +3,8 @@ export default {
     url: '/mini/vip/wap/category/category',
     methods: 'POST',
   },
-  reqBanner: {  // 获取banner图
-    url: '/mini/vip/wap/banner/banner_list',
+  reqBanner: {  // --获取banner图
+    url: '/mini/wmvip/wap/banner/banner_list',
     methods: 'POST',
     loading: false
   },
