@@ -1,5 +1,5 @@
 import {
-  baseUrl
+  baseUrl, wxGet
 } from './baseUrl';
 export const ajax = (url, data = {}, method = "POST") => {
   let header;
@@ -12,6 +12,7 @@ export const ajax = (url, data = {}, method = "POST") => {
       'content-type': 'application/json'
     };
   }
+  data._sid = wxGet('_sid');
   let promise = new Promise(function(resolve, reject) {
     wx.request({
       url: baseUrl + url,

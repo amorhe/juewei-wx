@@ -2,6 +2,7 @@
 // var wxParse = require('../../../utils/wxParse/wxParse.js');
 
 import Request from "./li-ajax";
+
 export const log = console.log;
 
 /**
@@ -199,10 +200,16 @@ export const MODAL = ({
   cancelColor = '#999',
   confirmText = '确定',
   confirmColor = '#E60012',
-  confirm = () => {console.log('用户点击确定')},
-  cancel = () => {console.log('用户点击取消')},
-  fail = () => {},
-  complete = () => {}
+  confirm = () => {
+    console.log('用户点击确定')
+  },
+  cancel = () => {
+    console.log('用户点击取消')
+  },
+  fail = () => {
+  },
+  complete = () => {
+  }
 }) => wx.showModal({
   title,
   content,
@@ -211,7 +218,7 @@ export const MODAL = ({
   cancelColor,
   confirmText,
   confirmColor,
-  success (res) {
+  success(res) {
     if (res.confirm) {
       confirm()
     } else if (res.cancel) {
@@ -221,3 +228,13 @@ export const MODAL = ({
   fail,
   complete
 });
+
+/**
+ * @function 获取当前路由地址
+ * @returns   () => void
+ */
+export const getCurUrl = () => {
+  const pages = getCurrentPages(); //获取加载的页面
+  const currentPage = pages[pages.length - 1]; //获取当前页面的对象
+  return currentPage.route //当前页面url
+};

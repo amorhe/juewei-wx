@@ -6,8 +6,6 @@ import {
 } from '../../common/js/baseUrl'
 import {
   sendCode,
-  captcha,
-  loginByAliUid,
   loginByAuth,
   getuserInfo,
   decryptPhone
@@ -18,7 +16,8 @@ import {
 import {
   navigateTo
 } from '../../common/js/router.js'
-var app = getApp();
+const app = getApp();
+const _sid = wxGet('_sid');
 Page({
 
   /**
@@ -254,15 +253,17 @@ Page({
     }
   },
   // 授权获取用户信息
-  getPhoneNumber(res) {
-    var that = this
+ async getPhoneNumber(e) {
+    console.log(e);
+    const {encryptedData,iv} = e.detail;
+    await decryptPhone({encryptedData,iv,_sid});
     // wx.getPhoneNumber({
     //   success: (res) => {
     //     wx.showLoading({
     //       content: '加载中...',
     //       delay: 1000,
     //     });
-
+    //
     //     let userInfo = JSON.parse(res.response); // 以下方的报文格式解析两层 response
     //     var data = {
     //       response: userInfo.response
