@@ -120,8 +120,8 @@ Page({
     this.getcodeFn()
   },
   // 获取短信验证码
-  getcodeFn() {
-    var that = this;
+ async getcodeFn() {
+    const {getCode,phone,img_code} = this.data;
     if (/^1\d{10}$/.test(this.data.phone)) {
     } else {
       wx.showToast({
@@ -133,10 +133,10 @@ Page({
     wx.showLoading({
       title: '发送中...',
     });
-    if (this.data.getCode) {
-      var time = wxGet('time');
+    if (getCode) {
+      let time = wxGet('time');
       if (time) {
-        if (time != new Date().toLocaleDateString()) {
+        if (time !== new Date().toLocaleDateString()) {
           wx.removeStorage({
             key: 'time',
           });
@@ -146,8 +146,8 @@ Page({
         }
       }
 
-      var count = wxGet('count') || 0;
-      if (count == 0) {
+      let count = wxGet('count') || 0;
+      if (count === 0) {
         wxSet('time', new Date().toLocaleDateString())
       }
       if (count >= 5 && !this.data.modalOpened) {
@@ -158,13 +158,13 @@ Page({
         });
         return
       }
-      var data = {
-        _sid: this.data._sid,
-        phone: this.data.phone,
-        img_code: this.data.img_code
+      let data = {
+        _sid: wxGet('_sid'),
+        phone,
+        img_code
       };
-      let code = sendCode(data);
-      if (code.code == 0 && code.msg == 'OK') {
+      let res = await sendCode(data);
+      if (res.code === 0 && res.msg === 'OK') {
         wxSet('count', new Date().count - '' + 1);
         this.setData({
           modalOpened: false,
@@ -178,7 +178,7 @@ Page({
           url: '/pages/login/verifycode/verifycode?phone=' + data.phone
         });
       } else {
-        that.setData({
+        this.setData({
           imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
         });
         wx.hideLoading();

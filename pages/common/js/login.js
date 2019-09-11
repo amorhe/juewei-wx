@@ -5,11 +5,11 @@ const loginPage = {
   loginByAuth: '/juewei-api/wxmini/LoginByAuth',  //用户自动登录
   loginByPhone: '/juewei-api/wxmini/Login', // 手机号登录
   decryptPhone: '/juewei-api/wxmini/decryptPhone', // 解密手机
+  sendCode: '/juewei-api/wxmini/sendCode', // 获取短信验证码
 
 
   loginByAliUid: '/juewei-api/alimini/loginByAliUid',  //用户自动登录
   getuserInfo: '/juewei-api/alimini/getUserInfo',   //获取用户信息
-  sendCode: '/juewei-api/alimini/sendCode', // 获取短信验证码
   captcha: '/juewei-api/user/captcha', // 获取图片验证码
   LoginOut: '/juewei-api/alimini/LoginOut', // 退出登录
 };
