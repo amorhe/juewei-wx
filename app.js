@@ -1,59 +1,38 @@
 //app.js
 import {
-  loginByAuth
+   WX_LOGIN
 } from "./pages/common/js/login";
-import {
-  wxSet
-} from "./pages/common/js/baseUrl";
+import { wxSet } from "./pages/common/js/baseUrl";
 
 App({
   onLaunch: function() {
-    wx.checkSession({
-      success() {
-        //session_key 未过期，并且在本生命周期一直有效
-      },
-      fail() {
-        // session_key 已经失效，需要重新执行登录流程
-        // 登录
-        wx.login({
-          success: async res => {
-            // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            let r = await loginByAuth(res.code);
-            if (r.code === 0) {
-              wxSet('_sid', r.data.data._sid)
+    // 获取用户信息
+    wx.getSetting({
+      success: ott => {
+        if (ott.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              const {userInfo, ...rest} = res;
+              console.log(res);
+              wxSet('rest',rest);
+              wxSet('userInfo',userInfo);
+              console.log('获取到用户信息');
+              WX_LOGIN({...rest});
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              // if (this.userInfoReadyCallback) {
+              //   this.userInfoReadyCallback(res)
+              // }
             }
-          }
-        })
+          })
+        }else{
+          console.log('未获取到用户信息');
+          WX_LOGIN()
+        }
       }
     })
-
-    // 获取用户信息
-    // wx.getSetting({
-    //   success: ott => {
-    //     if (ott.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-    //       wx.getUserInfo({
-    //         success: res => {
-    //           // 可以将 res 发送给后台解码出 unionId
-    //           this.globalData.userInfo = res.userInfo
-    //
-    //           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //           // 所以此处加入 callback 以防止这种情况
-    //           if (this.userInfoReadyCallback) {
-    //             this.userInfoReadyCallback(res)
-    //           }
-    //         }
-    //       })
-    //     }else{
-    //       wx.authorize({
-    //         scope:'scope.userInfo',
-    //         success() {
-    //           wx.getUserInfo()
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
   },
   globalData: {
     query: null,
