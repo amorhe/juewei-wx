@@ -4,4 +4,9 @@ export default {
     methods: 'GET',
     loading: false
   },
+  orderDetail:{
+    url: '/juewei-api/order/detail',
+    methods: 'GET',
+    loading: false
+  }
 }

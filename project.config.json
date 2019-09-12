@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 9,
 			"list": [
 				{
 					"id": -1,
@@ -113,6 +113,13 @@
 					"id": 8,
 					"name": "输入验证码",
 					"pathName": "pages/login/verifycode/verifycode",
+					"query": "phone=18640460506",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "package_order/pages/orderdetail/orderdetail",
 					"query": "phone=18640460506",
 					"scene": null
 				}
