@@ -5,8 +5,7 @@
  * @time 16:45
  */
 
-import { baseUrl, wxSet, } from './baseUrl'
-import { event_getSid } from "./utils";
+import { baseUrl, wxGet, wxSet, } from './baseUrl'
 import VIP from './vip'
 import ORDER from './order'
 
@@ -19,12 +18,18 @@ import ORDER from './order'
  * @return Promise<any>
  */
 export const ajax = async ({ url, data = {}, method = 'POST', loading = true }) => {
+  for (let i in data){
+    if(!data[i] && data[i] !== 0){
+      console.log(data[i]);
+      delete data[i]
+    }
+  }
   if (loading) {
     wx.showLoading({
       title: '加载中...',
     });
   }
-  data._sid = await event_getSid();
+  data._sid = wxGet('_sid');
   return new Promise((resolve, reject) => {
     let task = wx.request({
       url: baseUrl + url,

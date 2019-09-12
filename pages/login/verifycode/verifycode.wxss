@@ -26,7 +26,7 @@ page{
   border-bottom:1px solid #eee;
   text-align: center;
   height: 50rpx;
-  line-height: 50rpx; 
+  line-height: 50rpx;
 }
 
 .top{
@@ -39,7 +39,7 @@ page{
   opacity: 0;
   top: 0;
   left: -100rpx;
-  width: 100vw;
+  width: 120vw;
   height: 50vh;
   border: none;
   color: transparent
@@ -68,7 +68,7 @@ page{
 }
 
 .inputFocus{
-  border-color:#333; 
+  border-color:#333;
 }
 
 .inputFocus::after{
@@ -109,6 +109,7 @@ page{
   font-size: 32rpx;
   background:linear-gradient(135deg,rgba(251,83,50,0.5) 0%,rgba(230,0,18,0.5) 100%);
   border-radius:40rpx;
+    text-align: center;
   margin: 24rpx 0;
 }
 
