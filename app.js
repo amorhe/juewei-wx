@@ -57,6 +57,7 @@ App({
     province: null,
     city: null,
     chooseBool: false,
-    isSelf: false
+    isSelf: false,
+    refresh: false, // 当前页面是否需要刷新
   }
-})
+});

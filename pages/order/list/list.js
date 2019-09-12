@@ -1,7 +1,9 @@
 // pages/order/list/list.js
-import { imageUrl } from '../../common/js/baseUrl'
-import { ajax, log, contact, isloginFn, guide, egetSid } from '../../common/js/utils'
-import { reqUserPoint } from '../../common/js/vip'
+import { imageUrl, wxGet } from '../../common/js/baseUrl'
+import { contact, guide, isloginFn, log, MODAL } from '../../common/js/utils'
+import Request from '../../common/js/li-ajax'
+
+const app = getApp();
 Page({
 
   /**
@@ -34,8 +36,6 @@ Page({
         loading: false
       }
     ],
-
-    timers: [-1],
 
     dis_type: 1,
 
@@ -90,18 +90,15 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow:async function () {
-    const { timers } = this.data;
-
-    timers.forEach(item => clearInterval(item))
-
+  onShow: async function () {
     // 校验用户是否登录
-    await reqUserPoint()
-    let _sid = await getSid()
-    if (!_sid) { return isloginFn() }
+    await Request.reqUserPoint();
+    let _sid = wxGet('_sid');
+    // FIXME: 未登录跳转
+    // if (!_sid) { return isloginFn() }
     // 校验是否 需要刷新
     if (app.globalData.refresh == true) {
-      my.showToast({
+      wx.showToast({
         content: '取消成功'
       });
       app.globalData.refresh = false
@@ -117,22 +114,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    this.onModalClose()
-    let { menuList, cur, timers } = this.data
-    clearInterval(menuList[cur].timer)
-    timers.forEach(item => clearInterval(item))
+    this.onModalClose();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    let { menuList, cur, timers } = this.data
-    clearInterval(menuList[cur].timer)
-    timers.forEach(item => clearInterval(item))
-    menuList[cur].timer = -1
-    this.setData({ menuList })
-    this.setData = () => { }
+    let { menuList, cur } = this.data;
+    menuList[cur].timer = -1;
+    this.setData({ menuList });
+    this.setData = () => {
+    }
   },
 
   /**
@@ -158,8 +151,10 @@ Page({
 
   // 刷新
   async refresh() {
-    const { menuList, timers, refreshFinish } = this.data
-    if (refreshFinish) { return }
+    const { menuList, refreshFinish } = this.data;
+    if (refreshFinish) {
+      return
+    }
 
     // 重置数据
     let _menuList = [
@@ -185,12 +180,8 @@ Page({
         list: [],
         loading: menuList[1].loading
       }
-    ]
+    ];
 
-
-    // 清空所有计时器
-    menuList.forEach(({ timer }) => clearInterval(timer))
-    timers.forEach(item => clearInterval(item))
 
     // 拉取最新数据
     setTimeout(() => {
@@ -199,7 +190,7 @@ Page({
         refreshFinish: true,
       }, async () => {
         await this.getMore();
-        my.stopPullDownRefresh()
+        wx.stopPullDownRefresh()
       })
     })
 
@@ -209,22 +200,9 @@ Page({
   isloginFn,
   guide,
 
-  /**
-   * @function 打开用户登录弹窗
-   */
-  open() {
-    // 清空所有计时器
-    const { menuList, timers } = this.data
-    menuList.forEach(({ timer }) => clearInterval(timer))
-    timers.forEach(item => clearInterval(item))
-    this.setData({
-      loginOpened: true
-    })
-  },
-
   makePhoneCall(e) {
-    const { dis_tel } = e.currentTarget.dataset
-    my.makePhoneCall({ number: dis_tel });
+    const { dis_tel } = e.currentTarget.dataset;
+    wx.makePhoneCall({ number: dis_tel });
   },
 
 
@@ -233,9 +211,7 @@ Page({
    */
   onModalClose() {
     // 清空所有计时器
-    const { menuList, timers } = this.data
-    menuList.forEach(({ timer }) => clearInterval(timer))
-    timers.forEach(item => clearInterval(item))
+    const { menuList } = this.data;
     this.setData({
       loginOpened: false,
       menuList: [
@@ -266,18 +242,15 @@ Page({
   },
 
 
-
   /**
    * @function 选择菜单
    */
 
   async changeMenu(e) {
-    let { menuList, timers } = this.data
-    // 清空所有计时器
-    menuList.forEach(({ timer }) => clearInterval(timer))
-    timers.forEach(item => clearInterval(item))
-    const { cur } = e.currentTarget.dataset
-    if (this.data.cur === cur) { return }
+    const { cur } = e.currentTarget.dataset;
+    if (this.data.cur === cur) {
+      return
+    }
     setTimeout(() => {
       this.setData({ cur }, () => {
         setTimeout(() => {
@@ -294,30 +267,28 @@ Page({
    */
   async getOrderList() {
 
-    let { menuList, cur, timers } = this.data
-    let { page, dis_type, timer, list, loading } = menuList[cur]
-    if (loading) { return }
-    menuList[cur].page++
-    menuList.forEach(({ timer }) => clearInterval(timer))
-    timers.forEach(item => clearInterval(item))
-    let { data, code } = await ajax('/juewei-api/order/list', { page_size: 20, page, dis_type }, 'GET')
-    my.showLoading({
+    let { menuList, cur, timers } = this.data;
+    let { page, dis_type, timer, list, loading } = menuList[cur];
+    if (loading) {
+      return
+    }
+    menuList[cur].page++;
+    let { data, code } = await Request.orderList({ page_size: 20, page, dis_type });
+    wx.showLoading({
       content: '加载中...',
     });
-    menuList[loading] = true
+    menuList[loading] = true;
     this.setData({ loading: true }, () => {
-      menuList.forEach(({ timer }) => clearInterval(timer))
-      timers.forEach(item => clearInterval(item))
       if (code === 0) {
-        list = [...list, ...data]
+        list = [...list, ...data];
         timer = setInterval(() => {
           list = list.map(({ remaining_pay_minute, remaining_pay_second, ...item }) => {
-            remaining_pay_second--
+            remaining_pay_second--;
             if (remaining_pay_second === 0 && remaining_pay_minute === 0) {
-              clearInterval(timer)
+              // 此处不要停。。。
             }
             if (remaining_pay_second <= 0) {
-              --remaining_pay_minute
+              --remaining_pay_minute;
               remaining_pay_second = 59
             }
             return {
@@ -325,25 +296,25 @@ Page({
               remaining_pay_second,
               ...item,
             }
-          })
-          menuList[cur].timer = timer
-          menuList[cur].finish = true
-          menuList[cur].list = list
-          menuList[loading] = false
-          timers.push(timer)
-          if (timers.length > 10) { timers = [] }
+          });
+          menuList[cur].finish = true;
+          menuList[cur].list = list;
+          menuList[loading] = false;
+          timers.push(timer);
           this.setData({
             menuList,
-            timers,
             loading: false,
             refreshFinish: false
-          }, () => my.hideLoading())
+          }, () => wx.hideLoading())
         }, 1000)
-
-
       } else {
-        this.open()
-        my.hideLoading()
+        MODAL({
+          title: '',
+          content: '用户未登录',
+          confirmText: '登录',
+          confirm: isloginFn
+        });
+        wx.hideLoading()
       }
     })
 
@@ -366,7 +337,7 @@ Page({
    */
   toDetail(e) {
     const { order_no } = e.currentTarget.dataset;
-    my.navigateTo({
+    wx.navigateTo({
       url: '/package_order/pages/orderdetail/orderdetail?order_no=' + order_no
     });
   },
@@ -376,7 +347,7 @@ Page({
    */
   toComment(e) {
     const { order_no } = e.currentTarget.dataset;
-    my.navigateTo({
+    wx.navigateTo({
       url: '/package_order/pages/comment/comment?order_no=' + order_no
     });
   },
@@ -389,29 +360,19 @@ Page({
     const { menuList, cur } = this.data;
 
     app.globalData.type = menuList[cur].dis_type;
-    log(app.globalData.type)
+    log(app.globalData.type);
 
     if (app.globalData.province &&
       app.globalData.city &&
       app.globalData.address &&
       app.globalData.position) {
-      my.switchTab({
+      wx.switchTab({
         url: '/pages/home/goodslist/goodslist'
       });
     } else {
-      my.navigateTo({
+      wx.navigateTo({
         url: '/pages/position/position'
       });
     }
   }
-  // <!--未登录提示 -->
-  // <modal show="{{loginOpened}}" showClose="{{ false }}">
-  // <view class="modalInfo">
-  // 用户未登录
-  // </view>
-  // <view slot="footer" class="footerButton">
-  // <view class="modalButton confirm " onTap="onModalClose">取消</view>
-  // <view class="modalButton cancel " onTap="isloginFn">登录</view>
-  // </view>
-  // </modal>
-})
+});
