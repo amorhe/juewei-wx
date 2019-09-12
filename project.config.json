@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -127,6 +127,13 @@
 					"id": -1,
 					"name": "评价订单",
 					"pathName": "package_order/pages/comment/comment",
+					"query": "phone=18640460506",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "评价订单成功",
+					"pathName": "package_order/pages/comment/comment-success/comment-success",
 					"query": "phone=18640460506",
 					"scene": null
 				}

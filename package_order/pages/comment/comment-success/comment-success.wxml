@@ -1,2 +1,8 @@
 <!--package_order/pages/comment/comment-success/comment-success.wxml-->
-<text>package_order/pages/comment/comment-success/comment-success.wxml</text>
+
+<view class="success">
+    <image mode="scaleToFill" src="{{imageUrl}}success.png"/>
+    <view class="pad">评价成功</view>
+
+    <view class="btn" bindtap="sw">返回首页</view>
+</view>
