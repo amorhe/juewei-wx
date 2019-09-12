@@ -6,23 +6,6 @@ import Request from "./li-ajax";
 export const log = console.log;
 
 /**
- * @function 获取 sid
- */
-export const event_getSid = () => {
-  return new Promise((resolve, reject) => {
-    wx.getStorage({
-      key: '_sid', // 缓存数据的key
-      success: async (res) => {
-        resolve(res.data)
-      },
-      fail: err => {
-        reject('')
-      }
-    });
-  })
-};
-
-/**
  * @function 获取富文本数组
  * @param {string} html字符串
  */

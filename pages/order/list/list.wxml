@@ -3,13 +3,13 @@
   <!-- 订单列表页<br/>
   分为外卖和自提列表 -->
   <view class="menus">
-    <view data-cur="{{index}}" wx:key="{{index}}" onTap="changeMenu" class="menu {{cur === index ? 'active':''}}" wx:for="{{menuList}}">
+    <view data-cur="{{index}}" wx:key="{{index}}" bindtap="changeMenu" class="menu {{cur === index ? 'active':''}}" wx:key="{{ index }}" wx:for="{{menuList}}">
         {{item.key}}
     </view>
   </view>
   <!-- 官方外卖订单 -->
   <view class="out-list" wx:if="{{cur === 0 && menuList[cur].list.length && menuList[cur].finish}}">
-    <view class="out-item" wx:for="{{ menuList[cur].list}}" onTap="toDetail" data-order_no="{{item.order_no}}">
+    <view class="out-item" wx:for="{{ menuList[cur].list}}" wx:key="{{ index }}" bindtap="toDetail" data-order_no="{{item.order_no}}">
       <view class="out-header">
         <view class="out-header-title">
           <view class="top">
@@ -61,7 +61,7 @@
   </view>
   <!-- 门店自提订单 -->
   <view class="come-list out-list" wx:if="{{cur === 1 && menuList[cur].list.length}}">
-    <view class="out-item" wx:for="{{menuList[cur].list}}" onTap="toDetail" data-order_no="{{item.order_no}}">
+    <view class="out-item" wx:key="{{ index }}" wx:for="{{menuList[cur].list}}" bindtap="toDetail" data-order_no="{{item.order_no}}">
       <view class="out-header">
         <view class="out-header-title">
           <view class="top">

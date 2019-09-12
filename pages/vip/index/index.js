@@ -1,11 +1,11 @@
 // pages/vip/index/index.js
 import {
   imageUrl,
-  imageUrl2
+  imageUrl2,
+  wxGet
 } from '../../common/js/baseUrl'
 import Request from '../../common/js/li-ajax'
 import {
-  event_getSid,
   event_getNavHeight,
   event_getUserPoint
 } from '../../common/js/utils'
@@ -74,7 +74,7 @@ Page({
   async onShow() {
     // 查看用户登录状态
     await event_getUserPoint();
-    let _sid = await event_getSid();
+    let _sid = wxGet('_sid');
     //获取当前所需要的分子公司id,城市id，门店id,区域id
     const {
       company_sale_id: company_id,
