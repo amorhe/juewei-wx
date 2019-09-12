@@ -1,1 +1,176 @@
-/* package_my/pages/mycenter/bindphone/bindphone.wxss */
+.bindPhone {
+  padding: 90rpx 40rpx 0;
+  box-sizing: border-box;
+}
+
+.TitleName {
+  font-size: 56rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.inputView {
+  margin: 40rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputInfo {
+  width: 88rpx;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.inputClass {
+  width: 0;
+  height: 0;
+}
+
+.bindButton {
+  width: 670rpx;
+  height: 94rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 0.5) 0%, rgba(230, 0, 18, 0.5) 100%);
+  border-radius: 47rpx;
+  text-align: center;
+  line-height: 94rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  font-size: 36rpx;
+  margin: 175rpx auto 0;
+}
+
+.timeClass {
+  color: #e60012;
+}
+
+.inputFocus {
+  border-color: #333;
+}
+
+.inputFocus::after {
+  content: '|';
+  color: #e60012;
+}
+
+page {
+  height: 50vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.bindPhone {
+  padding: 90rpx 40rpx 0;
+  box-sizing: border-box;
+}
+
+.TitleName {
+  font-size: 56rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.inputView {
+  margin: 40rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputInfo {
+  width: 88rpx;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.top {
+  position: relative;
+  z-index: 999;
+}
+
+.inputClass {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -100rpx;
+  width: 100vw;
+  height: 30vh;
+  border: none;
+  color: transparent;
+}
+
+.bindButton {
+  width: 670rpx;
+  height: 94rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 0.5) 0%, rgba(230, 0, 18, 0.5) 100%);
+  border-radius: 47rpx;
+  text-align: center;
+  line-height: 94rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  font-size: 36rpx;
+  margin: 175rpx auto 0;
+}
+
+.errorTitel {
+  color: #e60012;
+  font-size: 26rpx;
+  margin: 30rpx 0;
+}
+
+.timeClass {
+  color: #e60012;
+}
+
+.inputFocus {
+  border-color: #333;
+}
+
+.inputFocus::after {
+  content: '|';
+  color: #e60012;
+}
+
+/* model弹框 */
+
+.modelBody {
+  display: flex;
+  align-items: center;
+}
+
+.modelInput {
+  border-bottom: 1px solid #eee;
+  height: 70rpx;
+  text-align: left;
+}
+
+.imgCode {
+  width: 160rpx;
+  height: 50rpx;
+  background: #eee;
+  border: 1px solid #eee;
+}
+
+.imgCodeIcon {
+  width: 160rpx;
+  height: 50rpx;
+}
+
+.addButton {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  font-size: 32rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 0.5) 0%, rgba(230, 0, 18, 0.5) 100%);
+  border-radius: 40rpx;
+  margin: 24rpx 0;
+}
+
+.addButtonTrue {
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+}

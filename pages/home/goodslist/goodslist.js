@@ -96,7 +96,8 @@ Page({
     btnClick: true,
     activityList: [],
     shopcartList: {}, // 购物车缓存
-    goodsType: 0, //系列
+    goodsType: 1, //系列
+    togoodsType:1,  // 点击跳转
     maskView: false,
     goodsModal: false,
     scrollT: 0,
@@ -422,7 +423,7 @@ Page({
   funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
     activityList(city_id, district_id, company_id, buy_type, user_id).then((res) => {
       // 获取加价购商品
-      if (res.data.MARKUP) {
+      if ('MARKUP' in res.data) {
         app.globalData.gifts = res.data.MARKUP.gifts;
         // 获取活动金额
         let newArr = Object.keys(res.data.MARKUP.gifts);
@@ -711,11 +712,18 @@ Page({
   // 监听商品列表滚动
   bindscroll() {
     if (!this.data.isTab) {
-      let goodstop = [...goodsret];
+      let retArr = [...goodsret];
       wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
-        goodstop.push(ret[0].scrollTop);
-        goodstop.sort((a, b) => a - b);
-        let sum = goodstop.findIndex(item => item >= ret[0].scrollTop);
+        let sum = 0;
+        if (retArr.indexOf(ret[0].scrollTop) > -1) {
+          retArr.push(ret[0].scrollTop + 1);
+          retArr.sort((a, b) => a - b);
+          sum = retArr.findIndex(item => (item == (ret[0].scrollTop + 1)));
+        } else {
+          retArr.push(ret[0].scrollTop);
+          retArr.sort((a, b) => a - b);
+          sum = retArr.findIndex(item => (item == ret[0].scrollTop));
+        }
         if (this.data.goodsType != sum) {
           this.setData({
             goodsType: sum
@@ -878,6 +886,8 @@ Page({
   eveChooseGoodsType(e) {
     this.setData({
       goodsType: e.currentTarget.dataset.type,
+      togoodsType: e.currentTarget.dataset.type,
+      isTab:true,
       shopcartList: wxGet('goodsList')
     })
   },

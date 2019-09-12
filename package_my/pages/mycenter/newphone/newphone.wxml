@@ -1,2 +1,9 @@
-<!--package_my/pages/mycenter/newphone/newphone.wxml-->
-<text>package_my/pages/mycenter/newphone/newphone.wxml</text>
+<view class="bindPhone">
+  <view class="TitleName">手机号验证成功</view>
+  <view class="inputView">
+    <input class="inputClass" type="number" maxlength="11" placeholder="请输入新手机号" bindinput="inputValue" />
+  </view>
+  <view>
+  </view>
+  <view class="bindButton" bindtap="eveGetCode">获取短信验证码</view>
+</view>
