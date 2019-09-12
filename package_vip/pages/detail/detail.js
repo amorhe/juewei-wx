@@ -89,7 +89,7 @@ Page({
     if (code === 100) {
       let _exchange_intro = await this.parseData(exchange_intro);
       let _intro = await this.parseData(intro);
-      my.setNavigationBar({
+      wx.setNavigationBar({
         title: '商品详情',
       });
       this.setData({
@@ -123,7 +123,7 @@ Page({
       return data
     }
     if (code !== 100) {
-      my.alert({ title: msg });
+      wx.alert({ title: msg });
       return {}
     }
   },
@@ -183,29 +183,29 @@ Page({
         let res = await this.pay(order_sn);
         console.log('amount', res);
         if (res.code == 0) {
-          my.tradePay({
+          wx.tradePay({
             tradeNO: res.data.tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
             success: res => {
               // 用户支付成功
               if (res.resultCode == 9000) {
-                return my.redirectTo({
+                return wx.redirectTo({
                   url: '../finish/finish?id=' + order_id + '&fail=' + false
                 });
               }
               // 用户取消支付
               if (res.resultCode == 6001) {
-                return my.redirectTo({
+                return wx.redirectTo({
                   url: '../exchangelist/exchangedetail/exchangedetail?id=' + order_id
                 });
               }
-              return my.redirectTo({
+              return wx.redirectTo({
                 url: '../finish/finish?id=' + order_id + '&fail=' + true
               });
 
             },
             fail: res => {
               log('fail');
-              return my.redirectTo({
+              return wx.redirectTo({
                 url: '../finish/finish?id=' + order_id + '&fail=' + true
               });
             }
@@ -214,7 +214,7 @@ Page({
           that.setData({
             isClick: true
           });
-          return my.showToast({ content: res.msg });
+          return wx.showToast({ content: res.msg });
         }
         return
       }
@@ -228,14 +228,14 @@ Page({
       // 虚拟订单 + 兑换码 => 无需发货
       //
       if (goods_detail_type == 2 && receive_type == 0) {
-        my.navigateTo({
+        wx.navigateTo({
           url: '../finish/finish?id=' + order_id + '&fail=' + fail
         });
       }
       // 虚拟订单 + 优惠卷 => 无需发货
       // 跑通
       if (goods_detail_type == 1 && receive_type == 0) {
-        my.navigateTo({
+        wx.navigateTo({
           url: '../finish/finish?id=' + order_id + '&fail=' + fail
         });
       }
@@ -259,13 +259,13 @@ Page({
       // 实物订单  公司邮寄
 
       if (receive_type == 2) {
-        my.navigateTo({
+        wx.navigateTo({
           url: '../waitpay/waitpay?order_sn=' + res.order_sn
         });
       }
       // 实物订单  到店领取
       if (receive_type == 1) {
-        my.navigateTo({
+        wx.navigateTo({
           url: '../waitpay/waitpay?order_sn=' + res.order_sn
         });
       }
@@ -319,7 +319,7 @@ Page({
    */
   async getMorePoint() {
     this.onModalClose();
-    my.switchTab({
+    wx.switchTab({
       url: '/pages/home/goodslist/goodslist'
     });
   },
