@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -134,6 +134,13 @@
 					"id": -1,
 					"name": "评价订单成功",
 					"pathName": "package_order/pages/comment/comment-success/comment-success",
+					"query": "phone=18640460506",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "VIP商品详情页",
+					"pathName": "package_vip/pages/detail/detail",
 					"query": "phone=18640460506",
 					"scene": null
 				}
