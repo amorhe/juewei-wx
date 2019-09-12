@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 15,
+			"current": 16,
 			"list": [
 				{
 					"id": -1,
@@ -162,6 +162,13 @@
 					"id": -1,
 					"name": "VIP支付完成页面",
 					"pathName": "package_vip/pages/finish/finish",
+					"query": "phone=18640460506",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "待支付",
+					"pathName": "package_vip/pages/waitpay/waitpay",
 					"query": "phone=18640460506",
 					"scene": null
 				}

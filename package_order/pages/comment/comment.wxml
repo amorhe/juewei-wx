@@ -10,7 +10,7 @@
             <image mode="scaleToFill" class="star" src="{{imageUrl}}stars_big{{item?2:1}}.png" data-index="{{index}}" bindtap="changeShopStar" wx:for="{{shopStars}}" wx:key="{{ index }}"/>
         </view>
         <view class="tabs">
-            <view class="{{ currentShopSelect.includes(item.takeout_goods_comment_tag_id) ? 'active tab' : 'tab' }}" data-item="{{item.takeout_goods_comment_tag_id}}" bindtap="selectShopTag" wx:for="{{shopTabs}}" wx:key="{{ item.takeout_goods_comment_tag_id }}">
+            <view class="{{ currentShopSelect[index] == item.takeout_goods_comment_tag_id ? 'active tab' : 'tab' }}" data-index="{{ index }}" data-item="{{item.takeout_goods_comment_tag_id}}" bindtap="selectShopTag" wx:for="{{shopTabs}}" wx:key="{{ item.takeout_goods_comment_tag_id }}">
                 {{item.takeout_goods_comment_tag_name}}
             </view>
         </view>

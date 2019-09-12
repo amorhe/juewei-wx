@@ -25,7 +25,7 @@ Page({
 
     d: {},
 
-    currentShopSelect: []
+    currentShopSelect: ['','','']
   },
 
 
@@ -227,13 +227,16 @@ Page({
    */
   selectShopTag(e) {
     let { currentShopSelect } = this.data;
-    const { item } = e.currentTarget.dataset;
+    const { item,index } = e.currentTarget.dataset;
+    console.log(index);
 
     if (currentShopSelect.includes(item)) {
-      currentShopSelect.splice(currentShopSelect.findIndex(key => key === item), 1)
+      currentShopSelect[index] = '';
     } else {
-      currentShopSelect.push(item)
+      currentShopSelect[index] = item;
     }
+
+    console.log(currentShopSelect);
     this.setData({
       currentShopSelect
     })
