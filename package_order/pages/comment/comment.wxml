@@ -1,2 +1,58 @@
 <!--package_order/pages/comment/comment.wxml-->
-<text>package_order/pages/comment/comment.wxml</text>
+<view class="after">
+    <!-- 外卖和自提评价 -->
+    <view style="height:1rpx"></view>
+    <view class="shop">
+        <view class="title">
+            {{d.dis_type==1?'配送服务评价':'门店评价服务'}}
+        </view>
+        <view class="stars">
+            <image mode="scaleToFill" class="star" src="{{imageUrl}}stars_big{{item?2:1}}.png" data-index="{{index}}" bindtap="changeShopStar" wx:for="{{shopStars}}" wx:key="{{ index }}"/>
+        </view>
+        <view class="tabs">
+            <view class="{{ currentShopSelect.includes(item.takeout_goods_comment_tag_id) ? 'active tab' : 'tab' }}" data-item="{{item.takeout_goods_comment_tag_id}}" bindtap="selectShopTag" wx:for="{{shopTabs}}" wx:key="{{ item.takeout_goods_comment_tag_id }}">
+                {{item.takeout_goods_comment_tag_name}}
+            </view>
+        </view>
+        <view class="commen">
+            <textarea maxlength='1000' placeholder="说说对门店的印象" bindinput="getDisContent" data-name="dis_content" show-count="{{false}}" placeholder-class="textarea"></textarea>
+        </view>
+    </view>
+    <view class="goods">
+        <view class="title">
+            产品评价
+        </view>
+        <view class="">
+            <view class="good" style="max-height:{{item.open ? 1000:36}}rpx; overflow:hidden" wx:key="{{ index }}" wx:for="{{d.goods_list}}" wx:for-index="i" data-i="{{i}}" catchtap="openList">
+                <view class="header">
+                    <view class="good-name"> {{item.goods_name}}
+                        <text class="remark" wx:if="{{item.remark}}">（{{item.remark}}）</text></view>
+                    <view class="stars">
+                        <image mode="scaleToFill" class="star" wx:key="{{ index }}" src="{{imageUrl}}stars_big{{item?2:1}}.png" data-index="{{index}}" data-i="{{i}}" bindtap="changeGoodsComment" wx:for="{{item.goods_comment.goodStar}}"/>
+                    </view>
+                </view>
+                <view class="tabs">
+                    <view class="tab {{ item.goods_comment.tags.includes(tag.takeout_goods_comment_tag_id) ? 'active' : '' }}" data-item="{{tag.takeout_goods_comment_tag_id}}" data-i="{{i}}" bindtap="selectGoodTag" wx:for-item="tag" wx:for="{{item.goods_comment._tags}}">{{tag.takeout_goods_comment_tag_name}}</view>
+                </view>
+                <view class="commen">
+                    <textarea data-i="{{i}}"  maxlength='1000' placeholder="说说哪里满意，帮助大家选择" bindinput="getGoodContent" show-count="{{false}}" placeholder-class="textarea"></textarea>
+                </view>
+                <view class="pics">
+                    <view style="position:relative" wx:for="{{item.goods_comment.pics}}" wx:key="{{ index }}" data-i="{{i}}" data-pic_index="{{pic_index}}" wx:for-index="pic_index"wx:key="{{ index }}" wx:for-item="pic" catchtap="delDisPic">
+                        <image mode="scaleToFill" src="{{ imageUrl2 + pic }}" />
+                        <image mode="scaleToFill" class="pic-can-del" src="{{imageUrl}}close4.png"/>
+                    </view>
+
+                    <image mode="scaleToFill" data-i="{{i}}" src="{{imageUrl}}camera.png" bindtap="upLoad" wx:if="{{item.goods_comment.pics.length<3}}"/>
+                    <image mode="scaleToFill" class="null" src="{{imageUrl}}" wx:key="{{ index }}" wx:for="{{2 - item.goods_comment.pics.length}}"/>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="bot">
+    <view class="but" catchtap="doCommemt">提交评论</view>
+</view>
+
+<view style="height:150rpx"></view>
