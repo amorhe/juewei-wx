@@ -40,8 +40,8 @@ export const WX_LOGIN = rest => {
     success() {
       console.log('//session_key 未过期，并且在本生命周期一直有效');
       const _sid = wxGet('_sid');
-      console.log('//session_key 未过期，并且在本生命周期一直有效,但是_sid没了');
       if (!_sid) {
+        console.log('//session_key 未过期，并且在本生命周期一直有效,但是_sid没了');
         login(rest)
       }
     },

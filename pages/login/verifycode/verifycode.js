@@ -1,19 +1,9 @@
-import {
-  imageUrl,
-  baseUrl,
-  wxGet,
-  wxSet
-} from '../../common/js/baseUrl'
-import {
-  sendCode,
-  captcha,
-  loginByPhone
-} from '../../common/js/login'
-import {
-  navigateTo
-} from '../../common/js/router.js'
-let timeCount
-var app = getApp()
+import { baseUrl, imageUrl, wxGet, wxSet } from '../../common/js/baseUrl'
+import { loginByPhone, sendCode } from '../../common/js/login'
+import { navigateTo } from '../../common/js/router.js'
+
+let timeCount;
+var app = getApp();
 Page({
 
   /**
@@ -38,36 +28,30 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    var ali_uid = my.getStorageSync({
-      key: 'ali_uid', // 缓存数据的key
-    }).data;
-    var _sid = my.getStorageSync({
-      key: '_sid'
-    }).data;
+  onLoad: function (e) {
+    const _sid = wxGet('_sid');
     this.setData({
       phone: e.phone,
-      ali_uid: ali_uid,
-      _sid: _sid
-    })
+      _sid
+    });
     this.timeDate()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    if (this.data.timestamp != 0) {
+  onShow: function () {
+    if (this.data.timestamp !== 0) {
       let timestampNew = new Date().getTime();
       let counts = parseInt((timestampNew - this.data.timestamp) / 1000);
-      console.log(counts)
+      console.log(counts);
       if (counts > 0) {
         this.setData({
           countTime: this.data.countTime - counts
@@ -84,7 +68,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
     let timestamp = new Date().getTime();
     this.setData({
       timestamp,
@@ -95,33 +79,33 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     // 页面被关闭
     this.setData({
       isnew: false,
       countTime: 60,
-    })
+    });
     clearInterval(timeCount)
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   bindFocus() {
@@ -134,86 +118,90 @@ Page({
       focus: true,
     });
   },
-  onBlur() {
+  async onBlur() {
+    const { phone, value } = this.data;
+    const { errMsg, ...rest } = wxGet('rest');
     this.setData({
       focus: false,
     });
-    var data = {
-      ali_uid: this.data.ali_uid,
-      phone: this.data.phone,
-      code: this.data.value
+    const data = {
+      phone,
+      code: value,
+      ...rest
+    };
+    let res = await loginByPhone(data);
+    if (res.code === 0) {
+      // 成功
+      app.globalData._sid = res.data._sid;
+      wxSet('_sid', res.data._sid);
+      wxSet('user_id', res.data.user_id);
+      wx.navigateBack({
+        delta: 2
+      })
+    } else {
+      // 其他
+      wx.showToast({
+        icon: 'none',
+        title: res.msg
+      });
     }
-    loginByPhone(data).then(res => {
-      if (res.code == 0) {
-        // 成功
-        app.globalData._sid = res.data._sid
-        wxSet('_sid', res.data._sid)
-        wxSet('user_id', res.data.user_id)
-        wx.navigateBack({
-          delta: 2
-        })
-      } else {
-        // 其他
-        wx.showToast({
-          title: res.msg
-        });
-      }
 
-    })
   },
   // 倒计时60
   timeDate(e) {
-    var that = this;
-    that.setData({
+    this.setData({
       isnew: true,
-    })
+    });
     if (e && e.currentTarget.dataset.is == 1) {
-      that.getcodeFn()
+      this.getcodeFn()
     }
-    var time = that.data.countTime;
-    timeCount = setInterval(function() {
-      time--
-      that.setData({
+    var time = this.data.countTime;
+    timeCount = setInterval(() => {
+      time--;
+      this.setData({
         countTime: time
-      })
+      });
       if (time == 0) {
-        that.setData({
+        this.setData({
           isnew: false,
           countTime: 60
-        })
+        });
         clearInterval(timeCount)
       }
     }, 1000)
   },
   inputValue(e) {
-    var value = e.detail.value
-    var cursor = value.length + 1
+    var value = e.detail.value;
+    var cursor = value.length + 1;
     this.setData({
       value: value,
       cursor: cursor
-    })
+    });
     if (value.length == 4) {
       this.onBlur()
     }
   },
   //页面跳转
   toUrl(e) {
-    var url = e.currentTarget.dataset.url
+    var url = e.currentTarget.dataset.url;
     navigateTo({
       url: url
     });
   },
   getcodeImg(e) {
-    var img_code = e.detail.value
+    var img_code = e.detail.value;
     this.setData({
       img_code: img_code
     })
   },
   // 获取短信验证码
   async getcodeFn() {
-    var that = this
+    const _sid = wxGet('_sid');
+    const { phone, img_code } = this.data;
+
+    var that = this;
     if (this.data.getCode) {
-      var time = wxGet('time');
+      let time = wxGet('time');
       if (time) {
         if (time != new Date().toLocaleDateString()) {
           wx.removeStorageSync({
@@ -233,18 +221,18 @@ Page({
         wx.hideLoading();
         this.setData({
           modalOpened: true,
-          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
-        })
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + _sid + '&s=' + (new Date()).getTime()
+        });
         return
       }
       var data = {
-        _sid: this.data._sid,
-        phone: this.data.phone,
-        img_code: this.data.img_code
-      }
-      let code = await sendCode(data)
+        _sid,
+        phone,
+        img_code
+      };
+      let code = await sendCode(data);
       if (code.code == 0 && code.msg == 'OK') {
-        wxSet('count', count - '' + 1)
+        wxSet('count', count - '' + 1);
         this.setData({
           modalOpened: false,
           img_code: ''
@@ -252,14 +240,14 @@ Page({
         // 成功
       } else {
         that.setData({
-          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
-        })
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + _sid + '&s=' + (new Date()).getTime()
+        });
         my.showToast({
-          type: 'none',
+          icon: 'none',
           duration: 2000,
           content: code.msg
         });
       }
     }
   },
-})
+});
