@@ -15,7 +15,7 @@ const ajaxUrl = {
   GetShopGoods: '/juewei-api/shop/GetShopGoods',      // 门店商品列表
   createOrder: '/juewei-api/order/create',       // 创建订单
   confirmOrder: '/juewei-api/order/confirm',        // 确认订单（商品加入购物车点击立即购买）
-  useraddress: '/juewei-api/useraddress/listDis',     // 我的地址，可配送收货地址列表
+  useraddress: '/juewei-api/useraddress/list',     // 我的地址，可配送收货地址列表
   exchangeCode: '/mini/user/exchange_code_list',     // 兑换码列表
   exchangeCoupon: '/mini/coupons/exchange_coupons',   // 兑换优惠券
   exchangedetail: '/mini/user/exchange_code_view',    // 兑换详情

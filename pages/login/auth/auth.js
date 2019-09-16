@@ -209,6 +209,7 @@ Page({
       if (res.code === 0) {
         res.data.sex = res.data.sex == 0 ? 1 : 0;
         wxSet('userInfo', { ...rest, ...res.data });
+        wxSet('user_id', res.data.user_id);
         reLaunch({ url: '/pages/my/index/index' })
       } else {
         wx.showToast({ title: res.msg })
