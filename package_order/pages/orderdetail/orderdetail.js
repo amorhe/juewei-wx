@@ -1,7 +1,9 @@
 // package_order/pages/orderdetail/orderdetail.js
 import { imageUrl, imageUrl2, imageUrl3, img_url } from '../../../pages/common/js/baseUrl'
-import { contact, guide, handleCopy } from "../../../pages/common/js/utils";
+import { contact, guide, handleCopy, log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
+
+const app = getApp();
 
 Page({
 
@@ -76,7 +78,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (e) {
-    let { order_no } = e
+    let { order_no } = e;
     this.setData({
       order_no
     })
@@ -101,8 +103,8 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    clearInterval(this.data.time)
-    this.setData({ time: -1 })
+    clearInterval(this.data.time);
+    this.setData({ time: -1 });
     this.closeModel()
   },
 
@@ -110,9 +112,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    clearInterval(this.data.time)
-    this.setData({ time: -1 })
-    this.setData = () => { }
+    clearInterval(this.data.time);
+    this.setData({ time: -1 });
+    this.setData = () => {
+    }
   },
 
   /**
@@ -152,12 +155,12 @@ Page({
    * @function 获取订单详情
    */
   async getOrderDetail() {
-    let { curOrderState, order_no, time } = this.data
-    clearInterval(time)
-    let res = await Request.orderDetail({ order_no })
+    let { curOrderState, order_no, time } = this.data;
+    clearInterval(time);
+    let res = await Request.orderDetail({ order_no });
 
-    let timeArr
-    let { order_ctime, pay_time, get_time, dis_get_time, dis_take_time, push_time, dis_finish_time, cancel_time, dis_type, dis_tag, order_status_info } = res.data
+    let timeArr;
+    let { order_ctime, pay_time, get_time, dis_get_time, dis_take_time, push_time, dis_finish_time, cancel_time, dis_type, dis_tag, order_status_info } = res.data;
     if (res.code === 0) {
       // 订单类型  1"官方外卖", 2"门店自取" // 配送方式 1配送  2 自提
       if (dis_type == 1) {
@@ -177,7 +180,7 @@ Page({
           { state: '骑手正在送货', time: dis_take_time },
           { state: '订单已完成', time: dis_finish_time },
           { state: '订单已取消', time: cancel_time },
-        ]
+        ];
         // log(timeArr)
         // data.order_status_info.order_status
         // 外卖显示数组
@@ -205,11 +208,10 @@ Page({
           { state: '后台审核退单成功', timeArr: [1, 7] },
           { state: '达达主动发起取消订单', timeArr: [1, 2, 3, 7] },
           { state: '店pos取消', timeArr: [1, 2, 7] },
-        ]
+        ];
 
 
-
-        let curState = res.data.order_status_info.order_status
+        let curState = res.data.order_status_info.order_status;
         let curTimeArr = orderStatus[curState].timeArr;
         // 自配送 没有骑手已接单
         if (curState < 5 && curState > 2) {
@@ -217,8 +219,8 @@ Page({
 
         }
 
-        ; (curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr
-        curState === 3 && dis_take_time != '0000-00-00 00:00:00' ? curTimeArr.push(5) : curTimeArr
+        (curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
+        curState === 3 && dis_take_time != '0000-00-00 00:00:00' ? curTimeArr.push(5) : curTimeArr;
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
 
       }
@@ -237,8 +239,8 @@ Page({
           { state: '骑手配送中', time: dis_take_time },
           { state: '订单已完成', time: dis_finish_time },
           { state: '订单已取消', time: cancel_time },
-        ]
-        log(timeArr)
+        ];
+        log(timeArr);
         // 自提显示数组
         // 0，等待支付 1
         // 1，支付成功 1,2
@@ -264,26 +266,26 @@ Page({
           { state: '后台审核退单成功', timeArr: [1, 2, 7] },
           { state: '达达主动发起取消订单', timeArr: [1, 2, 7] },
           { state: '店pos取消', timeArr: [1, 2, 7] },
-        ]
+        ];
 
-        let curState = res.data.order_status_info.order_status
-        let curTimeArr = orderStatus[curState].timeArr
+        let curState = res.data.order_status_info.order_status;
+        let curTimeArr = orderStatus[curState].timeArr;
 
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
 
         // log(curOrderState)
       }
 
-      let { remaining_pay_minute, remaining_pay_second, ...item } = res.data
-      let { time } = this.data
+      let { remaining_pay_minute, remaining_pay_second, ...item } = res.data;
+      let { time } = this.data;
       time = setInterval(() => {
-        --remaining_pay_second
+        --remaining_pay_second;
         if (remaining_pay_minute === 0 && remaining_pay_second == -1) {
           clearInterval(time)
           // return this.getOrderDetail(order_no)
         }
         if (remaining_pay_second <= 0) {
-          --remaining_pay_minute
+          --remaining_pay_minute;
           remaining_pay_second = 59
         }
         this.setData({
@@ -304,11 +306,11 @@ Page({
    * @function 打电话
    */
   makePhoneCall(e) {
-    const { number } = e.currentTarget.dataset
-    my.makePhoneCall({ number });
+    const { number } = e.currentTarget.dataset;
+    wx.makePhoneCall({ number });
   },
 
-  show() {
+  FUN_SHOW() {
     this.setData({
       showTop: true
     })
@@ -320,7 +322,7 @@ Page({
 
   showCancel() {
     if (this.data.order_channel != 1) {
-      my.showToast({
+      wx.showToast({
         content: '订单不支持跨平台操作，请去相应平台取消订单！'
       });
       return
@@ -337,8 +339,8 @@ Page({
   selectReason(e) {
     const { cancelReasonList } = this.data;
     const { index } = e.currentTarget.dataset;
-    cancelReasonList.forEach(item => item.value = false)
-    cancelReasonList[index].value = true
+    cancelReasonList.forEach(item => item.value = false);
+    cancelReasonList[index].value = true;
 
     this.setData({
       cancelReasonList
@@ -349,20 +351,20 @@ Page({
    * @function 取消订单
    */
 
-  async cancelOrder() {
-    const { d, cancelReasonList } = this.data
-    let cancel_code = cancelReasonList.filter(item => item.value)[0].cancel_code
-    let res = await ajax('/juewei-api/order/cancel', { order_no: d.order_no, cancel_code, cancel_reason: '其他' })
+  async FUN_cancelOrder() {
+    const { d, cancelReasonList } = this.data;
+    let cancel_code = cancelReasonList.filter(item => item.value)[0].cancel_code;
+    let res = await Request.CancelOrder({ order_no: d.order_no, cancel_code, cancel_reason: '其他' });
     if (res.code == 0) {
-      log('取消成功')
-      app.globalData.refresh = true
-      app.globalData.refresh_state = d.dis_type - 1
-      my.switchTab({
+      log('取消成功');
+      app.globalData.refresh = true;
+      app.globalData.refresh_state = d.dis_type - 1;
+      wx.switchTab({
         url: '/pages/order/list/list',
       });
     } else {
-      this.closeModel()
-      my.showToast({
+      this.closeModel();
+      wx.showToast({
         content: res.msg,
         duration: 2000,
       });
@@ -373,9 +375,9 @@ Page({
   /**
    * @function 去评价页面
    */
-  toComment(e) {
+  FUN_toComment(e) {
     const { order_no } = e.currentTarget.dataset;
-    my.navigateTo({
+    wx.navigateTo({
       url: '/package_order/pages/comment/comment?order_no=' + order_no
     });
   },
@@ -384,39 +386,41 @@ Page({
    * @function 立即支付
    */
   async payNow(e) {
-    const { channel } = this.data.d
-    if (channel != 1) { return }
+    const { channel } = this.data.d;
+    if (channel != 1) {
+      return
+    }
     const { order_no } = e.currentTarget.dataset;
-    let r = await ajax('/juewei-service/payment/AliMiniPay', { order_no }, "POST")
+    let r = await ajax('/juewei-service/payment/AliMiniPay', { order_no }, "POST");
     if (r.code === 0) {
-      let { tradeNo } = r.data
+      let { tradeNo } = r.data;
       if (!tradeNo) {
-        return my.showToast({
+        return wx.showToast({
           content: r.data.erroMSg
         })
       }
-      my.tradePay({
+      wx.tradePay({
         tradeNO: tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
         success: res => {
-          log('支付成功'.res)
+          log('支付成功'.res);
           if (res.resultCode == 9000) {
-            return my.redirectTo({
+            return wx.redirectTo({
               url: '/pages/home/orderfinish/orderfinish?order_no=' + order_no
             });
           }
-          // return my.redirectTo({
+          // return wx.redirectTo({
           //   url: '/pages/home/orderError/orderError?order_no=' + order_no
           // });
         },
         fail: res => {
-          return my.redirectTo({
+          return wx.redirectTo({
             url: '/pages/home/orderError/orderError?order_no=' + order_no
           });
         }
       });
 
     } else {
-      return my.redirectTo({
+      return wx.redirectTo({
         url: '/pages/home/orderError/orderError?order_no=' + order_no
       });
     }
@@ -428,23 +432,23 @@ Page({
    */
 
   buyAgain() {
-    const { dis_type } = this.data
+    const { dis_type } = this.data;
     app.globalData.type = dis_type;
-    log(app.globalData.type)
+    log(app.globalData.type);
 
     if (app.globalData.province &&
       app.globalData.city &&
       app.globalData.address &&
       app.globalData.position) {
-      my.switchTab({
+      wx.switchTab({
         url: '/pages/home/goodslist/goodslist'
       });
     } else {
-      my.navigateTo({
+      wx.navigateTo({
         url: '/pages/position/position'
       });
     }
 
 
   }
-})
+});

@@ -3,7 +3,7 @@
     <!-- 外卖和自提订单详情 -->
     <view style="height:1rpx"></view>
     <view class="board">
-        <view class="board-state" bindtap="show">
+        <view class="board-state" bindtap="FUN_SHOW">
             {{ d.dis_type==1 ? ((d.order_status_info.order_status == 0 && d.remaining_pay_minute< 0) ? '订单已取消' :
             (d.order_status_info.order_status == 2 && d.order_status_info.dis_status == 2 && d.dis_tag != 'ZPS' &&
             d.dis_get_time ) ? '骑手已接单' : takeOutState[d.order_status_info.order_status])
@@ -47,7 +47,7 @@
                   catchtap="buyAgain">
                 再来一单
             </view>
-            <view class="cancel-order red" catchtap="toComment" data-order_no="{{d.order_no}}"
+            <view class="cancel-order red" catchtap="FUN_toComment" data-order_no="{{d.order_no}}"
                   wx:if="{{4==(d.order_status_info.order_status) && d.is_comment == 0}}">
                 评价订单
             </view>
@@ -169,7 +169,7 @@
                     </view>
                 </view>
                 <!-- 需要加一个循环 -->
-                <view wx:for="{{d.goods_list}}" wx:key="index">
+                <view wx:for="{{d.goods_list}}" wx:key="{{index}}">
                     <view class="reduce-item" wx:if="{{item.is_gifts===1 && (item.gift_type==1 || item.gift_type==2)}}">
                         <view class="left">
                             <image wx:if="{{item.goods_code.substr(2,3)==='JJG'}}" mode="scaleToFill"
@@ -305,13 +305,13 @@
         </view>
     </view>
 </view>
-<popup wx:if="{{showTop}}" position="bottom">
-    <view style="background: #fff">
+<view wx:if="{{showTop}}"  class="pop-top">
+    <view style="background: #fff;position: fixed;bottom: 0;width: 100vw;">
         <view class="order-trace">订单跟踪
             <image bindtap="closeModel" mode="scaleToFill" src="{{imageUrl}}close1.png"/>
         </view>
         <view class="order-trace-ul">
-            <view class="order-trace-li" wx:for="{{curOrderState}}" wx:if="{{item.time != '0000-00-00 00:00:0'}}">
+            <view class="order-trace-li" wx:for="{{curOrderState}}" wx:key="{{ index }}" wx:if="{{item.time != '0000-00-00 00:00:0'}}">
                 <view class="order-trace-left">
                     <image mode="scaleToFill" src="{{imageUrl}}order1.png"
                            wx:if="{{curOrderState.length - 1 != index}}"/>
@@ -328,11 +328,11 @@
             </view>
         </view>
     </view>
-</popup>
-<popup wx:if="{{cancleShow}}" position="bottom">
+</view>
+<view wx:if="{{cancleShow}}"  class="pop-top">
     <view style="height: 711rpx; width:750rpx; background: #fff;border-radius: 20rpx 20rpx 0 0">
         <view class="cancle-title">请选择取消原因</view>
-        <view class="cancel-list" wx:for="{{cancelReasonList}}" bindtap="selectReason" data-index="{{index}}">
+        <view class="cancel-list" wx:for="{{cancelReasonList}}" wx-key="{{ index }}" bindtap="selectReason" data-index="{{index}}">
             <view class="cancle-left">
                 {{item.reason}}
             </view>
@@ -340,7 +340,7 @@
         </view>
         <view class="cancel-buttons">
             <view catchtap='closeModel'>暂不取消</view>
-            <view catchtap='cancelOrder'>确认取消</view>
+            <view catchtap='FUN_cancelOrder'>确认取消</view>
         </view>
     </view>
-</popup>
+</view>

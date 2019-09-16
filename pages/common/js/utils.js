@@ -57,12 +57,13 @@ export const handleCopy = e => {
     text
   } = e.currentTarget.dataset;
   log(text);
-  wx.setClipboard({
-    text,
+  wx.setClipboardData({
+    data:text,
     success() {
       wx.showToast({
-        type: 'success',
-        content: '操作成功'
+        mask:true,
+        icon: 'success',
+        title: '操作成功'
       });
     }
   });
