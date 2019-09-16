@@ -210,6 +210,8 @@ Page({
         res.data.sex = res.data.sex == 0 ? 1 : 0;
         wxSet('userInfo', { ...rest, ...res.data });
         reLaunch({ url: '/pages/my/index/index' })
+      }else{
+        wx.showToast({title:res.msg})
       }
     }
   },
