@@ -81,17 +81,19 @@ Component({
     },
 
     bindgetuserinfo(e) {
+      console.log(e);
       const {
         url
       } = e.currentTarget.dataset;
       if ('/' + getCurUrl() === url) {
         return;
       }
-      const { errMsg, userInfo } = e.detail;
+      const { errMsg, userInfo, ...rest } = e.detail;
       if (errMsg === 'getUserInfo:ok') {
         const { user_id } = wxGet('userInfo') || { user_id: '' };
         if (!user_id) {
           console.log('获取用户信息');
+          wxSet('rest', rest);
           wxSet('userInfo', userInfo);
         }
         return redirectTo({
