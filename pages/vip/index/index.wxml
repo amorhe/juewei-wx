@@ -1,4 +1,4 @@
-<view class="vip" onTap="hideToast">
+<view class="vip" ontap="FUN_hideToast">
   <!-- 头部 -->
   <view class="header-title-s" style="width: 90vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
     <text
@@ -8,9 +8,9 @@
   <image style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px" mode="scaleToFill" class="title_bg" src="{{imageUrl}}title_bg.png"/>
   <image mode="scaleToFill" class="body_bg" src="{{imageUrl}}body_bg.png"/>
   <view class="content">
-    <view class="header flex-space-b" wx:if="{{_sid}}">
+    <view class="header flex-space-b" wx:if="{{userPoint}}">
       <view class="flex-center">
-        <view onTap="toPointList">
+        <view ontap="toPointList">
           <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
             <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:40%;height:1em" formType="submit"></button>
             <text > 当前积分：</text>
@@ -18,12 +18,12 @@
           </form>
         </view>
         <view style='position:relative;height:32rpx'>
-          <image class="icon" catchTap="showToast" mode="scaleToFill" src="{{imageUrl}}explain.png"/>
+          <image class="icon" bindtap="showToast" mode="scaleToFill" src="{{imageUrl}}explain.png"/>
           <view class="toast" wx:if="{{toast}}">冻结积分：{{userPoint.freeze_point}}</view>
         </view>
       </view>
       <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
-        <view class="flex-center" style="font-size:26rpx;height:32rpx" onTap="toExchangeList">
+        <view class="flex-center" style="font-size:26rpx;height:32rpx" ontap="toExchangeList">
           <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:20%;height:1em" formType="submit"></button>
            兑换记录
           <image class="icon" mode="scaleToFill" src="{{imageUrl}}arrow_right2.png"/>
@@ -31,16 +31,16 @@
       </form>
     </view>
     <!-- 未登录 -->
-    <view class="header flex-space-b" onTap="isloginFn" style="align-iten:flex-end" wx:if="{{!_sid && loginFinsih}}">
+    <view class="header flex-space-b" ontap="isloginFn" style="align-iten:flex-end" wx:if="{{!userPoint}}">
       <view class="flex-center">
         立即登录
         <image class="icon" mode="scaleToFill" src="{{imageUrl}}arrow_right2.png"/>
       </view>
     </view>
-    <swiper wx:if="{{bannerList.length}}" autoplay="{{true}}" indicator-active-color="#E60012" indicator-color="#E8E8E8" interval="3000" indicator-dots="{{true}}" circular="{{true}}" duration="1000" class="banner">
-      <block wx:for="{{bannerList}}">
+    <swiper wx:if="{{bannerList.length}}"  autoplay="{{true}}" indicator-active-color="#E60012" indicator-color="#E8E8E8" interval="3000" indicator-dots="{{true}}" circular="{{true}}" duration="1000" class="banner">
+      <block wx:for="{{bannerList}}" wx:key="{{ index }}">
         <swiper-item>
-          <image style="margin:0" class="banner" mode="scaleToFill" onTap="linkTo" data-url="{{item.link_url}}" src="{{imageUrl2 + item.pic_src}}"/>
+          <image style="margin:0" class="banner" mode="scaleToFill" ontap="linkTo" data-url="{{item.link_url}}" src="{{imageUrl2 + item.pic_src}}"/>
         </swiper-item>
       </block>
     </swiper>
@@ -49,13 +49,13 @@
     </view>
     <view class="flex-space-b two" wx:if="{{new_user.length}}">
       <scroll-view scroll-x="{{true}}" class="new">
-        <view class="new_card" style="background-image:url({{imageUrl}}coupon_bg2.png)" wx:for="{{new_user}}">
+        <view class="new_card" style="background-image:url({{imageUrl}}coupon_bg2.png)" wx:for="{{new_user}}" wx:key="{{ index }}">
           <view class="new-left">
             <text class="new-num">{{item.money/100}}</text>
             <text class="new-yuan">元</text>
             <view class="new-use">满{{item.full_money/100}}元可用</view>
           </view>
-          <view class="new-right new-button" onTap="switchTo">
+          <view class="new-right new-button" ontap="switchTo">
            立即使用
           </view>
         </view>
@@ -66,16 +66,16 @@
     </view>
     <view class="flex-space-b two">
       <scroll-view scroll-x="{{true}}" class="x">
-        <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" onTap="linkTo"/>
+        <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" ontap="linkTo"/>
       </scroll-view>
     </view>
-    <view class="sroll-view-wrap" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight - 2}}px">
-      <scroll-view scroll-x="{{true}}" class="x" style="margin:0 32rpx" id="affix">
-        <view onTap="listChange" data-cur="{{index}}" wx:key="{{index}}" wx:for='{{list}}' class="{{index === cur? 'active':''}}">{{item.cate_name}}</view>
+<!--    <view class="sroll-view-wrap" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight - 2}}px">-->
+      <scroll-view scroll-x class="x" style="margin:0 32rpx" id="affix">
+        <view ontap="FUN_listChange" data-cur="{{index}}" wx:key="{{index}}" wx:for='{{list}}' wx:key="{{ index }}" class="{{index === cur? 'active':''}}">{{item.cate_name}}</view>
       </scroll-view>
-    </view>
+<!--    </view>-->
     <view class="ul" wx:if="{{finish}}">
-      <view class="li" wx:if="{{goodsList.length}}" wx:key="{{item.id}}" wx:for="{{goodsList}}" onTap="toDetail" data-id="{{item.id}}" data-valid_num="{{item.valid_num}}" data-exchange_day_num="{{item.exchange_day_num}}" data-exchange_day_vaild_num="{{item.exchange_day_vaild_num}}">
+      <view class="li" wx:if="{{goodsList.length}}" wx:key="{{item.id}}" wx:for="{{goodsList}}" ontap="FUN_toDetail" data-id="{{item.id}}" data-valid_num="{{item.valid_num}}" data-exchange_day_num="{{item.exchange_day_num}}" data-exchange_day_vaild_num="{{item.exchange_day_vaild_num}}">
         <view class="li-pic">
           <image mode="scaleToFill" src="{{imageUrl2 + item.goods_pic}}"/>
           <image mode="scaleToFill" class="pic-sm" src="{{imageUrl}}floridian.png" wx:if="{{((item.valid_num)==0 || ((item.exchange_day_num-0)>0 && (item.exchange_day_vaild_num)==0))}}"/>
@@ -85,22 +85,22 @@
           <view class="flex-space-b" style="padding:8rpx 0 18rpx">
             <!-- 价格 -->
             <view class="li-all">
-              <text class="" wx:if="{{ item.point == 0 && item.amount == 0 }}">
+              <view class="" wx:if="{{ item.point == 0 && item.amount == 0 }}">
                免费领取
-              </text>
-              <text wx:if="{{ item.point !=0 && item.amount != 0 }}">
+              </view>
+              <view wx:if="{{ item.point !=0 && item.amount != 0 }}">
                {{ item.point }}
                 <text class="li-small">积分</text>+{{ item.amount / 100}}
                 <text class="li-small">元</text>
-              </text>
-              <text wx:if="{{ item.point !=0 && item.amount == 0 }}">
+              </view>
+              <view wx:if="{{ item.point !=0 && item.amount == 0 }}">
                {{ item.point }}
                 <text class="li-small">积分</text>
-              </text>
-              <text wx:if="{{ item.point ==0 && item.amount != 0 }}">
+              </view>
+              <view wx:if="{{ item.point ==0 && item.amount != 0 }}">
                 {{ item.amount / 100}}
                 <text class="li-small">元</text>
-              </text>
+              </view>
             </view>
             <view wx:if="{{!((item.valid_num)==0 || ((item.exchange_day_num-0)>0 && (item.exchange_day_vaild_num)==0))}}" class="li-button">抢</view>
             <view wx:if="{{((item.valid_num)==0 || ((item.exchange_day_num-0)>0 && (item.exchange_day_vaild_num)==0))}}" class="li-button" style="background:#ccc">已抢光</view>
@@ -111,12 +111,12 @@
               valid_num: "12"  总剩余库存
               是否显示已对完的图标是通过这三个值来确认的
               剩余库存为0 或者 （每天兑换限额不为零并且每天兑换剩余次数为0的时候） -->
-        <!-- <view class="bottom" wx:if="{{item.exchange_day_num != 0}}" style="background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%, white '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%)'}}">
-          已抢{{((((item.exchange_day_num - item.exchange_day_vaild_num)*100/item.exchange_day_num).toFixed(0)))}}%
+         <view class="bottom" wx:if="{{item.exchange_day_num != 0}}" style="background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%, white '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%)'}}">
+          已抢{{ (item.exchange_day_num - item.exchange_day_vaild_num ) * 100 / item.exchange_day_num}} %
         </view>
         <view class="bottom" wx:if="{{item.exchange_day_num == 0}}" style="background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((item.total_num - item.valid_num)/item.total_num)*100 +'%, white '+ ((item.total_num - item.valid_num)/item.total_num)*100 +'%)'}}">
-          已抢{{((((item.total_num - item.valid_num)*100/item.total_num).toFixed(0)))}}%
-        </view> -->
+          已抢{{(item.total_num - item.valid_num)*100/item.total_num}} %
+        </view>
       </view>
       <view class="no-good" wx:if="{{!goodsList.length}}">
         <image mode="scaleToFill" src="{{imageUrl}}nogoods.png"/>

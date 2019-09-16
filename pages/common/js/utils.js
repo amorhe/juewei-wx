@@ -50,6 +50,8 @@ export const FUN_IS_LOGIN = () => {
   return user_id
 };
 
+
+
 /**
  * @function 剪切板
  */
@@ -163,10 +165,10 @@ export const liTo = e => {
 /**
  * @function 获取用户积分
  */
-export const event_getUserPoint = async () => {
+export const event_getUserPoint = async (e) => {
   let res = await Request.reqUserPoint();
   if (res.CODE === 'A100') {
-    this.setData({
+    e.setData({
       userPoint: res.DATA
     })
   }
