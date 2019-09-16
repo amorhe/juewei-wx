@@ -1,5 +1,4 @@
-// import parse from 'mini-html-parser2';
-// var wxParse = require('../../../utils/wxParse/wxParse.js');
+import { wxParse } from '../../../utils/wxParse/wxParse.js';
 
 import Request from "./li-ajax";
 import { wxGet } from "./baseUrl";
@@ -8,17 +7,15 @@ export const log = console.log;
 
 /**
  * @function 获取富文本数组
- * @param {string} html字符串
+ * @param bindName
+ * @param html
+ * @param target
  */
-// export const parseData = async (html) => {
-//   return new Promise(resolve => {
-//     parse(html, (err, nodes) => {
-//       if (!err) {
-//         resolve(nodes)
-//       }
-//     })
-//   })
-// }
+export const parseData = async ({ bindName, html, target }) => {
+  return new Promise(resolve => {
+    wxParse(bindName, 'html', html, target, 5);
+  })
+};
 
 /**
  * @function 获取地址列表
@@ -50,6 +47,7 @@ export const FUN_IS_LOGIN = () => {
   return user_id
 };
 
+
 /**
  * @function 剪切板
  */
@@ -58,12 +56,13 @@ export const handleCopy = e => {
     text
   } = e.currentTarget.dataset;
   log(text);
-  wx.setClipboard({
-    text,
+  wx.setClipboardData({
+    data: text,
     success() {
       wx.showToast({
-        type: 'success',
-        content: '操作成功'
+        mask: true,
+        icon: 'success',
+        title: '操作成功'
       });
     }
   });
@@ -115,9 +114,11 @@ export const guide = e => {
  * @function 联系客服
  */
 
-export const contact = () => {
+export const contact = e => {
+  const { phone_number } = e.currentTarget.dataset;
+  console.log(phone_number);
   wx.makePhoneCall({
-    number: '4009995917'
+    phoneNumber: phone_number  || '4009995917'
   });
 };
 
@@ -163,10 +164,10 @@ export const liTo = e => {
 /**
  * @function 获取用户积分
  */
-export const event_getUserPoint = async () => {
+export const event_getUserPoint = async (e) => {
   let res = await Request.reqUserPoint();
   if (res.CODE === 'A100') {
-    this.setData({
+    e.setData({
       userPoint: res.DATA
     })
   }
@@ -187,24 +188,24 @@ export const event_getUserPoint = async () => {
  * @param {Function} complete
  */
 export const MODAL = ({
-  title,
-  content,
-  showCancel = true,
-  cancelText = '取消',
-  cancelColor = '#999',
-  confirmText = '确定',
-  confirmColor = '#E60012',
-  confirm = () => {
-    console.log('用户点击确定')
-  },
-  cancel = () => {
-    console.log('用户点击取消')
-  },
-  fail = () => {
-  },
-  complete = () => {
-  }
-}) => wx.showModal({
+                        title,
+                        content,
+                        showCancel = true,
+                        cancelText = '取消',
+                        cancelColor = '#999',
+                        confirmText = '确定',
+                        confirmColor = '#E60012',
+                        confirm = () => {
+                          console.log('用户点击确定')
+                        },
+                        cancel = () => {
+                          console.log('用户点击取消')
+                        },
+                        fail = () => {
+                        },
+                        complete = () => {
+                        }
+                      }) => wx.showModal({
   title,
   content,
   showCancel,

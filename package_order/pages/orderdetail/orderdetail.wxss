@@ -485,3 +485,11 @@ view.pay {
   right: 20rpx;
   top: 10rpx;
 }
+
+.pop-top{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top:0;
+    background: rgba(0,0,0,.3);
+}

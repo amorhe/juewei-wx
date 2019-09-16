@@ -23,7 +23,6 @@ Page({
    */
   onLoad: function (options) {
     this.funGetDetail(1);
-    this.funGetUserPoint();
   },
 
   /**
@@ -142,3 +141,14 @@ Page({
     this.setData({ toast: false })
   },
 })
+
+// <!--未登录提示 -->
+// <i-modal visible="{{loginOpened}}" show-ok="{{ false }}" show-cancel="false">
+//   <view class="modalInfo">
+//   用户未登录
+//   </view>
+//   <view slot="footer" class="footerButton">
+//   <view class="modalButton confirm " onTap="onModalClose">取消</view>
+//   <view class="modalButton cancel " onTap="isloginFn">登录</view>
+//   </view>
+//   </i-modal>

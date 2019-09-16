@@ -8,7 +8,7 @@ page {
 .header-title-s {
   z-index: 9999;
   position: fixed;
-  top: 0rpx;
+  top: 0;
   /* width: 100vw; */
   text-align: center;
   font-size: 36rpx;
@@ -52,7 +52,6 @@ page {
 .icon {
   width: 32rpx;
   height: 32rpx;
-  margin-left: 1em;
 }
 
 .header {
@@ -94,7 +93,6 @@ page {
   position: relative;
   z-index: 9999;
   white-space: nowrap;
-  display: flex;
   margin: 20rpx 0;
 }
 
@@ -103,8 +101,7 @@ page {
 }
 
 .x view {
-  flex-shrink: 0;
-  flex-grow: 0;
+    display: inline-block;
   height: 80rpx;
   line-height: 80rpx;
   margin-right: 32rpx;
@@ -130,7 +127,6 @@ page {
 
 .ul .li {
   width: 333rpx;
-  height: 513rpx;
   border-radius: 8rpx;
   margin-bottom: 20rpx;
   overflow: hidden;

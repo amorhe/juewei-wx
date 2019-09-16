@@ -4,8 +4,11 @@ page{
     background: #eee;
 }
 
-.img{
+.swiper-wrap{
     height: 750rpx;
+}
+
+.img{
     width: 750rpx;
 }
 

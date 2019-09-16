@@ -1,14 +1,7 @@
 // pages/vip/index/index.js
-import {
-  imageUrl,
-  imageUrl2,
-  wxGet
-} from '../../common/js/baseUrl'
+import { imageUrl, imageUrl2, wxGet } from '../../common/js/baseUrl'
 import Request from '../../common/js/li-ajax'
-import {
-  event_getNavHeight,
-  event_getUserPoint
-} from '../../common/js/utils'
+import { event_getNavHeight, event_getUserPoint, isloginFn } from '../../common/js/utils'
 import { navigateTo } from "../../common/js/router";
 
 const app = getApp();
@@ -26,7 +19,6 @@ Page({
     finish: false,
     toast: false,
 
-    _sid: '',
     navHeight: '',
     loginFinish: false,
 
@@ -72,9 +64,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    // 查看用户登录状态
-    await event_getUserPoint();
-    let _sid = wxGet('_sid');
+    event_getUserPoint(this);
     //获取当前所需要的分子公司id,城市id，门店id,区域id
     const {
       company_sale_id: company_id,
@@ -84,7 +74,6 @@ Page({
     } = (app.globalData.shopTakeOut || my.getStorageSync('takeout')[0]);
     let navHeight = event_getNavHeight();
     this.setData({
-      _sid,
       navHeight,
       city_id,
       district_id,
@@ -103,7 +92,7 @@ Page({
     })
   },
 
-  navigateTo,
+
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -268,5 +257,38 @@ Page({
       })
     }
   },
+
+  /**
+   * @function 修改分类
+   */
+  FUN_listChange(event) {
+    const { list } = this.data;
+    const { cur } = event.currentTarget.dataset;
+    this.setData({ cur, cate_id: list[cur].id }, () => this.event_getGoodsList())
+  },
+
+  /**
+   * @function 隐藏冻结积分
+   */
+  FUN_hideToast() {
+    this.setData({ toast: false })
+  },
+
+
+  /**
+   * @function 跳转详情页面
+   */
+  FUN_toDetail(e) {
+    const { id, valid_num, exchange_day_num, exchange_day_vaild_num } = e.currentTarget.dataset
+    if ((valid_num) == 0 || ((exchange_day_num - 0) > 0 && (exchange_day_vaild_num) == 0)) {
+      return
+    }
+    navigateTo({
+      url: '../../../package_vip/pages/detail/detail?id=' + id
+    });
+  },
+
+  navigateTo,
+  isloginFn,
 
 });

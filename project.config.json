@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 9,
 			"list": [
 				{
 					"id": -1,
@@ -117,10 +117,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "订单详情",
 					"pathName": "package_order/pages/orderdetail/orderdetail",
-					"query": "phone=18640460506",
+					"query": "order_no=jwd0119082626363442",
 					"scene": null
 				},
 				{
@@ -138,10 +138,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 12,
 					"name": "VIP商品详情页",
 					"pathName": "package_vip/pages/detail/detail",
-					"query": "phone=18640460506",
+					"query": "id=468",
 					"scene": null
 				},
 				{
