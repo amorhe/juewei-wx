@@ -1,5 +1,4 @@
-// import parse from 'mini-html-parser2';
-// var wxParse = require('../../../utils/wxParse/wxParse.js');
+import {wxParse} from '../../../utils/wxParse/wxParse.js';
 
 import Request from "./li-ajax";
 import { wxGet } from "./baseUrl";
@@ -8,17 +7,15 @@ export const log = console.log;
 
 /**
  * @function 获取富文本数组
- * @param {string} html字符串
+ * @param bindName
+ * @param html
+ * @param target
  */
-// export const parseData = async (html) => {
-//   return new Promise(resolve => {
-//     parse(html, (err, nodes) => {
-//       if (!err) {
-//         resolve(nodes)
-//       }
-//     })
-//   })
-// }
+export const parseData = async ({bindName,html,target}) => {
+  return new Promise(resolve => {
+    wxParse(bindName, 'html', html,  target, 5);
+  })
+};
 
 /**
  * @function 获取地址列表

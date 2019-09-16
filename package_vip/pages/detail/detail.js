@@ -1,7 +1,7 @@
 // package_vip/pages/detail/detail.js
 
-import { isloginFn, log } from '../../../pages/common/js/utils'
-import { imageUrl2 } from '../../../pages/common/js/baseUrl'
+import { isloginFn, log, MODAL, parseData } from '../../../pages/common/js/utils'
+import { imageUrl2, wxGet } from '../../../pages/common/js/baseUrl'
 import { upformId } from '../../../pages/common/js/time'
 import Request from "../../../pages/common/js/li-ajax";
 
@@ -11,10 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    modalOpened: false,
     imageUrl2,
-    openPoint: false,
-    loginOpened: false,
     content: '',
     detail: {},
     isClick: true
@@ -47,7 +44,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    this.onModalClose()
   },
 
   /**
@@ -77,28 +73,26 @@ Page({
   onShareAppMessage: function () {
 
   },
-  //fixme
-  parseData(e){
-    console.log(1);
-  },
   /**
    * @function 获取当商品面详情
    */
   async getDetail(id) {
-    let { code, data: { goods_name, exchange_intro, intro, ...Data } } = await Request.reqDetail(id);
+    let { code, data: { goods_name, exchange_intro, intro, start_time, end_time, ...Data } } = await Request.reqDetail({ id });
     if (code === 100) {
-      let _exchange_intro = await this.parseData(exchange_intro);
-      let _intro = await this.parseData(intro);
-      wx.setNavigationBar({
+      parseData({ bindName: '_exchange_intro', html: exchange_intro, target: this });
+      parseData({ bindName: '_intro', html: intro, target: this });
+      wx.setNavigationBarTitle({
         title: '商品详情',
       });
+      start_time = start_time.split(' ')[0];
+      end_time = end_time.split(' ')[0];
       this.setData({
         detail: {
           intro,
-          _intro,
           exchange_intro,
-          _exchange_intro,
           goods_name,
+          end_time,
+          start_time,
           ...Data
         }
       })
@@ -118,7 +112,7 @@ Page({
       'goods[amount]': amount,
       'pay_type': 11
     };
-    let { code, data, msg } = await reqCreateOrder(params);
+    let { code, data, msg } = await Request.reqCreateOrder(params);
     if (code === 100) {
       return data
     }
@@ -134,7 +128,7 @@ Page({
 
   async confirmOrder(order_sn) {
     let params = { order_sn };
-    let { code, data } = await reqConfirmOrder(params);
+    let { code, data } = await Request.reqConfirmOrder(params);
     return code === 100
   },
 
@@ -142,7 +136,7 @@ Page({
    * @function 支付订单
    */
   async pay(order_sn) {
-    let { code, data } = await reqPay(order_sn);
+    let { code, data } = await Request.reqPay(order_sn);
     return { code, data }
   },
 
@@ -276,12 +270,9 @@ Page({
    * @function 显示modal，立即兑换
    */
 
-  async showConfirm() {
-    let _sid = await getSid();
-    if (!_sid) {
-      // return this.setData({
-      //   loginOpened: true
-      // });
+  async FUN_showConfirm() {
+    let { user_id } = wxGet('userInfo');
+    if (!user_id) {
       return isloginFn()
     }
 
@@ -291,27 +282,22 @@ Page({
     let points = await this.getUserPoint();
 
     if (points >= point) {
-      this.setData({
+      MODAL({
+        title: '',
         content: `是否兑换“${ goods_name }”将消耗你的${ point }积分`,
-        modalOpened: true
+        confirmText: '确定',
+        confirm: this.onModalClick,
+        cancelText: '取消',
       })
     } else {
-      this.setData({
-        openPoint: true
+      MODAL({
+        title: '',
+        content: `您的当前积分不足`,
+        confirmText: '赚积分',
+        confirm: this.getMorePoint,
+        cancelText: '取消',
       })
     }
-  },
-
-
-  /**
-   * @function 关闭modal
-   */
-  onModalClose() {
-    this.setData({
-      openPoint: false,
-      modalOpened: false,
-      loginOpened: false
-    })
   },
 
   /**
@@ -329,7 +315,7 @@ Page({
    * @function 获取用户积分
    */
   async getUserPoint() {
-    let res = await reqUserPoint();
+    let res = await Request.reqUserPoint();
     if (res.CODE === 'A100') {
       return res.DATA.points
     }
@@ -341,34 +327,3 @@ Page({
   isloginFn
 
 });
-
-// <!--未登录提示 -->
-// <modal show="{{loginOpened}}" showClose="{{ false }}">
-//   <view class="modalInfo">
-//   用户未登录
-//   </view>
-//   <view slot="footer" class="footerButton">
-//   <view class="modalButton confirm " onTap="onModalClose">取消</view>
-//   <view class="modalButton cancel " onTap="isloginFn">登录</view>
-//   </view>
-//   </modal>
-//   <!-- 消耗积分提示 -->
-//   <modal show="{{modalOpened}}" showClose="{{ false }}">
-//   <view class="modalInfo">
-//   {{content}}
-// </view>
-// <view slot="footer" class="footerButton">
-//   <view class="modalButton confirm " onTap="onModalClose">取消</view>
-//   <view class="modalButton cancel " onTap="onModalClick">确定</view>
-//   </view>
-//   </modal>
-//   <!-- 当前积分不足 -->
-//   <modal show="{{openPoint}}" showClose="{{ false }}">
-//   <view class="modalInfo">
-//   您的当前积分不足
-//   </view>
-//   <view slot="footer" class="footerButton">
-//   <view class="modalButton confirm " onTap="onModalClose">取消</view>
-//   <view class="modalButton cancel " onTap="getMorePoint">赚积分</view>
-//   </view>
-//   </modal>
