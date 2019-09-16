@@ -121,12 +121,14 @@ Page({
   async onBlur() {
     const { phone, value } = this.data;
     const { errMsg, ...rest } = wxGet('rest');
+    const _sid = wxGet('_sid');
     this.setData({
       focus: false,
     });
     const data = {
       phone,
       code: value,
+      _sid,
       ...rest
     };
     let res = await loginByPhone(data);
@@ -134,6 +136,7 @@ Page({
       // 成功
       app.globalData._sid = res.data._sid;
       wxSet('_sid', res.data._sid);
+      wxSet('userInfo',res.data);
       wxSet('user_id', res.data.user_id);
       wx.navigateBack({
         delta: 2

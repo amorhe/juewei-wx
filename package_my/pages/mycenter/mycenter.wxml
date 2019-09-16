@@ -1,74 +1,69 @@
 <view class="usercenter">
-  <view>
-    <view class="listItem">
-      <view class="Itemlabel">头像</view>
-      <view class="ItimInfo"></view>
-      <image mode="scaleToFill" class='userImg' src="{{ userinfo.head_img?userinfo.head_img:imageUrl+'default_head1.png' }}" />
+    <view>
+        <view class="listItem">
+            <view class="Itemlabel">头像</view>
+            <view class="ItimInfo"></view>
+            <image mode="scaleToFill" class='userImg'
+                   src="{{ userinfo.head_img?userinfo.head_img:imageUrl+'default_head1.png' }}"/>
+        </view>
+        <view class="listItem">
+            <view class="Itemlabel">昵称</view>
+            <view class="ItimInfo">{{userinfo.nick_name||'绝味会员'}}</view>
+        </view>
+        <view class="listItem" bindtap="onTopBtnTap">
+            <view class="Itemlabel">性别</view>
+            <view class="ItimInfo">
+                <picker range="{{sex_array}}" bindchange="genderFN">
+                    <view>{{userinfo.sex==0?'男':'女'}}</view>
+                </picker>
+            </view>
+            <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png"/>
+        </view>
+        <view class="listItem">
+            <view class="Itemlabel">生日</view>
+            <view class="ItimInfo" wx:if="{{ userinfo.birthday=='0000-00-00' }}" bindtap="Taptime">请输入生日信息，保存后不可修改
+            </view>
+            <view class="ItimInfo" wx:else>{{ userinfo.birthday }}</view>
+            <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png"/>
+        </view>
+        <view class="listItem" bindtap="showSelectAddress">
+            <view class="Itemlabel">城市</view>
+            <view class="ItimInfo" wx:if="{{ userinfo.province_id==0 }}">请选择城市</view>
+            <view class="ItimInfo" wx:else>{{userinfo.provinceName}}-{{userinfo.cityName}}-{{userinfo.regionName}}
+            </view>
+            <!-- <picker-view class="pick" mode="multiSelector" indicator-style="height: 40px;" value="{{defaultAddress}}" bindchange="changeAddress">
+              <picker-view-column>
+                <view class="selecter" wx:for="{{ provinceList }}" wx:key="unique">
+                  <view class="value">{{item.name}}</view>
+                </view>
+              </picker-view-column>
+              <picker-view-column>
+                <view class="selecter" wx:for="{{cityList}}" wx:key="unique">
+                  <view class="value">{{item.name}}</view>
+                </view>
+              </picker-view-column>
+              <picker-view-column>
+                <view class="selecter" wx:for="{{countryList}}" wx:key="unique">
+                  <view class="value">{{item.name}}</view>
+                </view>
+              </picker-view-column>
+            </picker-view> -->
+            <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png"/>
+        </view>
+        <view class="listItem" bindtap="toUrl"
+              data-url="/package_my/pages/mycenter/bindphone/bindphone?phone={{userinfo.phone}}&type=1">
+            <view class="Itemlabel">手机号</view>
+            <view class="ItimInfo">{{userinfo.phone}}</view>
+            <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png"/>
+        </view>
     </view>
-    <view class="listItem">
-      <view class="Itemlabel">昵称</view>
-      <view class="ItimInfo">{{userinfo.nick_name||'绝味会员'}}</view>
-    </view>
-    <view class="listItem" bindtap="onTopBtnTap">
-      <view class="Itemlabel">性别</view>
-      <view class="ItimInfo">
-        <picker range="{{sex_array}}" bindchange="genderFN">
-          <view>{{userinfo.sex==0?'男':'女'}}</view>
-        </picker>
-      </view>
-      <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
-    </view>
-    <view class="listItem">
-      <view class="Itemlabel">生日</view>
-      <view class="ItimInfo" wx:if="{{ userinfo.birthday=='0000-00-00' }}" bindtap="Taptime">请输入生日信息，保存后不可修改</view>
-      <view class="ItimInfo" wx:else>{{ userinfo.birthday }}</view>
-      <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
-    </view>
-    <view class="listItem" bindtap="showSelectAddress">
-      <view class="Itemlabel">城市</view>
-      <view class="ItimInfo" wx:if="{{ userinfo.province_id==0 }}">请选择城市</view>
-      <view class="ItimInfo" wx:else>{{userinfo.provinceName}}-{{userinfo.cityName}}-{{userinfo.regionName}}</view>
-      <!-- <picker-view class="pick" mode="multiSelector" indicator-style="height: 40px;" value="{{defaultAddress}}" bindchange="changeAddress">
-        <picker-view-column>
-          <view class="selecter" wx:for="{{ provinceList }}" wx:key="unique">
-            <view class="value">{{item.name}}</view>
-          </view>
-        </picker-view-column>
-        <picker-view-column>
-          <view class="selecter" wx:for="{{cityList}}" wx:key="unique">
-            <view class="value">{{item.name}}</view>
-          </view>
-        </picker-view-column>
-        <picker-view-column>
-          <view class="selecter" wx:for="{{countryList}}" wx:key="unique">
-            <view class="value">{{item.name}}</view>
-          </view>
-        </picker-view-column>
-      </picker-view> -->
-      <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
-    </view>
-    <view class="listItem" bindtap="toUrl" data-url="/package_my/pages/mycenter/bindphone/bindphone?phone={{userinfo.phone}}&type=1">
-      <view class="Itemlabel">手机号</view>
-      <view class="ItimInfo">{{userinfo.phone}}</view>
-      <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
-    </view>
-  </view>
-  <view class="SignOutButton" bindtap="outLogin">退出登录</view>
+    <view class="SignOutButton" bindtap="outLogin">退出登录</view>
 </view>
 
 <!-- 退出提示 -->
-<!-- <modal show="{{modalOpened}}" showClose="{{ false }}">
-  <view class="modalInfo">
-    是否确定退出登录
-  </view>
-  <view slot="footer" class="footerButton">
-    <view class="modalButton confirm" bindtap="onModalClick">确定</view>
-    <view class="modalButton cancel" bindtap="onModalClose">取消</view>
-  </view>
-</modal> -->
 
 <!-- 选择地址 -->
-<!-- <view class="pop-wrap" wx:if="{{selectAddress}}">
+<view class="pop-wrap" wx:if="{{selectAddress}}">
   <view class="my-pop">
     <view class="pop-top">
       <text></text>
@@ -94,4 +89,4 @@
       </picker-view-column>
     </picker-view>
   </view>
-</view> -->
+</view>

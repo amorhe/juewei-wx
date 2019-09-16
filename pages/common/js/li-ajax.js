@@ -18,8 +18,8 @@ import ORDER from './order'
  * @return Promise<any>
  */
 export const ajax = async ({ url, data = {}, method = 'POST', loading = true }) => {
-  for (let i in data){
-    if(!data[i] && data[i] !== 0){
+  for (let i in data) {
+    if (!data[i] && data[i] !== 0) {
       console.log(data[i]);
       delete data[i]
     }
@@ -45,7 +45,9 @@ export const ajax = async ({ url, data = {}, method = 'POST', loading = true }) 
         if ([100, 'A100', 0, 3212, 3218].includes(code)) {
           resolve(res.data)
         } else if ([30106, 'A103', 101].includes(code)) {
+          console.log('用户未登录');
           wxSet('_sid', '');
+          wxSet('userInfo', {});
           resolve({
             code: -1,
             data: ''

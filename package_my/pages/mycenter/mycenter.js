@@ -1,25 +1,11 @@
-import {
-  imageUrl,
-  wxGet,
-  wxSet
-} from '../../../pages/common/js/baseUrl'
-import {
-  getRegion
-} from '../../../pages/common/js/utils'
-import {
-  UpdateAliUserInfo,
-  UpdateUserInfo
-} from '../../../pages/common/js/my'
-import {
-  getuserInfo,
-  LoginOut
-} from '../../../pages/common/js/login'
-import {
-  redirectTo,
-  navigateTo
-} from '../../../pages/common/js/router.js'
-var app = getApp()
-let region = []
+import { imageUrl, wxGet, wxSet } from '../../../pages/common/js/baseUrl'
+import { getRegion, MODAL } from '../../../pages/common/js/utils'
+import { UpdateAliUserInfo, UpdateUserInfo } from '../../../pages/common/js/my'
+import { getuserInfo, LoginOut } from '../../../pages/common/js/login'
+import { navigateTo, redirectTo } from '../../../pages/common/js/router.js'
+
+var app = getApp();
+let region = [];
 Page({
 
   /**
@@ -54,7 +40,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(e) {
+  onLoad: function (e) {
     if (e.img && e.name) {
       this.getInfo(e.img, e.name)
     }
@@ -63,7 +49,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
@@ -78,40 +64,40 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   // 用户信息
   funGetUserInfo() {
-    var that = this
+    var that = this;
     var _sid = wxGet('_sid');
 
     getuserInfo(_sid).then((res) => {
@@ -123,7 +109,7 @@ Page({
           province_i = index
         }
         return item.addrid == res.data.province_id
-      })[0]
+      })[0];
       if (province) {
         var city = province.sub.filter((item, index) => {
           if (item.addrid == res.data.city_id) {
@@ -140,9 +126,9 @@ Page({
           return item.addrid == res.data.region_id
         })[0]
       }
-      res.data.provinceName = province.name || ''
-      res.data.cityName = city.name || ''
-      res.data.regionName = regions.name || ''
+      res.data.provinceName = province.name || '';
+      res.data.cityName = city.name || '';
+      res.data.regionName = regions.name || '';
       that.setData({
         userinfo: res.data,
         province_i,
@@ -156,9 +142,9 @@ Page({
   },
   // 选择性别
   genderFN(e) {
-    var that = this
-    var data = e.detail.value
-    var sex = data == 1 ? 0 : 1
+    var that = this;
+    var data = e.detail.value;
+    var sex = data == 1 ? 0 : 1;
     UpdateUserInfo({
       sex
     }).then(res => {
@@ -175,7 +161,7 @@ Page({
       province_id: data.province_id || '',
       city_id: data.city_id || '',
       region_id: data.region_id || ''
-    }
+    };
     UpdateUserInfo(data).then((res) => {
       console.log(res, '用户保存')
     })
@@ -203,14 +189,14 @@ Page({
   getAddressList() {
     let [curProvince, curCity, curCountry] = this.data.defaultAddress;
     let provinceList = region.map(({
+                                     addrid,
+                                     name
+                                   }) => ({
       addrid,
       name
-    }) => ({
-      addrid,
-      name
-    }))
-    let cityList = region[curProvince].sub
-    let countryList = cityList[curCity].sub
+    }));
+    let cityList = region[curProvince].sub;
+    let countryList = cityList[curCity].sub;
     this.setData({
       provinceList,
       cityList,
@@ -235,7 +221,7 @@ Page({
 
     let province = region[cur[0]].name;
     let city = region[cur[0]].sub[cur[1]].name;
-    let district = (region[cur[0]].sub[cur[1]].sub[cur[2]] && region[cur[0]].sub[cur[1]].sub[cur[2]].name) || ''
+    let district = (region[cur[0]].sub[cur[1]].sub[cur[2]] && region[cur[0]].sub[cur[1]].sub[cur[2]].name) || '';
 
     this.setData({
         defaultAddress: cur,
@@ -256,14 +242,14 @@ Page({
   hideSelectAddress() {
     var that = this;
 
-    var province = that.data.provinceList[that.data.defaultAddress[0]]
-    var curCity = that.data.cityList[that.data.defaultAddress[1]]
-    var region = that.data.countryList[that.data.defaultAddress[2]]
+    var province = that.data.provinceList[that.data.defaultAddress[0]];
+    var curCity = that.data.cityList[that.data.defaultAddress[1]];
+    var region = that.data.countryList[that.data.defaultAddress[2]];
     var data = {
       province_id: province.addrid,
       city_id: curCity.addrid,
       region_id: region.addrid
-    }
+    };
 
     UpdateUserInfo(data).then(res => {
       that.setData({
@@ -280,8 +266,8 @@ Page({
 
   // 地址
   changeCur(e) {
-    let curLabel = e.currentTarget.dataset.cur
-    if (curLabel === this.data.curLabel) curLabel = '-1'
+    let curLabel = e.currentTarget.dataset.cur;
+    if (curLabel === this.data.curLabel) curLabel = '-1';
     this.setData({
       curLabel
     })
@@ -311,22 +297,23 @@ Page({
   },
   // 退出登录
   outLogin() {
-    this.setData({
-      modalOpened: true,
-    });
+    MODAL({
+      title: '退出登录',
+      content: '是否确定退出登录',
+      confirmText: '确认',
+      confirm: this.onModalClick,
+      cancelText: '取消',
+      cancel: this.onModalClose
+    })
   },
   onModalClick() { // 确认
     var _sid = wxGet('_sid');
     LoginOut(_sid).then(res => {
-      console.log(res)
+      console.log(res);
       if (res.code == 0) {
-        wx.removeStorageSync({
-          key: '_sid',
-        });
-        wx.removeStorageSync({
-          key: 'user_id',
-        });
-        app.globalData._sid = ""
+        wxSet('_sid', '');
+        wxSet('userInfo', {});
+        app.globalData._sid = "";
         redirectTo({
           url: '/pages/home/goodslist/goodslist'
         })
@@ -337,7 +324,7 @@ Page({
           duration: 2000
         });
       }
-    })
+    });
     this.setData({
       modalOpened: false,
     });
@@ -349,25 +336,35 @@ Page({
   },
   //页面跳转
   toUrl(e) {
-    var url = e.currentTarget.dataset.url
+    var url = e.currentTarget.dataset.url;
     navigateTo({
       url: url
     });
   },
   getInfo(avatar, nickName) {
-    var that = this
+    var that = this;
     var _sid = wxGet('_sid');
     that.setData({
       'userinfo.head_img': avatar,
       'userinfo.nick_name': nickName
-    })
+    });
     var data = {
       _sid: _sid,
       head_img: avatar,
       nick_name: nickName
-    }
+    };
     UpdateAliUserInfo(data).then(res => {
 
     })
   },
-})
+});
+
+// <modal show="{{modalOpened}}" showClose="{{ false }}">
+//   <view class="modalInfo">
+//   是否确定退出登录
+//   </view>
+//   <view slot="footer" class="footerButton">
+//   <view class="modalButton confirm" bindtap="onModalClick">确定</view>
+//   <view class="modalButton cancel" bindtap="onModalClose">取消</view>
+//   </view>
+//   </modal>
