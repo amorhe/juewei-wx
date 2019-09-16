@@ -1,2 +1,240 @@
 <!--package_vip/pages/exchangelist/exchangedetail/exchangedetail.wxml-->
-<text>package_vip/pages/exchangelist/exchangedetail/exchangedetail.wxml</text>
+ <!-- 头部 -->
+  <view class="header-title-s" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
+    <!-- <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">兑换详情</text> -->
+  </view>
+  <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
+  <!-- <image style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px" mode="scaleToFill" class="title_bg" src="{{imageUrl}}title_bg.png"/> -->
+  <image mode="scaleToFill" class="body_bg" src="{{imageUrl}}body_bg.png"/>
+<view class="bg" style="z-index:{{(open1||open2)? 0 : 1}}">
+  <!-- 兑换详记录情页 分为 官方兑换和 兑换码(非官方)兑换商品 -->
+  <!-- 状态 -->
+  <view class="state">
+    <view class="state-title">
+     {{(detail.status_name == '未支付'  && detail.remaining_pay_minute < 0) ? '已关闭' :detail.status_name}}
+    </view>
+    <view class="sub-state" wx:if="{{detail.dis_time}}">
+    发货时间：{{detail.dis_time}}
+    </view>
+    <view class="sub-state lex" wx:if="{{detail.dispatch_name}}">
+      <text>{{detail.dispatch_name}} {{detail.dis_sn}} </text>
+      <image data-text="{{detail.dis_sn}}" bindtap="handleCopy" style="width:32rpx;height:32rpx;margin-left:1em;" mode="scaleToFill" src="{{imageUrl}}copy.png"/>
+    </view>
+    <view class="sub-state" wx:if="{{detail.status == 0 && detail.remaining_pay_minute>-1}}">
+    剩余时间：{{detail.remaining_pay_minute}}分{{detail.remaining_pay_second}}秒
+    </view>
+    <view class="sub-state" wx:if="{{detail.get_start_time && detail.status == 1 }}">
+    领取有效期：{{detail.get_start_time.split(' ')[0]}} 至 {{detail.get_end_time.split(' ')[0]}}
+    </view>
+    <view class="sub-state" wx:if="{{detail.get_time != '0000-00-00 00:00:00'}}">
+    领取时间：{{detail.get_time.split(' ')[0]}}
+    </view>
+  </view>
+  <view class="buttons" wx:if="{{detail.status == 0 && detail.remaining_pay_minute>0}}">
+    <view class="c-button" bindtap="doCancelOrder">取消订单</view>
+    <view class="o-button" bindtap="payNow">立即支付</view>
+  </view>
+  <view class="detail">
+    <view class="body detail-item">
+      <image mode="scaleToFill" src="{{imageUrl2 + detail.goods_pic}}" class="good-img"/>
+      <view class="body-right">
+        <view class="good-title">
+            {{detail.goods_name}}
+        </view>
+        <view class="coast-bottom">
+          <view class="cost" wx:if="{{ detail.order_point == 0 && detail.order_amount == 0 }}">
+            免费领
+          </view>
+          <view class="cost" wx:if="{{ detail.order_point !=0 && detail.order_amount != 0 }}">
+           {{ detail.order_point}} 积分 + {{ detail.order_amount}} 元
+          </view>
+          <view class="cost" wx:if="{{ detail.order_point !=0 && detail.order_amount == 0 }}">
+           {{ detail.order_point}} 积分
+          </view>
+          <view class="cost" wx:if="{{ detail.order_point ==0 && detail.order_amount != 0 }}">
+          {{ detail.order_amount}} 元
+          </view>
+          <view class="to-use" bindtap="toUse" wx:if="{{['1'].includes(detail.goods_detail_type) && detail.status != 0 && detail.remaining_pay_minute < -1}}">去使用</view>
+          <view class="b-button" wx:if="{{['3','4'].includes(detail.goods_detail_type)}}" bindtap="contact">联系客服</view>
+        </view>
+      </view>
+    </view>
+    <!--<view class="ul" wx:if="{{detail.receive_type == 2}}"><view class="li"><view class="title">{{detail.user_address_name}} {{detail.user_address_phone}}</view><view class="address-sm">北京市朝阳区某某某某某某某某某某某某某街</view></view></view> -->
+    <view class="user-detail" wx:if="{{detail.receive_type == 1 && detail.user_address_name}}">
+      <view class="user-list" wx:if="{{detail.user_address_name}}">
+        <view class="user-left">
+        领取人
+        </view>
+        <view class="user-right">
+        {{detail.user_address_name}}
+        </view>
+      </view>
+      <view class="user-list">
+        <view class="user-left" wx:if="{{detail.user_address_phone}}">
+        领取手机号码
+        </view>
+        <view class="user-right">
+        {{detail.user_address_phone}}
+        </view>
+      </view>
+      <view class="user-list" wx:if="{{detail.shop_name}}">
+        <view class="user-left">
+        领取门店
+        </view>
+        <view class="user-right">
+          <view class="shop-name"> {{detail.shop_name}}</view>
+          <view
+          class="code-button"
+          data-shop_longitude="{{detail.shop_gd_longitude }}"
+          data-shop_latitude="{{detail.shop_gd_latitude}}"
+          data-shop_name="{{detail.shop_name}}"
+          data-address="{{detail.address}}"
+          bindtap="guide">导航</view>
+        </view>
+      </view>
+      <!--<view class="user-list" wx:if="{{detail.shop_name}}"><view class="user-left"></view><view class="user-right"><view class="user-address">
+           {{detail.province}} {{detail.city}} {{detail.district}} {{detail.address}}</view></view></view> -->
+    </view>
+    <view class="get-shop" wx:if="{{detail.code_img && detail.status == 1 && detail.get_code}}">
+      <view class="get-shop-title">
+        取商品
+      </view>
+      <view class="get-code">
+        <image mode="scaleToFill" src="{{'datwx:image/png;base64,'+detail.code_img}}"/>
+        <image mode="scaleToFill" wx:if="{{detail.status_name == '已领取'}}" class="got" src="{{imageUrl}}received.png"/>
+        <image mode="scaleToFill" wx:if="{{detail.status_name == '已过期'}}" class="got" src="{{imageUrl}}overdue.png"/>
+      </view>
+      <view class="get-shop-tips">
+        请将二维码出示给店员
+      </view>
+      <view class="get-code-string">
+        兑换码 {{detail.get_code}}
+      </view>
+    </view>
+    <view class="code" wx:if="{{detail.gift_code}}">
+      <view class="code-title">兑换码：{{detail.gift_code}}</view>
+      <view class="code-button" data-text="{{detail.gift_code}}" bindtap="handleCopy">复制</view>
+    </view>
+    <view class="ul">
+      <view class="li" wx:if="{{detail.conpon_valid_type == 2 }}">
+        <view class="title">
+          活动时间
+        </view>
+        <view class="value">
+          {{detail.start_time.split(' ')[0]}} 至 {{detail.end_time.split(' ')[0]}}
+        </view>
+      </view>
+
+      <view class="li" wx:if="{{ detail.conpon_valid_type==1 }}">
+        <view class="title">
+          商品有效时间
+        </view>
+        <view class="value">
+          {{detail.conpon_valid_day}}天
+        </view>
+      </view>
+
+      <view class="li" wx:if="{{ detail.conpon_valid_type==0 }}">
+        <view class="title">
+          商品有效时间
+        </view>
+        <view class="value">
+         {{detail.end_time.split(' ')[0]}}
+        </view>
+      </view>
+      <view class="li" wx:if="{{detail.exchange_intro}}">
+        <view class="title">
+          兑换说明
+        </view>
+        <view class="value">
+          <rich-text nodes="{{_exchange_intro}}"></rich-text>
+        </view>
+      </view>
+      <view class="li" wx:if="{{detail.intro}}">
+        <view class="title">
+          商品详情
+        </view>
+        <view class="value">
+          <rich-text nodes="{{_intro}}"></rich-text>
+        </view>
+      </view>
+      <view class="li" wx:if="{{detail.exchange_limit_type}}">
+        <view class="title">
+          兑换次数
+        </view>
+        <view class="value">
+          {{detail.exchange_limit_type == 1?"每人每天":"活动期间"}} {{detail.exchange_limit_num}} 次
+        </view>
+      </view>
+    </view>
+    <view class="address detail-item" wx:if="{{detail.receive_type == 2}}">
+      <view class="address-header">
+        {{detail.user_address_name}} {{detail.user_address_phone}}
+      </view>
+      <view class="address-footer">
+        {{ detail.user_address_address + detail.user_address_detail_address }}
+      </view>
+    </view>
+    <view class="order detail-item">
+      <view class="order-item">
+        <view class="item-name">
+      订单编号
+        </view>
+        <view class="item-value">
+          <text>{{detail.order_sn}}</text>
+          <view class="copy-button" data-text="{{detail.order_sn}}" bindtap="handleCopy">复制</view>
+        </view>
+      </view>
+      <view class="order-item">
+        <view class="item-name">
+      订单时间
+        </view>
+        <view class="item-value">
+          <text>{{detail.order_ctime}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--&lt;!&ndash; 限时优惠 &ndash;&gt;-->
+<!--<modal wx:if="{{open1}}" showClose="{{ true }}" onModalClose="closeModel">-->
+<!--  <view class="modalInfo">-->
+<!--     限时优惠，立即使用-->
+<!--  </view>-->
+<!--  <view slot="footer" class="footerButton">-->
+<!--    <view class="modalButton confirm " bindtap="toTakeOut">自提</view>-->
+<!--    <view class="modalButton cancel " bindtap="toTakeIn">外卖</view>-->
+<!--  </view>-->
+<!--</modal>-->
+<!--&lt;!&ndash; 专享 &ndash;&gt;-->
+<!--<modal class="code-wrap" show="{{open2}}" showClose="{{ false }}">-->
+<!--  <view class="code-head">-->
+<!--    <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>-->
+<!--  </view>-->
+<!--  <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>-->
+
+<!--  <view class="code-phone">-->
+<!--    {{detail.user_phone.slice(0,3)}} **** {{detail.user_phone.slice(7)}}-->
+<!--  </view>-->
+
+<!--  &lt;!&ndash; <view class="code-pay" bindtap="wait">-->
+<!--    确认支付-->
+<!--  </view> &ndash;&gt;-->
+<!--</modal>-->
+
+<!--<popup wx:if="{{cancleShow}}" position="bottom">-->
+<!--  <view style="width:750rpx; background: #fff;border-radius: 20rpx 20rpx 0 0;padding:0 0 20rpx 0" >-->
+<!--    <view class="cancle-title">请选择取消原因</view>-->
+<!--    <view class="cancel-list" wx:for="{{cancelReasonList}}" bindtap="selectReason" data-index="{{index}}">-->
+<!--      <view class="cancle-left">-->
+<!--        {{item.reason}}-->
+<!--      </view>-->
+<!--      <image  class="select" mode="scaleToFill" src="{{imageUrl}}select{{item.value?2:1}}.png"/>-->
+<!--    </view>-->
+<!--    <view class="cancel-buttons">-->
+<!--      <view catchtap='closeModel'>暂不取消</view>-->
+<!--      <view catchtap='doCancelOrder'>确认取消</view>-->
+<!--    </view>-->
+<!--  </view>-->
+<!--</popup>-->

@@ -1,1 +1,116 @@
 /* package_vip/pages/exchangelist/exchangelist.wxss */
+page{
+    background-color: #f5f5f5;
+}
+
+.list {
+    padding: 20rpx 33rpx;
+}
+
+.item {
+    background: white;
+    border-radius: 10rpx;
+    margin-bottom: 20rpx;
+}
+
+.header {
+    display: flex;
+    background: rgba(251, 251, 251, 1);
+    justify-content: space-between;
+    padding: 27rpx;
+}
+
+.time {
+    font-size: 26rpx;
+    font-weight: 400;
+    color: rgba(153, 153, 153, 1);
+}
+
+.state {
+    font-size: 26rpx;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+}
+
+.body {
+    display: flex;
+    padding: 24rpx;
+}
+
+.good-img {
+    width: 120rpx;
+    height: 120rpx;
+    border: 1px solid rgba(231, 231, 231, 1);
+    margin-right: 24rpx;
+}
+
+.body-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+.good-title {
+    margin-top: 8rpx;
+    font-size: 28rpx;
+    font-weight: 600;
+    color: rgba(51, 51, 51, 1);
+}
+
+.cost {
+    margin-bottom: 8rpx;
+    font-size: 28rx;
+    font-weight: 500;
+    color: rgba(230, 0, 18, 1);
+}
+
+.footer-wrap {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 24rpx 24rpx;
+}
+
+.footer {
+    width: 324rpx;
+    height: 64rpx;
+    border-radius: 32rpx;
+    border: 1px solid rgba(230, 0, 18, 1);
+    font-size: 26rpx;
+    font-weight: 400;
+    color: rgba(230, 0, 18, 1);
+    line-height: 64rpx;
+    text-align: center;
+    margin-top: 24rpx;
+}
+
+.none {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+}
+
+.none image {
+    margin: 207rpx auto 20rpx;
+    width: 320rpx;
+    height: 320rpx;
+}
+
+.txt {
+    font-size: 28rpx;
+    color: rgba(51, 51, 51, 1);
+}
+
+.exchange-btn {
+    margin: 20rpx auto;
+    width: 180rpx;
+    height: 64rpx;
+    line-height: 64rpx;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+    border-radius: 32rpx;
+    font-size: 26rpx;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+}
+

@@ -3,6 +3,7 @@ import { wxGet, wxSet } from "./baseUrl";
 
 const loginPage = {
   loginByAuth: '/juewei-api/wxmini/LoginByAuth',  //用户自动登录
+  quickLogin: '/juewei-api/wxmini/QuickLogin', // 微信小程序用户手机号登录
   loginByPhone: '/juewei-api/wxmini/Login', // 手机号登录
   decryptPhone: '/juewei-api/wxmini/decryptPhone', // 解密手机
   sendCode: '/juewei-api/wxmini/sendCode', // 获取短信验证码
@@ -13,8 +14,8 @@ const loginPage = {
   captcha: '/juewei-api/user/captcha', // 获取图片验证码
   LoginOut: '/juewei-api/alimini/LoginOut', // 退出登录
 };
-export const loginByAuth = data => ajax(loginPage.loginByAuth, data );
-
+export const loginByAuth = data => ajax(loginPage.loginByAuth, data);
+export const loginByQuick = data => ajax(loginPage.quickLogin, data);
 export const loginByPhone = data => ajax(loginPage.loginByPhone, data);
 
 
@@ -26,8 +27,9 @@ export const login = rest => wx.login({
     console.log('发送 res.code 到后台换取 openId, sessionKey, unionId');
     let r = await loginByAuth({ code, userInfo, ...rest });
     if (r.code === 0) {
-      console.log('将_sid存到内存中',r.data._sid);
-      wxSet('_sid', r.data._sid)
+      console.log('将_sid存到内存中', r.data._sid);
+      wxSet('_sid', r.data._sid);
+      wxSet('userInfo', { ...rest, ...r.data });
     }
   }
 });
@@ -39,8 +41,8 @@ export const WX_LOGIN = rest => {
   wx.checkSession({
     success() {
       console.log('//session_key 未过期，并且在本生命周期一直有效');
-      const _sid = wxGet('_sid');
-      if (!_sid) {
+      const { user_id } = wxGet('userInfo') || { user_id: '' };
+      if (!user_id) {
         console.log('//session_key 未过期，并且在本生命周期一直有效,但是_sid没了');
         login(rest)
       }

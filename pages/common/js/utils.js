@@ -2,6 +2,7 @@
 // var wxParse = require('../../../utils/wxParse/wxParse.js');
 
 import Request from "./li-ajax";
+import { wxGet } from "./baseUrl";
 
 export const log = console.log;
 
@@ -37,6 +38,16 @@ export const getRegion = async () => {
       }
     });
   })
+};
+
+/**
+ * @function 判断用户 是否 登录
+ * @returns {string}
+ * @constructor
+ */
+export const FUN_IS_LOGIN = () => {
+  const { user_id } = wxGet('userInfo') || { user_id: '' };
+  return user_id
 };
 
 /**

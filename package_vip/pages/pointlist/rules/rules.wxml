@@ -1,2 +1,75 @@
 <!--package_vip/pages/pointlist/rules/rules.wxml-->
-<text>package_vip/pages/pointlist/rules/rules.wxml</text>
+<!--<view>
+  积分规则说明</view> -->
+<view class="rules">
+    <view>
+        <view class="itemTitle">
+            一、什么是积分？
+        </view>
+        <view class="itemInfo">
+            “积分”是绝味鸭脖针对会员消费的一种奖励，可用于参与不同形式的活动。
+        </view>
+    </view>
+    <view>
+        <view class="itemTitle">
+            二、如何获得积分？
+        </view>
+        <view class="itemInfo">
+            1、获得方式：
+        </view>
+        <view class="itemInfo">
+            a)绝味门店消费：到店消费时使用数字移动支付（支付宝支付、微信支付等）付款完成后，系统会根据会员账号及实际消费金额为您发放积分，现金支付不能获得积分。
+        </view>
+        <view class="itemInfo">
+            b)绝味官方外卖：通过绝味官方微信公众号、支付宝生活号、官方小程序完成消费后可获得积分。
+        </view>
+    </view>
+    <view>
+        <view class="itemTitle">
+            2、获取规则：
+        </view>
+        <view class="itemInfo">
+            a)每实际消费 1 元可获得 1 个积分，实际支付金额为除去优惠及配送费的支付金额。
+        </view>
+        <view class="itemInfo">
+            b)若消费金额包含小数则系统累计积分时只取整数部分。
+        </view>
+        <view class="itemInfo">
+            c)所有现金支付订单不发放积分。
+        </view>
+    </view>
+    <view>
+        <view class="itemTitle">
+            三、如何使用积分？
+        </view>
+        <view class="itemInfo">
+            1、可在绝味官方商城 “会员专享”频道查看积分数量并兑换会员专享福利。使用积分兑换的商品非质量问题不支持退、换货，消耗的积分也不能退回。
+        </view>
+        <view class="itemInfo">
+            2、用户获得积分后要在一年内兑换，用户获得但未兑换的积分，将在下一个自然年底自动作废，绝味将视情况定期对作废积分进行清理。例：2017 年度客户获得但未兑换的积分将于2018 年 12 月 31 日自动作废。
+        </view>
+        <view class="itemInfo">
+            3、若账号注销、停用，绝味将取消该用户帐号内所有积分权益，会员积分及相关权益不能转让。
+        </view>
+        <view class="itemInfo">
+            4、积分使用过程中不找零、不兑现、不开发票，不可转移至其他账户。
+        </view>
+        <view class="itemInfo">
+            5、使用积分进行兑换，兑换申请一经提交,一律不能取消。
+        </view>
+        <view class="itemInfo">
+            6、兑换商品涉及运费由用户自行承担。
+        </view>
+    </view>
+    <view>
+        <view class="itemTitle">
+            四、扣减规则？
+        </view>
+        <view class="itemInfo">
+            1、冻结扣减规则：订单支付完成后积分实时发放至您的账户中，积分冻结时间为24小时，冻结期间积分不能使用。订单无退单、退款等行为发生则在24小时后解冻，否则积分将自动扣除。
+        </view>
+        <view class="itemInfo">
+            2、违约扣减规则：为确保业务良性运转，绝味风控体系对订单进行监控，若订单被判定刷单行为，绝味有权扣除相应积分。
+        </view>
+    </view>
+</view>
