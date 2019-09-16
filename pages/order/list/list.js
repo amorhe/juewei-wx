@@ -92,10 +92,6 @@ Page({
    */
   onShow: async function () {
     // 校验用户是否登录
-    await Request.reqUserPoint();
-    let _sid = wxGet('_sid');
-    // FIXME: 未登录跳转
-    // if (!_sid) { return isloginFn() }
     // 校验是否 需要刷新
     if (app.globalData.refresh == true) {
       wx.showToast({
@@ -274,9 +270,6 @@ Page({
     }
     menuList[cur].page++;
     let { data, code } = await Request.orderList({ page_size: 20, page, dis_type });
-    wx.showLoading({
-      content: '加载中...',
-    });
     menuList[loading] = true;
     this.setData({ loading: true }, () => {
       if (code === 0) {
@@ -300,7 +293,6 @@ Page({
           menuList[cur].finish = true;
           menuList[cur].list = list;
           menuList[loading] = false;
-          timers.push(timer);
           this.setData({
             menuList,
             loading: false,

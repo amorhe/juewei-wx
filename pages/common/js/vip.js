@@ -30,7 +30,7 @@ export default {
   },
   reqPointList: {  // 获取积分详情
     url: '/mini/point_exchange/point_list',
-    methods: 'POST',
+    methods: 'GET',
     loading: false
   },
   reqOrderList: {  // 获取订单列表

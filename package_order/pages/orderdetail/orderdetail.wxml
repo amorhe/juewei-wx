@@ -3,7 +3,7 @@
     <!-- 外卖和自提订单详情 -->
     <view style="height:1rpx"></view>
     <view class="board">
-        <view class="board-state" bindtap="show">
+        <view class="board-state" bindtap="FUN_SHOW">
             {{ d.dis_type==1 ? ((d.order_status_info.order_status == 0 && d.remaining_pay_minute< 0) ? '订单已取消' :
             (d.order_status_info.order_status == 2 && d.order_status_info.dis_status == 2 && d.dis_tag != 'ZPS' &&
             d.dis_get_time ) ? '骑手已接单' : takeOutState[d.order_status_info.order_status])
@@ -22,41 +22,40 @@
         <view class="board-time" wx:if="{{d.shop_address && d.dis_type==2 && !d.order_cancel_reason}}">
             <text class="board-last" style="color:#999">门店地址：{{d.shop_address}}</text>
         </view>
-        <view class="board-time" wx:if="{{[4].includes(d.order_status_info.order_status) && d.dis_type==1}}">
+        <view class="board-time" wx:if="{{4 == d.order_status_info.order_status && d.dis_type==1}}">
             <text class="board-last">感谢您对绝味鸭脖的支持，期待你再次光临。</text>
         </view>
         <view class="out-footer" wx:if="{{!d.order_cancel_reason}}">
             <view class="cancel-order"
-                  wx:if="{{[1,2].includes(d.order_status_info.order_status) && !([2].includes(d.order_status_info.order_status) && (d.dis_tag == 'ZPS'||d.dis_type==2) ) }}"
+                  wx:if="{{(1 == d.order_status_info.order_status || 2 == d.order_status_info.order_status) && !(2 ==(d.order_status_info.order_status) && (d.dis_tag == 'ZPS'||d.dis_type==2) ) }}"
                   catchtap="showCancel">
                 取消订单
             </view>
-            <view class="cancel-order"
-                  wx:if="{{([2,3].includes(d.order_status_info.order_status) && d.dis_type == 1 && d.dis_tag != 'ZPS' && !['','0000-00-00 00:00:00'].includes(d.dis_get_time))}}"
+            <view class="cancel-order" wx:if="{{(2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status)  && d.dis_type == 1 && d.dis_tag != 'ZPS' && ('0000-00-00 00:00:00' != (d.dis_get_time)) || '' !=(d.dis_get_time)}}"
                   data-number="{{d.dis_tel}}" catchtap="makePhoneCall">
                 联系骑手
             </view>
-            <view class="cancel-order" wx:if="{{([3].includes(d.order_status_info.order_status) && d.dis_tag == 'ZPS')}}"
+            <view class="cancel-order" wx:if="{{(3 == (d.order_status_info.order_status) && d.dis_tag == 'ZPS')}}"
                   data-number="{{d.shop_tel}}" catchtap="makePhoneCall">
                 联系门店
             </view>
-            <view class="red cancel-order" wx:if="{{[1,2,3,4,5,6,7,8,9,10].includes(d.order_status_info.order_status) }}"
+            <view class="red cancel-order" wx:if="{{ 1 == d.order_status_info.order_status || 2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status || 4 == d.order_status_info.order_status || 5 == d.order_status_info.order_status || 6 == d.order_status_info.order_status || 7 == d.order_status_info.order_status || 8 == d.order_status_info.order_status || 9 == d.order_status_info.order_status || 10 == d.order_status_info.order_status }}"
                   catchtap="contact">
                 联系客服
             </view>
-            <view class="cancel-order" wx:if="{{[4,5,6,7,8,9,10].includes(d.order_status_info.order_status)}}"
+            <view class="cancel-order" wx:if="{{ 4 == d.order_status_info.order_status || 5 == d.order_status_info.order_status || 6 == d.order_status_info.order_status || 7 == d.order_status_info.order_status || 8 == d.order_status_info.order_status || 9 == d.order_status_info.order_status || 10 == d.order_status_info.order_status }}"
                   catchtap="buyAgain">
                 再来一单
             </view>
-            <view class="cancel-order red" catchtap="toComment" data-order_no="{{d.order_no}}"
-                  wx:if="{{[4].includes(d.order_status_info.order_status) && d.is_comment == 0}}">
+            <view class="cancel-order red" catchtap="FUN_toComment" data-order_no="{{d.order_no}}"
+                  wx:if="{{4==(d.order_status_info.order_status) && d.is_comment == 0}}">
                 评价订单
             </view>
             <!--<view class="cancel-order" data-order_no="{{d.order_no}}" wx:if="{{[4].includes(d.order_status_info.order_status) && d.is_comment == 1}}" catchtap="contact">
                 已评价</view> -->
             <!--<view class="cancel-order red" wx:if="{{[4,7,8,9,10].includes(d.order_status_info.order_status)}}" catchtap="contact">
                 投诉</view> -->
-            <view class="cancel-order red" wx:if="{{[2,3].includes(d.order_status_info.order_status) && dis_type==2}}"
+            <view class="cancel-order red" wx:if="{{(2==(d.order_status_info.order_status) || e==(d.order_status_info.order_status) )&& dis_type==2}}"
                   data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}"
                   data-shop_name="{{d.shop_name}}" data-address="{{d.shop_address}}" catchtap="guide">
                 导航
@@ -80,7 +79,7 @@
         </view>
     </view>
     <view class="get-code-p" style="background:{{d.order_status_info.order_status==4?'#fff':''}}"
-          wx:if="{{(d.dis_type==2 && d.cancel_time == '0000-00-00 00:00:00') && [1,2,3,4].includes(d.order_status_info.order_status)}}">
+          wx:if="{{(d.dis_type==2 && d.cancel_time == '0000-00-00 00:00:00') && (1 == d.order_status_info.order_status || 2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status || 4 == d.order_status_info.order_status )}}">
         <view class="get-code-title" style="color:{{d.order_status_info.order_status==4?'#CCCCCC':''}}">
             取餐码
         </view>
@@ -92,8 +91,8 @@
     <view class="good">
         <view class="address">
             <view>{{d.shop_name}}</view>
-            <image mode="scaleToFill" src="{{imageUrl}}telephone.png" data-number="{{d.shop_tel}}"
-                   bindtap="makePhoneCall"/>
+            <image mode="scaleToFill" src="{{imageUrl}}telephone.png" data-phone_number="{{d.shop_tel + ''}}"
+                   bindtap="contact"/>
         </view>
         <view class="good-list">
             <view wx:for="{{d.goods_list}}" wx:key="{{ index }}">
@@ -170,7 +169,7 @@
                     </view>
                 </view>
                 <!-- 需要加一个循环 -->
-                <view wx:for="{{d.goods_list}}" wx:key="index">
+                <view wx:for="{{d.goods_list}}" wx:key="{{index}}">
                     <view class="reduce-item" wx:if="{{item.is_gifts===1 && (item.gift_type==1 || item.gift_type==2)}}">
                         <view class="left">
                             <image wx:if="{{item.goods_code.substr(2,3)==='JJG'}}" mode="scaleToFill"
@@ -306,13 +305,13 @@
         </view>
     </view>
 </view>
-<popup wx:if="{{showTop}}" position="bottom">
-    <view style="background: #fff">
+<view wx:if="{{showTop}}"  class="pop-top">
+    <view style="background: #fff;position: fixed;bottom: 0;width: 100vw;">
         <view class="order-trace">订单跟踪
             <image bindtap="closeModel" mode="scaleToFill" src="{{imageUrl}}close1.png"/>
         </view>
         <view class="order-trace-ul">
-            <view class="order-trace-li" wx:for="{{curOrderState}}" wx:if="{{item.time != '0000-00-00 00:00:0'}}">
+            <view class="order-trace-li" wx:for="{{curOrderState}}" wx:key="{{ index }}" wx:if="{{item.time != '0000-00-00 00:00:0'}}">
                 <view class="order-trace-left">
                     <image mode="scaleToFill" src="{{imageUrl}}order1.png"
                            wx:if="{{curOrderState.length - 1 != index}}"/>
@@ -329,11 +328,11 @@
             </view>
         </view>
     </view>
-</popup>
-<popup wx:if="{{cancleShow}}" position="bottom">
+</view>
+<view wx:if="{{cancleShow}}"  class="pop-top">
     <view style="height: 711rpx; width:750rpx; background: #fff;border-radius: 20rpx 20rpx 0 0">
         <view class="cancle-title">请选择取消原因</view>
-        <view class="cancel-list" wx:for="{{cancelReasonList}}" bindtap="selectReason" data-index="{{index}}">
+        <view class="cancel-list" wx:for="{{cancelReasonList}}" wx-key="{{ index }}" bindtap="selectReason" data-index="{{index}}">
             <view class="cancle-left">
                 {{item.reason}}
             </view>
@@ -341,7 +340,7 @@
         </view>
         <view class="cancel-buttons">
             <view catchtap='closeModel'>暂不取消</view>
-            <view catchtap='cancelOrder'>确认取消</view>
+            <view catchtap='FUN_cancelOrder'>确认取消</view>
         </view>
     </view>
-</popup>
+</view>
