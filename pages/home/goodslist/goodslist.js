@@ -423,7 +423,7 @@ Page({
   funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
     activityList(city_id, district_id, company_id, buy_type, user_id).then((res) => {
       // 获取加价购商品
-      if ('MARKUP' in res.data) {
+      if ('MARKUP' in res.data && res.data.MARKUP != null) {
         app.globalData.gifts = res.data.MARKUP.gifts;
         // 获取活动金额
         let newArr = Object.keys(res.data.MARKUP.gifts);

@@ -59,5 +59,6 @@ App({
     chooseBool: false,
     isSelf: false,
     refresh: false, // 当前页面是否需要刷新
+    gifts:null
   }
 });
