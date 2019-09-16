@@ -25,7 +25,7 @@ Page({
 
     d: {},
 
-    currentShopSelect: ['','','']
+    currentShopSelect: []
   },
 
 
@@ -227,7 +227,7 @@ Page({
    */
   selectShopTag(e) {
     let { currentShopSelect } = this.data;
-    const { item,index } = e.currentTarget.dataset;
+    const { item, index } = e.currentTarget.dataset;
     console.log(index);
 
     if (currentShopSelect.includes(item)) {
@@ -250,14 +250,14 @@ Page({
 
     let { d } = this.data;
     let { goods_list } = d;
-    const { item, i } = e.currentTarget.dataset;
+    const { item, i,index } = e.currentTarget.dataset;
     let { tags } = goods_list[i].goods_comment;
 
-
+    // fixMe: index 问题
     if (tags.includes(item)) {
-      tags.splice(tags.findIndex(key => key === item), 1)
+      tags[index] = '';
     } else {
-      tags.push(item)
+      tags[index] = item;
     }
 
 
