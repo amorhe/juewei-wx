@@ -29,7 +29,9 @@ export const login = rest => wx.login({
     if (r.code === 0) {
       console.log('将_sid存到内存中', r.data._sid);
       wxSet('_sid', r.data._sid);
-      wxSet('userInfo', { ...rest, ...r.data });
+      if(r.data.user_id){
+        wxSet('userInfo', { ...rest, ...r.data });
+      }
     }
   }
 });
