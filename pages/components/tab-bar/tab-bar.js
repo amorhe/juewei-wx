@@ -1,9 +1,9 @@
 // pages/components/tab-bar.js
 import { redirectTo } from "../../common/js/router";
 
-import { wxSet } from "../../common/js/baseUrl";
+import { wxGet, wxSet } from "../../common/js/baseUrl";
 
-import {getCurUrl} from "../../common/js/utils";
+import { getCurUrl } from "../../common/js/utils";
 
 const app = getApp();
 Component({
@@ -81,7 +81,6 @@ Component({
     },
 
     bindgetuserinfo(e) {
-      console.log(e);
       const {
         url
       } = e.currentTarget.dataset;
@@ -90,7 +89,11 @@ Component({
       }
       const { errMsg, userInfo } = e.detail;
       if (errMsg === 'getUserInfo:ok') {
-        wxSet('userInfo', userInfo);
+        const { user_id } = wxGet('userInfo') || { user_id: '' };
+        if (!user_id) {
+          console.log('获取用户信息');
+          wxSet('userInfo', userInfo);
+        }
         return redirectTo({
           url
         })

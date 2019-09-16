@@ -1,7 +1,8 @@
 import { baseUrl, imageUrl, wxGet, wxSet } from '../../common/js/baseUrl'
-import { decryptPhone, login, loginByAuth, loginByPhone, sendCode, WX_LOGIN } from '../../common/js/login'
+import { decryptPhone, loginByQuick, sendCode, WX_LOGIN } from '../../common/js/login'
 import { upformId } from '../../common/js/time'
 import { navigateTo } from '../../common/js/router.js'
+import { reLaunch } from "../../common/js/router";
 
 const app = getApp();
 Page({
@@ -120,8 +121,8 @@ Page({
     this.getcodeFn()
   },
   // 获取短信验证码
- async getcodeFn() {
-    const {getCode,phone,img_code} = this.data;
+  async getcodeFn() {
+    const { getCode, phone, img_code } = this.data;
     if (/^1\d{10}$/.test(this.data.phone)) {
     } else {
       wx.showToast({
@@ -183,7 +184,7 @@ Page({
         });
         wx.hideLoading();
         wx.showToast({
-          icon:'none',
+          icon: 'none',
           title: '短信发送失败',
         })
       }
@@ -203,12 +204,18 @@ Page({
     const rest = wxGet('rest');
     let { code, data: { phone } } = await decryptPhone({ encryptedData, iv, _sid });
     if (code === 0) {
-      login({...rest})
+      let res = await loginByQuick({ _sid, ...rest });
+      console.log('微信快捷登录登录成功', res);
+      if (res.code === 0) {
+        res.data.sex = res.data.sex == 0 ? 1 : 0;
+        wxSet('userInfo', { ...rest, ...res.data });
+        reLaunch({ url: '/pages/my/index/index' })
+      }
     }
   },
   // 页面跳转
   toUrl(e) {
-    const {url} = e.currentTarget.dataset;
+    const { url } = e.currentTarget.dataset;
     navigateTo({
       url: url
     });

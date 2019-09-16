@@ -260,6 +260,8 @@ Page({
       tags[index] = item;
     }
 
+    console.log(d);b
+
 
     d.goods_list = goods_list;
     this.setData({
