@@ -142,11 +142,12 @@ Page({
   },
   // 选择性别
   genderFN(e) {
-    var that = this;
+    const that = this;
     var data = e.detail.value;
     var sex = data == 1 ? 0 : 1;
     UpdateUserInfo({
-      sex
+      sex,
+      _sid:wxGet('_sid')
     }).then(res => {
       that.setData({
         'userinfo.sex': sex
@@ -168,22 +169,22 @@ Page({
   },
   // 生日选择器
   Taptime() {
-    // var that = this
-    // my.datePicker({
-    //   currentDate: '',
-    //   startDate: '1950-1-1',
-    //   endDate: '',
-    //   success: (res) => {
-    //     var birthday = res.date
-    //     UpdateUserInfo({
-    //       birthday: birthday
-    //     }).then(res => {
-    //       that.setData({
-    //         'userinfo.birthday': birthday
-    //       })
-    //     })
-    //   },
-    // });
+    var that = this
+    wx.datePicker({
+      currentDate: '',
+      startDate: '1950-1-1',
+      endDate: '',
+      success: (res) => {
+        var birthday = res.date
+        UpdateUserInfo({
+          birthday: birthday
+        }).then(res => {
+          that.setData({
+            'userinfo.birthday': birthday
+          })
+        })
+      },
+    });
   },
 
   getAddressList() {

@@ -94,10 +94,11 @@ Page({
   },
   // 跳转页面
   toUrl(e) {
-    if (this.data.userInfo.user_id) {
+    const userInfo = wxGet('userInfo');
+    if (userInfo.user_id) {
       var url = e.currentTarget.dataset.url;
       navigateTo({
-        url: url
+        url
       });
     } else {
       navigateTo({

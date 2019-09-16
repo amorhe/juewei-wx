@@ -38,6 +38,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    WX_LOGIN()
   },
 
   /**
@@ -203,14 +204,14 @@ Page({
     const rest = wxGet('rest');
     let { code, data: { phone } } = await decryptPhone({ encryptedData, iv, _sid });
     if (code === 0) {
-      let res = await loginByQuick({ _sid, ...rest });
+      let res = await loginByQuick({ _sid, ...rest, encryptedData, iv });
       console.log('微信快捷登录登录成功', res);
       if (res.code === 0) {
         res.data.sex = res.data.sex == 0 ? 1 : 0;
         wxSet('userInfo', { ...rest, ...res.data });
         reLaunch({ url: '/pages/my/index/index' })
-      }else{
-        wx.showToast({title:res.msg})
+      } else {
+        wx.showToast({ title: res.msg })
       }
     }
   },
