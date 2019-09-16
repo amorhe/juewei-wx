@@ -1,4 +1,4 @@
-import {wxParse} from '../../../utils/wxParse/wxParse.js';
+import { wxParse } from '../../../utils/wxParse/wxParse.js';
 
 import Request from "./li-ajax";
 import { wxGet } from "./baseUrl";
@@ -11,9 +11,9 @@ export const log = console.log;
  * @param html
  * @param target
  */
-export const parseData = async ({bindName,html,target}) => {
+export const parseData = async ({ bindName, html, target }) => {
   return new Promise(resolve => {
-    wxParse(bindName, 'html', html,  target, 5);
+    wxParse(bindName, 'html', html, target, 5);
   })
 };
 
@@ -48,7 +48,6 @@ export const FUN_IS_LOGIN = () => {
 };
 
 
-
 /**
  * @function 剪切板
  */
@@ -58,10 +57,10 @@ export const handleCopy = e => {
   } = e.currentTarget.dataset;
   log(text);
   wx.setClipboardData({
-    data:text,
+    data: text,
     success() {
       wx.showToast({
-        mask:true,
+        mask: true,
         icon: 'success',
         title: '操作成功'
       });
@@ -115,9 +114,11 @@ export const guide = e => {
  * @function 联系客服
  */
 
-export const contact = () => {
+export const contact = e => {
+  const { phone_number } = e.currentTarget.dataset;
+  console.log(phone_number);
   wx.makePhoneCall({
-    number: '4009995917'
+    phoneNumber: phone_number  || '4009995917'
   });
 };
 
@@ -187,24 +188,24 @@ export const event_getUserPoint = async (e) => {
  * @param {Function} complete
  */
 export const MODAL = ({
-  title,
-  content,
-  showCancel = true,
-  cancelText = '取消',
-  cancelColor = '#999',
-  confirmText = '确定',
-  confirmColor = '#E60012',
-  confirm = () => {
-    console.log('用户点击确定')
-  },
-  cancel = () => {
-    console.log('用户点击取消')
-  },
-  fail = () => {
-  },
-  complete = () => {
-  }
-}) => wx.showModal({
+                        title,
+                        content,
+                        showCancel = true,
+                        cancelText = '取消',
+                        cancelColor = '#999',
+                        confirmText = '确定',
+                        confirmColor = '#E60012',
+                        confirm = () => {
+                          console.log('用户点击确定')
+                        },
+                        cancel = () => {
+                          console.log('用户点击取消')
+                        },
+                        fail = () => {
+                        },
+                        complete = () => {
+                        }
+                      }) => wx.showModal({
   title,
   content,
   showCancel,

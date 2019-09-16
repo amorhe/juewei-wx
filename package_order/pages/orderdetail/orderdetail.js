@@ -302,14 +302,6 @@ Page({
     }
   },
 
-  /**
-   * @function 打电话
-   */
-  makePhoneCall(e) {
-    const { number } = e.currentTarget.dataset;
-    wx.makePhoneCall({ number });
-  },
-
   FUN_SHOW() {
     this.setData({
       showTop: true

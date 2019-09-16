@@ -91,8 +91,8 @@
     <view class="good">
         <view class="address">
             <view>{{d.shop_name}}</view>
-            <image mode="scaleToFill" src="{{imageUrl}}telephone.png" data-number="{{d.shop_tel}}"
-                   bindtap="makePhoneCall"/>
+            <image mode="scaleToFill" src="{{imageUrl}}telephone.png" data-phone_number="{{d.shop_tel + ''}}"
+                   bindtap="contact"/>
         </view>
         <view class="good-list">
             <view wx:for="{{d.goods_list}}" wx:key="{{ index }}">
