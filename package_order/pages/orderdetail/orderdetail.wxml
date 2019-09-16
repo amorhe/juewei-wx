@@ -22,41 +22,40 @@
         <view class="board-time" wx:if="{{d.shop_address && d.dis_type==2 && !d.order_cancel_reason}}">
             <text class="board-last" style="color:#999">门店地址：{{d.shop_address}}</text>
         </view>
-        <view class="board-time" wx:if="{{[4].includes(d.order_status_info.order_status) && d.dis_type==1}}">
+        <view class="board-time" wx:if="{{4 == d.order_status_info.order_status && d.dis_type==1}}">
             <text class="board-last">感谢您对绝味鸭脖的支持，期待你再次光临。</text>
         </view>
         <view class="out-footer" wx:if="{{!d.order_cancel_reason}}">
             <view class="cancel-order"
-                  wx:if="{{[1,2].includes(d.order_status_info.order_status) && !([2].includes(d.order_status_info.order_status) && (d.dis_tag == 'ZPS'||d.dis_type==2) ) }}"
+                  wx:if="{{(1 == d.order_status_info.order_status || 2 == d.order_status_info.order_status) && !(2 ==(d.order_status_info.order_status) && (d.dis_tag == 'ZPS'||d.dis_type==2) ) }}"
                   catchtap="showCancel">
                 取消订单
             </view>
-            <view class="cancel-order"
-                  wx:if="{{([2,3].includes(d.order_status_info.order_status) && d.dis_type == 1 && d.dis_tag != 'ZPS' && !['','0000-00-00 00:00:00'].includes(d.dis_get_time))}}"
+            <view class="cancel-order" wx:if="{{(2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status)  && d.dis_type == 1 && d.dis_tag != 'ZPS' && ('0000-00-00 00:00:00' != (d.dis_get_time)) || '' !=(d.dis_get_time)}}"
                   data-number="{{d.dis_tel}}" catchtap="makePhoneCall">
                 联系骑手
             </view>
-            <view class="cancel-order" wx:if="{{([3].includes(d.order_status_info.order_status) && d.dis_tag == 'ZPS')}}"
+            <view class="cancel-order" wx:if="{{(3 == (d.order_status_info.order_status) && d.dis_tag == 'ZPS')}}"
                   data-number="{{d.shop_tel}}" catchtap="makePhoneCall">
                 联系门店
             </view>
-            <view class="red cancel-order" wx:if="{{[1,2,3,4,5,6,7,8,9,10].includes(d.order_status_info.order_status) }}"
+            <view class="red cancel-order" wx:if="{{ 1 == d.order_status_info.order_status || 2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status || 4 == d.order_status_info.order_status || 5 == d.order_status_info.order_status || 6 == d.order_status_info.order_status || 7 == d.order_status_info.order_status || 8 == d.order_status_info.order_status || 9 == d.order_status_info.order_status || 10 == d.order_status_info.order_status }}"
                   catchtap="contact">
                 联系客服
             </view>
-            <view class="cancel-order" wx:if="{{[4,5,6,7,8,9,10].includes(d.order_status_info.order_status)}}"
+            <view class="cancel-order" wx:if="{{ 4 == d.order_status_info.order_status || 5 == d.order_status_info.order_status || 6 == d.order_status_info.order_status || 7 == d.order_status_info.order_status || 8 == d.order_status_info.order_status || 9 == d.order_status_info.order_status || 10 == d.order_status_info.order_status }}"
                   catchtap="buyAgain">
                 再来一单
             </view>
             <view class="cancel-order red" catchtap="toComment" data-order_no="{{d.order_no}}"
-                  wx:if="{{[4].includes(d.order_status_info.order_status) && d.is_comment == 0}}">
+                  wx:if="{{4==(d.order_status_info.order_status) && d.is_comment == 0}}">
                 评价订单
             </view>
             <!--<view class="cancel-order" data-order_no="{{d.order_no}}" wx:if="{{[4].includes(d.order_status_info.order_status) && d.is_comment == 1}}" catchtap="contact">
                 已评价</view> -->
             <!--<view class="cancel-order red" wx:if="{{[4,7,8,9,10].includes(d.order_status_info.order_status)}}" catchtap="contact">
                 投诉</view> -->
-            <view class="cancel-order red" wx:if="{{[2,3].includes(d.order_status_info.order_status) && dis_type==2}}"
+            <view class="cancel-order red" wx:if="{{(2==(d.order_status_info.order_status) || e==(d.order_status_info.order_status) )&& dis_type==2}}"
                   data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}"
                   data-shop_name="{{d.shop_name}}" data-address="{{d.shop_address}}" catchtap="guide">
                 导航
@@ -80,7 +79,7 @@
         </view>
     </view>
     <view class="get-code-p" style="background:{{d.order_status_info.order_status==4?'#fff':''}}"
-          wx:if="{{(d.dis_type==2 && d.cancel_time == '0000-00-00 00:00:00') && [1,2,3,4].includes(d.order_status_info.order_status)}}">
+          wx:if="{{(d.dis_type==2 && d.cancel_time == '0000-00-00 00:00:00') && (1 == d.order_status_info.order_status || 2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status || 4 == d.order_status_info.order_status )}}">
         <view class="get-code-title" style="color:{{d.order_status_info.order_status==4?'#CCCCCC':''}}">
             取餐码
         </view>
