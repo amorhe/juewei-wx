@@ -29,31 +29,31 @@
         </view>
         <view class="right">
           <text class="y">￥</text>
-          <!-- <text class="price">{{ (item.real_price / 100).toFixed(2) }}</text> -->
+           <text class="price">{{ (item.real_price / 100) }}</text>
         </view>
       </view>
       <view class="out-footer">
         <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1 }}" style="color:{{item.channel != 1 ?'#ccc':''}};border-color:{{item.channel != 1 ?'#ccc':''}}">
           去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
         </view>
-        <view class="cancel-order" wx:if="{{[1,2].includes(item.order_status)}}">
+        <view class="cancel-order" wx:if="{{ 1 == item.order_status || 2 == item.order_status  }}">
           取消订单
         </view>
-         <view class="cancel-order" wx:if="{{[2,3].includes(item.order_status) && [2,4].includes(item.dis_status)  && item.dis_tag != 'ZPS' && item.dis_get_time}}"  data-dis_tel="{{item.dis_tel}}" catchTap="makePhoneCall">
+         <view class="cancel-order" wx:if="{{(2 == item.order_status || 3 == item.order_status) && (2 == item.dis_status || 4 == item.dis_status) &&item.dis_tag != 'ZPS' &&item.dis_get_time }}"  data-dis_tel="{{item.dis_tel}}" catchtap="makePhoneCall">
           联系骑手
         </view>
 
-         <view class="cancel-order" wx:if="{{[3].includes(item.order_status) && item.dis_tag == 'ZPS'}}" data-dis_tel="{{item.shop_tel}}"  catchTap="makePhoneCall">
+         <view class="cancel-order" wx:if="{{3 == item.order_status && item.dis_tag == 'ZPS'}}" data-dis_tel="{{item.shop_tel}}"  catchtap="makePhoneCall">
           联系门店
         </view>
-        <view class="cancel-order" catchTap="toComment" data-order_no="{{item.order_no}}" wx:if="{{[4].includes(item.order_status) && item.is_comment == 0}}">
+        <view class="cancel-order" catchtap="toComment" data-order_no="{{item.order_no}}" wx:if="{{4==item.order_status && item.is_comment == 0}}">
           评价订单
         </view>
 
-        <view class="cancel-order" wx:if="{{[4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="buyAgain">
+        <view class="cancel-order" wx:if="{{4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status }}" catchtap="buyAgain">
           再来一单
         </view>
-        <view class="cancel-order" wx:if="{{[1,2,3,4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="contact">
+        <view class="cancel-order" wx:if="{{1 == item.order_status || 2 == item.order_status || 3 == item.order_status || 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="contact">
           联系客服
         </view>
       </view>
@@ -81,28 +81,28 @@
         </view>
         <view class="right">
           <text class="y">￥</text>
-          <!-- <text class="price">{{(item.real_price/100).toFixed(2)}}</text> -->
+           <text class="price">{{(item.real_price/100)}}</text>
         </view>
       </view>
       <view class="out-footer">
         <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1}}" style="color:{{item.channel != 1 ?'#ccc':''}};border-color:{{item.channel != 1 ?'#ccc':''}}">
          去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
         </view>
-        <view class="cancel-order" wx:if="{{[0].includes(item.order_status)}}">
+        <view class="cancel-order" wx:if="{{0 == item.order_status}}">
           取消订单
         </view>
 
-        <view class="cancel-order" wx:if="{{[4].includes(item.order_status) && item.is_comment == 0}}" catchTap="toComment" data-order_no="{{item.order_no}}">
+        <view class="cancel-order" wx:if="{{ 4 == (item.order_status) && item.is_comment == 0}}" catchtap="toComment" data-order_no="{{item.order_no}}">
           评价订单
         </view>
 
-        <view class="cancel-order" wx:if="{{[4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="buyAgain">
+        <view class="cancel-order" wx:if="{{ 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="buyAgain">
           再来一单
         </view>
-        <view class="cancel-order" wx:if="{{[2,3,4,5,6,7,8,9,10].includes(item.order_status)}}" catchTap="contact">
+        <view class="cancel-order" wx:if="{{ 2 == item.order_status || 3 == item.order_status || 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="contact">
           联系客服
         </view>
-        <view class="cancel-order" wx:if="{{[2,3].includes(item.order_status)}}" data-shop_longitude="{{item.shop_gd_longitude }}" data-shop_latitude="{{item.shop_gd_latitude}}" data-shop_name="{{item.shop_name}}" data-address="{{item.shop_address}}" catchTap="guide">
+        <view class="cancel-order" wx:if="{{2 == item.order_status || 3 == item.order_status}}" data-shop_longitude="{{item.shop_gd_longitude }}" data-shop_latitude="{{item.shop_gd_latitude}}" data-shop_name="{{item.shop_name}}" data-address="{{item.shop_address}}" catchtap="guide">
           导航
         </view>
       </view>
