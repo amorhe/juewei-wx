@@ -1,4 +1,4 @@
-<view class="vip" ontap="FUN_hideToast">
+<view class="vip" bindtap="FUN_hideToast">
   <!-- 头部 -->
   <view class="header-title-s" style="width: 90vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
     <text
@@ -10,28 +10,22 @@
   <view class="content">
     <view class="header flex-space-b" wx:if="{{userPoint}}">
       <view class="flex-center">
-        <view ontap="toPointList">
-          <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
-            <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:40%;height:1em" formType="submit"></button>
+        <view bindtap="navigateTo" data-url='/package_vip/pages/pointlist/pointlist'>
             <text > 当前积分：</text>
             <text class="total">{{userPoint.points}}</text>
-          </form>
         </view>
         <view style='position:relative;height:32rpx'>
           <image class="icon" bindtap="showToast" mode="scaleToFill" src="{{imageUrl}}explain.png"/>
           <view class="toast" wx:if="{{toast}}">冻结积分：{{userPoint.freeze_point}}</view>
         </view>
       </view>
-      <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
-        <view class="flex-center" style="font-size:26rpx;height:32rpx" ontap="toExchangeList">
-          <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:20%;height:1em" formType="submit"></button>
+        <view class="flex-center" style="font-size:26rpx;height:32rpx" bindtap="navigateTo" data-url='../../../package_vip/pages/exchangelist/exchangelist'>
            兑换记录
           <image class="icon" mode="scaleToFill" src="{{imageUrl}}arrow_right2.png"/>
         </view>
-      </form>
     </view>
     <!-- 未登录 -->
-    <view class="header flex-space-b" ontap="isloginFn" style="align-iten:flex-end" wx:if="{{!userPoint}}">
+    <view class="header flex-space-b" bindtap="isloginFn" style="align-iten:flex-end" wx:if="{{!userPoint}}">
       <view class="flex-center">
         立即登录
         <image class="icon" mode="scaleToFill" src="{{imageUrl}}arrow_right2.png"/>
@@ -40,7 +34,7 @@
     <swiper wx:if="{{bannerList.length}}"  autoplay="{{true}}" indicator-active-color="#E60012" indicator-color="#E8E8E8" interval="3000" indicator-dots="{{true}}" circular="{{true}}" duration="1000" class="banner">
       <block wx:for="{{bannerList}}" wx:key="{{ index }}">
         <swiper-item>
-          <image style="margin:0" class="banner" mode="scaleToFill" ontap="linkTo" data-url="{{item.link_url}}" src="{{imageUrl2 + item.pic_src}}"/>
+          <image style="margin:0" class="banner" mode="scaleToFill" bindtap="linkTo" data-url="{{item.link_url}}" src="{{imageUrl2 + item.pic_src}}"/>
         </swiper-item>
       </block>
     </swiper>
@@ -55,7 +49,7 @@
             <text class="new-yuan">元</text>
             <view class="new-use">满{{item.full_money/100}}元可用</view>
           </view>
-          <view class="new-right new-button" ontap="switchTo">
+          <view class="new-right new-button" bindtap="switchTo">
            立即使用
           </view>
         </view>
@@ -66,16 +60,16 @@
     </view>
     <view class="flex-space-b two">
       <scroll-view scroll-x="{{true}}" class="x">
-        <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" ontap="linkTo"/>
+        <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" bindtap="linkTo"/>
       </scroll-view>
     </view>
 <!--    <view class="sroll-view-wrap" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight - 2}}px">-->
       <scroll-view scroll-x class="x" style="margin:0 32rpx" id="affix">
-        <view ontap="FUN_listChange" data-cur="{{index}}" wx:key="{{index}}" wx:for='{{list}}' wx:key="{{ index }}" class="{{index === cur? 'active':''}}">{{item.cate_name}}</view>
+        <view bindtap="FUN_listChange" data-cur="{{index}}" wx:key="{{index}}" wx:for='{{list}}' wx:key="{{ index }}" class="{{index === cur? 'active':''}}">{{item.cate_name}}</view>
       </scroll-view>
 <!--    </view>-->
     <view class="ul" wx:if="{{finish}}">
-      <view class="li" wx:if="{{goodsList.length}}" wx:key="{{item.id}}" wx:for="{{goodsList}}" ontap="FUN_toDetail" data-id="{{item.id}}" data-valid_num="{{item.valid_num}}" data-exchange_day_num="{{item.exchange_day_num}}" data-exchange_day_vaild_num="{{item.exchange_day_vaild_num}}">
+      <view class="li" wx:if="{{goodsList.length}}" wx:key="{{item.id}}" wx:for="{{goodsList}}" bindtap="FUN_toDetail" data-id="{{item.id}}" data-valid_num="{{item.valid_num}}" data-exchange_day_num="{{item.exchange_day_num}}" data-exchange_day_vaild_num="{{item.exchange_day_vaild_num}}">
         <view class="li-pic">
           <image mode="scaleToFill" src="{{imageUrl2 + item.goods_pic}}"/>
           <image mode="scaleToFill" class="pic-sm" src="{{imageUrl}}floridian.png" wx:if="{{((item.valid_num)==0 || ((item.exchange_day_num-0)>0 && (item.exchange_day_vaild_num)==0))}}"/>
