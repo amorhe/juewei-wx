@@ -1,5 +1,5 @@
 // pages/order/list/list.js
-import { imageUrl, wxGet } from '../../common/js/baseUrl'
+import { imageUrl } from '../../common/js/baseUrl'
 import { contact, guide, isloginFn, log, MODAL } from '../../common/js/utils'
 import Request from '../../common/js/li-ajax'
 
@@ -21,7 +21,6 @@ Page({
         page: 1,
         dis_type: 1,
         finish: false,
-        timer: -1,
         list: [],
         loading: false
       },
@@ -31,7 +30,6 @@ Page({
         page: 1,
         dis_type: 2,
         finish: false,
-        timer: -1,
         list: [],
         loading: false
       }
@@ -77,7 +75,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.eventReduceTime()
   },
 
   /**
@@ -118,7 +116,6 @@ Page({
    */
   onUnload: function () {
     let { menuList, cur } = this.data;
-    menuList[cur].timer = -1;
     this.setData({ menuList });
     this.setData = () => {
     }
@@ -135,7 +132,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.getMore()
+    this.getOrderList()
   },
 
   /**
@@ -161,7 +158,6 @@ Page({
         dis_type: 1,
         finish: false,
         fun: 'getTakeOutList',
-        timer: -1,
         list: [],
         loading: menuList[0].loading
       },
@@ -172,7 +168,6 @@ Page({
         dis_type: 2,
         finish: false,
         fun: 'getPickUpList',
-        timer: -1,
         list: [],
         loading: menuList[1].loading
       }
@@ -185,7 +180,7 @@ Page({
         menuList: _menuList,
         refreshFinish: true,
       }, async () => {
-        await this.getMore();
+        await this.getOrderList();
         wx.stopPullDownRefresh()
       })
     })
@@ -217,7 +212,6 @@ Page({
           page: 1,
           dis_type: 1,
           finish: false,
-          timer: -1,
           list: [],
           loading: menuList[0].loading
         },
@@ -227,7 +221,6 @@ Page({
           page: 1,
           dis_type: 2,
           finish: false,
-          timer: -1,
           list: [],
           loading: menuList[1].loading
         }
@@ -263,8 +256,8 @@ Page({
    */
   async getOrderList() {
 
-    let { menuList, cur, timers } = this.data;
-    let { page, dis_type, timer, list, loading } = menuList[cur];
+    let { menuList, cur } = this.data;
+    let { page, dis_type, list, loading } = menuList[cur];
     if (loading) {
       return
     }
@@ -274,31 +267,14 @@ Page({
     this.setData({ loading: true }, () => {
       if (code === 0) {
         list = [...list, ...data];
-        timer = setInterval(() => {
-          list = list.map(({ remaining_pay_minute, remaining_pay_second, ...item }) => {
-            remaining_pay_second--;
-            if (remaining_pay_second === 0 && remaining_pay_minute === 0) {
-              // 此处不要停。。。
-            }
-            if (remaining_pay_second <= 0) {
-              --remaining_pay_minute;
-              remaining_pay_second = 59
-            }
-            return {
-              remaining_pay_minute,
-              remaining_pay_second,
-              ...item,
-            }
-          });
-          menuList[cur].finish = true;
-          menuList[cur].list = list;
-          menuList[loading] = false;
-          this.setData({
-            menuList,
-            loading: false,
-            refreshFinish: false
-          }, () => wx.hideLoading())
-        }, 1000)
+        menuList[cur].finish = true;
+        menuList[cur].list = list;
+        menuList[loading] = false;
+        this.setData({
+          menuList,
+          loading: false,
+          refreshFinish: false
+        })
       } else {
         MODAL({
           title: '',
@@ -306,24 +282,47 @@ Page({
           confirmText: '登录',
           confirm: isloginFn
         });
-        wx.hideLoading()
       }
     })
-
   },
 
   /**
-   * @function 获取更对订单信息
+   * @function 递归时间
    */
 
-  async getMore() {
-    // 页面被拉到底部
-    const { menuList, cur } = this.data;
-    setTimeout(async () => {
-      await this.getOrderList()
-    }, 300)
+  eventReduceTime() {
+    let { menuList, cur } = this.data;
+    let { list, loading } = menuList[cur];
+    if (loading) {
+      return
+    }
+    list = list.map(({ remaining_pay_minute, remaining_pay_second, ...item }) => {
+      remaining_pay_second--;
+      if (remaining_pay_second === 0 && remaining_pay_minute === 0) {
+        // 此处不要停。。。
+      }
+      if (remaining_pay_second <= 0) {
+        --remaining_pay_minute;
+        remaining_pay_second = 59
+      }
+      return {
+        remaining_pay_minute,
+        remaining_pay_second,
+        ...item,
+      }
+    });
+    menuList[cur].finish = true;
+    menuList[cur].list = list;
+    menuList[loading] = false;
+    this.setData({
+      menuList,
+      loading: false,
+      refreshFinish: false
+    });
+    setTimeout(() => {
+      this.eventReduceTime();
+    }, 1000)
   },
-
   /**
    * @function 跳转订单详情页面
    */
