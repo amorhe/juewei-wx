@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 18,
 			"list": [
 				{
 					"id": -1,
@@ -177,6 +177,13 @@
 					"name": "基本信息",
 					"pathName": "package_my/pages/mycenter/mycenter",
 					"query": "phone=18640460506",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "积分详情",
+					"pathName": "package_vip/pages/pointlist/pointlist",
+					"query": "order_sn=jwd03190917s4635235&user_address_name=&user_address_phone=&province=null&city=null&district=null&user_address_id=undefined&user_address_detail_address=undefined",
 					"scene": null
 				}
 			]

@@ -1,7 +1,8 @@
 import { imageUrl } from '../../../pages/common/js/baseUrl'
-import { log, isloginFn, getNavHeight } from '../../../pages/common/js/utils'
+import { log, isloginFn, event_getNavHeight } from '../../../pages/common/js/utils'
 import Request from '../../../pages/common/js/li-ajax'
 import { navigateTo } from '../../../pages/common/js/router.js'
+
 Page({
 
   /**
@@ -23,6 +24,7 @@ Page({
    */
   onLoad: function (options) {
     this.funGetDetail(1);
+    this.funGetUserPoint()
   },
 
   /**
@@ -36,17 +38,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // let navHeight = Request.getNavHeight()
-    // this.setData({
-    //   navHeight
-    // })
+    let navHeight = event_getNavHeight();
+    this.setData({
+      navHeight
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    this.onModalClose()
+    this.onModalClose();
     this.hideToast()
   },
 
@@ -69,9 +71,9 @@ Page({
    */
   onReachBottom: function () {
     // 页面被拉到底部
-    let { pagenum } = this.data
-    ++pagenum
-     this.funGetDetail(pagenum)
+    let { pagenum } = this.data;
+    ++pagenum;
+    this.funGetDetail(pagenum);
     this.setData({
       pagenum
     })
@@ -85,11 +87,15 @@ Page({
   },
   isloginFn,
   funGetDetail(pagenum) {
-    let { list, pagesize } = this.data
-    let res = Request.reqPointList({ pagenum, pagesize })
+    let { list, pagesize } = this.data;
+    let res = Request.reqPointList({ pagenum, pagesize });
     if (res.code === 100) {
-      if (res.data.pagination.lastLage < pagenum) { return }
-      if (res.data.data.length == 0) { return }
+      if (res.data.pagination.lastLage < pagenum) {
+        return
+      }
+      if (res.data.data.length == 0) {
+        return
+      }
       this.setData({
         list: [...list, ...res.data.data],
         finish: true
@@ -97,14 +103,14 @@ Page({
     }
   },
   toUrl(e) {
-    var url = e.currentTarget.dataset.url
+    var url = e.currentTarget.dataset.url;
     navigateTo({
       url: url
     });
   },
 
   funGetUserPoint() {
-    let res = Request.reqUserPoint()
+    let res = Request.reqUserPoint();
     if (res.CODE === 'A100') {
       this.setData({
         userPoint: res.DATA
@@ -140,7 +146,7 @@ Page({
   hideToast() {
     this.setData({ toast: false })
   },
-})
+});
 
 // <!--未登录提示 -->
 // <i-modal visible="{{loginOpened}}" show-ok="{{ false }}" show-cancel="false">

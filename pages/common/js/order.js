@@ -1,22 +1,22 @@
 export default {
   orderList: {  // --获取banner图
     url: '/juewei-api/order/list',
-    methods: 'GET',
+    method: 'GET',
   },
   orderDetail: {
     url: '/juewei-api/order/detail',
-    methods: 'GET',
+    method: 'GET',
   },
   commentTag: {
     url: '/juewei-api/comment/CommentTag',
-    methods: 'POST',
+    method: 'POST',
   },
   Create: {
     url: '/juewei-api/comment/Create',
-    methods: 'POST',
+    method: 'POST',
   },
   CancelOrder:{
     url:'/juewei-api/order/cancel',
-    methods: 'POST',
+    method: 'POST',
   }
 }
