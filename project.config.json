@@ -120,7 +120,7 @@
 					"id": 9,
 					"name": "订单详情",
 					"pathName": "package_order/pages/orderdetail/orderdetail",
-					"query": "order_no=jwd0119082626363442",
+					"query": "order_no=jwd0119091726363531",
 					"scene": null
 				},
 				{

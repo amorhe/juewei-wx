@@ -113,6 +113,8 @@
     <image mode="scaleToFill" src="{{imageUrl}}bg_order.png"/>
     <view class="txt">暂无订单</view>
   </view>
+    <view style="height: 100rpx;"></view>
+
 </view>
 
 <tab-bar cur="{{ 2 }}"></tab-bar>

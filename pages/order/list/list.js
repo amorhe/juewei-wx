@@ -296,9 +296,10 @@ Page({
     if (loading) {
       return
     }
-    list = list.map(({ remaining_pay_minute, remaining_pay_second, ...item }) => {
+    list = list.map(({ remaining_pay_minute, remaining_pay_second,order_status, ...item }) => {
       remaining_pay_second--;
-      if (remaining_pay_second === 0 && remaining_pay_minute === 0) {
+      if (remaining_pay_second < 0 && remaining_pay_minute === 0 && order_status === 0) {
+        order_status = 6
         // 此处不要停。。。
       }
       if (remaining_pay_second <= 0) {
@@ -308,6 +309,7 @@ Page({
       return {
         remaining_pay_minute,
         remaining_pay_second,
+        order_status,
         ...item,
       }
     });
