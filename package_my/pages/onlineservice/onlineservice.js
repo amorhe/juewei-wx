@@ -19,8 +19,8 @@ Page({
       nickname = '',
       phone = '';
     userid = (wxGet('user_id') || '');
-    nickname = (wxGet('nick_name') || '');
-    phone = (wxGet('phone') || '');
+    nickname = (wxGet('userInfo').nickname || '');
+    phone = (wxGet('userInfo').phone || '');
     this.setData({
       src: serviceUrl + '/m/shop/onlineservice.html?uid=' + userid + '&name=' + nickname + '&mobile=' + phone + '&channel=微信小程序'
     })

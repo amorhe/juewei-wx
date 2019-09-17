@@ -644,7 +644,7 @@ Page({
           app.globalData.coupon_code = '';
           app.globalData.remarks = '';
           add_lng_lat(res.data.order_no, typeClass, lng, lat).then((conf) => {
-            wx.removeStorageSync({
+            wx.removeStorage({
               key: 'goodsList', // 缓存数据的key
             });
             reLaunch({
@@ -682,13 +682,14 @@ Page({
                 })
               },
               fail(conf) {
+                wx.removeStorageSync('goodsList');
                 if (conf.errMsg.indexOf('cancel') != -1) {
                   // 取消支付
-                  wx.removeStorageSync('goodsList');
                   redirectTo({
                     url: '/package_order/pages/orderdetail/orderdetail?order_no=' + res.data.order_no
                   })
                 } else {
+                  // 支付失败
                   redirectTo({
                     url: '/pages/home/orderError/orderError'
                   })

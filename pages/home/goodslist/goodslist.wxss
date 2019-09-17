@@ -208,6 +208,11 @@ page {
   height: 80vh;
   overflow-y: scroll;
 }
+.goods_active {
+  /* margin-top: 200rpx; */
+  /* position: fixed;
+  top: 200rpx */
+}
 
 .fourType {
   padding: 0 65rpx 24rpx;
