@@ -231,18 +231,9 @@ Page({
             success: res => {
               log('s', res);
               // 用户支付成功
-              if (res.resultCode == 9000) {
                 return wx.redirectTo({
                   url: '../finish/finish?id=' + order_id + '&fail=' + false
                 });
-              }
-              // 用户取消支付
-              if (res.resultCode == 6001) {
-
-                // return wx.redirectTo({
-                //   url: '../exchangelist/exchangedetail/exchangedetail?id=' + order_id
-                // });
-              }
             },
             fail: res => {
               log('fail');

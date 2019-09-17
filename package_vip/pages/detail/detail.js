@@ -136,7 +136,7 @@ Page({
    * @function 支付订单
    */
   async pay(order_no) {
-    let { code, data } = await Request.reqPay({order_no});
+    let { code, data } = await Request.reqPay({ order_no });
     return { code, data }
   },
 
@@ -181,34 +181,29 @@ Page({
             ...res.data,
             success: res => {
               // 用户支付成功
-              if (res.resultCode == 9000) {
+              return wx.redirectTo({
+                url: '../finish/finish?id=' + order_id + '&fail=' + false
+              });
+            },
+            fail: conf => {
+              log('fail');
+              if (conf.errMsg.indexOf('cancel') != -1) {
+                // 取消支付
                 return wx.redirectTo({
-                  url: '../finish/finish?id=' + order_id + '&fail=' + false
-                });
-              }
-              // 用户取消支付
-              if (res.resultCode == 6001) {
-                return wx.redirectTo({
-                  url: '../exchangelist/exchangedetail/exchangedetail?id=' + order_id
+                  url: '../exchangelist/exchangedetail/exchangedetail?id=' + d.id
                 });
               }
               return wx.redirectTo({
-                url: '../finish/finish?id=' + order_id + '&fail=' + true
+                url: '../finish/finish?id=' + d.id + '&fail=' + true
               });
 
-            },
-            fail: res => {
-              log('fail');
-              return wx.redirectTo({
-                url: '../finish/finish?id=' + order_id + '&fail=' + true
-              });
             }
           });
         } else {
           that.setData({
             isClick: true
           });
-          return wx.showToast({ icon:"none",title: res.msg });
+          return wx.showToast({ icon: "none", title: res.msg });
         }
         return
       }

@@ -407,11 +407,10 @@ Page({
         tradeNO: tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
         success: res => {
           log('支付成功'.res);
-          if (res.resultCode == 9000) {
             return wx.redirectTo({
               url: '/pages/home/orderfinish/orderfinish?order_no=' + order_no
             });
-          }
+
           // return wx.redirectTo({
           //   url: '/pages/home/orderError/orderError?order_no=' + order_no
           // });
