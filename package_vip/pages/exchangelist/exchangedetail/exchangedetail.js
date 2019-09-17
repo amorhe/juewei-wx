@@ -100,8 +100,16 @@ Page({
     parseData({ bindName: '_intro', html: res.data.intro, target: this });
 
     if (res.code === 100) {
+      let { start_time = '', end_time = '', get_start_time = '', get_end_time = '', ...rest } = res.data;
       this.setData({
-        detail: res.data,
+        detail: {
+          start_time: start_time.split(' ')[0],
+          end_time: end_time.split(' ')[0],
+
+          get_start_time: get_start_time.split(' ')[0],
+          get_end_time: get_end_time.split(' ')[0],
+          ...rest
+        },
       });
     }
   },
@@ -192,7 +200,7 @@ Page({
    */
   async pay(order_no) {
     log(order_no);
-    let { code, data } = await Request.reqPay({order_no});
+    let { code, data } = await Request.reqPay({ order_no });
     return { code, data }
   },
 
@@ -227,18 +235,18 @@ Page({
         let res = await this.pay(order_sn);
         if (res.code == 0) {
           wx.requestPayment({
-           ...res.data,
+            ...res.data,
             success: res => {
               log('s', res);
               // 用户支付成功
-                return wx.redirectTo({
-                  url: '../finish/finish?id=' + order_id + '&fail=' + false
-                });
+              return wx.redirectTo({
+                url: '../../finish/finish?id=' + id + '&fail=' + false
+              });
             },
             fail: res => {
               log('fail');
               return wx.redirectTo({
-                url: '../finish/finish?id=' + order_id + '&fail=' + true
+                url: '../../finish/finish?id=' + id + '&fail=' + true
               });
             }
           });
@@ -255,7 +263,7 @@ Page({
       //
       if (goods_detail_type == 2 && receive_type == 0) {
         navigateTo({
-          url: '../finish/finish?id=' + order_id + '&fail=' + fail
+          url: '../../finish/finish?id=' + id + '&fail=' + fail
         });
       }
 
@@ -263,7 +271,7 @@ Page({
       // 跑通
       if (goods_detail_type == 1 && receive_type == 0) {
         navigateTo({
-          url: '../finish/finish?id=' + order_id + '&fail=' + fail
+          url: '../../finish/finish?id=' + order_id + '&fail=' + fail
         });
       }
     }

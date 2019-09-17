@@ -27,10 +27,10 @@
     剩余时间：{{detail.remaining_pay_minute}}分{{detail.remaining_pay_second}}秒
     </view>
     <view class="sub-state" wx:if="{{detail.get_start_time && detail.status == 1 }}">
-    领取有效期：{{detail.get_start_time.split(' ')[0]}} 至 {{detail.get_end_time.split(' ')[0]}}
+    领取有效期：{{detail.get_start_time}} 至 {{detail.get_end_time}}
     </view>
     <view class="sub-state" wx:if="{{detail.get_time != '0000-00-00 00:00:00'}}">
-    领取时间：{{detail.get_time.split(' ')[0]}}
+    领取时间：{{detail.get_time}}
     </view>
   </view>
   <view class="buttons" wx:if="{{detail.status == 0 && detail.remaining_pay_minute>0}}">
@@ -124,7 +124,7 @@
           活动时间
         </view>
         <view class="value">
-          {{detail.start_time.split(' ')[0]}} 至 {{detail.end_time.split(' ')[0]}}
+          {{detail.start_time}} 至 {{detail.end_time}}
         </view>
       </view>
 
@@ -142,7 +142,7 @@
           商品有效时间
         </view>
         <view class="value">
-         {{detail.end_time.split(' ')[0]}}
+         {{detail.end_time}}
         </view>
       </view>
       <view class="li" wx:if="{{detail.exchange_intro}}">

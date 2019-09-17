@@ -246,6 +246,10 @@ Page({
           { state: '订单已完成', time: dis_finish_time },
           { state: '订单已取消', time: cancel_time },
         ];
+        timeArr = timeArr.map(({state,time})=>({
+          state,
+          time:time.split(' ')[1]
+        }));
         log(timeArr);
         // 自提显示数组
         // 0，等待支付 1

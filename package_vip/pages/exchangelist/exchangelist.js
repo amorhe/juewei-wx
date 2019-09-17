@@ -220,9 +220,6 @@ Page({
       }
 
       if (receive_type == 0) {
-        // let { order_id = '', order_sn } = await this.createOrder()
-        // if (!order_id) { return }
-        // let res = await this.confirmOrder(order_sn)
         if (order_amount != 0) {
           let res = await this.pay(order_sn);
           if (res.code == 0) {
@@ -232,14 +229,14 @@ Page({
                 log('s', res);
                 // 用户支付成功
                   return wx.redirectTo({
-                    url: '../finish/finish?id=' + order_id + '&fail=' + false
+                    url: '../finish/finish?id=' + id + '&fail=' + false
                   });
 
               },
               fail: res => {
                 log('fail');
                 return wx.redirectTo({
-                  url: '../finish/finish?id=' + order_id + '&fail=' + true
+                  url: '../finish/finish?id=' + id + '&fail=' + true
                 });
               }
             });

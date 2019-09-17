@@ -190,11 +190,11 @@ Page({
               if (conf.errMsg.indexOf('cancel') != -1) {
                 // 取消支付
                 return wx.redirectTo({
-                  url: '../exchangelist/exchangedetail/exchangedetail?id=' + d.id
+                  url: '../exchangelist/exchangedetail/exchangedetail?id=' + order_id
                 });
               }
               return wx.redirectTo({
-                url: '../finish/finish?id=' + d.id + '&fail=' + true
+                url: '../finish/finish?id=' + order_id + '&fail=' + true
               });
 
             }
