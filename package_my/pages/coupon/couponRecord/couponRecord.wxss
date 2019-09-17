@@ -97,7 +97,7 @@
   margin-left: 8rpx;
 }
 .couponLi>view:nth-child(3) {
-  height: 50rpx;
+  /* height: 50rpx; */
 }
 .qr {
   width: 40rpx;

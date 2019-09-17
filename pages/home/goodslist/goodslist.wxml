@@ -85,34 +85,35 @@
         <image src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{imageUrl2 + item.link_url[0]}}" bindtap="imageLink" />
       </view>
     </view>
+
+    <navigator id="pages_s" url="/pages/home/switchshop/switchshop?type={{type}}" class="pagesScorll {{isFixedTop?'fixed':''}}" wx:if="{{!isSelf}}" hover-class="none">
+      <!-- 推荐门店 -->
+      <view class="shopDefault">
+        <view>
+          <view style="width:48rpx" wx:if="{{!jingxuan}}"></view>
+          <view class="jingxuan" wx:if="{{jingxuan}}">精选</view>
+          <view class="shopMessage">
+            <view>{{shopTakeOut.title}}</view>
+            <view>在售商品数{{shopTakeOut.goods_num}}</view>
+          </view>
+        </view>
+        <view>
+          <view class="shopDefaultRight">
+            <view>
+              <image src="{{imageUrl}}position.png" />
+              <view>距离{{shopTakeOut.distance}}米</view>
+            </view>
+            <view>
+              <!-- shop_takeout = 1 外卖开启。 =2  未开外卖 -->
+              <view class="typeBtn1" wx:if="{{type==1||(shopTakeOut.shop_takeout==1 && type==2)}}">外卖</view>
+              <view class="typeBtn2">自提</view>
+            </view>
+          </view>
+          <image class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
+        </view>
+      </view>
+    </navigator>
   </view>
-  <navigator url="/pages/home/switchshop/switchshop?type={{type}}" class="pagesScorll" wx:if="{{!isSelf}}" hover-class="none">
-    <!-- 推荐门店 -->
-    <view class="shopDefault">
-      <view>
-        <view style="width:48rpx" wx:if="{{!jingxuan}}"></view>
-        <view class="jingxuan" wx:if="{{jingxuan}}">精选</view>
-        <view class="shopMessage">
-          <view>{{shopTakeOut.title}}</view>
-          <view>在售商品数{{shopTakeOut.goods_num}}</view>
-        </view>
-      </view>
-      <view>
-        <view class="shopDefaultRight">
-          <view>
-            <image src="{{imageUrl}}position.png" />
-            <view>距离{{shopTakeOut.distance}}米</view>
-          </view>
-          <view>
-            <!-- shop_takeout = 1 外卖开启。 =2  未开外卖 -->
-            <view class="typeBtn1" wx:if="{{type==1||(shopTakeOut.shop_takeout==1 && type==2)}}">外卖</view>
-            <view class="typeBtn2">自提</view>
-          </view>
-        </view>
-        <image class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
-      </view>
-    </view>
-  </navigator>
   <view class="shopUp" wx:if="{{isSelf}}">
     <image class="shopLogo" src="{{imageUrl}}shopbg.png" />
     <navigator url="/package_my/pages/nearshop/nearshop" class="shopBoxs" open-type="navigateBack">
@@ -177,8 +178,7 @@
           </view>
         </view>
       </scroll-view>
-      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;" scroll-into-view="s{{goodsType}}" scroll-with-animation="true" scroll-animation-duration="50" bindtouchEnd="onTouchEnd" class="scrolllist" bindtouchStart="onTouchStart"
-        bindscroll="bindscroll">
+      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;" scroll-into-view="s{{goodsType}}" scroll-with-animation="true" scroll-animation-duration="50" bindtouchEnd="onTouchEnd" class="scrolllist" bindtouchStart="onTouchStart" bindscroll="bindscroll">
         <view>
           <view id="s{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
             <view class="goodsTypeEv">{{item.key}}</view>
@@ -235,7 +235,8 @@
                   <view class="goodsSize" data-item="{{item}}" data-key="{{item.key}}" data-type="{{index}}" data-index="{{i}}" catchtap="eveChooseSizeTap" wx:if="{{v.goods_format.length>1}}">
                     <view>选规格</view>
                     <!-- 购物车中该商品数量 -->
-                    <view wx:if="{{shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 || shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum>0}}">{{shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type]?shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum:shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum}}</view>
+                    <view wx:if="{{shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 || shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum>0}}">{{shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type]?shopcartList[v.goods_channel +v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum:shopcartList[v.goods_channel +v.goods_type
+                      + v.company_goods_id + '_' + v.goods_format[1].type].sumnum}}</view>
                   </view>
                 </view>
                 <view class="goodsDiscount" wx:if="{{item.key!='爆款'}}">
@@ -282,7 +283,8 @@
                   </view>
                   <view class="goodsSize" data-item="{{item}}" data-key="{{item.key}}" data-type="{{index}}" data-index="{{i}}" catchtap="eveChooseSizeTap" wx:if="{{v.goods_format.length>1}}">
                     <view>选规格</view>
-                    <view wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 || shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum>0}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type]?shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum:shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum}}</view>
+                    <view wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 || shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum>0}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type]?shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum:shopcartList[v.goods_channel
+                      + v.goods_type + v.company_goods_id + '_' + v.goods_format[1].type].sumnum}}</view>
                   </view>
                 </view>
               </view>
@@ -296,9 +298,11 @@
       <view class="ball" animation="{{animationX}}" style="position:fixed;left:{{ballX}}px;"></view>
     </view>
     <!-- 购物车 -->
-    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart" />
+    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart"
+    />
     <!-- 加入购物车选择商品规格 -->
-    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" />
+    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"
+    />
   </view>
 </view>
 <tab-bar cur="{{ 0 }}"></tab-bar>

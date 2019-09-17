@@ -12,7 +12,7 @@ import {
   createOrder,
   useraddressInfo,
   add_lng_lat,
-  AliMiniPay,
+  payment,
   useraddress
 } from '../../common/js/home'
 import {
@@ -414,7 +414,7 @@ Page({
   },
   // 获取默认地址
   funGetDefault() {
-    useraddress(wxGet('shop_id')).then((res) => {
+    useraddress(wxGet('shop_id'), wxGet('_sid')).then((res) => {
       let addressList = [];
       for (let value of res.data) {
         if (value.is_dis == 1) {
@@ -634,7 +634,7 @@ Page({
     if (this.data.orderInfo.use_coupons[0] != undefined) {
       use_coupons = this.data.orderInfo.use_coupons[0]
     }
-    createOrder(app.globalData.type, shop_id, goods, shop_id, 11, remark, '微信小程序', address_id, lng, lat, type, str_gift, use_coupons, notUse, app.globalData.freeId,wxGet('_sid')).then((res) => {
+    createOrder(app.globalData.type, shop_id, goods, shop_id, 8, remark, '微信小程序', address_id, lng, lat, type, str_gift, use_coupons, notUse, app.globalData.freeId, wxGet('_sid')).then((res) => {
       if (res.code == 0) {
         if (app.globalData.type == 2 && this.data.orderInfo.real_price == 0) {
           this.setData({
@@ -653,7 +653,7 @@ Page({
           })
           return
         }
-        AliMiniPay(res.data.order_no).then((val) => {
+        payment(res.data.order_no).then((val) => {
           if (val.code == 0) {
             // 支付宝调起支付
             this.setData({
@@ -662,34 +662,39 @@ Page({
             })
             app.globalData.coupon_code = '';
             app.globalData.remarks = '';
-            // my.tradePay({
-            //   tradeNO: val.data.tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
-            //   success: (value) => {
-            //     // 支付成功
-            //     if (value.resultCode == 9000) {
-            //       add_lng_lat(res.data.order_no, typeClass, lng, lat).then((conf) => {
-            //         my.removeStorageSync({
-            //           key: 'goodsList', // 缓存数据的key
-            //         });
-            //         my.reLaunch({
-            //           url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no, // 需要跳转的应用内非 tabBar 的目标页面路径 ,路径后可以带参数。参数规则如下：路径与参数之间使用
-            //         });
-            //       })
-            //     } else if (value.resultCode == 4000) {    // 支付失败
-            //       reLaunch({
-            //         url: '/pages/home/orderError/orderError', // 需要跳转的应用内非 tabBar 的目标页面路径 ,路径后可以带参数。参数规则如下：路径与参数之间使用
-            //       });
-            //     } else {
-            //       // 待支付
-            //       wx.removeStorageSync({
-            //         key: 'goodsList', // 缓存数据的key
-            //       });
-            //       redirectTo({
-            //         url: '/package_order/pages/orderdetail/orderdetail?order_no=' + res.data.order_no, // 需要跳转的应用内非 tabBar 的目标页面路径 ,路径后可以带参数。参数规则如下：路径与参数之间使用
-            //       })
-            //     }
-            //   }
-            // });
+            console.log(val)
+            // 微信支付
+            wx.requestPayment({
+              timeStamp: val.data.timeStamp,
+              nonceStr: val.data.nonceStr,
+              package: val.data.package,
+              signType: val.data.signType,
+              paySign: val.data.paySign,
+              success(res) {
+                console.log(res)
+                add_lng_lat(res.data.order_no, typeClass, lng, lat).then((conf) => {
+                  if (conf.code == 'A100') {
+                    wx.removeStorageSync('goodsList');
+                    redirectTo({
+                      url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no
+                    });
+                  }
+                })
+              },
+              fail(conf) {
+                if (conf.errMsg.indexOf('cancel') != -1) {
+                  // 取消支付
+                  wx.removeStorageSync('goodsList');
+                  redirectTo({
+                    url: '/package_order/pages/orderdetail/orderdetail?order_no=' + res.data.order_no
+                  })
+                } else {
+                  redirectTo({
+                    url: '/pages/home/orderError/orderError'
+                  })
+                }
+              }
+            })
           }
         })
       } else {

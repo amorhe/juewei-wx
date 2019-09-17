@@ -99,6 +99,10 @@ Component({
           } else if (res.cancel) {
             console.log('用户点击确定')
             that.triggerEvent('Clearshopcart');
+            that.setData({
+              mask1:false,
+              showShopcar: false
+            })
           }
         }
       })
@@ -221,6 +225,13 @@ Component({
       }
       this.funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
       wxSet('goodsList', goodlist)
+      // 购物车全部为空
+      if (Object.keys(goodlist).length == 0){
+        this.setData({
+          showShopcar: false,
+          mask1: false
+        })
+      }
     },
     funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
       let data = {

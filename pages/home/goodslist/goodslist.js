@@ -97,7 +97,7 @@ Page({
     activityList: [],
     shopcartList: {}, // 购物车缓存
     goodsType: 1, //系列
-    togoodsType:1,  // 点击跳转
+    togoodsType: 1, // 点击跳转
     maskView: false,
     goodsModal: false,
     scrollT: 0,
@@ -131,7 +131,9 @@ Page({
     },
     repurse_price: 0, // 购物车换购商品价格
     pagescrollTop: 0,
-    leftTop: 0
+    leftTop: 0,
+    navbarInitTop: 0, //导航栏初始化距顶部的距离
+    isFixedTop: false, //是否固定顶部
   },
 
   /**
@@ -230,7 +232,24 @@ Page({
     this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
     this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id) //营销活动
-    wxSet('vip_address', app.globalData.shopTakeOut)
+    wxSet('vip_address', app.globalData.shopTakeOut);
+
+    var that = this;
+
+    if (that.data.navbarInitTop == 0) {
+
+      //获取节点距离顶部的距离
+      wx.createSelectorQuery().select('#pages_s').boundingClientRect(function(rect) {
+        // console.log(rect)
+        if (rect && rect.top > 0) {
+          var navbarInitTop = parseInt(rect.top);
+          that.setData({
+            navbarInitTop: navbarInitTop
+          });
+        }
+      }).exec();
+
+    }
   },
 
   /**
@@ -260,7 +279,21 @@ Page({
   onReachBottom: function() {
 
   },
+  onPageScroll: function(e) {
+    var that = this;
+    var scrollTop = parseInt(e.scrollTop); //滚动条距离顶部高度
 
+    //判断'滚动条'滚动的距离 和 '元素在初始时'距顶部的距离进行判断
+    var isSatisfy = scrollTop >= that.data.navbarInitTop ? true : false;
+    //为了防止不停的setData, 这儿做了一个等式判断。 只有处于吸顶的临界值才会不相等
+    if (that.data.isFixedTop === isSatisfy) {
+      return false;
+    }
+
+    that.setData({
+      isFixedTop: isSatisfy
+    });
+  },
   /**
    * 用户点击右上角分享
    */
@@ -710,7 +743,10 @@ Page({
     })
   },
   // 监听商品列表滚动
-  bindscroll() {
+  bindscroll(e) {
+    wx.pageScrollTo({
+      scrollTop: this.data.navbarInitTop * 2
+    })
     if (!this.data.isTab) {
       let retArr = [...goodsret];
       wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
@@ -887,8 +923,11 @@ Page({
     this.setData({
       goodsType: e.currentTarget.dataset.type,
       togoodsType: e.currentTarget.dataset.type,
-      isTab:true,
+      isTab: true,
       shopcartList: wxGet('goodsList')
+    })
+    wx.pageScrollTo({
+      scrollTop: this.data.navbarInitTop * 2
     })
   },
   eveCloseModal(data) {

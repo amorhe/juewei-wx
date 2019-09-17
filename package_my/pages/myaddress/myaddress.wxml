@@ -13,7 +13,7 @@
         <text>{{ item.user_address_sex==0?'（先生）':'（女士）' }}</text>{{item.user_address_phone}}
       </view>
     </view>
-    <view class="tiemright" catchTap="toUrl" data-item="{{ item }}">
+    <view class="tiemright" catchtap="toUrl" data-item="{{ item }}">
       <image class='editicon' src="{{imageUrl}}edit.png"/>
     </view>
   </view>

@@ -25,7 +25,7 @@ const ajaxUrl = {
   DispatchCommentList: '/juewei-api/comment/DispatchCommentList', // 商品详情中的配送评价列表
   add_lng_lat: '/mini/order_online/add_lng_lat', // 风控数据经纬度
   getMarkActivity: '/mini/activity/markup/mark/getMarkActivity', // 加价购列表
-  AliMiniPay: '/juewei-service/payment/AliMiniPay', // 支付生成交易号
+  payment: '/juewei-service/payment/jsPay', // 获取预支付交易单号
   useraddressInfo: '/juewei-api/useraddress/info', // 地址详情
   addressList: '/juewei-api/useraddress/list', // 定位页我的地址列表
 }
@@ -143,8 +143,9 @@ export const confirmOrder = (dispatch_type, shop_id, goods, shops, coupon_code, 
   _sid
 })
 
-export const useraddress = (shop_id) => ajax(ajaxUrl.useraddress, {
-  shop_id
+export const useraddress = (shop_id, _sid) => ajax(ajaxUrl.useraddress, {
+  shop_id,
+  _sid
 });
 
 export const exchangeCode = (_sid, get_type) => ajax(ajaxUrl.exchangeCode, {
@@ -198,9 +199,9 @@ export const useraddressInfo = (address_id) => ajax(ajaxUrl.useraddressInfo, {
   address_id
 });
 
-export const AliMiniPay = (order_no) => ajax(ajaxUrl.AliMiniPay, {
+export const payment = (order_no) => ajax(ajaxUrl.payment, {
   order_no
-});
+},"GET");
 
 
 export const addressList = (_sid, type, location) => ajax(ajaxUrl.addressList, {

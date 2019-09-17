@@ -1,5 +1,10 @@
-import { exchangeCoupon } from '../../../../pages/common/js/home';
-import { imageUrl } from '../../../../pages/common/js/baseUrl'
+import {
+  exchangeCoupon
+} from '../../../../pages/common/js/home';
+import {
+  imageUrl,
+  wxGet
+} from '../../../../pages/common/js/baseUrl'
 Page({
 
   /**
@@ -13,56 +18,56 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   writeCode(e) {
@@ -71,21 +76,23 @@ Page({
     })
   },
   eveexchangeBtn() {
-    const _sid = my.getStorageSync({ key: '_sid' }).data;
-    const { code } = this.data
+    const _sid = wxGet('_sid');
+    const {
+      code
+    } = this.data
     if (!code) {
-      return my.showToast({
-        content: '请输入兑换码'
+      return wx.showToast({
+        title: '请输入兑换码'
       });
     }
     exchangeCoupon(_sid, code).then((res) => {
       if (res.CODE == 'A100') {
-        my.showToast({
-          content: '兑换成功'
+        wx.showToast({
+          title: '兑换成功'
         });
       } else {
-        my.showToast({
-          content: res.MESSAGE
+        wx.showToast({
+          title: res.MESSAGE
         });
       }
     })

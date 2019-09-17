@@ -1,5 +1,5 @@
 page {
-  background: #ffffff;
+  background: #fff;
 }
 
 .goodsPosition {
@@ -14,46 +14,52 @@ page {
   align-items: center;
   box-sizing: border-box;
   z-index: 1000;
-  background: #fff
+  background: #fff;
 }
+
 .positionLeft {
   display: flex;
   align-items: center;
   font-weight: 600;
   font-size: 36rpx;
-  
 }
+
 .positionLeft>image {
   width: 40rpx;
   height: 40rpx;
   margin-right: 2rpx;
 }
+
 .positionLeft>text {
   max-width: 330rpx;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .positionRight {
   width: 200rpx;
   height: 60rpx;
   border-radius: 30rpx;
-   background: #F2F2F2;
-   display: flex;
-   align-items: center
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
 }
+
 .positionRight>view {
   width: 100rpx;
   height: 60rpx;
-  background: #F2F2F2;
+  background: #f2f2f2;
   text-align: center;
   line-height: 60rpx;
-  border-radius: 30rpx
-} 
-.activeType {
-  background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)!important;
-  color: #fff
+  border-radius: 30rpx;
 }
+
+.activeType {
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%) !important;
+  color: #fff;
+}
+
 .null {
   height: 88rpx;
 }
@@ -61,33 +67,44 @@ page {
 .pagesScorll {
   width: 750rpx;
   z-index: 1000;
-  background: #fff
+  background: #fff;
 }
+
+.fixed {
+  position: fixed;
+  top: 80rpx;
+}
+
 .pagesNormal {
   background: #fff;
   width: 750rpx;
 }
+
 .pagesinfo {
   width: 750rpx;
   padding-right: 36rpx;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
-.activityBox1,.activityBox3,.activityWrap{
+
+.activityBox1, .activityBox3, .activityWrap {
   padding: 0 32rpx;
   display: flex;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
 }
+
 .activityBox1>image {
   width: 100%;
-  height: 336rpx
+  height: 336rpx;
 }
+
 .activityWrap>image {
   width: 100%;
-  height: 160rpx
+  height: 160rpx;
 }
+
 .activityBox3>image {
   width: 336rpx;
   height: 336rpx;
@@ -97,15 +114,17 @@ page {
   position: relative;
   height: 349rpx;
 }
+
 .shopLogo {
   width: 750rpx;
   height: 298rpx;
 }
+
 .shopBoxs {
-  width:686rpx;
-  background:rgba(255,255,255,1);
-  box-shadow:0 2rpx 10rpx 0 rgba(153,153,153,0.2);
-  border-radius:10rpx;
+  width: 686rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2rpx 10rpx 0 rgba(153, 153, 153, 0.2);
+  border-radius: 10rpx;
   position: absolute;
   left: 32rpx;
   bottom: 23rpx;
@@ -114,30 +133,34 @@ page {
   display: flex;
   justify-content: space-between;
   background: #fff;
-  z-index: 100
-}
-.shopBoxs>view:nth-child(1){
-  display: flex
+  z-index: 100;
 }
 
-.shop_info,.shopBoxs>view:nth-child(2) {
+.shopBoxs>view:nth-child(1) {
+  display: flex;
+}
+
+.shop_info, .shopBoxs>view:nth-child(2) {
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
 }
+
 .shop_info {
   margin-left: 10rpx;
   width: 430rpx;
 }
-.shop_info>view:nth-child(3),.distanceView>view {
+
+.shop_info>view:nth-child(3), .distanceView>view {
   color: #999;
   font-size: 24rpx;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .distanceView {
-  align-items: flex-end
+  align-items: flex-end;
 }
 
 .closeIng {
@@ -146,14 +169,14 @@ page {
   justify-content: center;
   height: 46rpx;
   width: 750rpx;
-  background: #F9E1E0;
+  background: #f9e1e0;
   font-size: 22rpx;
   box-sizing: border-box;
-  
 }
-.sticky{
+
+.sticky {
   position: sticky;
-  z-index: 1001
+  z-index: 1001;
 }
 
 .closeIng>image {
@@ -182,17 +205,15 @@ page {
 }
 
 .pages_scroll {
-  position: sticky;
   height: 80vh;
   overflow-y: scroll;
-  z-index: 1000;
 }
 
 .fourType {
   padding: 0 65rpx 24rpx;
   display: flex;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .fourType>navigator>view, .fourType>view>view {
@@ -204,14 +225,14 @@ page {
 .fourType image {
   width: 94rpx;
   height: 94rpx;
-  margin-bottom: 16rpx
+  margin-bottom: 16rpx;
 }
 
 .activityBox {
   padding: 0 32rpx;
   display: flex;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .activityBox>image {
@@ -224,7 +245,7 @@ page {
   height: 336rpx;
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .activityBox>view>image {
@@ -239,16 +260,16 @@ page {
 
 .activityWrap>image {
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 .shopDefault {
-  height: 120rpx;
+  /* height: 120rpx; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16rpx 32rpx 16rpx 0;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .shopDefault>view {
@@ -276,7 +297,7 @@ page {
 .shopMessage {
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .shopMessage>view:nth-child(1) {
@@ -285,7 +306,7 @@ page {
 
 .shopMessage>view:nth-child(2) {
   font-size: 26rpx;
-  color: #999
+  color: #999;
 }
 
 .shopDefaultRight {
@@ -294,13 +315,13 @@ page {
   justify-content: space-between;
   font-size: 26rpx;
   height: 88rpx;
-  color: #666
+  color: #666;
 }
 
 .shopDefaultRight>view {
   display: flex;
   align-items: center;
-  justify-content: flex-end
+  justify-content: flex-end;
 }
 
 .shopDefaultRight>view>image {
@@ -328,7 +349,7 @@ page {
   font-size: 20rpx;
   text-align: center;
   line-height: 30rpx;
-  color: #fff
+  color: #fff;
 }
 
 .arrow_right {
@@ -337,7 +358,7 @@ page {
 }
 
 .numberColor {
-  color: #E60012
+  color: #e60012;
 }
 
 .goodsUl {
@@ -349,17 +370,17 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center
+  justify-content: center;
 }
 
 .goodsUl>view>image {
   width: 48rpx;
-  height: 48rpx
+  height: 48rpx;
 }
 
 .activeView {
-  color: #F90000;
-  font-weight: bold
+  color: #f90000;
+  font-weight: bold;
 }
 
 .goodsTypeEv {
@@ -376,12 +397,12 @@ page {
 
 .goodsBox {
   border-radius: 10px;
-  box-shadow: 0 2rpx 10rpx 2rpx rgba(153, 153, 153, .2);
+  box-shadow: 0 2rpx 10rpx 2rpx rgba(153, 153, 153, 0.2);
   margin-bottom: 30rpx;
 }
 
 .discountImg {
-  position: relative
+  position: relative;
 }
 
 .discountPng {
@@ -390,7 +411,7 @@ page {
   position: absolute;
   left: 0;
   top: -13rpx;
-  z-index: 10
+  z-index: 10;
 }
 
 .huangouPng {
@@ -399,19 +420,19 @@ page {
   position: absolute;
   left: 0;
   top: -13rpx;
-  z-index: 10
+  z-index: 10;
 }
 
 .goodsWrap {
   padding: 14rpx 20rpx 12rpx;
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .goodsName {
   font-size: 32rpx;
-  font-weight: 600
+  font-weight: 600;
 }
 
 .goodsKind {
@@ -426,12 +447,12 @@ page {
 .goodsRules, .goodsNumber {
   display: flex;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
 }
 
 .goodsRules>view>image, .goodsNumber>image {
   width: 52rpx;
-  height: 52rpx
+  height: 52rpx;
 }
 
 .goodsRules>view {
@@ -441,18 +462,18 @@ page {
 
 .goodsNumber>text {
   align-self: center;
-  margin: 0 22rpx!important;
-  color: #333!important;
-  font-weight: normal!important;
+  margin: 0 22rpx !important;
+  color: #333 !important;
+  font-weight: normal !important;
 }
 
 .goodsRules>view>view>text:nth-child(1) {
-  color: #E60012;
+  color: #e60012;
   font-size: 28rpx;
 }
 
 .goodsRules>view>view>text:nth-child(2) {
-  color: #E60012;
+  color: #e60012;
   font-size: 40rpx;
   font-weight: 600;
   margin: 0 7rpx;
@@ -464,16 +485,16 @@ page {
 }
 
 .goodsDiscount {
-  color: #E60012;
+  color: #e60012;
   font-size: 22rpx;
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .goodsDiscount>image {
   width: 32rpx;
   height: 32rpx;
-  margin-right: 4rpx
+  margin-right: 4rpx;
 }
 
 .goodsTitle {
@@ -483,7 +504,7 @@ page {
 
 .goodsTitle>view {
   display: flex;
-  align-items: flex-end
+  align-items: flex-end;
 }
 
 .oldPrice {
@@ -498,7 +519,7 @@ page {
 
 .goodsSoldNum {
   display: flex;
-  align-items: flex-end
+  align-items: flex-end;
 }
 
 .goodsSoldNum>text:nth-child(1) {
@@ -508,7 +529,7 @@ page {
 
 .goodsSoldNum>text:nth-child(2) {
   font-size: 34rpx;
-  font-weight: bold
+  font-weight: bold;
 }
 
 .goodsSoldNum>text:nth-child(3) {
@@ -518,7 +539,7 @@ page {
 
 .goodsSize {
   position: relative;
-  color: #fff
+  color: #fff;
 }
 
 .goodsSize>view:nth-child(1) {
@@ -584,15 +605,15 @@ page {
   left: 0;
   bottom: 98rpx;
   position: fixed;
-  z-index: 1003
+  z-index: 1003;
 }
 
 .fullReduce {
   height: 46rpx;
   text-align: center;
   line-height: 46rpx;
-  color: #E60012;
-  background: #FFF1F0;
+  color: #e60012;
+  background: #fff1f0;
 }
 
 .shopcart {
@@ -606,7 +627,7 @@ page {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1003
+  z-index: 1003;
 }
 
 .shopcarImage {
@@ -620,7 +641,7 @@ page {
 .buyBtn {
   width: 240rpx;
   height: 100rpx;
-  background: #C7C7C7;
+  background: #c7c7c7;
   color: #fff;
   font-size: 36rpx;
   text-align: center;
@@ -643,14 +664,14 @@ page {
 }
 
 .haveGoods>view>text:nth-child(1) {
-  color: #E60012;
+  color: #e60012;
   font-size: 26rpx;
 }
 
 .haveGoods>view>text:nth-child(2) {
-  color: #E60012;
+  color: #e60012;
   font-size: 40rpx;
-  font-weight: 600
+  font-weight: 600;
 }
 
 .haveGoods>view {
@@ -663,7 +684,7 @@ page {
   bottom: 198rpx;
   width: 750rpx;
   z-index: 1002;
-  background: #F2F2F2
+  background: #f2f2f2;
 }
 
 .fontSmall {
@@ -699,7 +720,7 @@ page {
   font-weight: 600;
   color: #333;
   font-size: 28rpx;
-  margin-bottom: 6rpx
+  margin-bottom: 6rpx;
 }
 
 .goodsNameI>view {
@@ -715,21 +736,21 @@ page {
 .goodsOldPrice {
   color: #999;
   text-decoration: line-through;
-  margin-right: 24rpx
+  margin-right: 24rpx;
 }
 
 .nullView {
   height: 34rpx;
-  background: #F2F2F2
+  background: #f2f2f2;
 }
 
 .shopcartWrap {
   max-height: 600rpx;
-  overflow-y: auto
+  overflow-y: auto;
 }
 
 .canBuy {
-  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%)!important;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%) !important;
 }
 
 .balls {
@@ -742,7 +763,7 @@ page {
 .ball {
   width: 20rpx;
   height: 20rpx;
-  background: #E60012;
+  background: #e60012;
   border-radius: 50%;
   z-index: 100;
   position: fixed;

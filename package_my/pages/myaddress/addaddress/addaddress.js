@@ -72,10 +72,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
+    console.log(options)
     var _sid = wxGet('_sid');
     this.data._sid = _sid
     if (options.Id) {
-      this.data.addressId = options.Id
+      this.setData({
+        addressId: options.Id
+      })
       this.getInfo(options.Id)
     } else {
       this.data.addressId = ''
@@ -159,7 +162,7 @@ Page({
                   wx.showModal({
                     content: '您所选的地址周边无可配送门店，请换个地址试试吧！',
                     showCancel: false,
-                    confirmText:"#E60012"
+                    confirmText: "#E60012"
                   })
                 }
               },
@@ -241,9 +244,9 @@ Page({
             that.data.shop_id = arr.join(',')
             if (that.data.shop_id === '') {
               wx.showModal({
-                content: '您所选的地址周边无可配送门店，请换个地址试试吧！',
+                title: '您所选的地址周边无可配送门店，请换个地址试试吧！',
                 showCancel: false,
-                confirmText: "#E60012"
+                confirmColor: "#E60012"
               })
             }
           },
@@ -480,12 +483,15 @@ Page({
   },
   // 删除地址
   modalShowFN() {
-    // this.setData({
-    //   modalShow: true
-    // })
+    var that = this;
     wx.showModal({
       content: '是否删除该配送地址?',
-      confirmText: "#E60012"
+      confirmColor: "#E60012",
+      success(res){
+        if(res.confirm){
+          that.rmaddress()
+        }
+      }
     })
   },
   modalhideFN() {
@@ -501,9 +507,6 @@ Page({
     }
     deleteaddress(data).then(res => {
       if (res.code == 0) {
-        this.setData({
-          modalShow: false
-        })
         wx.navigateBack({
           url: '/package_my/pages/myaddress/myaddress'
         });

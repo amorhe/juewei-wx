@@ -41,18 +41,6 @@
 
 
 <!-- 退出提示 -->
-<!-- <modal show="{{modalShow}}" showClose="{{ false }}">
-  <view class="modalInfo">
-    是否删除该配送地址
-  </view>
-  <view slot="footer" class="footerButton">
-    <view class="modalButton confirm" bindtap="modalhideFN">取消</view>
-    <view class="modalButton cancel" bindtap="rmaddress">确定</view>
-  </view>
-</modal> -->
-
-
-<!-- 退出提示 -->
 <!-- <modal show="{{modalidShow}}" showClose="{{ false }}">
   <view class="modalInfo">
     您所选的地址周边无可配送门店，请换个地址试试吧！

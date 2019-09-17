@@ -22,7 +22,7 @@ Page({
    */
   onLoad: function(options) {
     this.funGetQRcode();
-    const phone = wxGet('phone');
+    const phone = wxGet('userInfo').phone;
     this.setData({
       phone
     })
@@ -79,7 +79,7 @@ Page({
   funGetQRcode() {
     const _sid = wxGet('_sid');
     this.setData({
-      imgSrc: baseUrl + '/juewei-api/alimini/getQRcode?_sid=' + _sid
+      imgSrc: baseUrl + '/juewei-api/wxmini/getQRcode?_sid=' + _sid
     })
   },
   // goPay() {
