@@ -1,7 +1,8 @@
 // package_vip/pages/exchangelist/exchangelist.js
 import { imageUrl, imageUrl2 } from '../../../pages/common/js/baseUrl'
-import {log} from "../../../pages/common/js/utils";
+import { log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
+
 const app = getApp();
 
 Page({
@@ -21,7 +22,6 @@ Page({
     page_size: 10,
     lastLage: 10,
 
-    time: []
   },
 
 
@@ -30,6 +30,7 @@ Page({
    */
   onLoad: async function (options) {
     await this.getOrderList(1)
+    this.eventReduceTime()
 
   },
 
@@ -51,8 +52,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    const { time } = this.data;
-    time.forEach(item => clearInterval(item));
     app.globalData.refresh = true
   },
 
@@ -60,10 +59,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    const { time } = this.data;
-    time.forEach(item => clearInterval(item));
-    this.setData = () => {
-    }
   },
 
   /**
@@ -78,8 +73,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: async function () {
-    const { time } = this.data;
-    time.forEach(item => clearInterval(item));
     wx.showLoading({ content: '加载中...' });
     this.setData({}, async () => {
       setTimeout(async () => {
@@ -100,9 +93,6 @@ Page({
 
   },
   reset() {
-    const { time } = this.data;
-    log(time);
-    time.forEach(item => clearInterval(item));
     this.setData({
       finish: false,
 
@@ -129,7 +119,7 @@ Page({
    * @function 获取订单列表
    */
   async getOrderList(page_num) {
-    let { page_size, time, orderList, lastLage } = this.data;
+    let { page_size, orderList, lastLage } = this.data;
     if (lastLage < page_num) {
       return wx.hideLoading()
     }
@@ -144,33 +134,41 @@ Page({
         return
       }
       orderList = [...orderList, ...res.data.data];
-      let timer = setInterval(() => {
-        orderList = orderList.map(({ remaining_pay_minute = -1, remaining_pay_second = -1, ...item }) => {
-          remaining_pay_second--;
-          if (remaining_pay_second === 0 && remaining_pay_minute === -1) {
-            // clearInterval(time)
-          }
-          if (remaining_pay_second <= 0) {
-            --remaining_pay_minute;
-            remaining_pay_second = 59
-          }
-          return {
-            remaining_pay_minute,
-            remaining_pay_second,
-            ...item,
-          }
-        });
-        if (time.length > 100) {
-          time = []
-        }
-        this.setData({
-          orderList,
-          finish: true,
-          time: [...time, timer],
-          lastLage
-        }, () => wx.hideLoading())
-      }, 1000)
+      this.setData({
+        orderList,
+        finish: true,
+        lastLage
+      }, () => wx.hideLoading())
     }
+  },
+
+  /**
+   * @function 递归时间
+   */
+
+  eventReduceTime() {
+    let { orderList } = this.data;
+    orderList = orderList.map(({ remaining_pay_minute = -1, remaining_pay_second = -1, ...item }) => {
+      remaining_pay_second--;
+      if (remaining_pay_second === 0 && remaining_pay_minute === -1) {
+      }
+      if (remaining_pay_second <= 0) {
+        --remaining_pay_minute;
+        remaining_pay_second = 59
+      }
+      return {
+        remaining_pay_minute,
+        remaining_pay_second,
+        ...item,
+      }
+    });
+    this.setData({
+      orderList,
+    })
+
+    setTimeout(() => {
+      this.eventReduceTime();
+    }, 1000)
   },
 
   /**
