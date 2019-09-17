@@ -74,7 +74,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: async function () {
-    wx.showLoading({ content: '加载中...' });
+    wx.showLoading({ title: '加载中...' });
     this.setData({}, async () => {
       setTimeout(async () => {
         let { page_num } = this.data;
@@ -185,9 +185,8 @@ Page({
   /**
    * @function 支付订单
    */
-  async pay(order_sn) {
-    log(order_sn);
-    let { code, data } = await reqPay(order_sn);
+  async pay(order_no) {
+    let { code, data } = await Request.reqPay({order_no});
     return { code, data }
   },
 
@@ -221,39 +220,28 @@ Page({
       }
 
       if (receive_type == 0) {
-        // let { order_id = '', order_sn } = await this.createOrder()
-        // if (!order_id) { return }
-        // let res = await this.confirmOrder(order_sn)
         if (order_amount != 0) {
           let res = await this.pay(order_sn);
           if (res.code == 0) {
-            wx.tradePay({
-              tradeNO: res.data.tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
+            wx.requestPayment({
+              ...res.data,
               success: res => {
                 log('s', res);
                 // 用户支付成功
-                if (res.resultCode == 9000) {
                   return wx.redirectTo({
-                    url: '../finish/finish?id=' + order_id + '&fail=' + false
+                    url: '../finish/finish?id=' + id + '&fail=' + false
                   });
-                }
-                // 用户取消支付
-                if (res.resultCode == 6001) {
 
-                  // return wx.redirectTo({
-                  //   url: '../exchangelist/exchangedetail/exchangedetail?id=' + order_id
-                  // });
-                }
               },
               fail: res => {
                 log('fail');
                 return wx.redirectTo({
-                  url: '../finish/finish?id=' + order_id + '&fail=' + true
+                  url: '../finish/finish?id=' + id + '&fail=' + true
                 });
               }
             });
           } else {
-            return wx.showToast({ content: res.msg });
+            return wx.showToast({ icon:"none",title: res.msg });
           }
           return
         }

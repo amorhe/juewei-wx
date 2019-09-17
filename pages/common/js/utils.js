@@ -2,6 +2,7 @@ import { wxParse } from '../../../utils/wxParse/wxParse.js';
 
 import Request from "./li-ajax";
 import { wxGet } from "./baseUrl";
+import { navigateTo, redirectTo } from "./router";
 
 export const log = console.log;
 
@@ -103,8 +104,8 @@ export const guide = e => {
     address
   } = e.currentTarget.dataset;
   wx.openLocation({
-    longitude: shop_longitude,
-    latitude: shop_latitude,
+    longitude: shop_longitude - 0,
+    latitude: shop_latitude - 0,
     name: shop_name,
     address,
   });
@@ -116,10 +117,16 @@ export const guide = e => {
 
 export const contact = e => {
   const { phone_number } = e.currentTarget.dataset;
-  console.log(phone_number);
-  wx.makePhoneCall({
-    phoneNumber: phone_number  || '4009995917'
-  });
+  if (phone_number) {
+    console.log(phone_number);
+    wx.makePhoneCall({
+      phoneNumber: phone_number  || '4009995917'
+    });
+  } else {
+    console.log('没有电话号，去联系客服');
+    navigateTo({url:'/package_my/pages/onlineservice/onlineservice'})
+  }
+
 };
 
 /**

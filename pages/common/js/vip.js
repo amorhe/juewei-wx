@@ -57,19 +57,24 @@ export default {
     url: '/mini/wmvip/wap/order/order_detail',
     method: 'POST',
   },
-  //todo: vip订单支付成功 回调接口
-  //todo: vip金额支付 获取订单金额信息接口
+  reqGameShop: {  // 获取订单列表
+    url: '/mini/game/shop',
+    method: 'POST',
+  },
   reqConfirmOrder: {  // 确认订单
     url: '/mini/wmvip/wap/trade/confirm_order',
     method: 'POST',
     loading: false
   },
-
-
   reqPay: {  // 支付订单
-    url: '/juewei-service/payment/AliMiniPay',
+    url: '/juewei-service/payment/jsPay',
     method: 'POST',
   },
+  //todo: vip订单支付成功 回调接口
+
+
+
+
 
 
   reqWait: {  // 核销

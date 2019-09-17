@@ -246,6 +246,10 @@ Page({
           { state: '订单已完成', time: dis_finish_time },
           { state: '订单已取消', time: cancel_time },
         ];
+        timeArr = timeArr.map(({state,time})=>({
+          state,
+          time:time.split(' ')[1]
+        }));
         log(timeArr);
         // 自提显示数组
         // 0，等待支付 1
@@ -407,11 +411,10 @@ Page({
         tradeNO: tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
         success: res => {
           log('支付成功'.res);
-          if (res.resultCode == 9000) {
             return wx.redirectTo({
               url: '/pages/home/orderfinish/orderfinish?order_no=' + order_no
             });
-          }
+
           // return wx.redirectTo({
           //   url: '/pages/home/orderError/orderError?order_no=' + order_no
           // });

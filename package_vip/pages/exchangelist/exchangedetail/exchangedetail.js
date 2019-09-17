@@ -1,7 +1,7 @@
 // package_vip/pages/exchangelist/exchangedetail/exchangedetail.js
 
 import { imageUrl, imageUrl2 } from '../../../../pages/common/js/baseUrl'
-import { event_getNavHeight, handleCopy, parseData } from '../../../../pages/common/js/utils'
+import { event_getNavHeight, guide, handleCopy, log, parseData } from '../../../../pages/common/js/utils'
 import Request from "../../../../pages/common/js/li-ajax";
 import { navigateBack, navigateTo } from "../../../../pages/common/js/router";
 
@@ -36,11 +36,11 @@ Page({
    */
   onLoad: async function (e) {
     const { id } = e;
-    let navHeight =  await event_getNavHeight();
+    let navHeight = await event_getNavHeight();
     this.setData({
       navHeight,
       id
-    },async ()=> await this.getOrderDetail(id))
+    }, async () => await this.getOrderDetail(id))
   },
 
   /**
@@ -100,8 +100,16 @@ Page({
     parseData({ bindName: '_intro', html: res.data.intro, target: this });
 
     if (res.code === 100) {
+      let { start_time = '', end_time = '', get_start_time = '', get_end_time = '', ...rest } = res.data;
       this.setData({
-        detail: res.data,
+        detail: {
+          start_time: start_time.split(' ')[0],
+          end_time: end_time.split(' ')[0],
+
+          get_start_time: get_start_time.split(' ')[0],
+          get_end_time: get_end_time.split(' ')[0],
+          ...rest
+        },
       });
     }
   },
@@ -112,7 +120,10 @@ Page({
 
   eventReduceTime() {
     let { detail } = this.data;
-    let { remaining_pay_minute, remaining_pay_second, ...item } = detail || {remaining_pay_minute:-1,remaining_pay_second:-1};
+    let { remaining_pay_minute, remaining_pay_second, ...item } = detail || {
+      remaining_pay_minute: -1,
+      remaining_pay_second: -1
+    };
     --remaining_pay_second;
     if (remaining_pay_minute === 0 && remaining_pay_second == -1) {
 
@@ -162,7 +173,7 @@ Page({
       'goods[exchange_type]': exchange_type,
       'goods[point]': order_point,
       'goods[amount]': order_amount * 100,
-      'pay_type': 11
+      'pay_type': 8
     };
     let { code, data, msg } = await Request.reqCreateOrder(params);
     if (code === 100) {
@@ -187,9 +198,9 @@ Page({
   /**
    * @function 支付订单
    */
-  async pay(order_sn) {
-    log(order_sn);
-    let { code, data } = await Request.reqPay(order_sn);
+  async pay(order_no) {
+    log(order_no);
+    let { code, data } = await Request.reqPay({ order_no });
     return { code, data }
   },
 
@@ -223,28 +234,19 @@ Page({
       if (order_amount != 0) {
         let res = await this.pay(order_sn);
         if (res.code == 0) {
-          wx.tradePay({
-            tradeNO: res.data.tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
+          wx.requestPayment({
+            ...res.data,
             success: res => {
               log('s', res);
               // 用户支付成功
-              if (res.resultCode == 9000) {
-                return wx.redirectTo({
-                  url: '../finish/finish?id=' + order_id + '&fail=' + false
-                });
-              }
-              // 用户取消支付
-              if (res.resultCode == 6001) {
-
-                // return wx.redirectTo({
-                //   url: '../exchangelist/exchangedetail/exchangedetail?id=' + order_id
-                // });
-              }
+              return wx.redirectTo({
+                url: '../../finish/finish?id=' + id + '&fail=' + false
+              });
             },
             fail: res => {
               log('fail');
               return wx.redirectTo({
-                url: '../finish/finish?id=' + order_id + '&fail=' + true
+                url: '../../finish/finish?id=' + id + '&fail=' + true
               });
             }
           });
@@ -261,7 +263,7 @@ Page({
       //
       if (goods_detail_type == 2 && receive_type == 0) {
         navigateTo({
-          url: '../finish/finish?id=' + order_id + '&fail=' + fail
+          url: '../../finish/finish?id=' + id + '&fail=' + fail
         });
       }
 
@@ -269,7 +271,7 @@ Page({
       // 跑通
       if (goods_detail_type == 1 && receive_type == 0) {
         navigateTo({
-          url: '../finish/finish?id=' + order_id + '&fail=' + fail
+          url: '../../finish/finish?id=' + order_id + '&fail=' + fail
         });
       }
     }
@@ -278,6 +280,8 @@ Page({
 
   handleCopy,
 
-  navigateBack
+  navigateBack,
+
+  guide
 
 });

@@ -110,7 +110,7 @@ Page({
       'goods[exchange_type]': exchange_type,
       'goods[point]': point,
       'goods[amount]': amount,
-      'pay_type': 11
+      'pay_type': 8
     };
     let { code, data, msg } = await Request.reqCreateOrder(params);
     if (code === 100) {
@@ -135,8 +135,8 @@ Page({
   /**
    * @function 支付订单
    */
-  async pay(order_sn) {
-    let { code, data } = await Request.reqPay(order_sn);
+  async pay(order_no) {
+    let { code, data } = await Request.reqPay({ order_no });
     return { code, data }
   },
 
@@ -177,17 +177,18 @@ Page({
         let res = await this.pay(order_sn);
         console.log('amount', res);
         if (res.code == 0) {
-          wx.tradePay({
-            tradeNO: res.data.tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
+          wx.requestPayment({
+            ...res.data,
             success: res => {
               // 用户支付成功
-              if (res.resultCode == 9000) {
-                return wx.redirectTo({
-                  url: '../finish/finish?id=' + order_id + '&fail=' + false
-                });
-              }
-              // 用户取消支付
-              if (res.resultCode == 6001) {
+              return wx.redirectTo({
+                url: '../finish/finish?id=' + order_id + '&fail=' + false
+              });
+            },
+            fail: conf => {
+              log('fail');
+              if (conf.errMsg.indexOf('cancel') != -1) {
+                // 取消支付
                 return wx.redirectTo({
                   url: '../exchangelist/exchangedetail/exchangedetail?id=' + order_id
                 });
@@ -196,19 +197,13 @@ Page({
                 url: '../finish/finish?id=' + order_id + '&fail=' + true
               });
 
-            },
-            fail: res => {
-              log('fail');
-              return wx.redirectTo({
-                url: '../finish/finish?id=' + order_id + '&fail=' + true
-              });
             }
           });
         } else {
           that.setData({
             isClick: true
           });
-          return wx.showToast({ content: res.msg });
+          return wx.showToast({ icon: "none", title: res.msg });
         }
         return
       }

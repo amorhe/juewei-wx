@@ -25,20 +25,20 @@
             <view class="store" wx:if="{{d.receive_type == 1}}">
                 <view class="list">
                     <view class="item">领取人</view>
-                    <input placeholder="姓名" value="{{user_address_name}}" data-key="user_address_name" onInput="handelChange" confirm-hold="{{false}}" onBlur="blur"/>
+                    <input placeholder="姓名" value="{{user_address_name}}" data-key="user_address_name" bindinput="handelChange" confirm-hold="{{false}}" onBlur="blur"/>
                 </view>
                 <view class="list">
                     <view class="item">手机号</view>
-                    <input placeholder="请输入手机号" value="{{user_address_phone}}" maxlength="11" type="number" data-key="user_address_phone" onInput="handelChange"/>
+                    <input placeholder="请输入手机号" value="{{user_address_phone}}" maxlength="11" type="number" data-key="user_address_phone" bindinput="handelChange"/>
                 </view>
                 <view class="select-address list" ontap="showSelectAddress">
                     <view class="item">领取城市</view>
-                    <input placeholder="请选择领取城市" disabled="true" data-key="phone" value="{{address}}" onInput="handelChange"/>
+                    <input placeholder="请选择领取城市" disabled="true" data-key="phone" value="{{address}}" bindinput="handelChange"/>
                     <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
                 </view>
                 <view class="select-address list" ontap="doSelectShop">
                     <view class="item">领取门店</view>
-                    <input placeholder="请选择领取门店" disabled="true" data-key="shop_name" value="{{shop_name}}" onInput="handelChange"/>
+                    <input placeholder="请选择领取门店" disabled="true" data-key="shop_name" value="{{shop_name}}" bindinput="handelChange"/>
                     <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
                 </view>
             </view>
@@ -81,7 +81,7 @@
     <view class="shop" wx:if="{{selectShop}}">
         <view class="shop-search">
             <image class="search-icon" mode="scaleToFill" src="{{imageUrl}}search.png"/>
-            <input placeholder="小区/写字楼/学校等" onInput="search" />
+            <input placeholder="小区/写字楼/学校等" bindinput="search" />
         </view>
         <view class="shop-ul">
             <view class="shop-item" wx:for="{{shopList}}" wx:key="{{ index }}" data-shop_name="{{item.shop_name}}" data-shop_id="{{item.shop_id}}" ontap="sureSelectShop">
