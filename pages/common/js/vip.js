@@ -53,6 +53,10 @@ export default {
     methods: 'POST',
     loading: false
   },
+  reqOrderDetail: {  // 获取订单列表
+    url: '/mini/wmvip/wap/order/order_detail',
+    methods: 'POST',
+  },
   //todo: vip订单支付成功 回调接口
   //todo: vip金额支付 获取订单金额信息接口
   reqConfirmOrder: {  // 确认订单
@@ -65,13 +69,8 @@ export default {
   reqPay: {  // 支付订单
     url: '/juewei-service/payment/AliMiniPay',
     methods: 'POST',
-    loading: false
   },
-  reqOrderDetail: {  // 获取订单列表
-    url: '/mini/vip/wap/order/order_detail',
-    methods: 'POST',
-    loading: false
-  },
+
 
   reqWait: {  // 核销
     url: '/juewei-api/order/waiting',

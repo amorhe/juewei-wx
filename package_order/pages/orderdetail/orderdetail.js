@@ -2,6 +2,7 @@
 import { imageUrl, imageUrl2, imageUrl3, img_url } from '../../../pages/common/js/baseUrl'
 import { contact, guide, handleCopy, log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
+import { reLaunch } from "../../../pages/common/js/router";
 
 const app = getApp();
 
@@ -443,11 +444,11 @@ Page({
       app.globalData.city &&
       app.globalData.address &&
       app.globalData.position) {
-      wx.switchTab({
+      reLaunch({
         url: '/pages/home/goodslist/goodslist'
       });
     } else {
-      wx.navigateTo({
+      reLaunch({
         url: '/pages/position/position'
       });
     }

@@ -2,6 +2,7 @@
 import { imageUrl, imageUrl2 } from '../../../pages/common/js/baseUrl'
 import { log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
+import {navigateTo} from "../../../pages/common/js/router";
 
 const app = getApp();
 
@@ -172,17 +173,6 @@ Page({
   },
 
   /**
-   * @function 跳转商品页
-   */
-
-  toOrderDetail(e) {
-    const { id } = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: './exchangedetail/exchangedetail?id=' + id
-    });
-  },
-
-  /**
    * @function 跳转到会员首页
    */
 
@@ -208,7 +198,7 @@ Page({
 
   async payNow(e) {
     let { order_sn, id, order_amount } = e.currentTarget.dataset;
-    let res = await reqOrderDetail(id);
+    let res = await Request.reqOrderDetail({id});
     if (res.code === 100) {
       let { id, order_amount, receive_type, user_address_phone, user_address_name, province, city, district, user_address_id, user_address_detail_address } = res.data;
 
@@ -290,4 +280,5 @@ Page({
     }
 
   },
+  navigateTo
 });

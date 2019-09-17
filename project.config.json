@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 14,
 			"list": [
 				{
 					"id": -1,
@@ -141,7 +141,7 @@
 					"id": 12,
 					"name": "VIP商品详情页",
 					"pathName": "package_vip/pages/detail/detail",
-					"query": "id=468",
+					"query": "id=383",
 					"scene": null
 				},
 				{
@@ -152,10 +152,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 14,
 					"name": "VIP兑换详情",
 					"pathName": "package_vip/pages/exchangelist/exchangedetail/exchangedetail",
-					"query": "phone=18640460506",
+					"query": "id=383",
 					"scene": null
 				},
 				{

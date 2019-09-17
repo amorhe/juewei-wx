@@ -33,6 +33,7 @@ page {
     position: absolute;
     height: 44rpx;
     left: 60rpx;
+    right: 60rpx;
     margin: 0 auto
 }
 
