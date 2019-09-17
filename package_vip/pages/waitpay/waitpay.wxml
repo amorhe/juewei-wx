@@ -9,11 +9,11 @@
         </view>
         <!-- 实物邮寄 -->
         <view >
-            <view class="address" wx:if="{{d.receive_type == 2 && !user_address_name}}" onTap="toAddAddress">
+            <view class="address" wx:if="{{d.receive_type == 2 && !user_address_name}}" ontap="toAddAddress">
                 <view class="address-title">请填写收货地址</view>
                 <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
             </view>
-            <view class="address" wx:if="{{d.receive_type == 2 && user_address_name}}" onTap="toAddAddress">
+            <view class="address" wx:if="{{d.receive_type == 2 && user_address_name}}" ontap="toAddAddress">
                 <view class="address-title">
                     <view>{{user_address_name}} {{user_address_phone}}</view>
                     <!--<view class="address-sm">{{province}}{{city}}{{district}}{{user_address_detail_address}}</view> -->
@@ -31,12 +31,12 @@
                     <view class="item">手机号</view>
                     <input placeholder="请输入手机号" value="{{user_address_phone}}" maxlength="11" type="number" data-key="user_address_phone" onInput="handelChange"/>
                 </view>
-                <view class="select-address list" onTap="showSelectAddress">
+                <view class="select-address list" ontap="showSelectAddress">
                     <view class="item">领取城市</view>
                     <input placeholder="请选择领取城市" disabled="true" data-key="phone" value="{{address}}" onInput="handelChange"/>
                     <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
                 </view>
-                <view class="select-address list" onTap="doSelectShop">
+                <view class="select-address list" ontap="doSelectShop">
                     <view class="item">领取门店</view>
                     <input placeholder="请选择领取门店" disabled="true" data-key="shop_name" value="{{shop_name}}" onInput="handelChange"/>
                     <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
@@ -69,10 +69,10 @@
                     <text class="total-sm" wx:if="{{d.express_fee != 0}}">元运费</text>
                 </view>
             </view>
-            <view wx:if="{{d.receive_type != 2}}" class="wait-pay-btn" onTap="payNow" style="background:{{ (!user_address_name || !user_address_phone || !address || !shop_name) ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)'  : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
+            <view wx:if="{{d.receive_type != 2}}" class="wait-pay-btn" ontap="payNow" style="background:{{ (!user_address_name || !user_address_phone || !address || !shop_name) ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)'  : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
                 马上支付
             </view>
-            <view wx:if="{{d.receive_type == 2}}" class="wait-pay-btn" onTap="payNow" style="background:{{ !user_address_name  ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)' : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
+            <view wx:if="{{d.receive_type == 2}}" class="wait-pay-btn" ontap="payNow" style="background:{{ !user_address_name  ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)' : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
                 马上支付
             </view>
         </view>
@@ -84,7 +84,7 @@
             <input placeholder="小区/写字楼/学校等" onInput="search" />
         </view>
         <view class="shop-ul">
-            <view class="shop-item" wx:for="{{shopList}}" data-shop_name="{{item.shop_name}}" data-shop_id="{{item.shop_id}}" onTap="sureSelectShop">
+            <view class="shop-item" wx:for="{{shopList}}" wx:key="{{ index }}" data-shop_name="{{item.shop_name}}" data-shop_id="{{item.shop_id}}" ontap="sureSelectShop">
                 <image class="shop-position" mode="scaleToFill" src="{{imageUrl}}position.png" wx:if="{{index === 0}}"/>
                 <image class="shop-position" mode="scaleToFill" src="{{imageUrl}}order2.png" wx:if="{{index !==0 }}"/>
                 <view class="shop-detail">
@@ -111,21 +111,21 @@
             <view class="pop-top">
                 <text></text>
                 <text class="title">城市</text>
-                <text class="sure" onTap="hideSelectAddress">确定</text>
+                <text class="sure" ontap="hideSelectAddress">确定</text>
             </view>
             <picker-view class="pick" value="{{defaultAddress}}" indicator-style="height: 40px;" onChange="changeAddress">
                 <picker-view-column>
-                    <view class="selecter" wx:for="{{ provinceList }}">
+                    <view class="selecter" wx:for="{{ provinceList }}" wx:key="{{ index }}">
                         <view class="value">{{item.name}}</view>
                     </view>
                 </picker-view-column>
                 <picker-view-column>
-                    <view class="selecter" wx:for="{{cityList}}">
+                    <view class="selecter" wx:for="{{cityList}}"  wx:key="{{ index }}">
                         <view class="value">{{item.name}}</view>
                     </view>
                 </picker-view-column>
                 <picker-view-column>
-                    <view class="selecter" wx:for="{{countryList}}">
+                    <view class="selecter" wx:for="{{countryList}}"  wx:key="{{ index }}">
                         <view class="value">{{item.name}}</view>
                     </view>
                 </picker-view-column>
