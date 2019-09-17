@@ -77,7 +77,7 @@ Page({
    */
   async onShow(){
     const{order_sn} = this.data
-     await this.getOrderInfo({ order_sn })
+     await this.getOrderInfo( order_sn )
   },
 
   /**

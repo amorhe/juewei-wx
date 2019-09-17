@@ -14,8 +14,8 @@
             <text > 当前积分：</text>
             <text class="total">{{userPoint.points}}</text>
         </view>
-        <view style='position:relative;height:32rpx'>
-          <image class="icon" bindtap="showToast" mode="scaleToFill" src="{{imageUrl}}explain.png"/>
+        <view style='position:relative;height:40rpx'>
+          <image class="icon" catchtap="showToast" mode="scaleToFill" src="{{imageUrl}}explain.png"/>
           <view class="toast" wx:if="{{toast}}">冻结积分：{{userPoint.freeze_point}}</view>
         </view>
       </view>
@@ -34,7 +34,7 @@
     <swiper wx:if="{{bannerList.length}}"  autoplay="{{true}}" indicator-active-color="#E60012" indicator-color="#E8E8E8" interval="3000" indicator-dots="{{true}}" circular="{{true}}" duration="1000" class="banner">
       <block wx:for="{{bannerList}}" wx:key="{{ index }}">
         <swiper-item>
-          <image style="margin:0" class="banner" mode="scaleToFill" bindtap="linkTo" data-url="{{item.link_url}}" src="{{imageUrl2 + item.pic_src}}"/>
+          <image style="margin:0" class="banner" mode="scaleToFill" bindtap="navigateTo" data-url="{{item.link_url}}" src="{{imageUrl2 + item.pic_src}}"/>
         </swiper-item>
       </block>
     </swiper>
@@ -60,7 +60,7 @@
     </view>
     <view class="flex-space-b two">
       <scroll-view scroll-x="{{true}}" class="x">
-        <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" bindtap="linkTo"/>
+        <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" bindtap="navigateTo"/>
       </scroll-view>
     </view>
 <!--    <view class="sroll-view-wrap" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight - 2}}px">-->

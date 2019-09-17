@@ -1,4 +1,6 @@
 <!--package_vip/pages/finish/finish.wxml-->
+<import src="/utils/wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:content.nodes}}"/>
 <view class="bg">
     <!-- 兑换完成页，页面分虚拟和邮寄实物和门店领取实物，并且页面分为成功和失败两种状态 -->
     <!-- 虚拟物品 成功 false => 假的 -->
@@ -20,8 +22,8 @@
                     {{(d.order_point == 0 && d.order_amount == 0 )?'免费领取':''}}
                 </view>
             </view>
-            <view class="to-use" onTap="toUse" wx:if="{{['1'].includes(d.goods_detail_type)}}">去使用</view>
-            <view class="btn" wx:if="{{['3','4'].includes(d.goods_detail_type)}}" onTap="contact">联系客服</view>
+            <view class="to-use" catchtap="toUse" wx:if="{{['1'].includes(d.goods_detail_type)}}">去使用</view>
+            <view class="btn" wx:if="{{['3','4'].includes(d.goods_detail_type)}}" catchtap="contact">联系客服</view>
         </view>
         <!-- 到店领取 -->
         <view class="user-detail" wx:if="{{d.receive_type == 1}}">
@@ -47,7 +49,7 @@
                 </view>
                 <view class="user-right">
                     <view class="shop-name"> {{d.shop_name}}</view>
-                    <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" onTap="guide">导航</view>
+                    <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" catchtap="guide">导航</view>
                 </view>
             </view>
             <view class="user-list" wx:if="{{d.shop_name}}">
@@ -59,19 +61,19 @@
                     </view>
                 </view>
             </view>
-            <view class="hint hr" data-url="/package_vip/pages/exchangelist/exchangelist" onTap="liTo">
+            <view class="hint hr" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
                 温馨提示：可到会员专享>兑换记录中查看
             </view>
-            <view class="li-button" onTap="redirect">
+            <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
                 返回会员专享
             </view>
-            <view class="li-button gray" onTap="toOrderDetail" data-id="{{d.id}}">
+            <view class="li-button gray" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" catchtap="navigateTo" data-query="{{ {id:d.id} }}">
                 查看订单
             </view>
         </view>
         <!-- 公司邮寄 -->
         <view wx:if="{{d.receive_type == 2}}">
-            <view class="address" wx:if="{{ d.user_address_name}}" onTap="toAddAddress">
+            <view class="address" wx:if="{{ d.user_address_name}}" catchtap="toAddAddress">
                 <view class="address-title">
                     <view>{{d.user_address_name}} {{d.user_address_phone}}</view>
                     <view class="address-sm">{{d.province}}{{d.city}}{{d.district}}{{d.user_address_detail_address}}</view>
@@ -79,26 +81,27 @@
             </view>
             <view class="copy" wx:if="{{d.get_code}}">
                 <view class="copy-left">兑换码：{{d.get_code}}</view>
-                <view class="copy-right" data-text="{{d.get_code}}" onTap="handleCopy">复制</view>
+                <view class="copy-right" data-text="{{d.get_code}}" catchtap="handleCopy">复制</view>
             </view>
             <view class="explain" wx:if="{{d.exchange_intro}}">
                 <view class="explain-title">兑换说明</view>
-                <rich-text nodes="{{d._exchange_intro}}"></rich-text>
+                <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}"/>
+
                 <!--<view class="explain-detail">
                 在<text>http://www.ebeecake.com</text> 输入兑换码兑换；<view>活动所有权归本公司所有。</view></view> -->
             </view>
             <!--<view class="explain" wx:if="{{d.intro}}"><view class="explain-title">商品</view><rich-text nodes="{{d._intro}}"></rich-text><view class="explain-detail"><view>全场通用</view><view>活动所有权归本公司所有。</view></view></view> -->
-            <view class="hint" wx:if="{{!d.get_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" onTap="liTo">
+            <view class="hint" wx:if="{{!d.get_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
                 温馨提示：可到会员专享>兑换记录中查看
             </view>
             <view class="hint" wx:if="{{d.get_code}}">
                 温馨提示：可到
                 <text style="color:#108EE9">我的>卡劵</text> 中查看
             </view>
-            <view class="li-button" onTap="redirect">
+            <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
                 返回会员专享
             </view>
-            <view class="li-button gray" onTap="toOrderDetail" data-id="{{d.id}}">
+            <view class="li-button gray" catchtap="navigateTo" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" data-query="{{ {id:d.id} }}">
                 查看订单
             </view>
         </view>
@@ -106,23 +109,23 @@
         <view wx:if="{{d.receive_type == 0}}">
             <view class="copy" wx:if="{{d.gift_code}}">
                 <view class="copy-left">兑换码：{{d.gift_code}}</view>
-                <view class="copy-right" data-text="{{d.gift_code}}" onTap="handleCopy">复制</view>
+                <view class="copy-right" data-text="{{d.gift_code}}" catchtap="handleCopy">复制</view>
             </view>
             <view class="explain" wx:if="{{d.exchange_intro}}">
                 <view class="explain-title">兑换说明</view>
-                <rich-text nodes="{{d._exchange_intro}}"></rich-text>
+                <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}"/>
             </view>
-            <view class="hint" wx:if="{{d.gift_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" onTap="liTo">
+            <view class="hint" wx:if="{{d.gift_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
                 温馨提示：可到会员专享>兑换记录中查看
             </view>
             <view class="hint" wx:if="{{!d.gift_code}}">
                 温馨提示：可到
-                <text style="color:#108EE9" data-url="/package_my/pages/coupon/coupon" onTap="liTo">我的>卡劵</text> 中查看
+                <text style="color:#108EE9" data-url="/package_my/pages/coupon/coupon" catchtap="liTo">我的>卡劵</text> 中查看
             </view>
-            <view class="li-button" onTap="redirect">
+            <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
                 返回会员专享
             </view>
-            <view class="li-button gray" onTap="toOrderDetail" data-id="{{d.id}}">
+            <view class="li-button gray" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" catchtap="navigateTo" data-query="{{ {id:d.id} }}">
                 查看订单
             </view>
         </view>
@@ -146,7 +149,7 @@
                     {{d.order_point}}积分 {{d.exchange_type == 2 ? '+' : ''}}  {{d.order_amount == 0 ? '' : d.order_amount + '元'}}
                 </view>
             </view>
-            <view class="btn" onTap="contact">联系客服</view>
+            <view class="btn" catchtap="contact">联系客服</view>
         </view>
         <view class="user-detail" wx:if="{{ d.receive_type == 1}}">
             <view class="user-list" wx:if="{{d.user_address_name}}">
@@ -171,7 +174,7 @@
                 </view>
                 <view class="user-right">
                     <view class="shop-name"> {{d.shop_name}}</view>
-                    <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" onTap="guide">导航</view>
+                    <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" catchtap="guide">导航</view>
                 </view>
             </view>
             <view class="user-list" wx:if="{{d.shop_name}}">
@@ -185,14 +188,14 @@
             </view>
         </view>
         <view wx:if="{{d.receive_type == 2}}">
-            <view class="address" wx:if="{{ d.user_address_name}}" onTap="toAddAddress">
+            <view class="address" wx:if="{{ d.user_address_name}}" catchtap="toAddAddress">
                 <view class="address-title">
                     <view>{{d.user_address_name}} {{d.user_address_phone}}</view>
                     <view class="address-sm">{{d.province}}{{d.city}}{{d.district}}{{d.user_address_detail_address}}</view>
                 </view>
             </view>
         </view>
-        <view class="li-button" onTap="redirect">
+        <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
             返回会员专享
         </view>
     </view>
@@ -204,20 +207,20 @@
 <!--        限时优惠，立即使用-->
 <!--    </view>-->
 <!--    <view slot="footer" class="footerButton">-->
-<!--        <view class="modalButton confirm " onTap="toTakeOut">自提</view>-->
-<!--        <view class="modalButton cancel " onTap="toTakeIn">外卖</view>-->
+<!--        <view class="modalButton confirm " catchtap="toTakeOut">自提</view>-->
+<!--        <view class="modalButton cancel " catchtap="toTakeIn">外卖</view>-->
 <!--    </view>-->
 <!--</modal>-->
 <!--&lt;!&ndash; 专享 &ndash;&gt;-->
 <!--<modal class="code-wrap" show="{{open2}}" showClose="{{ false }}">-->
 <!--    <view class="code-head">-->
-<!--        <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchTap="closeModel"/>-->
+<!--        <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>-->
 <!--    </view>-->
 <!--    <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>-->
 <!--    <view class="code-phone">-->
 <!--        {{d.user_phone.slice(0,3)}} **** {{d.user_phone.slice(7)}}-->
 <!--    </view>-->
-<!--    &lt;!&ndash; <view class="code-pay" onTap="wait">-->
+<!--    &lt;!&ndash; <view class="code-pay" catchtap="wait">-->
 <!--      确认支付-->
 <!--    </view> &ndash;&gt;-->
 <!--</modal>-->

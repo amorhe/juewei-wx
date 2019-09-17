@@ -3,7 +3,9 @@
 import { imageUrl, imageUrl2 } from '../../../../pages/common/js/baseUrl'
 import { event_getNavHeight, handleCopy, parseData } from '../../../../pages/common/js/utils'
 import Request from "../../../../pages/common/js/li-ajax";
-import { navigateTo } from "../../../../pages/common/js/router";
+import { navigateBack, navigateTo } from "../../../../pages/common/js/router";
+
+const app = getApp();
 
 Page({
 
@@ -26,8 +28,6 @@ Page({
       { reason: '信息填写错误，重新下单', value: false },
       { reason: '其他', value: false },
     ],
-    _exchange_intro: [],
-    _intro: [],
 
   },
 
@@ -36,11 +36,11 @@ Page({
    */
   onLoad: async function (e) {
     const { id } = e;
-    let navHeight = event_getNavHeight();
+    let navHeight =  await event_getNavHeight();
     this.setData({
       navHeight,
       id
-    })
+    },async ()=> await this.getOrderDetail(id))
   },
 
   /**
@@ -54,8 +54,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
-    const { id } = this.data;
-    await this.getOrderDetail(id)
+    this.eventReduceTime()
   },
 
   /**
@@ -101,19 +100,33 @@ Page({
     parseData({ bindName: '_intro', html: res.data.intro, target: this });
 
     if (res.code === 100) {
-      let { remaining_pay_minute, remaining_pay_second, ...item } = res.data;
-      --remaining_pay_second;
-      if (remaining_pay_minute === 0 && remaining_pay_second == -1) {
-
-      }
-      if (remaining_pay_second <= 0) {
-        --remaining_pay_minute;
-        remaining_pay_second = 59
-      }
       this.setData({
         detail: res.data,
-      })
+      });
     }
+  },
+
+  /**
+   * @function 递归时间
+   */
+
+  eventReduceTime() {
+    let { detail } = this.data;
+    let { remaining_pay_minute, remaining_pay_second, ...item } = detail || {remaining_pay_minute:-1,remaining_pay_second:-1};
+    --remaining_pay_second;
+    if (remaining_pay_minute === 0 && remaining_pay_second == -1) {
+
+    }
+    if (remaining_pay_second <= 0) {
+      --remaining_pay_minute;
+      remaining_pay_second = 59
+    }
+    this.setData({
+      detail: { ...item, remaining_pay_second, remaining_pay_minute },
+    });
+    setTimeout(() => {
+      this.eventReduceTime();
+    }, 1000)
   },
 
   /**
@@ -263,6 +276,8 @@ Page({
   },
 
 
-  handleCopy
+  handleCopy,
+
+  navigateBack
 
 });

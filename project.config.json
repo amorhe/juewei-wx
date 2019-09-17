@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 16,
 			"list": [
 				{
 					"id": -1,
@@ -155,21 +155,21 @@
 					"id": 14,
 					"name": "VIP兑换详情",
 					"pathName": "package_vip/pages/exchangelist/exchangedetail/exchangedetail",
-					"query": "id=383",
+					"query": "id=460",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 15,
 					"name": "VIP支付完成页面",
 					"pathName": "package_vip/pages/finish/finish",
-					"query": "phone=18640460506",
+					"query": "id=459&fail=false",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 16,
 					"name": "待支付",
 					"pathName": "package_vip/pages/waitpay/waitpay",
-					"query": "phone=18640460506",
+					"query": "order_sn=jwd03190917s4635235&user_address_name=&user_address_phone=&province=null&city=null&district=null&user_address_id=undefined&user_address_detail_address=undefined",
 					"scene": null
 				},
 				{

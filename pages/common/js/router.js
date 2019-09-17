@@ -112,3 +112,7 @@ export const navigateTo = ({
     complete,
   })
 };
+
+export  const navigateBack = () =>{
+  wx.navigateBack()
+};

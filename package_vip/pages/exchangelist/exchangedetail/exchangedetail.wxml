@@ -3,6 +3,7 @@
 <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
  <!-- 头部 -->
   <view class="header-title-s" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
+      <image catchtap="navigateBack" style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px" mode="scaleToFill" class="arrow-2" src="{{imageUrl}}arrow_right2.png"/>
      <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">兑换详情</text>
   </view>
   <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
