@@ -1,7 +1,7 @@
 // package_vip/pages/exchangelist/exchangedetail/exchangedetail.js
 
 import { imageUrl, imageUrl2 } from '../../../../pages/common/js/baseUrl'
-import { event_getNavHeight, handleCopy, parseData } from '../../../../pages/common/js/utils'
+import { event_getNavHeight, guide, handleCopy, log, parseData } from '../../../../pages/common/js/utils'
 import Request from "../../../../pages/common/js/li-ajax";
 import { navigateBack, navigateTo } from "../../../../pages/common/js/router";
 
@@ -36,11 +36,11 @@ Page({
    */
   onLoad: async function (e) {
     const { id } = e;
-    let navHeight =  await event_getNavHeight();
+    let navHeight = await event_getNavHeight();
     this.setData({
       navHeight,
       id
-    },async ()=> await this.getOrderDetail(id))
+    }, async () => await this.getOrderDetail(id))
   },
 
   /**
@@ -112,7 +112,10 @@ Page({
 
   eventReduceTime() {
     let { detail } = this.data;
-    let { remaining_pay_minute, remaining_pay_second, ...item } = detail || {remaining_pay_minute:-1,remaining_pay_second:-1};
+    let { remaining_pay_minute, remaining_pay_second, ...item } = detail || {
+      remaining_pay_minute: -1,
+      remaining_pay_second: -1
+    };
     --remaining_pay_second;
     if (remaining_pay_minute === 0 && remaining_pay_second == -1) {
 
@@ -162,7 +165,7 @@ Page({
       'goods[exchange_type]': exchange_type,
       'goods[point]': order_point,
       'goods[amount]': order_amount * 100,
-      'pay_type': 11
+      'pay_type': 8
     };
     let { code, data, msg } = await Request.reqCreateOrder(params);
     if (code === 100) {
@@ -187,9 +190,9 @@ Page({
   /**
    * @function 支付订单
    */
-  async pay(order_sn) {
-    log(order_sn);
-    let { code, data } = await Request.reqPay(order_sn);
+  async pay(order_no) {
+    log(order_no);
+    let { code, data } = await Request.reqPay({order_no});
     return { code, data }
   },
 
@@ -223,8 +226,8 @@ Page({
       if (order_amount != 0) {
         let res = await this.pay(order_sn);
         if (res.code == 0) {
-          wx.tradePay({
-            tradeNO: res.data.tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
+          wx.requestPayment({
+           ...res.data,
             success: res => {
               log('s', res);
               // 用户支付成功
@@ -278,6 +281,8 @@ Page({
 
   handleCopy,
 
-  navigateBack
+  navigateBack,
+
+  guide
 
 });

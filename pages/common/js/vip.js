@@ -66,15 +66,15 @@ export default {
     method: 'POST',
     loading: false
   },
-  //todo: vip订单支付成功 回调接口
-  //todo: vip金额支付 获取订单金额信息接口
-
-
-
   reqPay: {  // 支付订单
-    url: '/juewei-service/payment/AliMiniPay',
+    url: '/juewei-service/payment/jsPay',
     method: 'POST',
   },
+  //todo: vip订单支付成功 回调接口
+
+
+
+
 
 
   reqWait: {  // 核销
