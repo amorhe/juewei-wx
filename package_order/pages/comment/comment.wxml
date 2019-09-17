@@ -32,7 +32,7 @@
                     </view>
                 </view>
                 <view class="tabs">
-                    <view class="tab {{ item.goods_comment.tags.includes(tag.takeout_goods_comment_tag_id) ? 'active' : '' }}" data-item="{{tag.takeout_goods_comment_tag_id}}" data-index="{{ index }}" data-i="{{i}}" bindtap="selectGoodTag" wx:for-item="tag" wx:for="{{item.goods_comment._tags}}">{{tag.takeout_goods_comment_tag_name}}</view>
+                    <view class="tab {{ item.goods_comment.tags[index] == tag.takeout_goods_comment_tag_id ? 'active' : '' }}" data-item="{{tag.takeout_goods_comment_tag_id}}" data-index="{{ index }}" data-i="{{i}}" bindtap="selectGoodTag" wx:for-item="tag" wx:for="{{item.goods_comment._tags}}">{{tag.takeout_goods_comment_tag_name}}</view>
                 </view>
                 <view class="commen">
                     <textarea data-i="{{i}}"  maxlength='1000' placeholder="说说哪里满意，帮助大家选择" bindinput="getGoodContent" show-count="{{false}}" placeholder-class="textarea"></textarea>
