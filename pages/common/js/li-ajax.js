@@ -79,12 +79,12 @@ const Request = {};
 Object.entries(RequestConfig).forEach(([name, {
   defaultData,
   url,
-  methods,
+  method,
   loading
 }]) => {
   Request[name] = params => ajax({
     url,
-    methods,
+    method,
     loading,
     data: {
       ...defaultData,

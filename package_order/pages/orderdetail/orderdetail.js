@@ -2,6 +2,7 @@
 import { imageUrl, imageUrl2, imageUrl3, img_url } from '../../../pages/common/js/baseUrl'
 import { contact, guide, handleCopy, log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
+import { reLaunch } from "../../../pages/common/js/router";
 
 const app = getApp();
 
@@ -81,7 +82,8 @@ Page({
     let { order_no } = e;
     this.setData({
       order_no
-    })
+    });
+    this.eventReduceTime()
   },
 
   /**
@@ -121,8 +123,8 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
+  onPullDownRefresh:async function () {
+    await this.getOrderDetail()
   },
 
   /**
@@ -155,8 +157,7 @@ Page({
    * @function 获取订单详情
    */
   async getOrderDetail() {
-    let { curOrderState, order_no, time } = this.data;
-    clearInterval(time);
+    let { curOrderState, order_no } = this.data;
     let res = await Request.orderDetail({ order_no });
 
     let timeArr;
@@ -181,6 +182,11 @@ Page({
           { state: '订单已完成', time: dis_finish_time },
           { state: '订单已取消', time: cancel_time },
         ];
+
+        timeArr = timeArr.map(({state,time})=>({
+          state,
+          time:time.split(' ')[1]
+        }));
         // log(timeArr)
         // data.order_status_info.order_status
         // 外卖显示数组
@@ -273,33 +279,39 @@ Page({
 
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
 
-        // log(curOrderState)
       }
 
-      let { remaining_pay_minute, remaining_pay_second, ...item } = res.data;
-      let { time } = this.data;
-      time = setInterval(() => {
-        --remaining_pay_second;
-        if (remaining_pay_minute === 0 && remaining_pay_second == -1) {
-          clearInterval(time)
-          // return this.getOrderDetail(order_no)
-        }
-        if (remaining_pay_second <= 0) {
-          --remaining_pay_minute;
-          remaining_pay_second = 59
-        }
         this.setData({
-          d: { ...item, remaining_pay_second, remaining_pay_minute },
-          time,
+          d: res.data,
           timeArr,
           curOrderState,
           dis_type,
           order_channel: res.data.channel
-        })
-      }, 1000)
+        },()=>wx.stopPullDownRefresh())
+    }
+  },
 
+  /**
+   * @function 递归时间
+   */
+
+  eventReduceTime() {
+    let { d } = this.data;
+    let { remaining_pay_minute, remaining_pay_second, ...item } = d;
+    --remaining_pay_second;
+    if (remaining_pay_minute === 0 && remaining_pay_second == -1) {
 
     }
+    if (remaining_pay_second <= 0) {
+      --remaining_pay_minute;
+      remaining_pay_second = 59
+    }
+    this.setData({
+      d: { ...item, remaining_pay_second, remaining_pay_minute },
+    });
+    setTimeout(() => {
+      this.eventReduceTime();
+    }, 1000)
   },
 
   FUN_SHOW() {
@@ -432,11 +444,11 @@ Page({
       app.globalData.city &&
       app.globalData.address &&
       app.globalData.position) {
-      wx.switchTab({
+      reLaunch({
         url: '/pages/home/goodslist/goodslist'
       });
     } else {
-      wx.navigateTo({
+      reLaunch({
         url: '/pages/position/position'
       });
     }

@@ -260,7 +260,7 @@ Page({
       tags[index] = item;
     }
 
-    console.log(d);b
+    console.log(d);
 
 
     d.goods_list = goods_list;

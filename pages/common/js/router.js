@@ -97,6 +97,7 @@ export const navigateTo = ({
 
   // 方法调用
   if (query) {
+    console.log(query);
     url = url + '?';
     Object.entries(query).forEach(([key, value]) => {
       url += `${ key }=${ value }&`
@@ -110,4 +111,8 @@ export const navigateTo = ({
     fail,
     complete,
   })
+};
+
+export  const navigateBack = () =>{
+  wx.navigateBack()
 };

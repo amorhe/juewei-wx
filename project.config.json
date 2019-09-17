@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 18,
 			"list": [
 				{
 					"id": -1,
@@ -120,14 +120,14 @@
 					"id": 9,
 					"name": "订单详情",
 					"pathName": "package_order/pages/orderdetail/orderdetail",
-					"query": "order_no=jwd0119082626363442",
+					"query": "order_no=jwd0119091726363531",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 10,
 					"name": "评价订单",
 					"pathName": "package_order/pages/comment/comment",
-					"query": "phone=18640460506",
+					"query": "order_no=jwd0119073126362836",
 					"scene": null
 				},
 				{
@@ -141,7 +141,7 @@
 					"id": 12,
 					"name": "VIP商品详情页",
 					"pathName": "package_vip/pages/detail/detail",
-					"query": "id=468",
+					"query": "id=383",
 					"scene": null
 				},
 				{
@@ -152,24 +152,24 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 14,
 					"name": "VIP兑换详情",
 					"pathName": "package_vip/pages/exchangelist/exchangedetail/exchangedetail",
-					"query": "phone=18640460506",
+					"query": "id=460",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 15,
 					"name": "VIP支付完成页面",
 					"pathName": "package_vip/pages/finish/finish",
-					"query": "phone=18640460506",
+					"query": "id=459&fail=false",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 16,
 					"name": "待支付",
 					"pathName": "package_vip/pages/waitpay/waitpay",
-					"query": "phone=18640460506",
+					"query": "order_sn=jwd03190917s4635235&user_address_name=&user_address_phone=&province=null&city=null&district=null&user_address_id=undefined&user_address_detail_address=undefined",
 					"scene": null
 				},
 				{
@@ -177,6 +177,13 @@
 					"name": "基本信息",
 					"pathName": "package_my/pages/mycenter/mycenter",
 					"query": "phone=18640460506",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "积分详情",
+					"pathName": "package_vip/pages/pointlist/pointlist",
+					"query": "order_sn=jwd03190917s4635235&user_address_name=&user_address_phone=&province=null&city=null&district=null&user_address_id=undefined&user_address_detail_address=undefined",
 					"scene": null
 				}
 			]

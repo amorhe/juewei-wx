@@ -9,7 +9,7 @@
   </view>
   <!-- 官方外卖订单 -->
   <view class="out-list" wx:if="{{cur === 0 && menuList[cur].list.length && menuList[cur].finish}}">
-    <view class="out-item" wx:for="{{ menuList[cur].list}}" wx:key="{{ index }}" bindtap="toDetail" data-order_no="{{item.order_no}}">
+    <view class="out-item" wx:for="{{ menuList[cur].list}}" wx:key="{{ index }}" data-url="/package_order/pages/orderdetail/orderdetail" bindtap="navigateTo" data-query="{{ {order_no: item.order_no } }}">
       <view class="out-header">
         <view class="out-header-title">
           <view class="top">
@@ -46,11 +46,11 @@
          <view class="cancel-order" wx:if="{{3 == item.order_status && item.dis_tag == 'ZPS'}}" data-dis_tel="{{item.shop_tel}}"  catchtap="makePhoneCall">
           联系门店
         </view>
-        <view class="cancel-order" catchtap="toComment" data-order_no="{{item.order_no}}" wx:if="{{4==item.order_status && item.is_comment == 0}}">
+        <view class="cancel-order"  data-url='/package_order/pages/comment/comment' catchtap="navigateTo" data-query="{{ {order_no: item.order_no } }}" wx:if="{{4==item.order_status && item.is_comment == 0}}">
           评价订单
         </view>
 
-        <view class="cancel-order" wx:if="{{4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status }}" catchtap="buyAgain">
+        <view class="cancel-order" wx:if="{{4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status }}" catchtap="FUN_buyAgain">
           再来一单
         </view>
         <view class="cancel-order" wx:if="{{1 == item.order_status || 2 == item.order_status || 3 == item.order_status || 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="contact">
@@ -61,7 +61,7 @@
   </view>
   <!-- 门店自提订单 -->
   <view class="come-list out-list" wx:if="{{cur === 1 && menuList[cur].list.length}}">
-    <view class="out-item" wx:key="{{ index }}" wx:for="{{menuList[cur].list}}" bindtap="toDetail" data-order_no="{{item.order_no}}">
+    <view class="out-item" wx:key="{{ index }}" wx:for="{{menuList[cur].list}}" data-url="/package_order/pages/orderdetail/orderdetail" bindtap="navigateTo" data-query="{{ {order_no: item.order_no } }}">
       <view class="out-header">
         <view class="out-header-title">
           <view class="top">
@@ -92,11 +92,11 @@
           取消订单
         </view>
 
-        <view class="cancel-order" wx:if="{{ 4 == (item.order_status) && item.is_comment == 0}}" catchtap="toComment" data-order_no="{{item.order_no}}">
+        <view class="cancel-order" wx:if="{{ 4 == (item.order_status) && item.is_comment == 0}}" data-url='/package_order/pages/comment/comment' catchtap="navigateTo" data-query="{{ {order_no: item.order_no } }}">
           评价订单
         </view>
 
-        <view class="cancel-order" wx:if="{{ 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="buyAgain">
+        <view class="cancel-order" wx:if="{{ 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="FUN_buyAgain">
           再来一单
         </view>
         <view class="cancel-order" wx:if="{{ 2 == item.order_status || 3 == item.order_status || 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="contact">
@@ -113,6 +113,8 @@
     <image mode="scaleToFill" src="{{imageUrl}}bg_order.png"/>
     <view class="txt">暂无订单</view>
   </view>
+    <view style="height: 100rpx;"></view>
+
 </view>
 
 <tab-bar cur="{{ 2 }}"></tab-bar>

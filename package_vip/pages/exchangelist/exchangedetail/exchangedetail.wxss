@@ -16,9 +16,18 @@ page {
     width: 100vw;
     text-align: center;
     font-size: 36rpx;
-    font-weight: 500;
     color: rgba(255, 255, 255, 1);
     text-align: center
+}
+
+.arrow-2{
+    width: 40rpx;
+    height: 40rpx;
+    transform: rotate(180deg);
+    z-index: 1000;
+    position: absolute;
+    left: 40rpx;
+    margin: 0 auto;
 }
 
 .title_bg {
@@ -33,6 +42,7 @@ page {
     position: absolute;
     height: 44rpx;
     left: 60rpx;
+    right: 60rpx;
     margin: 0 auto
 }
 

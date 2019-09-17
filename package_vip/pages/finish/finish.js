@@ -1,7 +1,8 @@
 // package_vip/pages/finish/finish.js
 import { imageUrl, imageUrl2, baseUrl } from '../../../pages/common/js/baseUrl'
-import {  log, handleCopy, guide, contact, liTo } from '../../../pages/common/js/utils'
+import { log, handleCopy, guide, contact, liTo, parseData } from '../../../pages/common/js/utils'
 import Request from "../../../pages/common/js/li-ajax";
+import { navigateTo } from "../../../pages/common/js/router";
 
 Page({
 
@@ -21,10 +22,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(query) {
-    let { id, fail } = query
+    let { id, fail } = query;
     this.setData({
       fail: fail == 'true'
-    })
+    });
     wx.setNavigationBarTitle({
       title: fail != 'true' ? '兑换成功' : '兑换失败',
     });
@@ -81,37 +82,17 @@ Page({
   onShareAppMessage: function () {
 
   },
-  redirect() {
-    wx.switchTab({
-      url: '/pages/vip/index/index', // 跳转的 tabBar 页面的路径（需在 app.json 的 tabBar 字段定义的页面）。注意：路径后不能带参数
-      success: (res) => {
-
-      },
-    });
-    // redirect('/pages/vip/index/index')
-  },
-
-  /**
-   * @function 跳转商品页
-   */
-
-  toOrderDetail(e) {
-    const { id } = e.currentTarget.dataset
-    wx.navigateTo({
-      url: '/package_vip/pages/exchangelist/exchangedetail/exchangedetail?id=' + id
-    });
-  },
 
   /**
    * 获取商品详情
    */
   async getOdrderDetail(id) {
-    let { code, data: { intro, exchange_intro, ...Data } } = await Request.reqOrderDetail({id});
+    let { code, data: { intro, exchange_intro, ...Data } } = await Request.reqOrderDetail({ id });
     if (code === 100) {
+      parseData({ bindName: '_intro', html: intro, target: this });
+      parseData({ bindName: '_exchange_intro', html: exchange_intro, target: this });
       this.setData({
         d: {
-          _intro: await parseData(intro),
-          _exchange_intro: await parseData(exchange_intro),
           intro,
           exchange_intro,
           ...Data
@@ -135,36 +116,35 @@ Page({
    * @function 使用优惠卷
    */
   async toUse() {
-    const { way } = this.data.d
+    const { way } = this.data.d;
     // way:用途 1:外卖专享 2:门店专享 3:全场通用
     switch (way - 0) {
       case 1:
       case 3:
         this.setData({
           open1: true
-        })
+        });
         break;
       case 2:
-        let { code } = this.data.d
-        let _sid = await getSid()
-        let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code
-        log(codeImg)
+        let { code } = this.data.d;
+        let _sid = await getSid();
+        let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code;
+        log(codeImg);
         this.setData({
           open2: true,
           codeImg
-        })
+        });
         break
     }
   },
-
 
 
   /**
    * @function 去自提
    */
   toTakeOut() {
-    app.globalData.type = 2
-    log(app.globalData.type)
+    app.globalData.type = 2;
+    log(app.globalData.type);
     wx.switchTab({
       url: '/pages/home/goodslist/goodslist'
     });
@@ -174,8 +154,8 @@ Page({
    * @function 去外卖
    */
   toTakeIn() {
-    app.globalData.type = 1
-    log(app.globalData.type)
+    app.globalData.type = 1;
+    log(app.globalData.type);
 
     wx.switchTab({
       url: '/pages/home/goodslist/goodslist'
@@ -187,7 +167,7 @@ Page({
    */
 
   async wait() {
-    let res = await reqWait()
+    let res = await reqWait();
     if (res.code == 0) {
       return this.closeModel()
     }
@@ -203,6 +183,8 @@ Page({
 
   contact,
 
+  navigateTo,
+
   liTo,
 
-})
+});

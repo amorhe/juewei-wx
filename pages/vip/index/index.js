@@ -288,6 +288,19 @@ Page({
     });
   },
 
+  /**
+   * @function 显示冻结积分
+   */
+  showToast() {
+    this.setData({ toast: true })
+  },
+  /**
+   * @function 隐藏冻结积分
+   */
+  hideToast() {
+    this.setData({ toast: false })
+  },
+
   navigateTo,
   isloginFn,
 

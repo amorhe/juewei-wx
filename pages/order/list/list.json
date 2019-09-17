@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "tab-bar": "/pages/components/tab-bar/tab-bar"
-  }
+  },
+  "enablePullDownRefresh": true
 }

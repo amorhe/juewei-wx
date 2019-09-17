@@ -1,7 +1,10 @@
 <!--package_vip/pages/exchangelist/exchangedetail/exchangedetail.wxml-->
+<import src="/utils/wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:content.nodes}}"/>
  <!-- 头部 -->
   <view class="header-title-s" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
-    <!-- <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">兑换详情</text> -->
+      <image catchtap="navigateBack" style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px" mode="scaleToFill" class="arrow-2" src="{{imageUrl}}arrow_right2.png"/>
+     <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">兑换详情</text>
   </view>
   <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
   <!-- <image style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px" mode="scaleToFill" class="title_bg" src="{{imageUrl}}title_bg.png"/> -->
@@ -147,7 +150,7 @@
           兑换说明
         </view>
         <view class="value">
-          <rich-text nodes="{{_exchange_intro}}"></rich-text>
+            <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}"/>
         </view>
       </view>
       <view class="li" wx:if="{{detail.intro}}">
@@ -155,7 +158,7 @@
           商品详情
         </view>
         <view class="value">
-          <rich-text nodes="{{_intro}}"></rich-text>
+            <template is="wxParse" data="{{wxParseData:_intro.nodes}}"/>
         </view>
       </view>
       <view class="li" wx:if="{{detail.exchange_limit_type}}">
