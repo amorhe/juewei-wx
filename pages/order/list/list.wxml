@@ -50,7 +50,7 @@
           评价订单
         </view>
 
-        <view class="cancel-order" wx:if="{{4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status }}" catchtap="buyAgain">
+        <view class="cancel-order" wx:if="{{4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status }}" catchtap="FUN_buyAgain">
           再来一单
         </view>
         <view class="cancel-order" wx:if="{{1 == item.order_status || 2 == item.order_status || 3 == item.order_status || 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="contact">
@@ -92,11 +92,11 @@
           取消订单
         </view>
 
-        <view class="cancel-order" wx:if="{{ 4 == (item.order_status) && item.is_comment == 0}}" catchtap="toComment" data-order_no="{{item.order_no}}">
+        <view class="cancel-order" wx:if="{{ 4 == (item.order_status) && item.is_comment == 0}}" data-url='/package_order/pages/comment/comment' catchtap="navigateTo" data-query="{{item.order_no}}">
           评价订单
         </view>
 
-        <view class="cancel-order" wx:if="{{ 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="buyAgain">
+        <view class="cancel-order" wx:if="{{ 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="FUN_buyAgain">
           再来一单
         </view>
         <view class="cancel-order" wx:if="{{ 2 == item.order_status || 3 == item.order_status || 4 == item.order_status || 5 == item.order_status || 6 == item.order_status || 7 == item.order_status || 8 == item.order_status || 9 == item.order_status || 10 == item.order_status}}" catchtap="contact">

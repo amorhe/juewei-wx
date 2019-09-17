@@ -2,6 +2,7 @@
 import { imageUrl } from '../../common/js/baseUrl'
 import { contact, guide, isloginFn, log, MODAL } from '../../common/js/utils'
 import Request from '../../common/js/li-ajax'
+import { navigateTo, reLaunch } from "../../common/js/router";
 
 const app = getApp();
 Page({
@@ -93,7 +94,7 @@ Page({
     // 校验是否 需要刷新
     if (app.globalData.refresh == true) {
       wx.showToast({
-        content: '取消成功'
+        title: '取消成功'
       });
       app.globalData.refresh = false
     }
@@ -186,10 +187,6 @@ Page({
     })
 
   },
-
-  contact,
-  isloginFn,
-  guide,
 
   makePhoneCall(e) {
     const { dis_tel } = e.currentTarget.dataset;
@@ -325,31 +322,13 @@ Page({
       this.eventReduceTime();
     }, 1000)
   },
-  /**
-   * @function 跳转订单详情页面
-   */
-  toDetail(e) {
-    const { order_no } = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: '/package_order/pages/orderdetail/orderdetail?order_no=' + order_no
-    });
-  },
 
-  /**
-   * @function 去评价页面
-   */
-  toComment(e) {
-    const { order_no } = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: '/package_order/pages/comment/comment?order_no=' + order_no
-    });
-  },
 
   /**
    * @function 再来一单
    */
 
-  buyAgain() {
+  FUN_buyAgain() {
     const { menuList, cur } = this.data;
 
     app.globalData.type = menuList[cur].dis_type;
@@ -359,13 +338,18 @@ Page({
       app.globalData.city &&
       app.globalData.address &&
       app.globalData.position) {
-      wx.switchTab({
+      reLaunch({
         url: '/pages/home/goodslist/goodslist'
       });
     } else {
-      wx.navigateTo({
+      reLaunch({
         url: '/pages/position/position'
       });
     }
-  }
+  },
+
+  contact,
+  isloginFn,
+  guide,
+  navigateTo
 });
