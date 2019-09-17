@@ -6,16 +6,16 @@
 
 <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
 <view class="body_bg" style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + (userPoint.freeze_point?200: 180)}}rpx"></view>
-<view class="pointlistTop" style="top:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + 74}}rpx" onTap="hideToast">
+<view class="pointlistTop" style="top:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + 74}}rpx" ontap="hideToast">
   <view class="pittopItema">
     <view>当前积分：
       <text class="n">{{userPoint.points || 0}}</text>
     </view>
-    <view class="pitrule" onTap="toUrl" data-url='/package_vip/pages/pointlist/rules/rules'>积分规则</view>
+    <view class="pitrule" ontap="navigateTo" data-url='/package_vip/pages/pointlist/rules/rules'>积分规则</view>
   </view>
   <view class="pittopItemb" wx:if="{{userPoint.freeze_point}}">
     <view class="pittopItembinfo">冻结积分：{{userPoint.freeze_point}}</view>
-    <image class="imgicon" src="{{ imageUrl }}explain.png" catchTap="showToast" />
+    <image class="imgicon" src="{{ imageUrl }}explain.png" catchtap="showToast" />
     <view class="toast" wx:if="{{toast}}">订单积分24小时后解冻，冻结期间不能使用。</view>
   </view>
 </view>

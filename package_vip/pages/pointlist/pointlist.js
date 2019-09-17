@@ -2,6 +2,7 @@ import { imageUrl } from '../../../pages/common/js/baseUrl'
 import { log, isloginFn, event_getNavHeight } from '../../../pages/common/js/utils'
 import Request from '../../../pages/common/js/li-ajax'
 import { navigateTo } from '../../../pages/common/js/router.js'
+import { navigateBack } from "../../../pages/common/js/router";
 
 Page({
 
@@ -86,9 +87,9 @@ Page({
 
   },
   isloginFn,
-  funGetDetail(pagenum) {
+  async funGetDetail(pagenum) {
     let { list, pagesize } = this.data;
-    let res = Request.reqPointList({ pagenum, pagesize });
+    let res = await Request.reqPointList({ pagenum, pagesize });
     if (res.code === 100) {
       if (res.data.pagination.lastLage < pagenum) {
         return
@@ -102,15 +103,10 @@ Page({
       })
     }
   },
-  toUrl(e) {
-    var url = e.currentTarget.dataset.url;
-    navigateTo({
-      url: url
-    });
-  },
 
-  funGetUserPoint() {
-    let res = Request.reqUserPoint();
+  async funGetUserPoint() {
+    let res = await Request.reqUserPoint();
+    console.log(res);
     if (res.CODE === 'A100') {
       this.setData({
         userPoint: res.DATA
@@ -146,6 +142,9 @@ Page({
   hideToast() {
     this.setData({ toast: false })
   },
+
+  navigateBack,
+  navigateTo
 });
 
 // <!--未登录提示 -->
