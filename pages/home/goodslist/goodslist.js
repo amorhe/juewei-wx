@@ -266,8 +266,8 @@ Page({
     var that = this;
     var scrollTop = parseInt(e.scrollTop); //滚动条距离顶部高度
     //判断'滚动条'滚动的距离 和 '元素在初始时'距顶部的距离进行判断
-    console.log(scrollTop)
-    console.log('1', that.data.navbarInitTop / 2 - 44)
+    // console.log(scrollTop)
+    // console.log('1', that.data.navbarInitTop / 2 - 44)
     var isSatisfy = scrollTop >= (that.data.navbarInitTop / 2 - 44) ? true : false;
     //为了防止不停的setData, 这儿做了一个等式判断。 只有处于吸顶的临界值才会不相等
     if (that.data.isFixedTop === isSatisfy) {
@@ -699,25 +699,26 @@ Page({
               repurse_price
             })
             // console.log(shopcartObj)
-            wxSet('goodsList', shopcartObj);
-            // 获取商品模块的节点
-            wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
-              if (ret[0] == null) {
-                return;
-              }
-              let top = ret[0][0].top;
-              let arr = ret[0].map((item, index) => {
-                return item.top = item.top - top - 37;
-              })
-              goodsret = arr;
-            })   
+            wxSet('goodsList', shopcartObj); 
           })
-          wx.createSelectorQuery().select('.pagesinfo').boundingClientRect().exec((rect) => {
-            var pagesinfoTop = parseInt(rect[0].top);
-            this.setData({
-              pagesinfoTop
+          // 获取商品模块的节点
+          wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
+            if (ret[0] == null) {
+              return;
+            }
+            let top = ret[0][0].top;
+            let arr = ret[0].map((item, index) => {
+              return item.top = item.top - top - 37;
             })
-          });
+            goodsret = arr;
+          })
+          // wx.createSelectorQuery().select('.pages_scroll').boundingClientRect().exec((rect) => {
+          //   console.log(rect)
+          //   var pagesinfoTop = parseInt(rect[0].top);
+          //   this.setData({
+          //     pagesinfoTop
+          //   })
+          // }); 
           //获取节点距离顶部的距离
           wx.createSelectorQuery().select('#pages_s').boundingClientRect().exec((rect) => {
             if (rect && rect[0].top > 0) {
