@@ -103,7 +103,7 @@
         取商品
       </view>
       <view class="get-code">
-        <image mode="scaleToFill" src="{{'datwx:image/png;base64,'+detail.code_img}}"/>
+        <image mode="scaleToFill" src="{{'data:image/png;base64,'+detail.code_img}}"/>
         <image mode="scaleToFill" wx:if="{{detail.status_name == '已领取'}}" class="got" src="{{imageUrl}}received.png"/>
         <image mode="scaleToFill" wx:if="{{detail.status_name == '已过期'}}" class="got" src="{{imageUrl}}overdue.png"/>
       </view>

@@ -1,5 +1,5 @@
 // package_vip/pages/waitpay/waitpay.js
-import { imageUrl, imageUrl2 } from '../../../pages/common/js/baseUrl'
+import { imageUrl, imageUrl2, wxGet } from '../../../pages/common/js/baseUrl'
 import { ajax } from '../../../pages/common/js/li-ajax'
 import Request from "../../../pages/common/js/li-ajax";
 import { getRegion, log } from "../../../pages/common/js/utils";
@@ -282,14 +282,10 @@ Page({
     let district = (region[curProvince].sub[curCity].sub[curCountry] && region[curProvince].sub[curCity].sub[curCountry].addrid) || 0;
     let parentid = province + ',' + city + ',' + district;
     log(parentid);
-    let res = await ajax('/mini/game/shop', { parentid });
-    let lat = wx.getStorageSync({ key: 'lat' }).data;
-    let lng = wx.getStorageSync({ key: 'lng' }).data;
-    if (!lat || !lng) {
-      let { longitude, latitude } = await getAddressId();
-      lat = latitude;
-      lng = longitude
-    }
+    let res = await Request.reqGameShop({ parentid });
+    let lat = wxGet('lat' );
+    let lng = wxGet('lng' );
+    console.log(lat, lng);
     if (res.CODE == 'A100') {
       let shopList = res.DATA
         .map(({ shop_gd_latitude, shop_gd_longitude, ...rest }) => {
@@ -340,7 +336,7 @@ Page({
         shop_id,
         shop_name,
       };
-      let { code, msg } = await reqConfirmOrder(params);
+      let { code, msg } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
           title: msg
