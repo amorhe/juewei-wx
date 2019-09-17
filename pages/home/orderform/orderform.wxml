@@ -1,7 +1,7 @@
 <view class="orderContainer">
   <!-- 外卖 -->
   <view class="addressView" wx:if="{{orderType==1}}">
-    <navigator url="/pages/home/orderform/selectaddress/selectaddress" class="noAddress">
+    <navigator url="/pages/home/orderform/selectaddress/selectaddress" class="noAddress" hover-class="none">
       <!-- 选择地址前 -->
       <text wx:if="{{(!address || addressList.length==0) && !addressInfo.user_address_name}}">选择收货地址</text>
       <!-- 选择地址后 -->

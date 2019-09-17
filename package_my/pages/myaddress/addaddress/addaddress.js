@@ -360,7 +360,7 @@ Page({
     if (this.data.name === '') {
       wx.showToast({
         icon: 'none',
-        content: '请输入联系人',
+        title: '请输入联系人',
         duration: 1000
       });
       return
@@ -368,7 +368,7 @@ Page({
     if (/[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im.test(this.data.name)) {
       wx.showToast({
         icon: 'none',
-        content: '联系人包含非法字符',
+        title: '联系人包含非法字符',
         duration: 1000
       });
       return
@@ -376,14 +376,14 @@ Page({
     if (/^1\d{10}$/.test(this.data.phone)) {} else if (this.data.phone === '') {
       wx.showToast({
         icon: 'none',
-        content: '请填写电话',
+        title: '请填写电话',
         duration: 1000
       });
       return
     } else {
       wx.showToast({
         icon: 'none',
-        content: '请输入正确手机号',
+        title: '请输入正确手机号',
         duration: 1000
       });
       return
@@ -391,7 +391,7 @@ Page({
     if (this.data.addressdetail.replace(/\s+/g, "") == '') {
       wx.showToast({
         icon: 'none',
-        content: '请输入门牌号',
+        title: '请输入门牌号',
         duration: 1000
       });
       return
@@ -431,7 +431,7 @@ Page({
         } else {
           wx.showToast({
             icon: 'none',
-            content: res.msg,
+            title: res.msg,
             duration: 1000
           });
         }
@@ -471,7 +471,7 @@ Page({
         } else {
           wx.showToast({
             icon: 'none',
-            content: res.msg,
+            title: res.msg,
             duration: 1000
           });
         }
@@ -510,7 +510,7 @@ Page({
       } else {
         wx.showToast({
           icon: 'none',
-          content: res.msg
+          title: res.msg
         });
       }
     })

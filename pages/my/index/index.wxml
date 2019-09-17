@@ -1,7 +1,6 @@
 <view class="myContent">
   <view class="myTop flexNormal">
     <view class="flexSpecial" bindtap="isloginFn">
-      <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:30%;height:104rpx" form-type="submit"></button>
       <image class="avatar" mode="scaleToFill" src="{{ user_id ? head_img : imageUrl+'default_head2.png' }}" />
       <view class="fontFourtyWeight">
         <view>{{ user_id ? nick_name : '登录' }}</view>
