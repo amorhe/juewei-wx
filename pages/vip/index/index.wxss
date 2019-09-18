@@ -3,6 +3,8 @@
 @import '../../common/style/common.wxss';
 page {
   background: white;
+    width: 100vw;
+    overflow: hidden;
 }
 
 .header-title-s {
@@ -226,6 +228,8 @@ page {
 
 .sroll-view-wrap {
   background: white;
+    max-width: 100vw;
+    overflow: scroll;
   position: sticky;
   z-index: 99;
   left: 0
