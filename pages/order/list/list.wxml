@@ -33,7 +33,7 @@
         </view>
       </view>
       <view class="out-footer">
-        <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1 }}" style="color:{{item.channel != 1 ?'#ccc':''}};border-color:{{item.channel != 1 ?'#ccc':''}}">
+        <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1 }}" style="color:{{item.channel == 1 ?'#ccc':''}};border-color:{{item.channel == 1 ?'#ccc':''}}">
           去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
         </view>
         <view class="cancel-order" wx:if="{{ 1 == item.order_status || 2 == item.order_status  }}">
@@ -85,7 +85,7 @@
         </view>
       </view>
       <view class="out-footer">
-        <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1}}" style="color:{{item.channel != 1 ?'#ccc':''}};border-color:{{item.channel != 1 ?'#ccc':''}}">
+        <view class="topay" wx:if="{{item.order_status == 0 && item.remaining_pay_minute > -1}}" style="color:{{item.channel == 1 ?'#ccc':''}};border-color:{{item.channel == 1 ?'#ccc':''}}">
          去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
         </view>
         <view class="cancel-order" wx:if="{{0 == item.order_status}}">

@@ -1,12 +1,12 @@
 export default {
-  reqCategory: {  // 获取目录
-    url: '/mini/wmvip/wap/category/category',
-    method: 'POST',
-  },
   reqBanner: {  // --获取banner图
     url: '/mini/wmvip/wap/banner/banner_list',
     method: 'POST',
     loading: false
+  },
+  reqCategory: {  // 获取目录
+    url: '/mini/wmvip/wap/category/category',
+    method: 'POST',
   },
   reqGoodsList: {  // 获取商品列表
     url: '/mini/wmvip/wap/goods/goods_list',
@@ -53,29 +53,33 @@ export default {
     method: 'POST',
     loading: false
   },
-  reqOrderDetail: {  // 获取订单列表
-    url: '/mini/wmvip/wap/order/order_detail',
+  reqPay: {  // 支付订单
+    url: '/juewei-service/payment/jsPay',
     method: 'POST',
   },
-  reqGameShop: {  // 获取订单列表
-    url: '/mini/game/shop',
-    method: 'POST',
+  //todo: vip订单支付成功回调接口
+  reqPayOrderCallback: {
+    url: '/mini/wmvip/wap/trade/order_callback',
+    method: 'POST'
+  },
+  //todo: vip金额支付获取订单金额信息接口
+  reqVIPGetOrderInfo: {
+    url: '/mini/wmvip/wap/trade/get_order_info',
+    method: 'POST'
   },
   reqConfirmOrder: {  // 确认订单
     url: '/mini/wmvip/wap/trade/confirm_order',
     method: 'POST',
     loading: false
   },
-  reqPay: {  // 支付订单
-    url: '/juewei-service/payment/jsPay',
+  reqOrderDetail: {  // 获取订单详情
+    url: '/mini/wmvip/wap/order/order_detail',
     method: 'POST',
   },
-  //todo: vip订单支付成功 回调接口
-
-
-
-
-
+  reqGameShop: {  // 获取领取门店
+    url: '/mini/game/shop',
+    method: 'POST',
+  },
 
   reqWait: {  // 核销
     url: '/juewei-api/order/waiting',
@@ -85,7 +89,7 @@ export default {
 
   reqCouponsList: {  // 获取礼包列表
     url: '/mini/coupons/list',
-    defaultData: { get_type : 'new_user' },
+    defaultData: { get_type: 'new_user' },
     method: 'POST',
     loading: false
   },

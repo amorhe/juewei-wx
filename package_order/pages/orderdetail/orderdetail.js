@@ -395,7 +395,7 @@ Page({
    */
   async payNow(e) {
     const { channel } = this.data.d;
-    if (channel != 1) {
+    if (channel == 1) {
       return
     }
     const { order_no } = e.currentTarget.dataset;

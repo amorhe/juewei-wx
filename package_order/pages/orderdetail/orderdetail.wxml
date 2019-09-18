@@ -64,13 +64,13 @@
         <view class="buttons" wx:if="{{d.order_status_info.order_status == 0 && d.remaining_pay_minute > -1}}">
             <view class="cancel" catchtap="showCancel">取消订单</view>
             <view class="pay" catchtap="payNow" data-order_no="{{d.order_no}}"
-                  style="color:{{d.channel != 1 ?'#ccc':''}};border-color:{{d.channel != 1 ?'#ccc':''}}">立即支付
+                  style="color:{{d.channel == 1 ?'#ccc':''}};border-color:{{d.channel == 1 ?'#ccc':''}}">立即支付
             </view>
         </view>
         <view class="cancelr" wx:if="{{d.order_cancel_reason}}">
             {{d.order_cancel_reason}}
         </view>
-        <view class="cancelr" wx:if="{{d.channel != 1 && d.order_status_info.order_status == 0}}" style="color:#999">
+        <view class="cancelr" wx:if="{{d.channel == 1 && d.order_status_info.order_status == 0}}" style="color:#999">
             订单不支持跨平台操作，请去微信平台操作。
         </view>
         <view class="buttons" wx:if="{{d.order_cancel_reason}}">
