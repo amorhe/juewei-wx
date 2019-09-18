@@ -89,7 +89,7 @@ Page({
       } else {
         wx.showToast({
           icon: 'none',
-          content: res.msg,
+          title: res.msg,
           duration: 2000
         });
       }

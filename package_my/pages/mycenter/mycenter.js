@@ -1,8 +1,24 @@
-import { imageUrl, wxGet, wxSet } from '../../../pages/common/js/baseUrl'
-import { getRegion, MODAL } from '../../../pages/common/js/utils'
-import { UpdateAliUserInfo, UpdateUserInfo } from '../../../pages/common/js/my'
-import { getuserInfo, LoginOut } from '../../../pages/common/js/login'
-import { navigateTo, redirectTo } from '../../../pages/common/js/router.js'
+import {
+  imageUrl,
+  wxGet,
+  wxSet
+} from '../../../pages/common/js/baseUrl'
+import {
+  getRegion,
+  MODAL
+} from '../../../pages/common/js/utils'
+import {
+  UpdateAliUserInfo,
+  UpdateUserInfo
+} from '../../../pages/common/js/my'
+import {
+  getuserInfo,
+  LoginOut
+} from '../../../pages/common/js/login'
+import {
+  navigateTo,
+  redirectTo
+} from '../../../pages/common/js/router.js'
 
 var app = getApp();
 let region = [];
@@ -40,7 +56,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (e) {
+  onLoad: function(e) {
     if (e.img && e.name) {
       this.getInfo(e.img, e.name)
     }
@@ -49,7 +65,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
@@ -64,35 +80,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   // 用户信息
@@ -147,7 +163,7 @@ Page({
     var sex = data == 1 ? 0 : 1;
     UpdateUserInfo({
       sex,
-      _sid:wxGet('_sid')
+      _sid: wxGet('_sid')
     }).then(res => {
       that.setData({
         'userinfo.sex': sex
@@ -161,7 +177,8 @@ Page({
       birthday: data.birthday || '',
       province_id: data.province_id || '',
       city_id: data.city_id || '',
-      region_id: data.region_id || ''
+      region_id: data.region_id || '',
+      _sid: wxGet('_sid')
     };
     UpdateUserInfo(data).then((res) => {
       console.log(res, '用户保存')
@@ -177,7 +194,8 @@ Page({
       success: (res) => {
         var birthday = res.date
         UpdateUserInfo({
-          birthday: birthday
+          birthday: birthday,
+          _sid: wxGet('_sid')
         }).then(res => {
           that.setData({
             'userinfo.birthday': birthday
@@ -190,9 +208,9 @@ Page({
   getAddressList() {
     let [curProvince, curCity, curCountry] = this.data.defaultAddress;
     let provinceList = region.map(({
-                                     addrid,
-                                     name
-                                   }) => ({
+      addrid,
+      name
+    }) => ({
       addrid,
       name
     }));
@@ -249,7 +267,8 @@ Page({
     var data = {
       province_id: province.addrid,
       city_id: curCity.addrid,
-      region_id: region.addrid
+      region_id: region.addrid,
+      _sid: wxGet('_sid')
     };
 
     UpdateUserInfo(data).then(res => {
@@ -359,13 +378,3 @@ Page({
     })
   },
 });
-
-// <modal show="{{modalOpened}}" showClose="{{ false }}">
-//   <view class="modalInfo">
-//   是否确定退出登录
-//   </view>
-//   <view slot="footer" class="footerButton">
-//   <view class="modalButton confirm" bindtap="onModalClick">确定</view>
-//   <view class="modalButton cancel" bindtap="onModalClose">取消</view>
-//   </view>
-//   </modal>
