@@ -57,7 +57,7 @@
           <view class="cost" wx:if="{{ detail.order_point ==0 && detail.order_amount != 0 }}">
           {{ detail.order_amount}} 元
           </view>
-          <view class="to-use" bindtap="toUse" wx:if="{{'1'==(detail.goods_detail_type) && detail.status != 0 && detail.remaining_pay_minute < -1}}">去使用</view>
+          <view class="to-use" bindtap="toUse" wx:if="{{'1'==(detail.goods_detail_type) && detail.status != 0 && detail.status_name  == '已支付'}}">去使用</view>
           <view class="b-button" wx:if="{{ '4'==(d.goods_detail_type) || '3' == (d.goods_detail_type)}}" bindtap="contact">联系客服</view>
         </view>
       </view>
@@ -201,20 +201,27 @@
 </view>
 
 <!--&lt;!&ndash; 专享 &ndash;&gt;-->
-<!--<modal class="code-wrap" show="{{open2}}" showClose="{{ false }}">-->
-<!--  <view class="code-head">-->
-<!--    <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>-->
-<!--  </view>-->
-<!--  <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>-->
+<view class="code-wrap-wrap" wx:if="{{open2}}" showClose="{{ false }}">
+    <wxs module="m2">
 
-<!--  <view class="code-phone">-->
-<!--    {{detail.user_phone.slice(0,3)}} **** {{detail.user_phone.slice(7)}}-->
-<!--  </view>-->
-
-<!--  &lt;!&ndash; <view class="code-pay" bindtap="wait">-->
-<!--    确认支付-->
-<!--  </view> &ndash;&gt;-->
-<!--</modal>-->
+        var slice= function (value,start,end) {
+        return value.slice(start,end)
+        }
+        module.exports.slice=slice;
+    </wxs>
+    <view class="code-wrap" >
+        <view class="code-head">
+            <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>
+        </view>
+        <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>
+        <view class="code-phone">
+            {{m2.slice(detail.user_phone,0,3)}} **** {{m2.slice(detail.user_phone,7,11)}}
+        </view>
+        <!-- <view class="code-pay" catchtap="wait">
+          确认支付
+        </view> -->
+    </view>
+</view>
 
 <!--<popup wx:if="{{cancleShow}}" position="bottom">-->
 <!--  <view style="width:750rpx; background: #fff;border-radius: 20rpx 20rpx 0 0;padding:0 0 20rpx 0" >-->

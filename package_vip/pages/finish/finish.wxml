@@ -202,15 +202,24 @@
     <!-- 邮寄物品 -->
 </view>
 <!-- 专享 -->
-<view class="code-wrap" wx:if="{{open2}}" showClose="{{ false }}">
+<view class="code-wrap-wrap" wx:if="{{open2}}" showClose="{{ false }}">
+    <wxs module="m2">
+        var slice= function (value,start,end) {
+        return value.slice(start,end)
+        }
+        module.exports.slice=slice;
+    </wxs>
+<view class="code-wrap" >
     <view class="code-head">
         <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>
     </view>
     <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>
     <view class="code-phone">
-        {{d.user_phone.slice(0,3)}} **** {{d.user_phone.slice(7)}}
+        {{m2.slice(d.user_phone,0,3)}} **** {{m2.slice(d.user_phone,7,11)}}
     </view>
     <!-- <view class="code-pay" catchtap="wait">
       确认支付
     </view> -->
 </view>
+</view>
+

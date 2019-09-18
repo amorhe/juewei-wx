@@ -16,6 +16,8 @@ import {
   log,
   ajax
 } from '../../../pages/common/js/li-ajax'
+import { MODAL } from "../../../pages/common/js/utils";
+import { reLaunch } from "../../../pages/common/js/router";
 const app = getApp();
 Page({
 
@@ -47,7 +49,7 @@ Page({
     const _sid = wxGet('_sid');
     this.funGetCouponsList(_sid);
     this.funGetExchangeCode(_sid);
-    let phone = wxGet('phone');
+    let phone = wxGet('userInfo').phone;
     this.setData({
       phone
     })
@@ -159,7 +161,7 @@ Page({
 
   showCode(e) {
     let { code } = e.currentTarget.dataset
-    let _sid = getSid();
+    let _sid = wxGet('_sid');
     let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code
     this.setData({
       open2: true,
@@ -179,7 +181,7 @@ Page({
   /**
    * @function 使用优惠卷
    */
-  toUse(e) {
+  async toUse(e) {
     const {
       way
     } = e.currentTarget.dataset
@@ -187,20 +189,17 @@ Page({
     switch (way - 0) {
       case 1:
       case 3:
-        this.setData({
-          open1: true
-        })
+        MODAL({
+          title:'',
+          content:'限时优惠，立即使用',
+          cancelText:'自提',
+          cancel:this.toTakeOut,
+          confirmText:'外卖',
+          confirm:this.toTakeIn
+        });
         break;
       case 2:
-        this.showCode(e)
-        // let { code } = this.data.d
-        // let _sid = await getSid()
-        // let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code
-        // log(codeImg)
-        // this.setData({
-        //   open2: true,
-        //   codeImg
-        // })
+        this.showCode(e);
         break
     }
   },
@@ -211,9 +210,8 @@ Page({
    * @function 去自提
    */
   toTakeOut() {
-    app.globalData.type = 2
-    log(app.globalData.type)
-    wx.switchTab({
+    app.globalData.type = 2;
+    reLaunch({
       url: '/pages/home/goodslist/goodslist'
     });
   },
@@ -222,13 +220,13 @@ Page({
    * @function 去外卖
    */
   toTakeIn() {
-    app.globalData.type = 1
-    log(app.globalData.type)
+    app.globalData.type = 1;
 
-    wx.switchTab({
+    reLaunch({
       url: '/pages/home/goodslist/goodslist'
     });
   },
+
 
   /**
    * @function 核销

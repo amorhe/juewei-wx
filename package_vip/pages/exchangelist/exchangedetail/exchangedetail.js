@@ -296,7 +296,7 @@ Page({
         });
         break;
       case 2:
-        let { code } = this.data.d;
+        let { code } = this.data.detail;
         let _sid = wxGet('_sid');
         let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code;
         log(codeImg);
@@ -306,6 +306,17 @@ Page({
         });
         break
     }
+  },
+
+  /**
+   * @function 关闭弹窗
+   */
+
+  closeModel() {
+    this.setData({
+      open1: false,
+      open2: false
+    })
   },
 
   /**

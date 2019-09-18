@@ -1,5 +1,5 @@
 // package_vip/pages/finish/finish.js
-import { imageUrl, imageUrl2, baseUrl } from '../../../pages/common/js/baseUrl'
+import { imageUrl, imageUrl2, baseUrl, wxGet } from '../../../pages/common/js/baseUrl'
 import { log, handleCopy, guide, contact, liTo, parseData, MODAL } from '../../../pages/common/js/utils'
 import Request from "../../../pages/common/js/li-ajax";
 import { navigateTo, reLaunch } from "../../../pages/common/js/router";

@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 15,
 			"list": [
 				{
 					"id": -1,
@@ -162,7 +162,7 @@
 					"id": 15,
 					"name": "VIP支付完成页面",
 					"pathName": "package_vip/pages/finish/finish",
-					"query": "id=481&fail=false",
+					"query": "id=489&fail=false",
 					"scene": null
 				},
 				{

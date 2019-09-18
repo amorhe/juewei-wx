@@ -484,10 +484,27 @@ page {
     text-align: right;
 }
 
+.code-wrap-wrap{
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.6);
+}
+
 .code-wrap {
+    position: absolute;
+    top: 0;
     width: 580rpx;
+    height: 600rpx;
     padding: 10rpx 0 56rpx;
     border-radius: 10rpx;
+    text-align: center;
+    background: white;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
     overflow: hidden
 }
 
@@ -501,6 +518,9 @@ page {
 .close {
     height: 32rpx;
     width: 32rpx;
+    margin-right: 20rpx;
+    margin-top: 10rpx;
+
 }
 
 .code-pay {

@@ -30,8 +30,8 @@
               <text class="colorWhite fontTwentyTwo">更多使用规则</text>
               <image class="arrow_down_icon" src="{{imageUrl}}arrow_down2.png" style="transform:rotate({{item.toggleRule?0:-180}}deg);transition:all .3s" />
             </view>
-            <image class="qr" src="{{imageUrl}}qrcode.png" data-code="{{item.code}}" catchtap="showCode" wx:if="{{item.way == 3}}" />
-            <image class="qr" data-code="{{item.code}}" wx:if="{{item.way != 3}}" />
+            <image class="qr" src="{{imageUrl}}qrcode.png" data-code="{{item.code}}" catchtap="showCode" wx:if="{{item.way == 2}}" />
+            <image class="qr" data-code="{{item.code}}" wx:if="{{item.way != 2}}" />
           </view>
           <view class="rule">
             <view wx:if="{{item.gift_usage_rule}}">1、{{item.gift_usage_rule}}</view>
@@ -81,22 +81,24 @@
   <view>兑换优惠券</view>
 </navigator>
 <!-- 专享 -->
-<modal class="code-wrap" show="{{open2}}" showClose="{{ false }}">
-  <view class="code-head">
-    <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel" />
-  </view>
-  <image class="code-img" mode="scaleToFill" src="{{codeImg}}" />
-  <view class="code-phone">
-    {{phone.slice(0,3)}} **** {{phone.slice(7)}}
-  </view>
-</modal>
-<!-- 限时优惠 -->
-<modal show="{{open1}}" showClose="{{ true }}" onModalClose="closeModel">
-  <view class="modalInfo" bindtap="closeModel">
-    限时优惠，立即使用
-  </view>
-  <view slot="footer" class="footerButton">
-    <view class="modalButton confirm " bindtap="toTakeOut">自提</view>
-    <view class="modalButton cancel " bindtap="toTakeIn">外卖</view>
-  </view>
-</modal>
+<wxs module="m3">
+    var slice3 = function (value,start,end) {
+    return value.slice(start,end)
+    }
+    module.exports.slice3=slice3;
+</wxs>
+<view class="code-wrap-wrap" wx:if="{{open2}}" showClose="{{ false }}">
+
+    <view class="code-wrap" >
+        <view class="code-head">
+            <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>
+        </view>
+        <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>
+        <view class="code-phone">
+            {{m3.slice3(phone,0,3)}} **** {{m3.slice3(phone,7,11)}}
+        </view>
+        <!-- <view class="code-pay" catchtap="wait">
+          确认支付
+        </view> -->
+    </view>
+</view>
