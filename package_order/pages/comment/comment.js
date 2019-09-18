@@ -2,6 +2,7 @@
 
 import { baseUrl, imageUrl, imageUrl2 } from '../../../pages/common/js/baseUrl'
 import Request from "../../../pages/common/js/li-ajax";
+import { log } from "../../../pages/common/js/utils";
 
 Page({
   /**
@@ -276,27 +277,28 @@ Page({
    */
   upLoad(e) {
     const { i } = e.currentTarget.dataset;
-    my.chooseImage({
+    wx.chooseImage({
       sourceType: ['camera', 'album'],
       count: 1,
       success: (res) => {
-        my.showLoading({
+        wx.showLoading({
           content: '图片上传中...',
         });
-        my.uploadFile({
+        console.log(res);
+        wx.uploadFile({
           url: baseUrl + '/juewei-api/comment/UploadCommentImg',
           fileType: 'image',
-          fileName: 'imgFile',
-          filePath: res.apFilePaths[0],
+          name: 'imgFile',
+          filePath: res.tempFilePaths[0],
           success: (result) => {
-            my.hideLoading();
+            wx.hideLoading();
             let { d } = this.data;
             let { goods_list } = d;
             let { pics } = goods_list[i].goods_comment;
 
             let r = JSON.parse(result.data);
             if (r.code != 0) {
-              return my.showToast({ content: r.msg })
+              return wx.showToast({ icon:"none",title: r.msg })
             }
             // let p = /\"path\"\:\"(\S*)\"\}\,/
             // log(result.data.match(p))
@@ -308,16 +310,17 @@ Page({
             })
           },
           fail: (error) => {
-            my.hideLoading();
-            my.showToast({
-              content: '图片上传失败',
+            wx.hideLoading();
+            wx.showToast({
+              title: '图片上传失败',
+              icon:"none"
             });
           }
         });
       },
       fail: (err) => {
         log(err);
-        my.showToast({
+        wx.showToast({
           content: 'fail',
         });
       }
@@ -394,7 +397,7 @@ Page({
     };
     let res = await Request.Create(data);
     if (res.code === 0) {
-      my.redirectTo({
+      wx.redirectTo({
         url: './comment-success/comment-success', // 需要跳转的应用内非 tabBar 的目标页面路径 ,路径后可以带参数。参数规则如下：路径与参数之间使用
       });
     }

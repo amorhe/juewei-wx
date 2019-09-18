@@ -22,8 +22,8 @@
                     {{(d.order_point == 0 && d.order_amount == 0 )?'免费领取':''}}
                 </view>
             </view>
-            <view class="to-use" catchtap="toUse" wx:if="{{['1'].includes(d.goods_detail_type)}}">去使用</view>
-            <view class="btn" wx:if="{{['3','4'].includes(d.goods_detail_type)}}" catchtap="contact">联系客服</view>
+            <view class="to-use" catchtap="toUse" wx:if="{{1 == (d.goods_detail_type)}}">去使用</view>
+            <view class="btn" wx:if="{{ '4'==(d.goods_detail_type) || '3' == (d.goods_detail_type)}}" catchtap="contact">联系客服</view>
         </view>
         <!-- 到店领取 -->
         <view class="user-detail" wx:if="{{d.receive_type == 1}}">
@@ -201,26 +201,16 @@
     </view>
     <!-- 邮寄物品 -->
 </view>
-<!--&lt;!&ndash; 限时优惠 &ndash;&gt;-->
-<!--<modal show="{{open1}}" showClose="{{ true }}" onModalClose="closeModel">-->
-<!--    <view class="modalInfo">-->
-<!--        限时优惠，立即使用-->
-<!--    </view>-->
-<!--    <view slot="footer" class="footerButton">-->
-<!--        <view class="modalButton confirm " catchtap="toTakeOut">自提</view>-->
-<!--        <view class="modalButton cancel " catchtap="toTakeIn">外卖</view>-->
-<!--    </view>-->
-<!--</modal>-->
-<!--&lt;!&ndash; 专享 &ndash;&gt;-->
-<!--<modal class="code-wrap" show="{{open2}}" showClose="{{ false }}">-->
-<!--    <view class="code-head">-->
-<!--        <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>-->
-<!--    </view>-->
-<!--    <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>-->
-<!--    <view class="code-phone">-->
-<!--        {{d.user_phone.slice(0,3)}} **** {{d.user_phone.slice(7)}}-->
-<!--    </view>-->
-<!--    &lt;!&ndash; <view class="code-pay" catchtap="wait">-->
-<!--      确认支付-->
-<!--    </view> &ndash;&gt;-->
-<!--</modal>-->
+<!-- 专享 -->
+<view class="code-wrap" wx:if="{{open2}}" showClose="{{ false }}">
+    <view class="code-head">
+        <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>
+    </view>
+    <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>
+    <view class="code-phone">
+        {{d.user_phone.slice(0,3)}} **** {{d.user_phone.slice(7)}}
+    </view>
+    <!-- <view class="code-pay" catchtap="wait">
+      确认支付
+    </view> -->
+</view>

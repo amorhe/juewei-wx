@@ -57,8 +57,8 @@
           <view class="cost" wx:if="{{ detail.order_point ==0 && detail.order_amount != 0 }}">
           {{ detail.order_amount}} 元
           </view>
-          <view class="to-use" bindtap="toUse" wx:if="{{['1'].includes(detail.goods_detail_type) && detail.status != 0 && detail.remaining_pay_minute < -1}}">去使用</view>
-          <view class="b-button" wx:if="{{['3','4'].includes(detail.goods_detail_type)}}" bindtap="contact">联系客服</view>
+          <view class="to-use" bindtap="toUse" wx:if="{{'1'==(detail.goods_detail_type) && detail.status != 0 && detail.remaining_pay_minute < -1}}">去使用</view>
+          <view class="b-button" wx:if="{{ '4'==(d.goods_detail_type) || '3' == (d.goods_detail_type)}}" bindtap="contact">联系客服</view>
         </view>
       </view>
     </view>
@@ -200,16 +200,6 @@
   </view>
 </view>
 
-<!--&lt;!&ndash; 限时优惠 &ndash;&gt;-->
-<!--<modal wx:if="{{open1}}" showClose="{{ true }}" onModalClose="closeModel">-->
-<!--  <view class="modalInfo">-->
-<!--     限时优惠，立即使用-->
-<!--  </view>-->
-<!--  <view slot="footer" class="footerButton">-->
-<!--    <view class="modalButton confirm " bindtap="toTakeOut">自提</view>-->
-<!--    <view class="modalButton cancel " bindtap="toTakeIn">外卖</view>-->
-<!--  </view>-->
-<!--</modal>-->
 <!--&lt;!&ndash; 专享 &ndash;&gt;-->
 <!--<modal class="code-wrap" show="{{open2}}" showClose="{{ false }}">-->
 <!--  <view class="code-head">-->

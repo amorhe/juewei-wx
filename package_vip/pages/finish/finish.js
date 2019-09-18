@@ -1,9 +1,10 @@
 // package_vip/pages/finish/finish.js
 import { imageUrl, imageUrl2, baseUrl } from '../../../pages/common/js/baseUrl'
-import { log, handleCopy, guide, contact, liTo, parseData } from '../../../pages/common/js/utils'
+import { log, handleCopy, guide, contact, liTo, parseData, MODAL } from '../../../pages/common/js/utils'
 import Request from "../../../pages/common/js/li-ajax";
-import { navigateTo } from "../../../pages/common/js/router";
+import { navigateTo, reLaunch } from "../../../pages/common/js/router";
 
+const app = getApp();
 Page({
 
   /**
@@ -13,7 +14,6 @@ Page({
     imageUrl,
     imageUrl2,
     fail: false,
-    open1: false,
     open2: false,
     codeImg: '',
   },
@@ -121,13 +121,18 @@ Page({
     switch (way - 0) {
       case 1:
       case 3:
-        this.setData({
-          open1: true
+        MODAL({
+          title:'',
+          content:'限时优惠，立即使用',
+          cancelText:'自提',
+          cancel:this.toTakeOut,
+          confirmText:'外卖',
+          confirm:this.toTakeIn
         });
         break;
       case 2:
         let { code } = this.data.d;
-        let _sid = await getSid();
+        let _sid = wxGet('_sid');
         let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code;
         log(codeImg);
         this.setData({
@@ -145,7 +150,7 @@ Page({
   toTakeOut() {
     app.globalData.type = 2;
     log(app.globalData.type);
-    wx.switchTab({
+    reLaunch({
       url: '/pages/home/goodslist/goodslist'
     });
   },
@@ -157,7 +162,7 @@ Page({
     app.globalData.type = 1;
     log(app.globalData.type);
 
-    wx.switchTab({
+    reLaunch({
       url: '/pages/home/goodslist/goodslist'
     });
   },

@@ -1,9 +1,9 @@
 // package_vip/pages/exchangelist/exchangedetail/exchangedetail.js
 
-import { imageUrl, imageUrl2 } from '../../../../pages/common/js/baseUrl'
-import { event_getNavHeight, guide, handleCopy, log, parseData } from '../../../../pages/common/js/utils'
+import { baseUrl, imageUrl, imageUrl2, wxGet } from '../../../../pages/common/js/baseUrl'
+import { event_getNavHeight, guide, handleCopy, log, MODAL, parseData } from '../../../../pages/common/js/utils'
 import Request from "../../../../pages/common/js/li-ajax";
-import { navigateBack, navigateTo } from "../../../../pages/common/js/router";
+import { navigateBack, navigateTo, reLaunch } from "../../../../pages/common/js/router";
 
 const app = getApp();
 
@@ -275,6 +275,75 @@ Page({
         });
       }
     }
+  },
+
+  /**
+   * @function 使用优惠卷
+   */
+  async toUse() {
+    const { way } = this.data.detail;
+    // way:用途 1:外卖专享 2:门店专享 3:全场通用
+    switch (way - 0) {
+      case 1:
+      case 3:
+        MODAL({
+          title:'',
+          content:'限时优惠，立即使用',
+          cancelText:'自提',
+          cancel:this.toTakeOut,
+          confirmText:'外卖',
+          confirm:this.toTakeIn
+        });
+        break;
+      case 2:
+        let { code } = this.data.d;
+        let _sid = wxGet('_sid');
+        let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code;
+        log(codeImg);
+        this.setData({
+          open2: true,
+          codeImg
+        });
+        break
+    }
+  },
+
+  /**
+   * @function 去自提
+   */
+  toTakeOut() {
+    app.globalData.type = 2;
+    log(app.globalData.type);
+    reLaunch({
+      url: '/pages/home/goodslist/goodslist'
+    });
+  },
+
+  /**
+   * @function 去外卖
+   */
+  toTakeIn() {
+    app.globalData.type = 1;
+    log(app.globalData.type);
+
+    reLaunch({
+      url: '/pages/home/goodslist/goodslist'
+    });
+  },
+
+  /**
+   * @function 核销
+   */
+
+  async wait() {
+    let res = await reqWait();
+    if (res.code == 0) {
+      return this.closeModel()
+    }
+
+    return wx.showToast({
+      content: res.msg,
+    });
   },
 
 
