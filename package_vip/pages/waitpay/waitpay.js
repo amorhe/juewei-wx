@@ -427,7 +427,7 @@ Page({
     log(r.data.tradeNo);
     if (r.code === 0) {
       wx.requestPayment({
-        ...res.data,
+        ...r.data,
         success: res => {
           return wx.redirectTo({
             url: '../finish/finish?id=' + d.id + '&fail=' + false

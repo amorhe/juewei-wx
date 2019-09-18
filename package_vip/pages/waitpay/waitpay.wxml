@@ -113,7 +113,7 @@
                 <text class="title">城市</text>
                 <text class="sure" ontap="hideSelectAddress">确定</text>
             </view>
-            <picker-view class="pick" value="{{defaultAddress}}" indicator-style="height: 40px;" onChange="changeAddress">
+            <picker-view class="pick" value="{{defaultAddress}}" indicator-style="height: 40px;" bindchange="changeAddress">
                 <picker-view-column>
                     <view class="selecter" wx:for="{{ provinceList }}" wx:key="{{ index }}">
                         <view class="value">{{item.name}}</view>

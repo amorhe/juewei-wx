@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 15,
 			"list": [
 				{
 					"id": -1,
@@ -155,14 +155,14 @@
 					"id": 14,
 					"name": "VIP兑换详情",
 					"pathName": "package_vip/pages/exchangelist/exchangedetail/exchangedetail",
-					"query": "id=466",
+					"query": "id=481",
 					"scene": null
 				},
 				{
 					"id": 15,
 					"name": "VIP支付完成页面",
 					"pathName": "package_vip/pages/finish/finish",
-					"query": "id=459&fail=false",
+					"query": "id=489&fail=false",
 					"scene": null
 				},
 				{

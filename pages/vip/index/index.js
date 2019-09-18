@@ -43,6 +43,8 @@ Page({
     list: [],
     goodsList: [],
 
+    fixTop: '',//区域离顶部的高度
+
   },
 
 
@@ -64,6 +66,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
+    // let self = this;
+    // wx.createSelectorQuery().select('.static-news').boundingClientRect(function (rect) {
+    //   self.setData({
+    //     fixTop: rect.top,
+    //   })
+    // }).exec();
     event_getUserPoint(this);
     //获取当前所需要的分子公司id,城市id，门店id,区域id
     const {
@@ -304,4 +312,24 @@ Page({
   navigateTo,
   isloginFn,
 
+  // onPageScroll:function(e){
+  //   const {titleBarHeight,statusBarHeight} = this.data.navHeight;
+  //   titleBarHeight + statusBarHeight
+  //   //tab的吸顶效果
+  //   console.log(e);
+  //   console.log(e.scrollTop > (titleBarHeight + statusBarHeight))
+  //   if(e.scrollTop>(titleBarHeight + statusBarHeight)){
+  //     if(this.data.tabFix){
+  //       return
+  //     }else{
+  //       this.setData({
+  //         tabFix:'Fixed'
+  //       })
+  //     }
+  //   }else{
+  //     this.setData({
+  //       tabFix:''
+  //     })
+  //   }
+  // }
 });
