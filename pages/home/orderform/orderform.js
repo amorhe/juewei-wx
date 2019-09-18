@@ -359,7 +359,7 @@ Page({
         }
       }
     } else {
-      wx.removeStorageSync({
+      wx.removeStorage({
         key: 'goodsList'
       })
       wx.navigateBack({
@@ -375,14 +375,14 @@ Page({
       goodsList: newGoodsArr
     })
     // 重新选择商品
-    if (data.isType == 'orderConfirm' && data.type == 1) {
+    if (data.detail.isType == 'orderConfirm' && data.detail.type == 1) {
       wx.navigateBack({
         delta: 1
       });
       return;
     }
     // 继续结算
-    if (data.isType == 'orderConfirm' && data.type == 0) {
+    if (data.detail.isType == 'orderConfirm' && data.detail.type == 0) {
       this.funConfirmOrder(wxGet('shop_id'), JSON.stringify(newGoodsArr));
     }
     this.setData({

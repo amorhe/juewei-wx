@@ -3,7 +3,7 @@ page {
 }
 
 .goodsPosition {
-  position: fixed;
+  position: sticky;
   left: 0;
   top: 0;
   width: 750rpx;
@@ -71,8 +71,9 @@ page {
 }
 
 .fixed {
-  position: fixed;
+  position: sticky;
   top: 80rpx;
+  z-index: 1000
 }
 
 .pagesNormal {
@@ -205,13 +206,8 @@ page {
 }
 
 .pages_scroll {
-  height: 80vh;
+  height: 68vh;
   overflow-y: scroll;
-}
-.goods_active {
-  /* margin-top: 200rpx; */
-  /* position: fixed;
-  top: 200rpx */
 }
 
 .fourType {
@@ -605,7 +601,7 @@ page {
   font-size: 22rpx;
 }
 
-.goodsBottom {
+.e1 {
   width: 750rpx;
   left: 0;
   bottom: 98rpx;
@@ -686,7 +682,6 @@ page {
 .shopcarContent {
   position: fixed;
   left: 0;
-  bottom: 198rpx;
   width: 750rpx;
   z-index: 1002;
   background: #f2f2f2;
@@ -770,6 +765,6 @@ page {
   height: 20rpx;
   background: #e60012;
   border-radius: 50%;
-  z-index: 100;
+  z-index: 9999;
   position: fixed;
 }

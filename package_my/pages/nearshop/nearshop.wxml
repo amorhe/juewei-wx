@@ -28,7 +28,7 @@
       </cover-view>
       <cover-view bindtap="eveSwitchShop" data-index="{{index}}" class="modalTap"></cover-view>
       <cover-view class="menuBtn">
-        <cover-view data-shop_latitude="{{item.shop_gd_latitude}}" data-shop_longitude="{{item.shop_gd_longitude}}" data-shop_name="{{item.title}}" data-address="{{item.address}}" class="navigate_btn">导航</cover-view>
+        <cover-view bindtap="goLocation" data-latitude="{{item.shop_gd_latitude}}" data-longitude="{{item.shop_gd_longitude}}" data-shop_name="{{item.title}}" data-address="{{item.address}}" class="navigate_btn">导航</cover-view>
         <cover-view bindtap="goSelf" data-info="{{item}}" data-shop_id="{{item.shop_id}}" data-company_id="{{item.company_sale_id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-goods_num="{{item.goods_num}}" data-distance="{{item.distance}}"
           wx:if="{{item.isOpen && item.shop_takeout_self_lifting_status==1}}" class="self_btn">去自提</cover-view>
       </cover-view>

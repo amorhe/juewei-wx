@@ -1,47 +1,63 @@
 /* pages/components/confirm/confirm.wxss */
+
 .modalView {
-  width:560rpx;
-  background:rgba(255,255,255,1);
-  border-radius:10rpx;
+  width: 560rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10rpx;
   position: fixed;
   top: 403rpx;
   left: 95rpx;
   z-index: 1005;
   padding-top: 40rpx;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
+
 .modalTitle {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 34rpx;
-  font-weight: 600
+  font-weight: 600;
+  color: #333;
 }
+
 .modalContent {
   padding: 0 35rpx;
   display: flex;
   justify-content: center;
   margin: 28rpx 0 37rpx;
   flex-wrap: wrap;
-  text-align: center
+  text-align: center;
 }
+
 .modalBtn {
-  border-top: 1px #DDDDDD solid;
+  border-top: 1px #ddd solid;
   height: 100rpx;
-  display: flex
+  display: flex;
 }
+
 .modalBtn>button {
   width: 50%;
   height: 100%;
   font-size: 32rpx;
   border: none;
-  background: #fff
+  background: #fff;
 }
 
-.modalBtn>button:nth-child(1){
+.modalBtn>button:nth-child(1) {
   color: #999;
-  border-right: 1px #DDDDDD solid; 
+  border-right: 1px #ddd solid;
 }
-.modalBtn>button:nth-child(2){
-  color: #E60012
+
+.modalBtn>button:nth-child(2) {
+  color: #e60012;
+}
+
+.mask {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
 }

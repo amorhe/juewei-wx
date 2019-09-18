@@ -1,18 +1,17 @@
 <view>
-  <view wx:if="{{!isSelf}}" style="min-height:88rpx;">
-    <!-- 定位 -->
-    <view class="goodsPosition">
-      <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft" hover-class="none">
-        <image src="{{imageUrl}}position.png" />
-        <text>{{firstAddress}}</text>
-        <image src="{{imageUrl}}arrow_right1.png" />
-      </navigator>
-      <view class="positionRight">
-        <view class="{{type==1?'activeType':''}}" catchtap="eveChooseTypes" data-type='waimai'>外卖</view>
-        <view class="{{type==2?'activeType':''}}" catchtap="eveChooseTypes" data-type='ziti'>自提</view>
-      </view>
+  <!-- 定位 -->
+  <view class="goodsPosition">
+    <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft" hover-class="none">
+      <image src="{{imageUrl}}position.png" />
+      <text>{{firstAddress}}</text>
+      <image src="{{imageUrl}}arrow_right1.png" />
+    </navigator>
+    <view class="positionRight">
+      <view class="{{type==1?'activeType':''}}" catchtap="eveChooseTypes" data-type='waimai'>外卖</view>
+      <view class="{{type==2?'activeType':''}}" catchtap="eveChooseTypes" data-type='ziti'>自提</view>
     </view>
-    <view class="null"></view>
+  </view>
+  <view wx:if="{{!isSelf}}">
     <view class="closeIng" wx:if="{{!isClose && isOpen!= 1}}">
       <view wx:if="{{isOpen == 2}}">您的定位地址门店未在营业时间 营业时间：{{shopTakeOut.start_time}}-{{shopTakeOut.end_time}}</view>
       <view wx:if="{{isOpen == 3}}">当前门店开放时间不足一小时</view>
@@ -85,35 +84,34 @@
         <image src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{imageUrl2 + item.link_url[0]}}" bindtap="imageLink" />
       </view>
     </view>
-
-    <navigator id="pages_s" url="/pages/home/switchshop/switchshop?type={{type}}" class="pagesScorll {{isFixedTop?'fixed':''}}" wx:if="{{!isSelf}}" hover-class="none">
-      <!-- 推荐门店 -->
-      <view class="shopDefault">
-        <view>
-          <view style="width:48rpx" wx:if="{{!jingxuan}}"></view>
-          <view class="jingxuan" wx:if="{{jingxuan}}">精选</view>
-          <view class="shopMessage">
-            <view>{{shopTakeOut.title}}</view>
-            <view>在售商品数{{shopTakeOut.goods_num}}</view>
-          </view>
-        </view>
-        <view>
-          <view class="shopDefaultRight">
-            <view>
-              <image src="{{imageUrl}}position.png" />
-              <view>距离{{shopTakeOut.distance}}米</view>
-            </view>
-            <view>
-              <!-- shop_takeout = 1 外卖开启。 =2  未开外卖 -->
-              <view class="typeBtn1" wx:if="{{type==1||(shopTakeOut.shop_takeout==1 && type==2)}}">外卖</view>
-              <view class="typeBtn2">自提</view>
-            </view>
-          </view>
-          <image class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
+  </view>
+  <navigator id="pages_s" url="/pages/home/switchshop/switchshop?type={{type}}" class="pagesScorll {{isFixedTop?'fixed':''}}" wx:if="{{!isSelf}}" hover-class="none">
+    <!-- 推荐门店 -->
+    <view class="shopDefault">
+      <view>
+        <view style="width:48rpx" wx:if="{{!jingxuan}}"></view>
+        <view class="jingxuan" wx:if="{{jingxuan}}">精选</view>
+        <view class="shopMessage">
+          <view>{{shopTakeOut.title}}</view>
+          <view>在售商品数{{shopTakeOut.goods_num}}</view>
         </view>
       </view>
-    </navigator>
-  </view>
+      <view>
+        <view class="shopDefaultRight">
+          <view>
+            <image src="{{imageUrl}}position.png" />
+            <view>距离{{shopTakeOut.distance}}米</view>
+          </view>
+          <view>
+            <!-- shop_takeout = 1 外卖开启。 =2  未开外卖 -->
+            <view class="typeBtn1" wx:if="{{type==1||(shopTakeOut.shop_takeout==1 && type==2)}}">外卖</view>
+            <view class="typeBtn2">自提</view>
+          </view>
+        </view>
+        <image class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
+      </view>
+    </view>
+  </navigator>
   <view class="shopUp" wx:if="{{isSelf}}">
     <image class="shopLogo" src="{{imageUrl}}shopbg.png" />
     <navigator url="/package_my/pages/nearshop/nearshop" class="shopBoxs" open-type="navigateBack">
@@ -131,7 +129,7 @@
       </view>
     </navigator>
   </view>
-  <view style="padding-right:36rpx">
+  <view style="padding-right:36rpx;position:sticky;top:208rpx;">
     <view class="closeIng sticky" wx:if="{{isShow}}">
       <!-- 满减 -->
       <view wx:if="{{couponsExpire.full_money!=0 && couponsExpire.days!=0}}">
@@ -299,7 +297,7 @@
     </view>
     <view style="width:750rpx;height:200rpx;"></view>
     <!-- 购物车 -->
-    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart"
+    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart" class="e1"
     />
     <!-- 加入购物车选择商品规格 -->
     <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"

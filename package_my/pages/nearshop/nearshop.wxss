@@ -65,7 +65,7 @@
   margin-bottom: 16rpx;
   box-shadow:0 2rpx 10rpx 0 rgba(153,153,153,0.2);
   border-radius:10rpx;
-  padding: 24rpx 24rpx 16rpx;
+  padding: 24rpx 0 16rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -11,6 +11,9 @@ import {
 import {
   navigateTo
 } from '../../common/js/router.js'
+import {
+  getCurUrl
+} from '../../common/js/utils.js'
 let log = console.log
 var app = getApp();
 Component({
@@ -49,7 +52,8 @@ Component({
     freeId: false, // 是否有包邮活动
     isTake: false,
     isOpen: '',
-    priceAll: 0
+    priceAll: 0,
+    h:0
   },
   observers: {
     '**': function() {
@@ -67,6 +71,17 @@ Component({
       priceAll: this.properties.priceAll
     })
     this.funGetSendPrice();
+    console.log(getCurUrl())
+    if (getCurUrl() === 'pages/home/goodslist/goodslist'){
+      this.setData({
+        h:'198rpx'
+      })
+    }
+    if (getCurUrl() === 'pages/home/goodslist/goodsdetail/goodsdetail'){
+      this.setData({
+        h: '98rpx'
+      })
+    }
   },
 
   methods: {
@@ -264,7 +279,7 @@ Component({
         return
       }
       // 未登录
-      if (wxGet('user_id') == undefined) {
+      if (wxGet('userInfo').user_id == undefined) {
         navigateTo({
           url: '/pages/login/auth/auth'
         })

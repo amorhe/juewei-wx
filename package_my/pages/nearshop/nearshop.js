@@ -35,7 +35,7 @@ Page({
     inputAddress: '',
     city: '',
     activeIndex: 0,
-    height:448
+    height: 448
   },
   /**
    * 生命周期函数--监听页面加载
@@ -55,7 +55,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    
+
   },
 
   /**
@@ -160,7 +160,7 @@ Page({
   // 切换城市
   eveChoosecityTap() {
     navigateTo({
-      url:'../../../pages/city/city'
+      url: '../../../pages/city/city'
     })
   },
   // 切换门店
@@ -187,13 +187,22 @@ Page({
       activeIndex: e.currentTarget.dataset.index
     })
   },
+  // 导航
+  goLocation(e) {
+    console.log(e)
+    wx.openLocation({
+      latitude: Number(e.currentTarget.dataset.latitude),
+      longitude: Number(e.currentTarget.dataset.longitude),
+      scale: 16
+    })
+  },
   // 去自提
   goSelf(e) {
     app.globalData.isSelf = true;
     app.globalData.shopIng = e.currentTarget.dataset.info;
     app.globalData.type = 2;
     wx.navigateBack({
-      delta:1
+      delta: 1
     });
   },
 })

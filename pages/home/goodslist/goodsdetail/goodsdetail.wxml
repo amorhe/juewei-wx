@@ -51,9 +51,9 @@
         <image wx:if="{{shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}" src="{{imageUrl}}goods_reduce.png" bindtap="reduceshopcart" data-goods_code="{{goodsInfo.goods_format[0].goods_activity_code}}"
           data-goods_format="{{goodsInfo.goods_format[0].type}}" data-goods_discount="{{goodsInfo.goods_discount}}" />
         <!-- 非折扣套餐 -->
-        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0}}">{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].num}}</text>
+        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}">{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].num}}</text>
         <!-- 折扣套餐 -->
-        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0}}">{{shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + goodsInfo.goods_format[0].type].num}}</text>
+        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}">{{shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + goodsInfo.goods_format[0].type].num}}</text>
         <!-- 加 -->
         <!-- 非折扣套餐 -->
         <image wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}" src="{{imageUrl}}goods_add.png" bindtap="addshopcart"
@@ -189,6 +189,6 @@
 </view>
 <view style="height:100rpx;background:transparent"></view>
 <!-- 购物车 -->
-<shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart" />
+<shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart" class="e1"/>
 <!-- 加入购物车选择商品规格 -->
 <goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" />

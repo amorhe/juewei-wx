@@ -28,7 +28,7 @@
   </view>
 </view>
 <!-- 购物车弹框 -->
-<view wx:if="{{showShopcar && shopcartAll.length>0}}" class="shopcarContent">
+<view wx:if="{{showShopcar && shopcartAll.length>0}}" class="shopcarContent" style="bottom:{{h}}">
   <view class="fullReduce fontSmall" wx:if="{{activityText!=''}}">{{activityText}}</view>
   <view class="clearShopcar" bindtap="eveClearShopcart">
     <image src="{{imageUrl}}deleteIcon.png" />

@@ -21,7 +21,7 @@ const ajaxUrl = {
   exchangeCode: '/mini/user/exchange_code_list', // 兑换码列表
   exchangeCoupon: '/mini/coupons/exchange_coupons', // 兑换优惠券
   exchangedetail: '/mini/user/exchange_code_view', // 兑换详情
-  commentList: '/juewei-api/comment/CommentList', //  商品详情中的商品评价列表
+  commentList: '/juewei-api/comment/GoodsCommentList', //  商品详情中的商品评价列表
   DispatchCommentList: '/juewei-api/comment/DispatchCommentList', // 商品详情中的配送评价列表
   add_lng_lat: '/mini/order_online/add_lng_lat', // 风控数据经纬度
   getMarkActivity: '/mini/activity/markup/mark/getMarkActivity', // 加价购列表
@@ -72,12 +72,13 @@ export const MyNearbyShop = (data) => ajax(ajaxUrl.MyNearbyShop, {
   data
 });
 
-export const activityList = (city_id, district_id, company_id, buy_type, user_id) => ajax(ajaxUrl.activityList, {
+export const activityList = (city_id, district_id, company_id, buy_type, user_id, activity_channel) => ajax(ajaxUrl.activityList, {
   city_id,
   district_id,
   company_id,
   buy_type,
-  user_id
+  user_id,
+  activity_channel
 });
 
 export const showPositionList = (city_id, district_id, company_id) => ajax(ajaxUrl.showPositionList, {

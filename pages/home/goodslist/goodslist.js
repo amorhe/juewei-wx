@@ -36,6 +36,9 @@ import {
 import {
   navigateTo
 } from '../../common/js/router.js'
+import {
+  startAddShopAnimation
+} from '../../common/js/AddShopCar.js'
 var app = getApp();
 let tim = null,
   goodsret = [];
@@ -134,6 +137,8 @@ Page({
     leftTop: 0,
     navbarInitTop: 0, //导航栏初始化距顶部的距离
     isFixedTop: false, //是否固定顶部
+    shopcart_top: 0,
+    shopcart_left: 0
   },
 
   /**
@@ -156,7 +161,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    wx.createSelectorQuery().select(".e1").boundingClientRect((rect) => {
+      this.setData({
+        shopcart_top: rect.top - 100
+      })
+    }).exec()
   },
 
   /**
@@ -267,7 +276,7 @@ Page({
     var scrollTop = parseInt(e.scrollTop); //滚动条距离顶部高度
     //判断'滚动条'滚动的距离 和 '元素在初始时'距顶部的距离进行判断
     // console.log(scrollTop)
-    // console.log('1', that.data.navbarInitTop / 2 - 44)
+    // console.log('1', that.data.navbarInitTop / 2)
     var isSatisfy = scrollTop >= (that.data.navbarInitTop / 2 - 44) ? true : false;
     //为了防止不停的setData, 这儿做了一个等式判断。 只有处于吸顶的临界值才会不相等
     if (that.data.isFixedTop === isSatisfy) {
@@ -294,8 +303,8 @@ Page({
   // 创建动画
   createAnimation(ballX, ballY) {
     let that = this,
-      bottomX = 30,
-      bottomY = 30,
+      bottomX = 45,
+      bottomY = that.data.shopcart_top,
       animationX = that.flyX(bottomX, ballX), // 创建小球水平动画
       animationY = that.flyY(bottomY, ballY); // 创建小球垂直动画
     that.setData({
@@ -309,8 +318,8 @@ Page({
         animationX: animationX.export(),
         animationY: animationY.export()
       })
-      // 400ms延时, 即小球的抛物线时长
-      return that.setDelayTime(400);
+      // 500ms延时, 即小球的抛物线时长
+      return that.setDelayTime(500);
     }).then(() => {
       that.setData({
         showBall: true,
@@ -324,19 +333,19 @@ Page({
   // 水平动画
   flyX(bottomX, ballX, duration) {
     let animation = wx.createAnimation({
-      duration: duration || 400,
+      duration: duration || 500,
       timingFunction: 'linear',
     })
-    animation.translateX(bottomX - ballX).step();
+    animation.translateX(-(ballX - bottomX)).step();
     return animation;
   },
   // 垂直动画
   flyY(bottomY, ballY, duration) {
     let animation = wx.createAnimation({
-      duration: duration || 400,
+      duration: duration || 500,
       timingFunction: 'ease-in',
     })
-    animation.translateY(ballY - bottomY).step();
+    animation.translateY(bottomY - ballY).step();
     return animation;
   },
   // 关闭提醒
@@ -438,7 +447,7 @@ Page({
   },
   // 门店营销活动(折扣和套餐)
   funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
-    activityList(city_id, district_id, company_id, buy_type, user_id).then((res) => {
+    activityList(city_id, district_id, company_id, buy_type, user_id, 2).then((res) => {
       // 获取加价购商品
       if ('MARKUP' in res.data && res.data.MARKUP != null) {
         app.globalData.gifts = res.data.MARKUP.gifts;
@@ -699,7 +708,7 @@ Page({
               repurse_price
             })
             // console.log(shopcartObj)
-            wxSet('goodsList', shopcartObj); 
+            wxSet('goodsList', shopcartObj);
           })
           // 获取商品模块的节点
           wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
@@ -813,7 +822,8 @@ Page({
       if (e.currentTarget.dataset.goods_discount) {
         if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${e.currentTarget.dataset.goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           wx.showToast({
-            title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`
+            title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`,
+            icon: 'none'
           });
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           if (e.currentTarget.dataset.key == '折扣') {
@@ -844,10 +854,16 @@ Page({
     })
     wxSet('goodsList', goodlist)
     // console.log(e)
-    // // 购物车小球动画
+    // 购物车小球动画
     // let ballX = e.touches[0].clientX,
     //   ballY = e.touches[0].clientY;
+    // console.log(this.data.shopcart_top)
+    // console.log(e.touches[0].clientY)
     // this.createAnimation(ballX, ballY);
+    var finger = {};
+    finger['x'] = e.touches[0].clientX / wx.getSystemInfoSync().windowWidth * 750;
+    finger['y'] = e.touches[0].clientY / wx.getSystemInfoSync().windowWidth * 750;
+    startAddShopAnimation([{ x: 45, y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 45 }, finger], this)
   },
   eveReduceshopcart(e) {
     let code = e.currentTarget.dataset.goods_code;

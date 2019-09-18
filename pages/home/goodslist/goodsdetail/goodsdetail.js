@@ -156,8 +156,8 @@ Page({
   onReachBottom: function() {
     this.data.pagenum++;
     const shop_id = wxGet('shop_id') || '';
-    this.getCommentList(this.data.goodsInfo.goods_code, this.data.pagenum, this.data.pagesize);
-    this.getDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
+    this.funGetCommentList(this.data.goodsInfo.goods_code, this.data.pagenum, this.data.pagesize);
+    this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
   },
 
   /**
@@ -251,19 +251,19 @@ Page({
     wxSet('goodsList', {})
   },
   // sku商品
-  funCart(data) {
+  funCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
     this.setData({
-      shopcartList: data.detail.goodlist,
-      shopcartAll: data.detail.shopcartAll,
-      priceAll: data.detail.priceAll,
-      shopcartNum: data.detail.shopcartNum,
-      priceFree: data.detail.priceFree,
-      repurse_price: data.detail.repurse_price
+      shopcartList: goodlist,
+      shopcartAll,
+      priceAll,
+      shopcartNum,
+      priceFree,
+      repurse_price
     })
   },
   // 监听购物车数据变更
-  funChangeShopcart(data) {
-    this.funCart(data)
+  funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
+    this.funCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
   },
   // 加入购物车
   addshopcart(e) {
@@ -318,7 +318,8 @@ Page({
       if (e.currentTarget.dataset.goods_discount) {
         if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${e.currentTarget.dataset.goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           wx.showToast({
-            title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`
+            title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`,
+            icon: 'none'
           });
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           if (e.currentTarget.dataset.key == '折扣') {
@@ -339,8 +340,8 @@ Page({
       shopcartNum += goodlist[keys].num
     }
     // 购物车活动提示
-    this.shopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    this.onchangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+    this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
+    this.funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
     this.setData({
       shopcartList: goodlist,
       shopcartAll,
@@ -386,8 +387,8 @@ Page({
       delete(goodlist[`${code}_${format}`]);
     }
     // 购物车活动提示
-    this.shopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    this.onchangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+    this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
+    this.funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
     this.setData({
       shopcartList: goodlist,
       shopcartAll,
