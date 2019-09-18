@@ -13,11 +13,10 @@ import {
   formatTime
 } from '../../../pages/common/js/time'
 import {
-  getSid,
   log,
   ajax
 } from '../../../pages/common/js/li-ajax'
-const app = getApp()
+const app = getApp();
 Page({
 
   /**
@@ -105,7 +104,7 @@ Page({
   // 优惠券
   funGetCouponsList(_sid) {
     couponsList(_sid, 'use').then((res) => {
-      if (res.code == "A100"){
+      if (res.CODE == "A100"){
         const { tabs } = this.data
         tabs[0].title = `优惠券${res.DATA.use.length}张`;
         res.DATA.use.forEach(item => {
@@ -123,7 +122,8 @@ Page({
   // 兑换码
   funGetExchangeCode(_sid) {
     exchangeCode(_sid, 'use').then((res) => {
-      if(res.code == "A100"){
+      if(res.CODE == "A100"){
+        console.log('exchangeCode');
         const {
           tabs
         } = this.data;
