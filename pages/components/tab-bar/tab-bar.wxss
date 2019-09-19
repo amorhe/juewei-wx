@@ -5,7 +5,6 @@
     position: fixed;
     height: 98rpx;
     width: 100vw;
-    bottom: 0;
     background: #F8F8F8;
     display: flex;
 }

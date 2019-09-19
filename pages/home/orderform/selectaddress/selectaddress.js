@@ -114,7 +114,7 @@ Page({
     })
   },
   funGetAddress() {
-    useraddress(wxGet('shop_id')).then((res) => {
+    useraddress(wxGet('shop_id'), wxGet('_sid')).then((res) => {
       let addressList = [],
         addressListNoUse = [];
       for (let value of res.data) {
@@ -174,7 +174,7 @@ Page({
           return value2 - value1;
         });
         shopArray[0]['jingxuan'] = true;
-         wxSet('takeout', shopArray); // 保存外卖门店到本地
+        wxSet('takeout', shopArray); // 保存外卖门店到本地
         that.getNearbyShop(lng, lat, address);
         redirectTo({
           url: '/pages/home/goodslist/goodslist'
@@ -237,7 +237,7 @@ Page({
       const shopArray = shopArr1.concat(shopArr2);
       shopArray[0]['jingxuan'] = true;
       app.globalData.address = address;
-      wxSet('self', shopArray);// 保存自提门店到本地
+      wxSet('self', shopArray); // 保存自提门店到本地
     })
   },
 })

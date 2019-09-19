@@ -671,8 +671,8 @@ Page({
               package: val.data.package,
               signType: val.data.signType,
               paySign: val.data.paySign,
-              success(res) {
-                console.log(res)
+              success(conf) {
+                // console.log(conf)
                 add_lng_lat(res.data.order_no, typeClass, lng, lat).then((conf) => {
                   if (conf.code == 'A100') {
                     wx.removeStorageSync('goodsList');

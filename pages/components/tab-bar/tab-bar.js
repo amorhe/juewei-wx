@@ -58,8 +58,16 @@ Component({
         }
       ]
     },
+    btuBottom:0
   },
-
+  attached(){
+    let isPhone = app.globalData.isIpx;
+    if (isPhone) {
+      this.setData({
+        btuBottom: "68rpx",
+      })
+    }
+  },
   /**
    * 组件的方法列表
    */

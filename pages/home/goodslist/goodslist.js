@@ -740,28 +740,36 @@ Page({
   },
   // 监听商品列表滚动
   bindscroll(e) {
-    wx.pageScrollTo({
-      scrollTop: this.data.navbarInitTop
-    })
-    let retArr = [...goodsret];
-    wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
-      let sum = 0;
-      if (retArr.indexOf(ret[0].scrollTop) > -1) {
-        retArr.push(ret[0].scrollTop + 1);
-        retArr.sort((a, b) => a - b);
-        sum = retArr.findIndex(item => (item == (ret[0].scrollTop + 1)));
-      } else {
-        retArr.push(ret[0].scrollTop);
-        retArr.sort((a, b) => a - b);
-        sum = retArr.findIndex(item => (item == ret[0].scrollTop));
-      }
-      // console.log(sum)
-      if (this.data.goodsType != sum) {
-        this.setData({
-          goodsType: sum
-        })
-      }
-    })
+    if (e.detail.scrollTop <= 0) {
+      // 滚动到最顶部
+      this.setData({
+        isTab: true
+      })
+    }
+    if (!this.data.isTab) {
+      wx.pageScrollTo({
+        scrollTop: this.data.navbarInitTop
+      })
+      let retArr = [...goodsret];
+      wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
+        let sum = 0;
+        if (retArr.indexOf(ret[0].scrollTop) > -1) {
+          retArr.push(ret[0].scrollTop + 1);
+          retArr.sort((a, b) => a - b);
+          sum = retArr.findIndex(item => (item == (ret[0].scrollTop + 1)));
+        } else {
+          retArr.push(ret[0].scrollTop);
+          retArr.sort((a, b) => a - b);
+          sum = retArr.findIndex(item => (item == ret[0].scrollTop));
+        }
+        // console.log(sum)
+        if (this.data.goodsType != sum) {
+          this.setData({
+            goodsType: sum
+          })
+        }
+      })
+    }
   },
   // 加入购物车
   eveAddshopcart(e) {
@@ -929,7 +937,6 @@ Page({
     this.setData({
       goodsType: e.currentTarget.dataset.type,
       togoodsType: e.currentTarget.dataset.type,
-      isTab: true,
       shopcartList: wxGet('goodsList')
     })
     wx.pageScrollTo({
