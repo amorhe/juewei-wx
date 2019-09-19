@@ -217,7 +217,7 @@ Page({
   },
   // 商品评价
   funGetCommentList(goods_code, pagenum, pagesize) {
-    commentList(goods_code, pagenum, pagesize, 2).then((res) => {
+    commentList(goods_code, pagenum, pagesize, 0).then((res) => {
       this.setData({
         commentArr: res
       })
@@ -225,7 +225,7 @@ Page({
   },
   // 配送评价
   funGetDispatchCommentList(shop_id, pagenum, pagesize) {
-    DispatchCommentList(shop_id, pagenum, pagesize, 2).then((res) => {
+    DispatchCommentList(shop_id, pagenum, pagesize, 0).then((res) => {
       this.setData({
         dispatchArr: res
       })

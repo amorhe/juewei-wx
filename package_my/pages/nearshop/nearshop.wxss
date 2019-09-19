@@ -52,24 +52,21 @@
 }
 .shopBox {
   position: fixed;
-  width: 750rpx;
+  width: 100vw;
   left: 0;
   bottom: 0;
   background: #fff;
   overflow-y: scroll;
-  padding: 40rpx 32rpx;
-  box-sizing: border-box;
 }
 .shopLi {
   background: #fff;
   margin-bottom: 16rpx;
   box-shadow:0 2rpx 10rpx 0 rgba(153,153,153,0.2);
   border-radius:10rpx;
-  padding: 24rpx 0 16rpx;
+  padding: 40rpx 32rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
 }
 .shopIcon {
   width: 32rpx;
@@ -92,6 +89,7 @@
   display: flex;
   justify-content: flex-end!important;
   margin-top: 16rpx;
+  width: 100%
 }
 .navigate_btn{
   color: #999;
