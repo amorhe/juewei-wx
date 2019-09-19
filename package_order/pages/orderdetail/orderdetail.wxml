@@ -330,9 +330,9 @@
     </view>
 </view>
 <view wx:if="{{cancleShow}}"  class="pop-top">
-    <view style="height: 711rpx; width:750rpx; background: #fff;border-radius: 20rpx 20rpx 0 0">
+    <view style="height: 750rpx; width:750rpx; background: #fff;border-radius: 20rpx 20rpx 0 0;position: fixed;bottom: 0">
         <view class="cancle-title">请选择取消原因</view>
-        <view class="cancel-list" wx:for="{{cancelReasonList}}" wx-key="{{ index }}" bindtap="selectReason" data-index="{{index}}">
+        <view class="cancel-list" wx:for="{{cancelReasonList}}" wx:key="{{ index }}" bindtap="selectReason" data-index="{{index}}">
             <view class="cancle-left">
                 {{item.reason}}
             </view>

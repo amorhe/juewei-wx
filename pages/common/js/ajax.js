@@ -36,6 +36,7 @@ export const ajax = (url, data = {}, method = "POST") => {
         } else {
           //提示接口的信息，并且跳错误页
           reject(wx.showToast({
+            icon:"none",
             title: rest.msg,
             success() {
               wx.redirectTo({

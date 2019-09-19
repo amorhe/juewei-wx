@@ -321,7 +321,8 @@ Page({
       fail: (err) => {
         log(err);
         wx.showToast({
-          content: 'fail',
+          icon:"none",
+          title: 'fail',
         });
       }
     })

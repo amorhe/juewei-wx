@@ -211,7 +211,7 @@ Page({
         wxSet('user_id', res.data.user_id);
         reLaunch({ url: '/pages/my/index/index' })
       } else {
-        wx.showToast({ title: res.msg })
+        wx.showToast({ icon:"none",title: res.msg })
       }
     }
   },

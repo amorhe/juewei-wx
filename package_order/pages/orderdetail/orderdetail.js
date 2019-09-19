@@ -329,9 +329,10 @@ Page({
    */
 
   showCancel() {
-    if (this.data.order_channel != 1) {
+    if (this.data.order_channel == 1) {
       wx.showToast({
-        content: '订单不支持跨平台操作，请去相应平台取消订单！'
+        icon:"none",
+        title: '订单不支持跨平台操作，请去相应平台取消订单！'
       });
       return
     }
@@ -367,13 +368,14 @@ Page({
       log('取消成功');
       app.globalData.refresh = true;
       app.globalData.refresh_state = d.dis_type - 1;
-      wx.switchTab({
+      reLaunch({
         url: '/pages/order/list/list',
       });
     } else {
       this.closeModel();
       wx.showToast({
-        content: res.msg,
+        icon:"none",
+        title: res.msg,
         duration: 2000,
       });
     }
@@ -404,6 +406,7 @@ Page({
       let { tradeNo } = r.data;
       if (!tradeNo) {
         return wx.showToast({
+          icon:"none",
           content: r.data.erroMSg
         })
       }

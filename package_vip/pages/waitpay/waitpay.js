@@ -340,6 +340,7 @@ Page({
       let { code, msg } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
+          icon:"none",
           title: msg
         });
       }
@@ -359,6 +360,7 @@ Page({
       let { code, msg } = await reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
+          icon:"none",
           title: msg
         });
       }

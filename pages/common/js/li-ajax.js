@@ -62,6 +62,7 @@ export const ajax = async ({ url, data = {}, method = 'POST', loading = true }) 
         console.log(err);
         wx.hideLoading();
         reject(wx.showToast({
+          icon:"none",
           title: '服务器错误'
         }))
       }

@@ -248,7 +248,7 @@ Page({
         my.showToast({
           icon: 'none',
           duration: 2000,
-          content: code.msg
+          title: code.msg
         });
       }
     }

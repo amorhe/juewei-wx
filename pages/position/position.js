@@ -56,7 +56,7 @@ Page({
       success(ott) {
         wx.hideLoading();
         let res = {};
-        // 发起regeocoding检索请求 
+        // 发起regeocoding检索请求
         BMap.regeocoding({
           success(data) {
             res = data.originalData.result;
@@ -161,7 +161,7 @@ Page({
           }
           return value2 - value1;
         });
-        shopArray[0]['jingxuan'] = true;  // 默认设置第一个为精选门店  
+        shopArray[0]['jingxuan'] = true;  // 默认设置第一个为精选门店
         wxSet('takeout', shopArray); // 保存外卖门店到本地
         //存储app.golbalData
         wxSet('appglobalData', app.globalData);
@@ -200,6 +200,7 @@ Page({
               } else {
                 // 提示切换地址
                 wx.showToast({
+                  icon:"none",
                   title: "当前定位地址无可浏览的门店，请切换地址！",
                   success: (res) => {
                     redirectTo({

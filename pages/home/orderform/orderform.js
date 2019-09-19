@@ -602,6 +602,7 @@ Page({
     if (app.globalData.type == 1) {
       if (!address_id) {
         wx.showToast({
+          icon:"none",
           title: '请选择收货地址'
         })
         return
@@ -700,6 +701,7 @@ Page({
         })
       } else {
         wx.showToast({
+          icon:"none",
           title: res.msg,
         })
         this.setData({

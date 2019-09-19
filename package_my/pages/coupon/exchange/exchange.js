@@ -82,6 +82,7 @@ Page({
     } = this.data
     if (!code) {
       return wx.showToast({
+        icon:"none",
         title: '请输入兑换码'
       });
     }
@@ -92,6 +93,7 @@ Page({
         });
       } else {
         wx.showToast({
+          icon:"none",
           title: res.MESSAGE
         });
       }

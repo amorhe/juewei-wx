@@ -173,7 +173,8 @@ Page({
     }
 
     return wx.showToast({
-      content: res.msg,
+      icon:"none",
+      title: res.msg,
     });
   },
 

@@ -251,7 +251,7 @@ Page({
             }
           });
         } else {
-          return wx.showToast({ content: res.msg });
+          return wx.showToast({ icon:"none",title: res.msg });
         }
         return
       }
@@ -353,7 +353,7 @@ Page({
     }
 
     return wx.showToast({
-      content: res.msg,
+      title: res.msg,
     });
   },
 
