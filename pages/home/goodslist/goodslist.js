@@ -166,6 +166,17 @@ Page({
         shopcart_top: rect.top - 100
       })
     }).exec()
+    //获取节点距离顶部的距离
+    setTimeout(() => {
+      wx.createSelectorQuery().select('#pages_s').boundingClientRect().exec((rect) => {
+        if (rect[0] != null) {
+          var navbarInitTop = parseInt(rect[0].top);
+          this.setData({
+            navbarInitTop: navbarInitTop * 2
+          });
+        }
+      });
+    }, 2000)
   },
 
   /**
@@ -599,7 +610,7 @@ Page({
           app.globalData.DIS = DIS;
           app.globalData.PKG = PKG;
           // 最终商品总数据
-          // console.log(goodsNew)
+          console.log(goodsNew)
           this.setData({
             shopGoodsAll: goodsNew,
             shopGoods: arr
@@ -721,22 +732,6 @@ Page({
             })
             goodsret = arr;
           })
-          // wx.createSelectorQuery().select('.pages_scroll').boundingClientRect().exec((rect) => {
-          //   console.log(rect)
-          //   var pagesinfoTop = parseInt(rect[0].top);
-          //   this.setData({
-          //     pagesinfoTop
-          //   })
-          // }); 
-          //获取节点距离顶部的距离
-          wx.createSelectorQuery().select('#pages_s').boundingClientRect().exec((rect) => {
-            if (rect && rect[0].top > 0) {
-              var navbarInitTop = parseInt(rect[0].top);
-              this.setData({
-                navbarInitTop: navbarInitTop * 2
-              });
-            }
-          });
           wxSet('shopGoods', goodsArr)
         },
       });
@@ -771,6 +766,7 @@ Page({
   },
   // 加入购物车
   eveAddshopcart(e) {
+    console.log(e)
     let goods_car = {};
     let goods_code = e.currentTarget.dataset.goods_code;;
     let goods_format = e.currentTarget.dataset.goods_format;
@@ -863,7 +859,10 @@ Page({
     var finger = {};
     finger['x'] = e.touches[0].clientX / wx.getSystemInfoSync().windowWidth * 750;
     finger['y'] = e.touches[0].clientY / wx.getSystemInfoSync().windowWidth * 750;
-    startAddShopAnimation([{ x: 45, y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 45 }, finger], this)
+    startAddShopAnimation([{
+      x: 45,
+      y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 45
+    }, finger], this)
   },
   eveReduceshopcart(e) {
     let code = e.currentTarget.dataset.goods_code;

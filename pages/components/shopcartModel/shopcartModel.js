@@ -71,7 +71,6 @@ Component({
       priceAll: this.properties.priceAll
     })
     this.funGetSendPrice();
-    console.log(getCurUrl())
     if (getCurUrl() === 'pages/home/goodslist/goodslist'){
       this.setData({
         h:'198rpx'

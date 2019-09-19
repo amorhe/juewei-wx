@@ -219,7 +219,7 @@
                     <!-- 爆款 -->
                     <text wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && item.key=='爆款'}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].num}}</text>
                     <!-- 折扣套餐 -->
-                    <text wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].num}}</text>
+                    <text wx:if="{{shopcartList[v.goods_format[0].goods_activity_code + '_' + v.goods_format[0].type].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}">{{shopcartList[v.goods_format[0].goods_activity_code + '_' + v.goods_format[0].type].num}}</text>
                     <!-- 加 -->
                     <!-- 折扣套餐 -->
                     <image wx:if="{{item.key=='折扣' || item.key=='套餐'}}" src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"

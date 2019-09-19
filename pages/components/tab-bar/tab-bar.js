@@ -81,7 +81,7 @@ Component({
     },
 
     bindgetuserinfo(e) {
-      console.log(e);
+      // console.log(e);
       const {
         url
       } = e.currentTarget.dataset;

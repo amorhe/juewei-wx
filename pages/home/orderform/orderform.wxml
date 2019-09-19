@@ -208,7 +208,7 @@
     </view>
   </view>
   <view>
-    <navigator url="/pages/home/orderform/remarks/remarks" class="flexNormal remarks paddingRTwenty">
+    <navigator url="/pages/home/orderform/remarks/remarks" class="flexNormal remarks paddingRTwenty" hover-class="none">
       <view class="fontBold">备注</view>
       <view class="colorNine">
         <text class="remark">{{remark}}</text>

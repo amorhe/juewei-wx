@@ -428,9 +428,7 @@ Page({
   // 去自提
   funOnModalRepurse() {
     app.globalData.type = 2;
-    wx.removeStorageSync({
-      key: 'takeout', // 缓存数据的key
-    });
+    wx.removeStorageSync('takeout');
     let shopArray = wxGet('self') || [];
     app.globalData.position.cityAdcode = shopArray[0].city_id;
     app.globalData.position.districtAdcode = shopArray[0].district_id;
