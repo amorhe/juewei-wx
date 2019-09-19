@@ -22,7 +22,7 @@ Page({
     dis_level: '',
     dis_content: '',
     goods_comment: [],
-    plate: 1,
+    plate: 0,
 
     d: {},
 
@@ -393,7 +393,7 @@ Page({
       dis_level,
       dis_content,
       goods_comment: JSON.stringify(goods_comment),
-      plate: 1
+      plate: 0
     };
     let res = await Request.Create(data);
     if (res.code === 0) {
