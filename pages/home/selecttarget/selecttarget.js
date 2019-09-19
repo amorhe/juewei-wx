@@ -324,6 +324,7 @@ Page({
             shopArr2.push(res.data[i]);
           }
         }
+
         // 按照goods_num做降序排列
         let shopArray = shopArr1.concat(shopArr2);
         shopArray.sort((a, b) => {
@@ -337,9 +338,9 @@ Page({
         shopArray[0]['jingxuan'] = true;
         app.globalData.position.cityAdcode = shopArray[0].city_id
         app.globalData.position.districtAdcode = shopArray[0].district_id
-
+        app.globalData.type = 1;
         wxSet('takeout', shopArray); // 保存外卖门店到本地
-        that.funGetNearbyShop(lng, lat, address);
+        // that.funGetNearbyShop(lng, lat, address);
         if (str) {
           switchTab({
             url: '/pages/home/goodslist/goodslist'
