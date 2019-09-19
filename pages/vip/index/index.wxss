@@ -4,7 +4,7 @@
 page {
   background: white;
     width: 100vw;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .header-title-s {
