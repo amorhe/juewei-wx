@@ -1,8 +1,9 @@
-@import'../../order/list/list.wxss';
+@import '../../order/list/list.wxss';
+
 .positionIng {
   padding: 18rpx 32rpx 16rpx;
-  border-bottom: 16rpx #F5F5F5 solid;
-  background: #fff
+  border-bottom: 16rpx #f5f5f5 solid;
+  background: #fff;
 }
 
 .positionTxt {
@@ -14,7 +15,7 @@
 
 .positionTxt>navigator {
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .positionTxt image {
@@ -25,8 +26,8 @@
 
 .delivery {
   padding: 30rpx 32rpx 26rpx;
-  border-bottom: 24rpx #F5F5F5 solid;
-  background: #fff
+  border-bottom: 24rpx #f5f5f5 solid;
+  background: #fff;
 }
 
 .addressList {
@@ -53,35 +54,35 @@
   font-size: 22rpx;
   text-align: center;
   line-height: 32rpx;
-  margin-left: 16rpx
+  margin-left: 16rpx;
 }
 
 .bar1 {
-  color: #8FD75F;
-  background: rgba(143, 215, 95, .2);
+  color: #8fd75f;
+  background: rgba(143, 215, 95, 0.2);
 }
 
 .bar2 {
-  color: #108EE9;
-  background: rgba(16, 142, 233, .2);
+  color: #108ee9;
+  background: rgba(16, 142, 233, 0.2);
 }
 
 .bar3 {
-  color: #E60012;
+  color: #e60012;
   background: rgba(255, 241, 240, 1);
 }
 
 .addAddressTxt {
   margin-top: 26rpx;
-  color: #E60012;
+  color: #e60012;
   display: flex;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
 }
 
 .nearAddressBox {
   padding: 30rpx 32rpx 26rpx;
-  background: #fff
+  background: #fff;
 }
 
 .nearList {
@@ -108,15 +109,17 @@
 .searchView {
   padding: 18rpx 32rpx;
 }
+
 .searchView>view {
   width: 686rpx;
   height: 64rpx;
-  background: #EEE;
+  background: #eee;
   border-radius: 32rpx;
   display: flex;
   align-items: center;
-  overflow: hidden
+  overflow: hidden;
 }
+
 .positionAddress {
   display: flex;
   align-items: center;
@@ -125,38 +128,46 @@
   padding-left: 32rpx;
   padding-right: 16rpx;
 }
+
 .positionAddress>image {
   width: 24rpx;
   height: 24rpx;
   margin-left: 8rpx;
 }
+
 .positionAddress>text {
-  white-space: nowrap
+  white-space: nowrap;
 }
+
 .searchBox {
   height: 40rpx;
   display: flex;
   align-items: center;
-  flex: 1
+  flex: 1;
 }
+
 .searchIcon {
   width: 24rpx;
   height: 24rpx;
   margin-left: 16rpx;
 }
+
 .searchBox>input {
   width: 432rpx;
   margin-left: 8rpx;
-  background: #EEE
+  background: #eee;
 }
+
 .colorGray {
-  color: #ccc
+  color: #ccc;
 }
+
 .mapView {
   width: 100vw;
   height: 100vh;
   background: transparent;
 }
+
 .shopBox {
   position: fixed;
   width: 686rpx;
@@ -166,62 +177,72 @@
   max-height: 50vh;
   overflow-y: scroll;
 }
+
 .shopLi {
   background: #fff;
   margin-bottom: 16rpx;
-  box-shadow:0 2rpx 10rpx 0 rgba(153,153,153,0.2);
-  border-radius:10rpx;
+  box-shadow: 0 2rpx 10rpx 0 rgba(153, 153, 153, 0.2);
+  border-radius: 10rpx;
   padding: 24rpx 24rpx 16rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
 }
+
 .shopIcon {
   width: 32rpx;
   height: 32rpx;
   margin-right: 16rpx;
 }
+
 .shopLi>cover-view {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   white-space: pre-wrap;
-  line-height: 30rpx!important;
+  line-height: 30rpx !important;
 }
+
 .shopTxt {
   display: flex;
-  align-items: center
+  align-items: center;
 }
+
 .menuBtn {
   display: flex;
-  justify-content: flex-end!important;
+  justify-content: flex-end !important;
   margin-top: 16rpx;
 }
+
 .menuBtn>cover-view {
-  width:140rpx;
-  height:64rpx;
-  border-radius:32rpx;
+  width: 140rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
   text-align: center;
   line-height: 64rpx;
   font-size: 26rpx;
 }
-.menuBtn>cover-view:nth-child(1){
+
+.menuBtn>cover-view:nth-child(1) {
   color: #999;
-  border:1px solid rgba(153,153,153,1);
+  border: 1px solid rgba(153, 153, 153, 1);
   margin-right: 16rpx;
 }
-.menuBtn>cover-view:nth-child(2){
+
+.menuBtn>cover-view:nth-child(2) {
   color: #fff;
   /* background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%); */
-  background: #E60012;
-  border: 1px solid #E60012;
+  background: #e60012;
+  border: 1px solid #e60012;
 }
+
 .paddingLeft {
   padding-left: 48rpx;
-  width: 100%
+  width: 100%;
 }
+
 .modalTap {
   position: absolute;
   left: 0;
@@ -230,4 +251,39 @@
   height: 100rpx;
   z-index: 1000;
   background: transparent;
+}
+
+.shopsearch {
+  width: 750rpx;
+  height: 110rpx;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx #eee solid;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.searchTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchTitle>text:nth-child(1) {
+  width: 560rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search_b {
+  font-size: 26rpx;
+  color: #999;
+  width: 676rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

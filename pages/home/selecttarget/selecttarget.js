@@ -43,7 +43,8 @@ Page({
     isSuccess: false,
     info: '', // 一条地址信息
     inputAddress: '', //手动输入的地址
-    loginOpened: false
+    loginOpened: false,
+    searchResult: [], // 搜索结果
   },
 
   /**
@@ -155,13 +156,36 @@ Page({
             let lng = res.data.result.location.lng;
             let lat = res.data.result.location.lat;
             let location = `${lng},${lat}`;
-            this.setData({
-              level: res.data.result.level
-            })
             that.funGetAddressList(location, lat, lng);
+            that.funSearchShop(that, value, lat, lng);
           }
         },
       });
+    }
+  },
+  // 搜索门店
+  funSearchShop(that, value, lat, lng) {
+    wx.request({
+      url: `http://api.map.baidu.com/place/v2/search?query=${value}&location=${lat},${lng}&radius=100000&scope=2&output=json&ak=${ ak }`,
+      success(res) {
+        if (res.data.results.length > 0) {
+          that.setData({
+            searchResult: res.data.results
+          })
+        }
+      }
+    })
+  },
+  // 选择门店
+  eveChooseshop(e) {
+    if (e.currentTarget.dataset.name.indexOf('绝味鸭脖') != -1) {
+      this.funGetLbsShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.address, 'click');
+      this.funGetNearbyShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.address, 'click');
+    } else {
+      wx.showToast({
+        title: '请搜索绝味鸭脖相关字',
+        icon: 'none'
+      })
     }
   },
   //附近地址列表
