@@ -4,7 +4,7 @@
     }
     module.exports.numberToFix=numberToFix;
 </wxs>
-<view class="header-title-s" style="width: 100vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px;background: linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)">
+<view class="header-title-s" style="width: 100vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 10}}px;background: linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)">
     <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px"> 会员专享 </text>
 </view>
 <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
@@ -68,7 +68,7 @@
         <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" bindtap="navigateTo"/>
       </scroll-view>
     </view>
-    <view class="sroll-view-wrap" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight - 2}}px">
+    <view class="sroll-view-wrap" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 8}}px">
       <scroll-view scroll-x class="x" style="margin:0 32rpx" id="affix">
         <view bindtap="FUN_listChange" data-cur="{{index}}" wx:key="{{index}}" wx:for='{{list}}' wx:key="{{ index }}" class="{{index === cur? 'active':''}}">{{item.cate_name}}</view>
       </scroll-view>
