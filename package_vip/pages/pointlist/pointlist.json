@@ -2,5 +2,6 @@
   "usingComponents": {
     "i-modal": "../../../iview-weapp/modal/index"
   },
-  "navigationStyle": "custom"
+  "navigationStyle": "custom",
+  "navigationBarTitleText":"积分"
 }
