@@ -2,5 +2,6 @@
   "usingComponents": {
     "tab-bar": "/pages/components/tab-bar/tab-bar"
   },
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText":"订单"
 }
