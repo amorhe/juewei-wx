@@ -333,6 +333,7 @@ Page({
       if (res.code == 0) {
         wxSet('_sid', '');
         wxSet('userInfo', {});
+        wx.removeStorageSync('user_id');
         app.globalData._sid = "";
         redirectTo({
           url: '/pages/home/goodslist/goodslist'

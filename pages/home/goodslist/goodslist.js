@@ -1047,7 +1047,7 @@ Page({
   },
   // 会员卡，卡券
   navigate(e) {
-    if (wxGet('user_id') == null) {
+    if (wxGet('user_id') == null && wxGet('userInfo').user_id == null) {
       navigateTo({
         url: '/pages/login/auth/auth'
       });
