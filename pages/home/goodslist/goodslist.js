@@ -153,8 +153,6 @@ Page({
         key: 'appglobalData'
       });
     }
-    // 优惠券
-    this.funGetcouponsExpire('h0n366lrql6gms5i0r0l58arbh');
   },
 
   /**
@@ -245,14 +243,17 @@ Page({
       app.globalData.activityList.PKG = [];
     }
     let user_id = 1;
-    if (wxGet('user_id')) {
-      user_id = wxGet('user_id');
+    if (wxGet('userInfo').user_id) {
+      user_id = wxGet('userInfo').user_id;
+      // 优惠券
+      this.funGetcouponsExpire(wxGet('_sid'));
     }
     this.funGetCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品
     this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
     this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id) //营销活动
     wxSet('vip_address', app.globalData.shopTakeOut);
+    
   },
 
   /**
@@ -599,7 +600,6 @@ Page({
               last: [...last]
             }
           })
-
           sortList.unshift(obj1, obj2);
           let goodsArr = [...DIS, ...PKG, ...arr]; // 门店所有列表（一维数组）
           let goodsNew = sortList.filter(item => item.last.length > 0);

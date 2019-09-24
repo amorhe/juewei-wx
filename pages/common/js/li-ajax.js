@@ -37,7 +37,6 @@ export const ajax = async ({ url, data = {}, method = 'POST', loading = true }) 
       method,
       header: {
         'content-type': 'application/x-www-form-urlencoded'
-        // 'content-type': 'application/json'
       },
       success: (res) => {
         console.log(res.data);
@@ -47,7 +46,6 @@ export const ajax = async ({ url, data = {}, method = 'POST', loading = true }) 
           resolve(res.data)
         } else if ([30106, 'A103', 101].includes(code)) {
           console.log('用户未登录');
-          // wxSet('_sid', '');
           wxSet('userInfo', {});
           resolve({
             code: -1,

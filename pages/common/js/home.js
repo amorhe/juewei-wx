@@ -99,7 +99,7 @@ export const GetShopGoods = (shop_id) => ajax(ajaxUrl.GetShopGoods, {
   shop_id
 });
 
-export const createOrder = (dispatch_type, shop_id, goods, shops, plate, remark, source, user_address_id, longitude, latitude, type, gift, coupon_code, notUse, fsp_id, _sid) => ajax(ajaxUrl.createOrder, {
+export const createOrder = (dispatch_type, shop_id, goods, shops, plate, remark, source, user_address_id, longitude, latitude, type, gift, coupon_code, notUse, fsp_id, _sid, activity_channel) => ajax(ajaxUrl.createOrder, {
   dispatch_type,
   shop_id,
   goods,
@@ -115,7 +115,8 @@ export const createOrder = (dispatch_type, shop_id, goods, shops, plate, remark,
   coupon_code,
   notUse,
   fsp_id,
-  _sid
+  _sid,
+  activity_channel
 })
 // dispatch_type	是	int	1（外卖）2（自提）
 // shop_id	是	int	门店id
@@ -132,7 +133,7 @@ export const createOrder = (dispatch_type, shop_id, goods, shops, plate, remark,
 // latitude	是	str	风控参数：下单纬度
 // type	是	int	风控参数：下单类型，1:外卖去下单；2:外卖确定支付；3:自提去下单；4:自提确认支付
 
-export const confirmOrder = (dispatch_type, shop_id, goods, shops, coupon_code, gift, notUse, fsp_id, _sid) => ajax(ajaxUrl.confirmOrder, {
+export const confirmOrder = (dispatch_type, shop_id, goods, shops, coupon_code, gift, notUse, fsp_id, _sid, activity_channel) => ajax(ajaxUrl.confirmOrder, {
   dispatch_type,
   shop_id,
   goods,
@@ -141,7 +142,8 @@ export const confirmOrder = (dispatch_type, shop_id, goods, shops, coupon_code, 
   gift,
   notUse,
   fsp_id,
-  _sid
+  _sid,
+  activity_channel
 })
 
 export const useraddress = (shop_id, _sid) => ajax(ajaxUrl.useraddress, {
