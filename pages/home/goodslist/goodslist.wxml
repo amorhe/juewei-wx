@@ -38,7 +38,6 @@
         </view>
         <navigator url="/pages/vip/index/index" open-type="redirectTo" hover-class="none">
           <view>
-            <!-- <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button> -->
             <image src="{{imageUrl}}home_vip.png" />
             <view>会员专享</view>
           </view>
@@ -177,7 +176,7 @@
           </view>
         </view>
       </scroll-view>
-      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;" scroll-into-view="s{{goodsType}}" scroll-with-animation="true" scroll-animation-duration="50" class="scrolllist" bindscroll="bindscroll">
+      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;" scroll-into-view="s{{togoodsType}}" scroll-with-animation="true" scroll-animation-duration="50" class="scrolllist" bindscroll="bindscroll">
         <view>
           <view id="s{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
             <view class="goodsTypeEv">{{item.key}}</view>

@@ -138,7 +138,8 @@ Page({
     navbarInitTop: 0, //导航栏初始化距顶部的距离
     isFixedTop: false, //是否固定顶部
     shopcart_top: 0,
-    shopcart_left: 0
+    shopcart_left: 0,
+    togoodsType: 1, //点击跳转
   },
 
   /**
@@ -253,7 +254,7 @@ Page({
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
     this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id) //营销活动
     wxSet('vip_address', app.globalData.shopTakeOut);
-    
+    this.funGotopage()
   },
 
   /**
@@ -365,6 +366,69 @@ Page({
     this.setData({
       isClose: true
     })
+  },
+  funGotopage() {
+    // 自定义跳转页面
+    let topage = (app.globalData.page || wxGet('query') || '');
+    app.globalData.page = null; //删除
+    wx.removeStorageSync('query'); //删除
+    if (topage != '') {
+      switch (topage) {
+        //会员
+        case '/pages/home/goodslist/goodslist':
+          //就是当前页不用跳转任何
+          break;
+          //会员
+        case '/pages/vip/index/index':
+          redirectTo({
+            url: topage
+          });
+          break;
+          // 订单
+        case '/pages/order/list/list':
+          redirectTo({
+            url: topage
+          });
+          break;
+          // 个人中心
+        case '/pages/my/index/index':
+          redirectTo({
+            url: topage
+          });
+          break;
+          // 优惠券
+        case '/package_my/pages/coupon/coupon':
+          setTimeout(function() {
+            navigateTo({
+              url: topage
+            });
+          }, 200)
+          break;
+          // 会员卡
+        case '/package_my/pages/membercard/membercard':
+          setTimeout(function() {
+            navigateTo({
+              url: topage
+            });
+          }, 200)
+          break;
+          //  附近门店
+        case '/package_my/pages/nearshop/nearshop':
+          setTimeout(function() {
+            navigateTo({
+              url: topage
+            });
+          }, 500)
+          break;
+        default:
+          setTimeout(function() {
+            navigateTo({
+              url: topage
+            });
+          }, 200)
+          break;
+      }
+    }
   },
   // 切换外卖自提
   eveChooseTypes(e) {

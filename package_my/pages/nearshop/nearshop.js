@@ -35,7 +35,8 @@ Page({
     inputAddress: '',
     city: '',
     activeIndex: 0,
-    height: 448
+    height: 448,
+    isSearch: false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -101,6 +102,36 @@ Page({
   onShareAppMessage: function() {
 
   },
+  funInputword(e) {
+    this.searchShop(e.detail.value)
+  },
+  // 输入地址搜索门店
+  searchShop(value) {
+    let that = this;
+    //附近地址列表
+    if (value != '') {
+      let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
+      url = encodeURI(url);
+      wx.request({
+        url,
+        success: (res) => {
+          if (res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
+            let lng = res.data.result.location.lng;
+            let lat = res.data.result.location.lat;
+            let location = `${lng},${lat}`;
+            that.nearShop(lng, lat);
+            that.setData({
+              isSearch: true
+            })
+          }
+        },
+      });
+    } else {
+      that.setData({
+        isSearch: false
+      })
+    }
+  },
   // 获取附近门店
   nearShop(lng, lat) {
     wx.request({
@@ -146,17 +177,6 @@ Page({
       },
     });
   },
-  // tt(e){
-  //   if(e.target.offsetTop == 0){
-  //     this.setData({
-  //       height:448
-  //     })
-  //   }else{
-  //     this.setData({
-  //       height: 1050
-  //     })
-  //   }
-  // },
   // 切换城市
   eveChoosecityTap() {
     navigateTo({
