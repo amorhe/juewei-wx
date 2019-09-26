@@ -72,10 +72,11 @@ Page({
       priceFree = 0,
       repurse_price = 0,
       shop_id = wxGet('shop_id') || {};
+    
     for (let value of goods) {
       if (value.goods_code == e.goods_code) {
         goodsInfo = value;
-        goodsInfo['key'] = e.goodsKey
+        // goodsInfo['key'] = e.goodsKey
       }
     }
     for (let keys in goodlist) {
@@ -104,8 +105,7 @@ Page({
       priceAll,
       shopcartAll,
       shopcartNum,
-      goodsKey: e.goodsKey,
-      freeMoney: e.freeMoney,
+      freeMoney: app.globalData.freeMoney || 0,
       repurse_price
     })
     // 购物车活动提示
@@ -251,19 +251,19 @@ Page({
     wxSet('goodsList', {})
   },
   // sku商品
-  funCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
+  funCart(data) {
     this.setData({
-      shopcartList: goodlist,
-      shopcartAll,
-      priceAll,
-      shopcartNum,
-      priceFree,
-      repurse_price
+      shopcartList: data.detail.goodlist || {},
+      shopcartAll: data.detail.shopcartAll || [],
+      priceAll: data.detail.priceAll || 0,
+      shopcartNum: data.detail.shopcartNum || 0,
+      priceFree: data.detail.priceFree || 0,
+      repurse_price: data.detail.repurse_price || 0
     })
   },
   // 监听购物车数据变更
-  funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
-    this.funCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+  funChangeShopcart(data) {
+    this.funCart(data)
   },
   // 加入购物车
   addshopcart(e) {
@@ -341,7 +341,8 @@ Page({
     }
     // 购物车活动提示
     this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    this.funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+    let data = {};
+    this.funChangeShopcart(data)
     this.setData({
       shopcartList: goodlist,
       shopcartAll,
@@ -388,7 +389,8 @@ Page({
     }
     // 购物车活动提示
     this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    this.funChangeShopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+    let data = {};
+    this.funChangeShopcart(data)
     this.setData({
       shopcartList: goodlist,
       shopcartAll,

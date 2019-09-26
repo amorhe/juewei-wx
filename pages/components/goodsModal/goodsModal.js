@@ -173,7 +173,7 @@ Component({
         shopcartAll
       })
       this.bindCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
-      // console.log(goodlist)
+      // console.log(priceAll, shopcartNum)
       wxSet('goodsList', goodlist)
     },
     bindCart(goodsList, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {

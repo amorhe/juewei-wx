@@ -222,7 +222,7 @@ Page({
         shopArray = wxGet('self')
       }
 
-      console.log(shopArray)
+      // console.log(shopArray)
       const status = cur_dateTime(shopArray[0].start_time, shopArray[0].end_time);
       this.setData({
         isOpen: status,
@@ -570,7 +570,6 @@ Page({
       let arr = companyGoodsList.filter(item => {
         return shopGoodsList.includes(item.sap_code)
       })
-      console.log(companyGoodsList, arr)
       // 获取参与加价购商品的列表（可换购）
       if (this.data.activityList && this.data.activityList.MARKUP != null) {
         if (this.data.activityList.MARKUP.goods.length == 0) {
@@ -610,8 +609,10 @@ Page({
         this.setData({
           freeMoney: this.data.activityList.FREE.money
         })
+        app.globalData.freeMoney = this.data.activityList.FREE.money
       } else {
         app.globalData.freeId = null;
+        app.globalData.freeMoney = null;
       }
       obj1 = {
         "key": "折扣",
@@ -675,7 +676,6 @@ Page({
           app.globalData.DIS = DIS;
           app.globalData.PKG = PKG;
           // 最终商品总数据
-          console.log(arr)
           // console.log(goodsNew)
           this.setData({
             shopGoodsAll: goodsNew,
@@ -774,7 +774,8 @@ Page({
             // 购物车活动提示
             this.funShopcartPrompt(this.data.fullActivity, priceFree, repurse_price)
             if (!wxGet('goodsList')) {
-              this.funChangeShopcart({}, [], 0, 0, 0);
+              let data = {}
+              this.funChangeShopcart(data);
             }
             this.setData({
               shopcartList: shopcartObj,
@@ -985,12 +986,12 @@ Page({
   // sku商品
   funCart(data) {
     this.setData({
-      shopcartList: data.detail.goodlist,
-      shopcartAll: data.detail.shopcartAll,
-      priceAll: data.detail.priceAll,
-      shopcartNum: data.detail.shopcartNum,
-      priceFree: data.detail.priceFree,
-      repurse_price: data.detail.repurse_price
+      shopcartList: data.detail.goodlist || {},
+      shopcartAll: data.detail.shopcartAll || [],
+      priceAll: data.detail.priceAll || 0,
+      shopcartNum: data.detail.shopcartNum || 0,
+      priceFree: data.detail.priceFree || 0,
+      repurse_price: data.detail.repurse_price || 0
     })
   },
   // 购物车
@@ -1085,7 +1086,7 @@ Page({
   // 去商品详情页
   eveGoodsdetailContent(e) {
     navigateTo({
-      url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code + '&goodsKey=' + e.currentTarget.dataset.key + '&freeMoney=' + e.currentTarget.dataset.freeMoney
+      url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code
     });
   },
   // 清空购物车

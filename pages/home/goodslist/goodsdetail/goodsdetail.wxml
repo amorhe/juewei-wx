@@ -191,4 +191,4 @@
 <!-- 购物车 -->
 <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart" class="e1"/>
 <!-- 加入购物车选择商品规格 -->
-<goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" />
+<goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"/>
