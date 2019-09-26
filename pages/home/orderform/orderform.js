@@ -219,7 +219,7 @@ Page({
       })
     }
     if (app.globalData.address_id) {
-      this.funGetAddress(app.globalData.address_id)
+      this.funGetAddress(app.globalData.address_id,wxGet('_sid'))
     } else {
       this.setData({
         address: false,
@@ -397,8 +397,8 @@ Page({
     })
   },
   // 选择地址
-  funGetAddress(address_id) {
-    useraddressInfo(address_id).then((res) => {
+  funGetAddress(address_id,_sid) {
+    useraddressInfo(address_id,_sid).then((res) => {
       if (res.code == 0) {
         this.setData({
           address: true,

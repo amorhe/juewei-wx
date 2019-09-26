@@ -135,7 +135,7 @@ Page({
   eveChooseAddress(e) {
     app.globalData.address_id = e.currentTarget.dataset.id;
     wx.navigateBack({
-      url: '/pages/home/orderform/orderform'
+      delta:1
     });
   },
   // 编辑收货地址　

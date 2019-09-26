@@ -198,8 +198,9 @@ export const getMarkActivity = (company_id, user_id) => ajax(ajaxUrl.getMarkActi
   user_id
 });
 
-export const useraddressInfo = (address_id) => ajax(ajaxUrl.useraddressInfo, {
-  address_id
+export const useraddressInfo = (address_id,_sid) => ajax(ajaxUrl.useraddressInfo, {
+  address_id,
+  _sid
 });
 
 export const payment = (order_no) => ajax(ajaxUrl.payment, {

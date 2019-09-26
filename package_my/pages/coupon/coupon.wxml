@@ -51,9 +51,9 @@
         <text>暂无优惠券</text>
       </view>
       <view class="cardMiddle" hidden="{{activeTab==1}}">
-        <navigator url="/package_my/pages/coupon/couponRecord/couponRecord">查看历史优惠券</navigator>
+        <navigator url="/package_my/pages/coupon/couponRecord/couponRecord" hover-class="none">查看历史优惠券</navigator>
         <text class="grayLine">|</text>
-        <navigator url="/package_my/pages/coupon/explain/explain">优惠券使用说明</navigator>
+        <navigator url="/package_my/pages/coupon/explain/explain" hover-class="none">优惠券使用说明</navigator>
       </view>
     </view>
     <view class="tab-content tabBox" wx:if="{{activeTab==1}}">
