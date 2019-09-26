@@ -222,7 +222,7 @@ Page({
         shopArray = wxGet('self')
       }
 
-      // console.log(shopArray)
+      console.log(shopArray)
       const status = cur_dateTime(shopArray[0].start_time, shopArray[0].end_time);
       this.setData({
         isOpen: status,
@@ -453,8 +453,8 @@ Page({
         jingxuan: true
       });
       app.globalData.type = 2;
-      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
       this.funGetCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
+      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
       this.funGetBannerList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id); //banner
       this.funGetShowpositionList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id);
     } else {
@@ -473,8 +473,8 @@ Page({
         jingxuan: true
       })
       app.globalData.type = 1;
-      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
       this.funGetCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
+      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
       this.funGetBannerList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id); //banner
       this.funGetShowpositionList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id);
     }
@@ -542,8 +542,6 @@ Page({
       }
       this.setData({
         activityList: res.data
-      }, () => {
-        this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
       })
     })
   },
@@ -556,6 +554,8 @@ Page({
         // 该公司所有的商品
         this.setData({
           companyGoodsList: res.data.data[`${company_id}`]
+        }, () => {
+          this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
         })
       }
     });
@@ -570,6 +570,7 @@ Page({
       let arr = companyGoodsList.filter(item => {
         return shopGoodsList.includes(item.sap_code)
       })
+      console.log(companyGoodsList, arr)
       // 获取参与加价购商品的列表（可换购）
       if (this.data.activityList && this.data.activityList.MARKUP != null) {
         if (this.data.activityList.MARKUP.goods.length == 0) {
@@ -674,7 +675,8 @@ Page({
           app.globalData.DIS = DIS;
           app.globalData.PKG = PKG;
           // 最终商品总数据
-          console.log(goodsNew)
+          console.log(arr)
+          // console.log(goodsNew)
           this.setData({
             shopGoodsAll: goodsNew,
             shopGoods: arr
@@ -837,7 +839,6 @@ Page({
   },
   // 加入购物车
   eveAddshopcart(e) {
-    console.log(e)
     let goods_car = {};
     let goods_code = e.currentTarget.dataset.goods_code;;
     let goods_format = e.currentTarget.dataset.goods_format;

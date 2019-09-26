@@ -41,4 +41,4 @@
 
 
 <!-- 弹框 -->
-<confirm title="超出配送范围" content="该地址与商家距离较远，是否使用该地址为定位地址" mask="{{mask}}" modalShow="{{modalShow}}" onCounterPlusOne="onCounterPlusOne" />
+<confirm title="超出配送范围" content="该地址与商家距离较远，是否使用该地址为定位地址" mask="{{mask}}" modalShow="{{modalShow}}" bindCounterPlusOne="bindCounterPlusOne" />

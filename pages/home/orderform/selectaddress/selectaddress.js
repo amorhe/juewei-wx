@@ -16,7 +16,8 @@ import {
   sortNum
 } from '../../../common/js/time'
 import {
-  navigateTo
+  navigateTo,
+  redirectTo
 } from '../../../common/js/router.js'
 var app = getApp();
 Page({
@@ -101,16 +102,16 @@ Page({
       address: e.currentTarget.dataset.address
     })
   },
-  onCounterPlusOne(data) {
-    if (data.type == 1) {
+  bindCounterPlusOne(data) {
+    if (data.detail.type == 1) {
       wxSet('lng', this.data.lng);
       wxSet('lat', this.data.lat);
-      this.getLbsShop(this.data.lng, this.data.lat, this.data.address);
-      this.getNearbyShop(this.data.lng, this.data.lat, this.data.address)
+      this.funGetLbsShop(this.data.lng, this.data.lat, this.data.address);
+      this.funGetNearbyShop(this.data.lng, this.data.lat, this.data.address)
     }
     this.setData({
-      mask: data.mask,
-      modalShow: data.modalShow
+      mask: data.detail.mask,
+      modalShow: data.detail.modalShow
     })
   },
   funGetAddress() {
@@ -175,14 +176,27 @@ Page({
         });
         shopArray[0]['jingxuan'] = true;
         wxSet('takeout', shopArray); // 保存外卖门店到本地
-        that.getNearbyShop(lng, lat, address);
+        app.globalData.shopIng = shopArray[0];
         redirectTo({
           url: '/pages/home/goodslist/goodslist'
         })
       } else {
         // 无外卖去自提
-        this.setData({
-          loginOpened: true
+        wx.showModal({
+          content: '当前选择地址暂无外卖门店！',
+          confirmText:'去自提',
+          confirmColor:'#e60012',
+          success(res){
+            if (res.confirm){
+              app.globalData.type = 2;
+              wx.removeStorageSync('takeout');
+              redirectTo({
+                url: '/pages/home/goodslist/goodslist'
+              })
+            } else if (res.cancel) {
+              
+            }
+          }
         })
       }
 
@@ -238,6 +252,7 @@ Page({
       shopArray[0]['jingxuan'] = true;
       app.globalData.address = address;
       wxSet('self', shopArray); // 保存自提门店到本地
+      app.globalData.shopIng = shopArray[0]
     })
   },
 })
