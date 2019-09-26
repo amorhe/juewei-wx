@@ -341,7 +341,16 @@ Page({
     }
     // 购物车活动提示
     this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    let data = {};
+    let data = {
+      detail:{
+        goodlist,
+        shopcartAll,
+        priceAll,
+        shopcartNum,
+        priceFree,
+        repurse_price
+      }
+    };
     this.funChangeShopcart(data)
     this.setData({
       shopcartList: goodlist,
@@ -349,6 +358,7 @@ Page({
       priceAll,
       shopcartNum
     })
+    console.log(goodlist)
     wxSet('goodsList', goodlist)
   },
   reduceshopcart(e) {
@@ -389,7 +399,16 @@ Page({
     }
     // 购物车活动提示
     this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    let data = {};
+    let data = {
+      detail: {
+        goodlist,
+        shopcartAll,
+        priceAll,
+        shopcartNum,
+        priceFree,
+        repurse_price
+      }
+    };
     this.funChangeShopcart(data)
     this.setData({
       shopcartList: goodlist,
