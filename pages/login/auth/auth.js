@@ -199,6 +199,13 @@ Page({
   // 授权获取用户信息
   async getPhoneNumber(e) {
     console.log(e);
+    if(e.detail.errMsg.indexOf('fail')!=-1){
+      wx.showToast({
+        title: '您点击了拒绝授权，将无法登录，请允许授权！',
+        icon:'none'
+      })
+      return
+    }
     const { encryptedData, iv } = e.detail;
     const _sid = wxGet('_sid');
     const rest = wxGet('rest');

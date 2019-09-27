@@ -69,13 +69,25 @@ Page({
 
   },
   eveGoselecttarget() {
-    redirectTo({
-      url: '/pages/home/selecttarget/selecttarget'
+    wx.openSetting({
+      success(res) {
+        if (res.authSetting['scope.userLocation']) {
+          redirectTo({
+            url: '/pages/home/selecttarget/selecttarget'
+          })
+        }
+      }
     })
   },
   eveGoreload() {
-    redirectTo({
-      url: '/pages/position/position'
+    wx.openSetting({
+      success(res) {
+        if (res.authSetting['scope.userLocation']) {
+          redirectTo({
+            url: '/pages/position/position'
+          })
+        }
+      }
     })
   }
 })

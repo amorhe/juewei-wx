@@ -22,6 +22,9 @@ import {
   reLaunch,
   redirectTo
 } from '../common/js/router.js'
+import {
+  WX_LOGIN
+} from '../common/js/login.js'
 var app = getApp();
 // 引入百度地图微信小程序
 var bmap = require('../../utils/libs/bmap-wx.js');
@@ -36,55 +39,40 @@ Page({
   data: {
     imageUrl: imageUrl,
     city: '定位中...',
-    content:'',
-    confirmButtonText:'',
-    cancelButtonText:'',
-    modalShow:false,
-    mask:false
+    content: '',
+    confirmButtonText: '',
+    cancelButtonText: '',
+    modalShow: false,
+    mask: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.removeStorageSync('takeout');
-    wx.removeStorageSync('self');
-    wx.removeStorageSync('opencity');
-    var that = this;
-    wx.getLocation({
-      type: 'gcj02',
-      success(ott) {
-        wx.hideLoading();
-        let res = {};
-        // 发起regeocoding检索请求
-        BMap.regeocoding({
-          success(data) {
-            res = data.originalData.result;
-            that.setData({
-              city: res.addressComponent.city
-            })
-            app.globalData.province = res.addressComponent.province;
-            app.globalData.city = res.addressComponent.city;
-            app.globalData.address = res.pois[0].name;
-            app.globalData.position = res;
-            app.globalData.position.longitude = res.location.lng;
-            app.globalData.position.latitude = res.location.lat;
-            wxSet('lat', res.location.lat); // 纬度
-            wxSet('lng', res.location.lng); // 经度
-            wxSet('nearPois', res.pois); // 附近地址
-            that.funGetLbsShop(res.location.lng, res.location.lat);
-            that.funGetNearbyShop(res.location.lng, res.location.lat);
-          }
-        });
-      },
-      fail() {
-        // 定位失败
-        wx.hideLoading();
-        reLaunch({
-          url: '/pages/noposition/noposition'
-        })
-      },
+    let that = this;
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              that.funGetposition()
+            },
+            fail(){
+              // 定位失败
+              wx.hideLoading();
+              reLaunch({
+                url: '/pages/noposition/noposition'
+              })
+            }
+          })
+        }else{
+          that.funGetposition()
+        }
+      }
     })
+    
   },
 
   /**
@@ -135,6 +123,46 @@ Page({
   onShareAppMessage: function() {
 
   },
+  funGetposition(){
+    wx.removeStorageSync('takeout');
+    wx.removeStorageSync('self');
+    wx.removeStorageSync('opencity');
+    var that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success(ott) {
+        wx.hideLoading();
+        let res = {};
+        // 发起regeocoding检索请求
+        BMap.regeocoding({
+          success(data) {
+            res = data.originalData.result;
+            that.setData({
+              city: res.addressComponent.city
+            })
+            app.globalData.province = res.addressComponent.province;
+            app.globalData.city = res.addressComponent.city;
+            app.globalData.address = res.pois[0].name;
+            app.globalData.position = res;
+            app.globalData.position.longitude = res.location.lng;
+            app.globalData.position.latitude = res.location.lat;
+            wxSet('lat', res.location.lat); // 纬度
+            wxSet('lng', res.location.lng); // 经度
+            wxSet('nearPois', res.pois); // 附近地址
+            that.funGetLbsShop(res.location.lng, res.location.lat);
+            that.funGetNearbyShop(res.location.lng, res.location.lat);
+          }
+        });
+      },
+      fail() {
+        // 定位失败
+        wx.hideLoading();
+        reLaunch({
+          url: '/pages/noposition/noposition'
+        })
+      },
+    })
+  },
   // 外卖附近门店
   funGetLbsShop(lng, lat) {
     const location = `${lng},${lat}`
@@ -161,7 +189,7 @@ Page({
           }
           return value2 - value1;
         });
-        shopArray[0]['jingxuan'] = true;  // 默认设置第一个为精选门店
+        shopArray[0]['jingxuan'] = true; // 默认设置第一个为精选门店
         wxSet('takeout', shopArray); // 保存外卖门店到本地
         //存储app.golbalData
         wxSet('appglobalData', app.globalData);
@@ -181,7 +209,7 @@ Page({
     })
   },
   // 自提附近门店
-  funGetNearbyShop(lng,lat) {;
+  funGetNearbyShop(lng, lat) {;
     const location = `${lng},${lat}`
     const str = new Date().getTime();
     wx.request({
@@ -200,7 +228,7 @@ Page({
               } else {
                 // 提示切换地址
                 wx.showToast({
-                  icon:"none",
+                  icon: "none",
                   title: "当前定位地址无可浏览的门店，请切换地址！",
                   success: (res) => {
                     redirectTo({
@@ -233,8 +261,8 @@ Page({
       shopArr1.sort(sortNum('distance'));
       shopArr2.sort(sortNum('distance'));
       const shopArray = shopArr1.concat(shopArr2);
-      shopArray[0]['jingxuan'] = true;  // 默认设置第一个为精选门店
-      wxSet('self', shopArray);  // 保存自提门店到本地
+      shopArray[0]['jingxuan'] = true; // 默认设置第一个为精选门店
+      wxSet('self', shopArray); // 保存自提门店到本地
     })
   },
   bindCounterPlusOne(e) {

@@ -268,6 +268,7 @@ Page({
       wx.showToast({
         title: '定位失败，请选择其他收货地址！'
       });
+      this.nearAddress = [];
       return
     }
     //定位失败

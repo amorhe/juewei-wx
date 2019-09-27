@@ -23,7 +23,6 @@
 .left_btn {
   color: #999;
   background: #fff;
-  width: 180rpx;
   height: 64rpx;
   border-radius: 32rpx;
   border: 1px solid rgba(153, 153, 153, 1);
@@ -33,7 +32,6 @@
 }
 
 .right_btn {
-  width: 180rpx;
   height: 64rpx;
   background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
   border-radius: 32rpx;
