@@ -357,7 +357,7 @@ Page({
         user_address_id,
         province, city, district,
       };
-      let { code, msg } = await reqConfirmOrder(params);
+      let { code, msg } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
           icon: "none",
