@@ -258,7 +258,7 @@ Page({
    * @function 搜索
    */
 
-  async search(e) {
+  search(e) {
     const { _shopList } = this.data;
     const { value } = e.detail;
     let shopList = _shopList.filter(({ shop_name }) => shop_name.includes(value));
@@ -340,7 +340,7 @@ Page({
       let { code, msg } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
-          icon:"none",
+          icon: "none",
           title: msg
         });
       }
@@ -360,7 +360,7 @@ Page({
       let { code, msg } = await reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
-          icon:"none",
+          icon: "none",
           title: msg
         });
       }
