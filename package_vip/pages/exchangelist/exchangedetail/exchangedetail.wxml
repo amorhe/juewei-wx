@@ -58,7 +58,7 @@
           {{ detail.order_amount}} 元
           </view>
           <view class="to-use" bindtap="toUse" wx:if="{{'1'==(detail.goods_detail_type) && detail.status != 0 && detail.status_name  == '已支付'}}">去使用</view>
-          <view class="b-button" wx:if="{{ '4'==(d.goods_detail_type) || '3' == (d.goods_detail_type)}}" bindtap="contact">联系客服</view>
+          <view class="b-button" wx:if="{{ 4==(detail.goods_detail_type) || 3 == (detail.goods_detail_type)}}" bindtap="contact">联系客服</view>
         </view>
       </view>
     </view>

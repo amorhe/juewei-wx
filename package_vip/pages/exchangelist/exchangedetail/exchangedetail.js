@@ -1,7 +1,7 @@
 // package_vip/pages/exchangelist/exchangedetail/exchangedetail.js
 
 import { baseUrl, imageUrl, imageUrl2, wxGet } from '../../../../pages/common/js/baseUrl'
-import { event_getNavHeight, guide, handleCopy, log, MODAL, parseData } from '../../../../pages/common/js/utils'
+import { event_getNavHeight, guide, handleCopy, log, MODAL, parseData ,contact} from '../../../../pages/common/js/utils'
 import Request from "../../../../pages/common/js/li-ajax";
 import { navigateBack, navigateTo, reLaunch } from "../../../../pages/common/js/router";
 
@@ -362,6 +362,8 @@ Page({
 
   navigateBack,
 
-  guide
+  guide,
+
+  contact
 
 });
