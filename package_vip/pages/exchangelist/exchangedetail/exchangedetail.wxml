@@ -2,7 +2,7 @@
 <import src="/utils/wxParse/wxParse.wxml"/>
 <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
  <!-- 头部 -->
-  <view class="header-title-s" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
+<view class="header-title-s" style="width: 100vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 10}}px;background: linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)">
       <image catchtap="navigateBack" style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px" mode="scaleToFill" class="arrow-2" src="{{imageUrl}}arrow_right2.png"/>
      <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">兑换详情</text>
   </view>

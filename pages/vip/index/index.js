@@ -168,13 +168,11 @@ Page({
       city_id,
       district_id,
       company_id,
-      release_channel
     } = this.data;
     let positionListOption = {
       city_id,
       district_id,
       company_id,
-      release_channel
     };
     let res = await Request.reqPositionList(positionListOption);
     if (res.code === 100) {
