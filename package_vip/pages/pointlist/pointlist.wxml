@@ -6,12 +6,12 @@
 
 <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
 <view class="body_bg" style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + (userPoint.freeze_point?200: 180)}}rpx"></view>
-<view class="pointlistTop" style="top:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + 74}}rpx" ontap="hideToast">
+<view class="pointlistTop" style="top:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + 74}}rpx" catchtap="hideToast">
   <view class="pittopItema">
     <view>当前积分：
       <text class="n">{{userPoint.points || 0}}</text>
     </view>
-    <view class="pitrule" ontap="navigateTo" data-url='/package_vip/pages/pointlist/rules/rules'>积分规则</view>
+    <view class="pitrule" catchtap="navigateTo" data-url='/package_vip/pages/pointlist/rules/rules'>积分规则</view>
   </view>
   <view class="pittopItemb" wx:if="{{userPoint.freeze_point}}">
     <view class="pittopItembinfo">冻结积分：{{userPoint.freeze_point}}</view>

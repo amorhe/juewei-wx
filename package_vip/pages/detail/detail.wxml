@@ -75,7 +75,7 @@
         </view>
     </view>
     <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
-        <button class="btn" ontap="FUN_showConfirm" formType="submit">立即兑换</button>
+        <button class="btn" bindtap="FUN_showConfirm" formType="submit">立即兑换</button>
     </form>
     <view style="height:140rpx"></view>
 </view>
