@@ -1,4 +1,13 @@
 <!--package_order/pages/orderdetail/orderdetail.wxml-->
+
+<wxs module="m2">
+
+    var slice= function (value,start,end) {
+    return value.slice(start,end)
+    }
+    module.exports.slice=slice;
+</wxs>
+
 <view>
     <!-- 外卖和自提订单详情 -->
     <view style="height:1rpx"></view>
@@ -84,7 +93,7 @@
             取餐码
         </view>
         <view class="get-code-code" style="color:{{d.order_status_info.order_status==4?'#CCCCCC':''}}">
-            {{d.user_phone.slice(0,3)}} {{d.user_phone.slice(3,7)}} {{d.user_phone.slice(7)}} / {{ d.order_index}}
+            {{m2.slice(d.user_phone,0,3)}} {{m2.slice(d.user_phone,3,7)}} {{m2.slice(d.user_phone,7)}} / {{ d.order_index}}
             <image mode="scaleToFill" src="{{imageUrl}}received.png" wx:if="{{d.order_status_info.order_status==4}}"/>
         </view>
     </view>
