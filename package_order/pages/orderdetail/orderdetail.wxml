@@ -64,7 +64,7 @@
                 已评价</view> -->
             <!--<view class="cancel-order red" wx:if="{{[4,7,8,9,10].includes(d.order_status_info.order_status)}}" catchtap="contact">
                 投诉</view> -->
-            <view class="cancel-order red" wx:if="{{(2==(d.order_status_info.order_status) || e==(d.order_status_info.order_status) )&& dis_type==2}}"
+            <view class="cancel-order red" wx:if="{{(2==(d.order_status_info.order_status) || 3==(d.order_status_info.order_status) )&& dis_type==2}}"
                   data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}"
                   data-shop_name="{{d.shop_name}}" data-address="{{d.shop_address}}" catchtap="guide">
                 导航
