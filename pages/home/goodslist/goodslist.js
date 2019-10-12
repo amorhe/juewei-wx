@@ -146,6 +146,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if(options.isSelf){
+      this.setData({
+        isSelf:true
+      })
+    }
     if (app.globalData && !app.globalData.address && wxGet('appglobalData')) {
       app.globalData = wxGet('appglobalData');
     }
@@ -188,17 +193,11 @@ Page({
       type: app.globalData.type,
       shopTakeOut: {}
     })
-    if (app.globalData.isSelf == true) {
-      this.setData({
-        isSelf: true
-      })
-    }
     wx.showLoading({
       title: '加载中...'
     });
     // 初始化默认外卖
     let shopArray = [];
-
     if (app.globalData.shopIng && !app.globalData.switchClick) {
       if (wxGet('shop_id') != app.globalData.shop_id) {
         const status = cur_dateTime(app.globalData.shopIng.start_time, app.globalData.shopIng.end_time);
@@ -212,8 +211,7 @@ Page({
       }
       this.setData({
         jingxuan: app.globalData.shopIng.jingxuan || false,
-        shopTakeOut: app.globalData.shopIng,
-        shopGoodsAll: []
+        shopTakeOut: app.globalData.shopIng
       })
     } else if (!app.globalData.shopIng && !app.globalData.switchClick) {
       if (app.globalData.type == 1) {
@@ -227,8 +225,7 @@ Page({
       this.setData({
         isOpen: status,
         shopTakeOut: shopArray[0],
-        jingxuan: true,
-        shopGoodsAll: []
+        jingxuan: true
       })
       wxSet('shop_id', shopArray[0].shop_id)
       app.globalData.shopTakeOut = shopArray[0];

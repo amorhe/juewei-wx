@@ -5,6 +5,6 @@
   <view>向店员出示会员码享受会员权益</view>
   <view class="alipayBox">
     <image class="alipayIcon" src="{{imageUrl}}weixin2.png"/>
-    <view bindtap="goPay">立即使用微信付款</view>
+    <view bindtap="eveGoPay">立即使用微信付款</view>
   </view>
 </view>

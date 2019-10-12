@@ -5,5 +5,5 @@
   </view>
   <view>
   </view>
-  <view class="bindButton" bindtap="eveGetCode">获取短信验证码</view>
+  <view class="bindButton" style="background:{{phone.length==11?'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)':''}}" bindtap="eveGetCode">获取短信验证码</view>
 </view>

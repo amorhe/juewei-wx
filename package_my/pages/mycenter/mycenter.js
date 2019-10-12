@@ -133,6 +133,7 @@ Page({
           }
           return item.addrid == res.data.city_id
         })[0]
+        res.data.provinceName = province.name || '';
       }
       if (city) {
         var regions = city.sub.filter((item, index) => {
@@ -141,10 +142,11 @@ Page({
           }
           return item.addrid == res.data.region_id
         })[0]
+        res.data.cityName = city.name || '';
+      }  
+      if(regions){
+        res.data.regionName = regions.name || '';
       }
-      res.data.provinceName = province.name || '';
-      res.data.cityName = city.name || '';
-      res.data.regionName = regions.name || '';
       that.setData({
         userinfo: res.data,
         province_i,

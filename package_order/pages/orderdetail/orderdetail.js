@@ -3,6 +3,7 @@ import { imageUrl, imageUrl2, imageUrl3, img_url } from '../../../pages/common/j
 import { contact, guide, handleCopy, log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
 import { reLaunch } from "../../../pages/common/js/router";
+import { payment} from "../../../pages/common/js/home.js"
 
 const app = getApp();
 
@@ -401,33 +402,37 @@ Page({
       return
     }
     const { order_no } = e.currentTarget.dataset;
-    let r = await ajax('/juewei-service/payment/AliMiniPay', { order_no }, "POST");
-    if (r.code === 0) {
-      let { tradeNo } = r.data;
-      if (!tradeNo) {
-        return wx.showToast({
-          icon:"none",
-          content: r.data.erroMSg
-        })
-      }
-      wx.tradePay({
-        tradeNO: tradeNo, // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
-        success: res => {
-          log('支付成功'.res);
-            return wx.redirectTo({
-              url: '/pages/home/orderfinish/orderfinish?order_no=' + order_no
-            });
-
-          // return wx.redirectTo({
-          //   url: '/pages/home/orderError/orderError?order_no=' + order_no
-          // });
+    let val = await payment(order_no);
+    if (val.code === 0) {
+      // 微信支付
+      wx.requestPayment({
+        timeStamp: val.data.timeStamp,
+        nonceStr: val.data.nonceStr,
+        package: val.data.package,
+        signType: val.data.signType,
+        paySign: val.data.paySign,
+        success(conf) {
+          // console.log(conf)
+          add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
+            if (confs.code == 'A100') {
+              redirectTo({
+                url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no
+              });
+            }
+          })
         },
-        fail: res => {
-          return wx.redirectTo({
-            url: '/pages/home/orderError/orderError?order_no=' + order_no
-          });
+        fail(conf) {
+          wx.removeStorageSync('goodsList');
+          if (conf.errMsg.indexOf('cancel') != -1) {
+            // 取消支付
+          } else {
+            // 支付失败
+            redirectTo({
+              url: '/pages/home/orderError/orderError'
+            })
+          }
         }
-      });
+      })
 
     } else {
       return wx.redirectTo({

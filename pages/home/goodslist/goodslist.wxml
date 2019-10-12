@@ -149,7 +149,7 @@
   </view>
   <view class="shopUp" wx:if="{{isSelf}}">
     <image class="shopLogo" src="{{imageUrl}}shopbg.png" />
-    <navigator url="/package_my/pages/nearshop/nearshop" class="shopBoxs" open-type="navigateBack">
+    <navigator url="/package_my/pages/nearshop/nearshop" class="shopBoxs">
       <view>
         <image class="ImageFourty" mode="scaleToFill" src="{{imageUrl}}position.png" />
         <view class="shop_info">
@@ -297,7 +297,7 @@
     </view>
     <view style="width:750rpx;height:200rpx;"></view>
     <!-- 购物车 -->
-    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart"
+    <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" type="{{type}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart"
       class="e1" />
     <!-- 加入购物车选择商品规格 -->
     <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"

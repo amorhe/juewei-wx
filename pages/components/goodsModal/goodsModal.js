@@ -146,7 +146,8 @@ Component({
         if (e.currentTarget.dataset.goods_discount) {
           if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${e.currentTarget.dataset.goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
             wx.showToast({
-              title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`
+              title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`,
+              icon:'none'
             });
             priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
             console.log(priceAll)
@@ -176,9 +177,9 @@ Component({
       // console.log(priceAll, shopcartNum)
       wxSet('goodsList', goodlist)
     },
-    bindCart(goodsList, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
+    bindCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
       let data = {
-        goodsList,
+        goodlist,
         shopcartAll,
         priceAll,
         shopcartNum,

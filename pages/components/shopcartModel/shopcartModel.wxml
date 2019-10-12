@@ -9,15 +9,13 @@
         <text>￥</text>
         <text>{{priceAll/100}}</text>
       </view>
-      <view wx:if="{{isTake}}">
+      <view wx:if="{{type==1}}">
         <view wx:if="{{!freeId}}">另需配送费{{dispatch_price}}元</view>
         <view wx:if="{{freeId}}">{{freeText}}</view>
       </view>
     </view>
     <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
-      <view class="buyBtn" wx:if="{{(priceAll/100<send_price || shopcartNum==0) && isOpen !=2}}">￥{{send_price}}起
-        <text wx:if="{{type==1}}">送</text>
-        <text wx:if="{{type==2}}">购</text>
+      <view class="buyBtn" wx:if="{{(priceAll/100<send_price || shopcartNum==0) && isOpen !=2}}">￥{{send_price}}起<text wx:if="{{type==1}}">送</text><text wx:if="{{type==2}}">购</text>
       </view>
       <view class="buyBtn" wx:if="{{isOpen == 2}}">未营业</view>
       <view class="buyBtn canBuy" bindtap="eveGoOrderSubmit" wx:if="{{(priceAll/100>=send_price && shopcartNum>0) && isOpen !=2}}">

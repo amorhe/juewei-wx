@@ -150,7 +150,7 @@ Page({
     })
     if (app.globalData.type == 2) {
       const shop_id = wxGet('shop_id');
-      const phone = wxGet('phone');
+      const phone = wxGet('userInfo').phone;
       let ott = tx_decrypt(wxGet('lng'), wxGet('lat'));
       let location_s = tx_decrypt(self.location[0], self.location[1]);
       let arr = [{
@@ -656,7 +656,7 @@ Page({
         }
         payment(res.data.order_no).then((val) => {
           if (val.code == 0) {
-            // 支付宝调起支付
+            // 微信调起支付
             this.setData({
               isClick: true,
               coupon_code: ''
@@ -673,8 +673,8 @@ Page({
               paySign: val.data.paySign,
               success(conf) {
                 // console.log(conf)
-                add_lng_lat(res.data.order_no, typeClass, lng, lat).then((conf) => {
-                  if (conf.code == 'A100') {
+                add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
+                  if (confs.code == 'A100') {
                     wx.removeStorageSync('goodsList');
                     redirectTo({
                       url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no

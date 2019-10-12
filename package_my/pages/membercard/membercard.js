@@ -82,7 +82,7 @@ Page({
       imgSrc: baseUrl + '/juewei-api/wxmini/getQRcode?_sid=' + _sid
     })
   },
-  // goPay() {
+  // eveGoPay() {
   //   my.ap.navigateToAlipayPage({
   //     appCode: 'payCode',
   //     success: (res) => {

@@ -17,7 +17,8 @@ import {
 import {
   navigateTo,
   switchTab,
-  reLaunch
+  reLaunch,
+  redirectTo
 } from '../../../pages/common/js/router.js'
 var app = getApp();
 Page({
@@ -79,7 +80,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    app.globalData.shopIng = null;
+    // app.globalData.shopIng = null;
   },
 
   /**
@@ -218,11 +219,14 @@ Page({
   },
   // 去自提
   goSelf(e) {
-    app.globalData.isSelf = true;
     app.globalData.shopIng = e.currentTarget.dataset.info;
     app.globalData.type = 2;
-    wx.navigateBack({
-      delta: 1
-    });
+    // app.globalData.isSelf = true;
+    // wx.navigateBack({
+    //   delta: 1
+    // });
+    wx.reLaunch({
+      url: '/pages/home/goodslist/goodslist?isSelf=true'
+    })
   },
 })

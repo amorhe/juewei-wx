@@ -6,7 +6,7 @@
     </i-tabs>
     <view class="tab-content tabBox" wx:if="{{activeTab==0}}">
       <view class="couponUl" wx:if="{{couponList.length>0}}">
-        <view class="couponLi" style="{{item.toggleRule?'max-height:800rpx':'max-height:280rpx'}}" wx:for="{{couponList}}" wx:key="unique">
+        <view class="couponLi" style="{{item.toggleRule?'max-height:800rpx':'max-height:270rpx'}}" wx:for="{{couponList}}" wx:key="unique">
           <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="widthFix" />
           <view>
             <view class="couponNumber">
@@ -16,7 +16,7 @@
             <view class="couponMiddle">
               <view>{{item.way==1?'外卖专享券':item.way==2?'门店专享券':'全场通享券'}}</view>
               <view class="fontTwentyTwo">{{item.start_time}}至{{item.end_time}}</view>
-              <!-- <view class="fontTwentyTwo">{{item.full_money>0?`满${item.full_money / 100}可用`:'立减券'}}</view> -->
+              <view class="fontTwentyTwo">{{item.full_money>0?'满'+ item.full_money / 100 + '可用':'立减券'}}</view>
             </view>
             <view class="useBtn fontTwentySix" data-way="{{item.way}}" data-code="{{item.code}}" catchtap="toUse">立即使用</view>
           </view>

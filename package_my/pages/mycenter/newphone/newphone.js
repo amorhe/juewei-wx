@@ -81,18 +81,21 @@ Page({
       _sid: this.data._sid,
       phone: this.data.phone
     }
-    sendCode(data).then(res => {
-      if (res.code == 0) {
-        navigateTo({
-          url: '/package_my/pages/mycenter/bindphone/bindphone?phone=' + this.data.phone + '&type=2'
-        });
-      } else {
-        wx.showToast({
-          icon: 'none',
-          title: res.msg,
-          duration: 2000
-        });
-      }
-    })
+    navigateTo({
+      url: '/package_my/pages/mycenter/bindphone/bindphone?phone=' + this.data.phone + '&type=2'
+    });
+    // sendCode(data).then(res => {
+    //   if (res.code == 0) {
+    //     navigateTo({
+    //       url: '/package_my/pages/mycenter/bindphone/bindphone?phone=' + this.data.phone + '&type=2'
+    //     });
+    //   } else {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: res.msg,
+    //       duration: 2000
+    //     });
+    //   }
+    // })
   },
 })

@@ -66,9 +66,10 @@ searchView {
   left: 0;
   bottom: 0;
   background: #fff;
-  overflow-y: scroll;
   padding: 40rpx 32rpx;
   box-sizing: border-box;
+  max-height: 50vh;
+  overflow-y: scroll
 }
 
 .shopLi {

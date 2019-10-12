@@ -28,7 +28,8 @@ Component({
     shopcartAll: Array,
     activityText: String,
     shopcartNum: Number,
-    priceAll: Number
+    priceAll: Number,
+    type: Number
   },
 
   /**
@@ -53,32 +54,47 @@ Component({
     isTake: false,
     isOpen: '',
     priceAll: 0,
-    h:0
+    h: 0
   },
   observers: {
     '**': function() {
-      this.data === this.data
+      // var pages = getCurrentPages();
+      // this.setData({
+      //   type: pages[0].data.type
+      // })
+
     }
   },
   /**
    * 组件的方法列表
    */
-  attached() {
+  ready() {
     this.setData({
       activityText: this.properties.activityText,
       shopcartAll: this.properties.shopcartAll,
       shopcartNum: this.properties.shopcartNum,
-      priceAll: this.properties.priceAll
+      priceAll: this.properties.priceAll,
+      isOpen: app.globalData.isOpen,
+      type: this.properties.type
     })
     this.funGetSendPrice();
-    if (getCurUrl() === 'pages/home/goodslist/goodslist'){
+    if (getCurUrl() === 'pages/home/goodslist/goodslist') {
       this.setData({
-        h:'198rpx'
+        h: '198rpx'
       })
     }
-    if (getCurUrl() === 'pages/home/goodslist/goodsdetail/goodsdetail'){
+    if (getCurUrl() === 'pages/home/goodslist/goodsdetail/goodsdetail') {
       this.setData({
         h: '98rpx'
+      })
+    }
+    if (app.globalData.freeId) {
+      this.setData({
+        freeId: true
+      })
+    } else {
+      this.setData({
+        freeId: false
       })
     }
   },
@@ -114,7 +130,7 @@ Component({
             console.log('用户点击确定')
             that.triggerEvent('Clearshopcart');
             that.setData({
-              mask1:false,
+              mask1: false,
               showShopcar: false
             })
           }
@@ -240,7 +256,7 @@ Component({
       this.funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
       wxSet('goodsList', goodlist)
       // 购物车全部为空
-      if (Object.keys(goodlist).length == 0){
+      if (Object.keys(goodlist).length == 0) {
         this.setData({
           showShopcar: false,
           mask1: false
@@ -256,7 +272,7 @@ Component({
         priceFree,
         repurse_price
       }
-      this.triggerEvent('ChangeShopcart',data)
+      this.triggerEvent('ChangeShopcart', data)
     },
     // 立即购买
     eveGoOrderSubmit() {
@@ -354,7 +370,7 @@ Component({
         }
         num += goodsList[val].num;
         // 计算购物车是否在门店内后筛选剩余商品价格
-        if (shopcartObj[val]) {//判断商品是否存在
+        if (shopcartObj[val]) { //判断商品是否存在
           if (shopcartObj[val].goods_discount && shopcartObj[val].num > shopcartObj[val].goods_order_limit) {
             priceAll += shopcartObj[val].goods_price * shopcartObj[val].goods_order_limit + (shopcartObj[val].num - goodsList[val].goods_order_limit) * shopcartObj[val].goods_original_price;
           } else {
@@ -372,11 +388,13 @@ Component({
       }
       // 购物车筛选后剩余数量
       shopcartNum = Object.entries(shopcartObj).reduce((pre, cur) => {
-        const { num } = cur[1]
+        const {
+          num
+        } = cur[1]
         return pre + num
       }, 0)
       this.funChangeshopcart(shopcartObj, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
-      wxSet('goodsList',shopcartObj);
+      wxSet('goodsList', shopcartObj);
       app.globalData.goodsBuy = shopcartAll;
       if (num - shopcartNum > 0 && snum > 0) {
         return this.setData({

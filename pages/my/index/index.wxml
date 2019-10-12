@@ -72,7 +72,7 @@
     </view>
   </view>
 </view>
-<navigator url="/package_my/pages/onlineservice/onlineservice" hover-class="none">
+<navigator url="{{user_id?'/package_my/pages/onlineservice/onlineservice':'/pages/login/auth/auth'}}" hover-class="none">
   <image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png" />
 </navigator>
 <tab-bar cur="{{ 3 }}"></tab-bar>
