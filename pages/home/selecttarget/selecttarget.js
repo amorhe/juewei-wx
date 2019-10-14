@@ -140,28 +140,32 @@ Page({
     })
   },
   funInputword(e) {
+    if (e.detail.value == '') {
+      this.setData({
+        searchResult: []
+      })
+      return
+    }
     this.searchShop(e.detail.value)
   },
   // 输入地址搜索门店
   searchShop(value) {
     let that = this;
     //附近地址列表
-    if (value != '') {
-      let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
-      url = encodeURI(url);
-      wx.request({
-        url,
-        success: (res) => {
-          if (res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
-            let lng = res.data.result.location.lng;
-            let lat = res.data.result.location.lat;
-            let location = `${lng},${lat}`;
-            that.funGetAddressList(location, lat, lng);
-            that.funSearchShop(that, value, lat, lng);
-          }
-        },
-      });
-    }
+    let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
+    url = encodeURI(url);
+    wx.request({
+      url,
+      success: (res) => {
+        if (res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
+          let lng = res.data.result.location.lng;
+          let lat = res.data.result.location.lat;
+          let location = `${lng},${lat}`;
+          that.funGetAddressList(location, lat, lng);
+          that.funSearchShop(that, value, lat, lng);
+        }
+      },
+    });
   },
   // 搜索门店
   funSearchShop(that, value, lat, lng) {
@@ -268,7 +272,9 @@ Page({
       wx.showToast({
         title: '定位失败，请选择其他收货地址！'
       });
-      this.nearAddress = [];
+      this.setData({
+        nearAddress: []
+      })
       return
     }
     //定位失败

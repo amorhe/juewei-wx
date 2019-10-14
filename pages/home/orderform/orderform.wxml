@@ -90,7 +90,7 @@
         </view>
       </view>
     </view>
-    <view class="track paddingBThirty borderBottomSolid">
+    <!-- <view class="track paddingBThirty borderBottomSolid">
       <view>
         <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}reduce.png" />
         <text class="marginLSixteen">满减活动</text>
@@ -101,7 +101,7 @@
           <text>{{orderInfo.full_reduce_price/100 || 0}}</text>
         </view>
       </view>
-    </view>
+    </view> -->
     <view class="track paddingBThirty borderBottomSolid" bindtap="eveChooseCoupon" data-coupon="{{orderInfo.use_coupons[0]}}" data-money="{{orderInfo.qlt_price}}">
       <view>
         <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}coupon.png" />

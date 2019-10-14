@@ -1,4 +1,8 @@
 {
+  "backgroundColorTop": "#E60012",
+  "backgroundColor": "#E60012",
+  "navigationBarBackgroundColor": "#E60012",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
     "confirm": "../components/confirm/confirm"
   }

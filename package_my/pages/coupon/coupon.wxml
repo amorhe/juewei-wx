@@ -30,8 +30,9 @@
               <text class="colorWhite fontTwentyTwo">更多使用规则</text>
               <image class="arrow_down_icon" src="{{imageUrl}}arrow_down2.png" style="transform:rotate({{item.toggleRule?0:-180}}deg);transition:all .3s" />
             </view>
-            <image class="qr" src="{{imageUrl}}qrcode.png" data-code="{{item.code}}" catchtap="showCode" wx:if="{{item.way == 2}}" />
+            <!-- <image class="qr" src="{{imageUrl}}qrcode.png" data-code="{{item.code}}" catchtap="showCode" wx:if="{{item.way == 2}}" /> -->
             <image class="qr" data-code="{{item.code}}" wx:if="{{item.way != 2}}" />
+            <image class="qr" data-code="{{item.code}}" wx:if="{{item.way == 2}}" />
           </view>
           <view class="rule">
             <view wx:if="{{item.gift_usage_rule}}">1、{{item.gift_usage_rule}}</view>

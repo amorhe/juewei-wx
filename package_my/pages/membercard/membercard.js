@@ -82,15 +82,28 @@ Page({
       imgSrc: baseUrl + '/juewei-api/wxmini/getQRcode?_sid=' + _sid
     })
   },
-  // eveGoPay() {
-  //   my.ap.navigateToAlipayPage({
-  //     appCode: 'payCode',
-  //     success: (res) => {
-  //       // my.alert(JSON.stringify(res));
-  //     },
-  //     fail: (res) => {
-  //       // my.alert(JSON.stringify(res));        
-  //     }
-  //   })
-  // }
+  eveGoPay() {
+    wx.request({
+      url: 'https://checkservice.juewei.com/payment/wechatMiniCallPayCode',
+      success(res) {
+        wx.openOfflinePayView({
+          appId: res.data.appId,
+          timeStamp: res.data.timeStamp,
+          nonceStr: res.data.nonceStr,
+          package: res.data.package,
+          signType: res.data.signType,
+          paySign: res.data.paySign,
+          success: function(confg) {
+            console.log(confg)
+          },
+          fail: function(e) {
+            console.log(e,  1)
+          },
+          complete: function(f) {
+            console.log(f,   2)
+          }
+        })
+      }
+    })
+  }
 })

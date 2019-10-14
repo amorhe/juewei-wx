@@ -11,6 +11,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 24rpx;
+  font-size: 28rpx
 }
 
 .positionTxt>navigator {

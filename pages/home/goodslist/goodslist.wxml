@@ -21,7 +21,7 @@
       <swiper indicator-dots="{{imgUrls.length>1?true:false}}" autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" indicator-active-color="#E60012" indicator-color="#E8E8E8">
         <block wx:for="{{imgUrls}}" wx:key="unique">
           <swiper-item>
-            <image src="{{imageUrl2 + item.pic_src}}" class="slide-image" bindtap="linkUrl" data-link="{{item.link_url}}" />
+            <image src="{{imageUrl2 + item.pic_src}}"  bindtap="linkUrl" data-link="{{item.link_url}}" />
           </swiper-item>
         </block>
       </swiper>
