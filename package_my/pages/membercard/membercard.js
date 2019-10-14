@@ -87,12 +87,12 @@ Page({
       url: 'https://checkservice.juewei.com/payment/wechatMiniCallPayCode',
       success(res) {
         wx.openOfflinePayView({
-          appId: res.data.appId,
-          timeStamp: res.data.timeStamp,
-          nonceStr: res.data.nonceStr,
-          package: res.data.package,
-          signType: res.data.signType,
-          paySign: res.data.paySign,
+          appId: res.data.data.appId,
+          timeStamp: res.data.data.timeStamp,
+          nonceStr: res.data.data.nonceStr,
+          package: res.data.data.package,
+          signType: res.data.data.signType,
+          paySign: res.data.data.paySign,
           success: function(confg) {
             console.log(confg)
           },

@@ -94,7 +94,7 @@ Page({
   // 优惠券
   funGetCouponsList(_sid, money) {
     this.data.couponChoosed = {};
-    couponsList(_sid, 'use', money, wxGet('shop_id')).then((res) => {
+    couponsList(_sid, 'use', money, wxGet('shop_id'),wxGet('userInfo').phone).then((res) => {
       res.DATA.use.forEach(item => {
         item.start_time = formatTime(item.start_time, 'Y-M-D');
         item.end_time = formatTime(item.end_time, 'Y-M-D');

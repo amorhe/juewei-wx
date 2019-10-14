@@ -674,7 +674,7 @@ Page({
               success(conf) {
                 // console.log(conf)
                 add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
-                  if (confs.code == 'A100') {
+                  if (confs.CODE == 'A100') {
                     wx.removeStorageSync('goodsList');
                     reLaunch({
                       url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no

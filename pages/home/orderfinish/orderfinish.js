@@ -30,7 +30,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function(e) {
     const {
       order_no
     } = e
@@ -113,9 +113,9 @@ Page({
     if (new_user == 1) {
       return
     }
-    let res = await ajax('/juewei-api/order/detail', {
+    let res = await ajax({url:'/juewei-api/order/detail', data:{
       order_no
-    })
+    }})
     if (res.code == 0) {
       // console.log(res)
       // 说明是新用户
@@ -172,9 +172,9 @@ Page({
    */
 
   funGetCouponsList() {
-    let res = ajax('/mini/coupons/list', {
+    let res = ajax({url:'/mini/coupons/list', data:{
       get_type: 'new_user'
-    })
+    }})
     if (res.CODE === 'A100') {
       let new_user = res.DATA.new_user
         .map(({

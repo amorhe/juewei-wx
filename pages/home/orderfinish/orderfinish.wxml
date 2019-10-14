@@ -3,12 +3,12 @@
     <image class="successIcon" mode="scaleToFill" src="{{imageUrl}}success.png" />
     <view class="fontThirtyFour">支付成功</view>
   </view>
-  <button size="default" class="checkOrder" hover-class="none" onTap="eveCheckOrder">查看订单</button>
+  <button size="default" class="checkOrder" hover-class="none" bindtap="eveCheckOrder">查看订单</button>
   <view class="adView"></view>
 </view>
 <!-- 百元 礼包券 -->
-<modal show="{{newUserShow}}" showClose="{{ false }}">
-  <view class="wrap" style="background-image:url({{imageUrl}}redBg.png)" onTap="eveClose">
+<view wx:if="{{newUserShow}}" style="background:rgba(0,0,0,.5);width:100vw;height:100vh;position:absolute;left:0;top:0" bindtap="eveClose">
+  <view class="wrap posscc" style="background-image:url({{imageUrl}}redBg.png)">
     <view class="ul" catchTap="">
       <view class="li" style="background-image:url({{imageUrl}}couponBg.png)" wx:for="{{new_user}}" catchTap="eveToTakeIn" wx:key="unique">
         <view class="left">
@@ -28,9 +28,9 @@
       </view>
     </view>
   </view>
-</modal>
-<modal show="{{gifts}}" showClose="{{false}}">
-  <view class="giftsBox">
+</view>
+<view wx:if="{{gifts}}" style="background:rgba(0,0,0,.5);width:100vw;height:100vh;position:absolute;left:0;top:0" bindtap="confirmTap">
+  <view class="giftsBox posscc">
     <image mode="scaleToFill" src="{{imageUrl}}lachine.png" />
     <view class="giftsContent">
       <view class="modal_titles">下单成功</view>
@@ -44,7 +44,7 @@
         <br>下单账户请在我的</br>
         <text class="colorY">“我的卡券-兑换码”</text>里查看
       </view>
-      <button class="confirmBtn" onTap="confirmTap" hover-class="none">确定</button>
+      <button class="confirmBtn" bindtap="confirmTap" hover-class="none">确定</button>
     </view>
   </view>
-</modal>
+</view>

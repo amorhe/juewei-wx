@@ -1,5 +1,5 @@
 <view class="couponUl" wx:if="{{couponList.length> 0}}">
-  <view class="couponLi" style="max-height:{{item.toggleRule?'620':'236'}}rpx" wx:for="{{couponList}}" wx:key="unique" wx:if="{{couponList.length>0}}" bindtap="chooseCouponed" data-coupon_code="{{item.code}}" data-index="{{index}}">
+  <view class="couponLi" style="max-height:{{item.toggleRule?'620':'256'}}rpx" wx:for="{{couponList}}" wx:key="unique" wx:if="{{couponList.length>0}}" bindtap="chooseCouponed" data-coupon_code="{{item.code}}" data-index="{{index}}">
     <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="widthFix" />
     <view>
       <view class="couponNumber">
