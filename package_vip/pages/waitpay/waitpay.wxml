@@ -17,7 +17,7 @@
                 <view class="address-title">
                     <view>{{user_address_name}} {{user_address_phone}}</view>
                     <!--<view class="address-sm">{{province}}{{city}}{{district}}{{user_address_detail_address}}</view> -->
-                    <view class="address-sm">{{user_address_map_addr}}</view>
+                    <view class="address-sm">{{user_address_map_addr || user_address_address || user_address_detail_address}}</view>
                 </view>
                 <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
             </view>

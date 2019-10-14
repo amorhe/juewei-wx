@@ -46,6 +46,7 @@ Page({
     shopList: [],
     user_address_id: '',
     user_address_detail_address: '',
+    user_address_address:'',
     province: '',
     city: '',
     district: '',
@@ -58,7 +59,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(e) {
-    let { order_sn, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address } = e;
+    let { order_sn, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address,user_address_address } = e;
     this.setData({
       order_sn,
       user_address_map_addr,
@@ -68,7 +69,8 @@ Page({
       province,
       city,
       district,
-      user_address_detail_address
+      user_address_detail_address,
+      user_address_address
     });
     region = await getRegion();
     this.getAddressList();
@@ -354,8 +356,8 @@ Page({
         order_sn,
         user_address_name,
         user_address_phone,
-        user_address_id,
-        province, city, district,
+        // user_address_id,
+        // province, city, district,
       };
       let { code, msg } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
