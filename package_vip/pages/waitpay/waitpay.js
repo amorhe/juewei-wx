@@ -46,7 +46,7 @@ Page({
     shopList: [],
     user_address_id: '',
     user_address_detail_address: '',
-    user_address_address:'',
+    user_address_address: '',
     province: '',
     city: '',
     district: '',
@@ -59,8 +59,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(e) {
-    let { order_sn, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address,user_address_address } = e;
+    console.log(e);
+    let { order_sn, shop_id, shop_name, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address, user_address_address } = e;
     this.setData({
+      shop_id, shop_name,
+      address: province + ' ' + city + ' ' + district,
       order_sn,
       user_address_map_addr,
       user_address_id,

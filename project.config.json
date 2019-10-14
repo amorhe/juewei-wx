@@ -155,7 +155,7 @@
 					"id": 14,
 					"name": "VIP兑换详情",
 					"pathName": "package_vip/pages/exchangelist/exchangedetail/exchangedetail",
-					"query": "id=518",
+					"query": "id=524",
 					"scene": null
 				},
 				{
