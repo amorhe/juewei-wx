@@ -60,10 +60,11 @@ Page({
    */
   async onLoad(e) {
     console.log(e);
-    let { order_sn, shop_id, shop_name, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address, user_address_address } = e;
+    let { order_sn, shop_id, shop_name, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address, user_address_address }
+      = e ;
     this.setData({
       shop_id, shop_name,
-      address: province + ' ' + city + ' ' + district,
+      address:( province || '省') + ' ' + (city||'市') + ' ' + (district || '区'),
       order_sn,
       user_address_map_addr,
       user_address_id,
@@ -359,8 +360,8 @@ Page({
         order_sn,
         user_address_name,
         user_address_phone,
-        // user_address_id,
-        // province, city, district,
+        user_address_id,
+        province, city, district,
       };
       let { code, msg } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
