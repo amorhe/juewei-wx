@@ -12,12 +12,12 @@ import {
 import {
   formatTime
 } from '../../../pages/common/js/time'
-import {
-  log,
-  ajax
-} from '../../../pages/common/js/li-ajax'
+
+import Request from "../../../pages/common/js/li-ajax";
+
 import { MODAL } from "../../../pages/common/js/utils";
 import { reLaunch } from "../../../pages/common/js/router";
+
 const app = getApp();
 Page({
 
@@ -29,8 +29,8 @@ Page({
     open1: false,
     codeImg: '',
     tabs: [{
-        title: '优惠券0张'
-      },
+      title: '优惠券0张'
+    },
       {
         title: '兑换码0个'
       },
@@ -45,7 +45,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     const _sid = wxGet('_sid');
     this.funGetCouponsList(_sid);
     this.funGetExchangeCode(_sid);
@@ -58,62 +58,62 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
     this.closeModel()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   // 优惠券
   funGetCouponsList(_sid) {
     couponsList(_sid, 'use').then((res) => {
-      if (res.CODE == "A100"){
-        const { tabs } = this.data
-        tabs[0].title = `优惠券${res.DATA.use.length}张`;
+      if (res.CODE == "A100") {
+        const { tabs } = this.data;
+        tabs[0].title = `优惠券${ res.DATA.use.length }张`;
         res.DATA.use.forEach(item => {
           item.start_time = formatTime(item.start_time, 'Y-M-D');
           item.end_time = formatTime(item.end_time, 'Y-M-D');
           item.toggleRule = false
-        })
+        });
         this.setData({
           couponList: res.DATA.use,
           tabs
@@ -124,12 +124,12 @@ Page({
   // 兑换码
   funGetExchangeCode(_sid) {
     exchangeCode(_sid, 'use').then((res) => {
-      if(res.CODE == "A100"){
+      if (res.CODE == "A100") {
         console.log('exchangeCode');
         const {
           tabs
         } = this.data;
-        tabs[1].title = `兑换码${res.DATA.length}个`;
+        tabs[1].title = `兑换码${ res.DATA.length }个`;
         this.setData({
           exchangeList: res.DATA,
           tabs
@@ -149,7 +149,7 @@ Page({
       gift_id,
       order_id,
       source
-    } = e.currentTarget.dataset
+    } = e.currentTarget.dataset;
     wx.navigateTo({
       url: '/package_my/pages/coupon/changedetails/changedetails?gift_code_id=' + gift_code_id + '&gift_id=' + gift_id + '&order_id=' + order_id + '&source=' + source
     })
@@ -160,9 +160,9 @@ Page({
    */
 
   showCode(e) {
-    let { code } = e.currentTarget.dataset
+    let { code } = e.currentTarget.dataset;
     let _sid = wxGet('_sid');
-    let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code
+    let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code;
     this.setData({
       open2: true,
       codeImg
@@ -184,18 +184,18 @@ Page({
   async toUse(e) {
     const {
       way
-    } = e.currentTarget.dataset
+    } = e.currentTarget.dataset;
     // way:用途 1:外卖专享 2:门店专享 3:全场通用
     switch (way - 0) {
       case 1:
       case 3:
         MODAL({
-          title:'',
-          content:'限时优惠，立即使用',
-          cancelText:'自提',
-          cancel:this.toTakeOut,
-          confirmText:'外卖',
-          confirm:this.toTakeIn
+          title: '',
+          content: '限时优惠，立即使用',
+          cancelText: '自提',
+          cancel: this.toTakeOut,
+          confirmText: '外卖',
+          confirm: this.toTakeIn
         });
         break;
       case 2:
@@ -203,7 +203,6 @@ Page({
         break
     }
   },
-
 
 
   /**
@@ -232,14 +231,15 @@ Page({
    * @function 核销
    */
 
-  wait() {
-    let res = ajax('/juewei-api/order/waiting', {}, 'GET')
+  async wait() {
+    let res = await Request.waiting();
+    console.log(res);
     if (res.code == 0) {
       return this.closeModel()
     }
 
     return wx.showToast({
-      icon:"none",
+      icon: "none",
       title: res.msg,
     });
   },
@@ -254,13 +254,13 @@ Page({
     } = e.currentTarget.dataset;
     let {
       couponList
-    } = this.data
+    } = this.data;
     if (couponList[index].toggleRule) {
       couponList[index].toggleRule = false
     } else {
       couponList.forEach(item => {
         item.toggleRule = false;
-      })
+      });
       couponList[index].toggleRule = true
     }
 
@@ -268,4 +268,4 @@ Page({
       couponList
     })
   }
-})
+});

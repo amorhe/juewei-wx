@@ -18,5 +18,9 @@ export default {
   CancelOrder:{
     url:'/juewei-api/order/cancel',
     method: 'POST',
+  },
+  waiting:{
+    url:'/juewei-api/order/waiting',
+    method:'GET'
   }
 }

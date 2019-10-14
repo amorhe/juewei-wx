@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 14,
 			"list": [
 				{
 					"id": -1,
@@ -155,7 +155,7 @@
 					"id": 14,
 					"name": "VIP兑换详情",
 					"pathName": "package_vip/pages/exchangelist/exchangedetail/exchangedetail",
-					"query": "id=481",
+					"query": "id=524",
 					"scene": null
 				},
 				{

@@ -32,7 +32,8 @@ Page({
     page_size: 10000,
     company_id: 1,
     city_id: 110100,
-    release_channel: 1,
+    release_channel: 2,
+    activity_channel: 2,
 
     cur: 0,
 
@@ -101,7 +102,6 @@ Page({
   },
 
 
-
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -145,12 +145,12 @@ Page({
     const {
       city_id,
       district_id,
-      release_channel
+      release_channel,
     } = this.data;
     const bannerListOption = {
       city_id,
       district_id,
-      release_channel
+      release_channel,
     };
     let res = await Request.reqBanner(bannerListOption);
     if (res.code === 100) {
@@ -285,7 +285,7 @@ Page({
    * @function 跳转详情页面
    */
   FUN_toDetail(e) {
-    const { id, valid_num, exchange_day_num, exchange_day_vaild_num } = e.currentTarget.dataset
+    const { id, valid_num, exchange_day_num, exchange_day_vaild_num } = e.currentTarget.dataset;
     if ((valid_num) == 0 || ((exchange_day_num - 0) > 0 && (exchange_day_vaild_num) == 0)) {
       return
     }

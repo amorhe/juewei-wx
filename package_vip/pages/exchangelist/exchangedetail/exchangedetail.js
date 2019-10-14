@@ -1,7 +1,15 @@
 // package_vip/pages/exchangelist/exchangedetail/exchangedetail.js
 
 import { baseUrl, imageUrl, imageUrl2, wxGet } from '../../../../pages/common/js/baseUrl'
-import { event_getNavHeight, guide, handleCopy, log, MODAL, parseData ,contact} from '../../../../pages/common/js/utils'
+import {
+  event_getNavHeight,
+  guide,
+  handleCopy,
+  log,
+  MODAL,
+  parseData,
+  contact
+} from '../../../../pages/common/js/utils'
 import Request from "../../../../pages/common/js/li-ajax";
 import { navigateBack, navigateTo, reLaunch } from "../../../../pages/common/js/router";
 
@@ -40,7 +48,11 @@ Page({
     this.setData({
       navHeight,
       id
-    }, async () => await this.getOrderDetail(id))
+    }, async () => {
+      await this.getOrderDetail(id);
+      this.eventReduceTime()
+    }
+  )
   },
 
   /**
@@ -54,7 +66,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
-    this.eventReduceTime()
   },
 
   /**
@@ -209,7 +220,7 @@ Page({
    */
 
   async payNow() {
-    let { order_sn, id, order_amount, receive_type, user_address_phone, user_address_name, province, city, district, user_address_id, user_address_detail_address } = this.data.detail;
+    let { order_sn, id,shop_id,shop_name, order_amount, receive_type, user_address_phone, user_address_name, province, city, district, user_address_id, user_address_address } = this.data.detail;
     // 校验订单 地址信息
     // receive_type 发货方式 0 无需发货 1 到店领取 2公司邮寄
     console.log(receive_type, user_address_phone, this.data.detail);
@@ -217,13 +228,15 @@ Page({
       return wx.navigateTo({
         url: '/package_vip/pages/waitpay/waitpay?'
           + 'order_sn=' + order_sn
+          + '&shop_id=' + shop_id
+          + '&shop_name=' + shop_name
           + '&user_address_name=' + user_address_name
           + '&user_address_phone=' + user_address_phone
+          + '&user_address_address=' + user_address_address
           + '&province=' + province
           + '&city=' + city
           + '&district=' + district
           + '&user_address_id=' + user_address_id
-          + '&user_address_detail_address=' + user_address_detail_address
       });
     }
     // 虚拟商品无需发货
@@ -251,7 +264,7 @@ Page({
             }
           });
         } else {
-          return wx.showToast({ icon:"none",title: res.msg });
+          return wx.showToast({ icon: "none", title: res.msg });
         }
         return
       }
@@ -287,12 +300,12 @@ Page({
       case 1:
       case 3:
         MODAL({
-          title:'',
-          content:'限时优惠，立即使用',
-          cancelText:'自提',
-          cancel:this.toTakeOut,
-          confirmText:'外卖',
-          confirm:this.toTakeIn
+          title: '',
+          content: '限时优惠，立即使用',
+          cancelText: '自提',
+          cancel: this.toTakeOut,
+          confirmText: '外卖',
+          confirm: this.toTakeIn
         });
         break;
       case 2:

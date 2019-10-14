@@ -3,7 +3,8 @@ import { imageUrl, imageUrl2, imageUrl3, img_url } from '../../../pages/common/j
 import { contact, guide, handleCopy, log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
 import { reLaunch } from "../../../pages/common/js/router";
-import { payment} from "../../../pages/common/js/home.js"
+import { payment } from "../../../pages/common/js/home.js"
+import { add_lng_lat } from "../../../pages/common/js/home";
 
 const app = getApp();
 
@@ -124,7 +125,7 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh:async function () {
+  onPullDownRefresh: async function () {
     await this.getOrderDetail()
   },
 
@@ -184,9 +185,9 @@ Page({
           { state: '订单已取消', time: cancel_time },
         ];
 
-        timeArr = timeArr.map(({state,time})=>({
+        timeArr = timeArr.map(({ state, time }) => ({
           state,
-          time:time.split(' ')[1]
+          time: time.split(' ')[1]
         }));
         // log(timeArr)
         // data.order_status_info.order_status
@@ -247,9 +248,9 @@ Page({
           { state: '订单已完成', time: dis_finish_time },
           { state: '订单已取消', time: cancel_time },
         ];
-        timeArr = timeArr.map(({state,time})=>({
+        timeArr = timeArr.map(({ state, time }) => ({
           state,
-          time:time.split(' ')[1]
+          time: time.split(' ')[1]
         }));
         log(timeArr);
         // 自提显示数组
@@ -286,13 +287,13 @@ Page({
 
       }
 
-        this.setData({
-          d: res.data,
-          timeArr,
-          curOrderState,
-          dis_type,
-          order_channel: res.data.channel
-        },()=>wx.stopPullDownRefresh())
+      this.setData({
+        d: res.data,
+        timeArr,
+        curOrderState,
+        dis_type,
+        order_channel: res.data.channel
+      }, () => wx.stopPullDownRefresh())
     }
   },
 
@@ -332,7 +333,7 @@ Page({
   showCancel() {
     if (this.data.order_channel == 1) {
       wx.showToast({
-        icon:"none",
+        icon: "none",
         title: '订单不支持跨平台操作，请去相应平台取消订单！'
       });
       return
@@ -375,7 +376,7 @@ Page({
     } else {
       this.closeModel();
       wx.showToast({
-        icon:"none",
+        icon: "none",
         title: res.msg,
         duration: 2000,
       });
@@ -397,7 +398,7 @@ Page({
    * @function 立即支付
    */
   async payNow(e) {
-    const { channel } = this.data.d;
+    const { channel, shop_latitude, shop_longitude, dis_type } = this.data.d;
     if (channel == 1) {
       return
     }
@@ -412,11 +413,11 @@ Page({
         signType: val.data.signType,
         paySign: val.data.paySign,
         success(conf) {
-          // console.log(conf)
-          add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
+          let typeClass = dis_type == 1 ? '2' : '4';
+          add_lng_lat(order_no, typeClass, shop_longitude, shop_latitude).then((conf) => {
             if (confs.code == 'A100') {
               redirectTo({
-                url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no
+                url: '/pages/home/orderfinish/orderfinish?order_no=' + order_no
               });
             }
           })
