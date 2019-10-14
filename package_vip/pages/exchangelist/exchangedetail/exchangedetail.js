@@ -257,10 +257,10 @@ Page({
               });
             },
             fail: res => {
-              log('fail');
-              return wx.redirectTo({
-                url: '../../finish/finish?id=' + id + '&fail=' + true
-              });
+              // log('fail');
+              // return wx.redirectTo({
+              //   url: '../../finish/finish?id=' + id + '&fail=' + true
+              // });
             }
           });
         } else {

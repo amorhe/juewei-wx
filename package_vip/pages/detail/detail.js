@@ -117,7 +117,7 @@ Page({
       return data
     }
     if (code !== 100) {
-      wx.alert({ title: msg });
+      wx.showToast({ title: msg });
       return {}
     }
   },
