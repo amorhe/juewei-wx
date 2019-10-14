@@ -663,7 +663,6 @@ Page({
             })
             app.globalData.coupon_code = '';
             app.globalData.remarks = '';
-            console.log(val)
             // 微信支付
             wx.requestPayment({
               timeStamp: val.data.timeStamp,
@@ -676,7 +675,7 @@ Page({
                 add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
                   if (confs.code == 'A100') {
                     wx.removeStorageSync('goodsList');
-                    redirectTo({
+                    reLaunch({
                       url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no
                     });
                   }
@@ -686,12 +685,12 @@ Page({
                 wx.removeStorageSync('goodsList');
                 if (conf.errMsg.indexOf('cancel') != -1) {
                   // 取消支付
-                  redirectTo({
+                  reLaunch({
                     url: '/package_order/pages/orderdetail/orderdetail?order_no=' + res.data.order_no
                   })
                 } else {
                   // 支付失败
-                  redirectTo({
+                  reLaunch({
                     url: '/pages/home/orderError/orderError'
                   })
                 }
