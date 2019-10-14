@@ -146,13 +146,11 @@ Page({
       city_id,
       district_id,
       release_channel,
-      activity_channel
     } = this.data;
     const bannerListOption = {
       city_id,
       district_id,
       release_channel,
-      activity_channel
     };
     let res = await Request.reqBanner(bannerListOption);
     if (res.code === 100) {
