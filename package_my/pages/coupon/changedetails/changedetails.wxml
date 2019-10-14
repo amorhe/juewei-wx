@@ -1,3 +1,5 @@
+<import src="/utils/wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:content.nodes}}"/>
 <view class="activity_box">
   <view class="activity_wrap">
     <view class="goodsView borderBottom">
@@ -29,19 +31,19 @@
       </view>
       <view>
         <view class="typeFont">使用范围</view>
-        <rich-text nodes="{{exchangeObj.gift_application_store}}"></rich-text>
+         <template is="wxParse" data="{{wxParseData:_store.nodes}}"/>
       </view>
       <view>
         <view class="typeFont">兑换说明</view>
-        <rich-text nodes="{{exchangeObj.gift_exchange_process}}"></rich-text>
+        <template is="wxParse" data="{{wxParseData:_process.nodes}}"/>
       </view>
       <view>
         <view class="typeFont">商品详情</view>
-        <rich-text nodes="{{exchangeObj.gift_desciption}}"></rich-text>
+        <template is="wxParse" data="{{wxParseData:_desciption.nodes}}"/>
       </view>
       <view>
         <view class="typeFont">客服电话</view>
-        <rich-text nodes="{{exchangeObj.gift_service_telephone}}"></rich-text>
+        <template is="wxParse" data="{{wxParseData:_telephone.nodes}}"/>
       </view>
     </view>
     <view class="orderInfos">

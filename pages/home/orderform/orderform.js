@@ -219,7 +219,7 @@ Page({
       })
     }
     if (app.globalData.address_id) {
-      this.funGetAddress(app.globalData.address_id,wxGet('_sid'))
+      this.funGetAddress(app.globalData.address_id, wxGet('_sid'))
     } else {
       this.setData({
         address: false,
@@ -397,8 +397,8 @@ Page({
     })
   },
   // 选择地址
-  funGetAddress(address_id,_sid) {
-    useraddressInfo(address_id,_sid).then((res) => {
+  funGetAddress(address_id, _sid) {
+    useraddressInfo(address_id, _sid).then((res) => {
       if (res.code == 0) {
         this.setData({
           address: true,
@@ -448,7 +448,7 @@ Page({
     if (app.globalData.notUse) {
       notUse = app.globalData.notUse
     }
-    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, this.data.repurseList, notUse, app.globalData.freeId, wxGet('_sid'),2).then((res) => {
+    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, this.data.repurseList, notUse, app.globalData.freeId, wxGet('_sid'), 2).then((res) => {
       // console.log(res)
       let goodsList = wxGet('goodsList');
       if (res.code == 0) {
@@ -469,7 +469,8 @@ Page({
               if (val.goods_type == 'PKG') {
                 val['goods_img'] = img_url + app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.goods_code == val.goods_code)].goods_img[0];
               } else {
-                val['goods_img'] = app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0];
+                console.log(app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0])
+                val['goods_img'] = app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0].indexOf('http://imgcdnjwd.juewei.com/') == -1 ? 'http://imgcdnjwd.juewei.com/'+ app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0] : app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0];
               }
             }
           }
@@ -602,7 +603,7 @@ Page({
     if (app.globalData.type == 1) {
       if (!address_id) {
         wx.showToast({
-          icon:"none",
+          icon: "none",
           title: '请选择收货地址'
         })
         return
@@ -635,7 +636,7 @@ Page({
     if (this.data.orderInfo.use_coupons[0] != undefined) {
       use_coupons = this.data.orderInfo.use_coupons[0]
     }
-    createOrder(app.globalData.type, shop_id, goods, shop_id, 8, remark, '微信小程序', address_id, lng, lat, type, str_gift, use_coupons, notUse, app.globalData.freeId, wxGet('_sid'),2).then((res) => {
+    createOrder(app.globalData.type, shop_id, goods, shop_id, 8, remark, '微信小程序', address_id, lng, lat, type, str_gift, use_coupons, notUse, app.globalData.freeId, wxGet('_sid'), 2).then((res) => {
       if (res.code == 0) {
         if (app.globalData.type == 2 && this.data.orderInfo.real_price == 0) {
           this.setData({
@@ -700,7 +701,7 @@ Page({
         })
       } else {
         wx.showToast({
-          icon:"none",
+          icon: "none",
           title: res.msg,
         })
         this.setData({

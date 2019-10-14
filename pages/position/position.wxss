@@ -15,7 +15,7 @@
 .lead_position {
   width: 48rpx;
   height: 48rpx;
-  margin-bottom: 16rpx;
+  margin: 50rpx 0 16rpx;
 }
 .leadBot {
   text-align: center;

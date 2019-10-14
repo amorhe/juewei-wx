@@ -97,11 +97,10 @@ Page({
   }) {
     exchangedetail(_sid, gift_code_id, gift_id, order_id).then(async(res) => {
       if (res.CODE == 'A100') {
-        res.DATA.gift_application_store = await parseData(res.DATA.gift_application_store);
-        res.DATA.gift_desciption = await parseData(res.DATA.gift_desciption);
-        res.DATA.gift_exchange_process = await parseData(res.DATA.gift_exchange_process)
-        res.DATA.gift_service_telephone = await parseData(res.DATA.gift_service_telephone)
-
+        parseData({ bindName: '_store', html: res.DATA.gift_application_store, target: this });
+        parseData({ bindName: '_desciption', html: res.DATA.gift_desciption, target: this });
+        parseData({ bindName: '_process', html: res.DATA.gift_exchange_process, target: this });
+        parseData({ bindName: '_telephone', html: res.DATA.gift_service_telephone, target: this });
         this.setData({
           exchangeObj: res.DATA
         })

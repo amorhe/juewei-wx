@@ -146,9 +146,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if(options.isSelf){
+    if (options.isSelf) {
       this.setData({
-        isSelf:true
+        isSelf: true
       })
     }
     if (app.globalData && !app.globalData.address && wxGet('appglobalData')) {
@@ -520,7 +520,7 @@ Page({
   },
   // 门店营销活动(折扣和套餐)
   funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
-    activityList(city_id, district_id, company_id, buy_type, user_id, 2).then((res) => {
+    activityList(city_id, district_id, company_id, buy_type, user_id, 2, 2).then((res) => {
       // 获取加价购商品
       if ('MARKUP' in res.data && res.data.MARKUP != null) {
         app.globalData.gifts = res.data.MARKUP.gifts;

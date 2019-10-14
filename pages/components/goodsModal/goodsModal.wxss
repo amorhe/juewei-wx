@@ -5,7 +5,8 @@
   position: fixed;
   left: 95rpx;
   top: 290rpx; 
-  z-index: 1300
+  z-index: 1300;
+  overflow: hidden
 }
 .goodsTop {
   padding: 32rpx;
@@ -19,6 +20,8 @@
   width: 160rpx;
   height: 136rpx;
   margin-right: 24rpx;
+  border: 1px #E7E7E7 solid;
+  border-radius: 4rpx
 }
 .goods_size {
   padding: 0 32rpx 56rpx;

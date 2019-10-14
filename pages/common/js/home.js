@@ -72,13 +72,14 @@ export const MyNearbyShop = (data) => ajax(ajaxUrl.MyNearbyShop, {
   data
 });
 
-export const activityList = (city_id, district_id, company_id, buy_type, user_id, activity_channel) => ajax(ajaxUrl.activityList, {
+export const activityList = (city_id, district_id, company_id, buy_type, user_id, activity_channel, join_way) => ajax(ajaxUrl.activityList, {
   city_id,
   district_id,
   company_id,
   buy_type,
   user_id,
-  activity_channel
+  activity_channel,
+  join_way
 });
 
 export const showPositionList = (city_id, district_id, company_id) => ajax(ajaxUrl.showPositionList, {
