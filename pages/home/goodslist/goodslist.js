@@ -12,11 +12,8 @@ import {
   bannerList,
   showPositionList,
   activityList,
-  GetLbsShop,
-  NearbyShop,
   GetShopGoods,
-  couponsExpire,
-  MyNearbyShop
+  couponsExpire
 } from '../../common/js/home'
 import {
   getuserInfo,

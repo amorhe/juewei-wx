@@ -12,6 +12,8 @@ export const ak = 'pRtqXqnajTytAzWDL3HOnPRK';
 export const geotable_id='134917';
 export const ak_wx = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 
+export const baseUrl1 = 'https://test-saas.juewei.com'
+
 
 //预发布环境
 // export const baseUrl = 'https://proving-wap.juewei.com/api';

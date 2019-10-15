@@ -342,17 +342,17 @@ Page({
     const shopArr1 = [];
     const shopArr2 = [];
     app.globalData.address = address;
-    GetLbsShop(location).then((res) => {
-      if (res.code == 0 && res.data.length > 0) {
+    GetLbsShop(lng, lat).then((res) => {
+      if (res.code == 100 && res.data.shop_list.length > 0) {
         wx.hideLoading();
-        for (let i = 0; i < res.data.length; i++) {
-          const status = cur_dateTime(res.data[i].start_time, res.data[i].end_time);
+        for (let i = 0; i < res.data.shop_list.length; i++) {
+          const status = cur_dateTime(res.data.shop_list[i].start_time, res.data.shop_list[i].end_time);
           app.globalData.isOpen = status
           // 判断是否营业
           if (status == 1 || status == 3) {
-            shopArr1.push(res.data[i]);
+            shopArr1.push(res.data.shop_list[i]);
           } else {
-            shopArr2.push(res.data[i]);
+            shopArr2.push(res.data.shop_list[i]);
           }
         }
 

@@ -50,7 +50,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (options && options.go && options.go!=''){
+    if (options && options.go && options.go != '') {
       console.log(options.go);
       app.globalData.gopages = options.go;
     }
@@ -63,7 +63,7 @@ Page({
             success() {
               that.funGetposition()
             },
-            fail(){
+            fail() {
               // 定位失败
               wx.hideLoading();
               reLaunch({
@@ -71,12 +71,12 @@ Page({
               })
             }
           })
-        }else{
+        } else {
           that.funGetposition()
         }
       }
     })
-    
+
   },
 
   /**
@@ -127,7 +127,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  funGetposition(){
+  funGetposition() {
     wx.removeStorageSync('takeout');
     wx.removeStorageSync('self');
     wx.removeStorageSync('opencity');
@@ -172,15 +172,15 @@ Page({
     const location = `${lng},${lat}`
     const shopArr1 = [];
     const shopArr2 = [];
-    GetLbsShop(location).then((res) => {
-      if (res.code == 0 && res.data.length > 0) {
-        for (let i = 0; i < res.data.length; i++) {
-          const status = cur_dateTime(res.data[i].start_time, res.data[i].end_time);
+    GetLbsShop(lng, lat).then((res) => {
+      if (res.code == 100 && res.data.shop_list.length > 0) {
+        for (let i = 0; i < res.data.shop_list.length; i++) {
+          const status = cur_dateTime(res.data.shop_list[i].start_time, res.data.shop_list[i].end_time);
           // 判断是否营业
           if (status == 1 || status == 3) {
-            shopArr1.push(res.data[i]);
+            shopArr1.push(res.data.shop_list[i]);
           } else {
-            shopArr2.push(res.data[i]);
+            shopArr2.push(res.data.shop_list[i]);
           }
         }
         // 按照goods_num做降序排列
@@ -200,7 +200,7 @@ Page({
         reLaunch({
           url: '/pages/home/goodslist/goodslist'
         });
-      } else if (res.code == 5 || res.data.length == 0) {
+      } else if (res.data.shop_list.length == 0) {
         this.setData({
           content: '您的定位地址无可配送门店',
           confirmButtonText: '去自提',

@@ -1,7 +1,9 @@
 import {
-  baseUrl, wxGet
+  baseUrl,
+  wxGet,
+  baseUrl1
 } from './baseUrl';
-export const ajax = (url, data = {}, method = "POST") => {
+export const ajax = (url, data = {}, method = "POST", others) => {
   let header;
   if (method == "POST") {
     header = {
@@ -15,7 +17,7 @@ export const ajax = (url, data = {}, method = "POST") => {
   // data._sid = wxGet('_sid');
   let promise = new Promise(function(resolve, reject) {
     wx.request({
-      url: baseUrl + url,
+      url: others ? baseUrl1 + url : baseUrl + url,
       header,
       data,
       method,
@@ -36,7 +38,7 @@ export const ajax = (url, data = {}, method = "POST") => {
         } else {
           //提示接口的信息，并且跳错误页
           reject(wx.showToast({
-            icon:"none",
+            icon: "none",
             title: rest.msg,
             success() {
               wx.redirectTo({
@@ -50,7 +52,7 @@ export const ajax = (url, data = {}, method = "POST") => {
         wx.hideLoading();
         reject(wx.showToast({
           title: '网络请求错误',
-          icon:"none",
+          icon: "none",
           success() {
             wx.redirectTo({
               url: '/pages/noNet/noNet', // 需要跳转的应用内非 tabBar 的目标页面路径 ,路径后可以带参数。参数规则如下：路径与参数之间使用

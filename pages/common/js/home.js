@@ -12,7 +12,8 @@ const ajaxUrl = {
   MyNearbyShop: '/juewei-api/shop/MyNearbyShop', // 我的/周边门店
   activityList: '/mini/Mini_activity/wxlist', // 商城页面营销活动
   showPositionList: '/mini/wmindex/wap/show_position/list', // 展位列表
-  GetLbsShop: '/juewei-api/shop/GetLbsShop', // 根据经纬度获取外卖附近门店
+  // GetLbsShop: '/juewei-api/shop/GetLbsShop', // 根据经纬度获取外卖附近门店
+  GetLbsShop: '/wx/mini/shop/get-lbs-shop',
   NearbyShop: '/juewei-api/shop/NearbyShop', // 根据经纬度获取自提附近门店
   GetShopGoods: '/juewei-api/shop/GetShopGoods', // 门店商品列表
   createOrder: '/juewei-api/order/create', // 创建订单
@@ -88,9 +89,13 @@ export const showPositionList = (city_id, district_id, company_id) => ajax(ajaxU
   company_id
 });
 
-export const GetLbsShop = (location) => ajax(ajaxUrl.GetLbsShop, {
-  location
-});
+// export const GetLbsShop = (location) => ajax(ajaxUrl.GetLbsShop, {
+//   location
+// });
+export const GetLbsShop = (longitude, latitude) => ajax(ajaxUrl.GetLbsShop, {
+  longitude,
+  latitude
+},'POST',true);
 
 export const NearbyShop = (data) => ajax(ajaxUrl.NearbyShop, {
   data
@@ -199,14 +204,14 @@ export const getMarkActivity = (company_id, user_id) => ajax(ajaxUrl.getMarkActi
   user_id
 });
 
-export const useraddressInfo = (address_id,_sid) => ajax(ajaxUrl.useraddressInfo, {
+export const useraddressInfo = (address_id, _sid) => ajax(ajaxUrl.useraddressInfo, {
   address_id,
   _sid
 });
 
 export const payment = (order_no) => ajax(ajaxUrl.payment, {
   order_no
-},"GET");
+}, "GET");
 
 
 export const addressList = (_sid, type, location) => ajax(ajaxUrl.addressList, {
