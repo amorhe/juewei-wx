@@ -69,7 +69,9 @@ Page({
       user_address_name,
       user_address_phone,
       user_address_detail_address,
-      user_address_address
+      user_address_address,
+      province, city, district,
+      user_address_id
     });
     region = await getRegion();
     this.getAddressList();
@@ -153,9 +155,11 @@ Page({
     if (code === 100) {
       this.setData({
         d: { _order_sn, limit_pay_minute, limit_pay_second, ...rest },
-        province, city, district,
+        province: province || this.data.province,
+        city: city || this.data.city,
+        district: district || this.data.district,
         address: (province || '省') + ' ' + (city || '市') + ' ' + (district || '区'),
-        user_address_id
+        user_address_id: user_address_id || this.data.user_address_id
       });
     }
   },
