@@ -66,7 +66,6 @@ Page({
       shop_id, shop_name,
       order_sn,
       user_address_map_addr,
-      user_address_id,
       user_address_name,
       user_address_phone,
       user_address_detail_address,
@@ -146,12 +145,17 @@ Page({
    */
   async getOrderInfo(order_sn) {
     let { showSelectAddress, a } = this.data;
-    let { code, data: { order_sn: _order_sn, limit_pay_minute, limit_pay_second, province, city, district, ...rest } } = await Request.reqOrderInfo({ order_sn });
+    let {
+      code, data: {
+        order_sn: _order_sn, limit_pay_minute, limit_pay_second, province, city, user_address_id, district, ...rest
+      }
+    } = await Request.reqOrderInfo({ order_sn });
     if (code === 100) {
       this.setData({
         d: { _order_sn, limit_pay_minute, limit_pay_second, ...rest },
         province, city, district,
         address: (province || '省') + ' ' + (city || '市') + ' ' + (district || '区'),
+        user_address_id
       });
     }
   },
@@ -406,11 +410,10 @@ Page({
     if (d.receive_type == 2) {
       if (!order_sn ||
         !user_address_name ||
-        !user_address_phone
-      // ||
-      // !province ||
-      // !city ||
-      // !district
+        !user_address_phone ||
+        !province ||
+        !city ||
+        !district
       ) {
         return
       }
