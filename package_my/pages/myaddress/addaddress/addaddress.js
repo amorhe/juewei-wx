@@ -399,6 +399,14 @@ Page({
       });
       return
     }
+    if (this.data.shop_id == '') {
+      wx.showToast({
+        icon: 'none',
+        title: '当前地址周边无可配送门店',
+        duration: 1000
+      });
+      return
+    }
     if (this.data.clickadd) {
       return
     }
