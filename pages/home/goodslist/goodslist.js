@@ -692,6 +692,7 @@ Page({
               priceAll = 0;
               repurse_price = 0
             };
+            console.log(goodsList)
             // 判断购物车商品是否在当前门店里
             for (let val in goodsList) {
               if (goodsList[val].goods_discount) {
@@ -715,7 +716,7 @@ Page({
                     if (app.globalData.PKG != null) {
                       for (let ott of app.globalData.PKG) {
                         for (let fn of ott.goods_format) {
-                          if (val == `${fn.goods_activity_code}_${fn.type}`) {
+                          if (val == `${fn.goods_activity_code}_${fn.type != undefined ? fn.type:''}`) {
                             shopcartObj[val] = goodsList[val];
                             // 判断购物车商品价格更新
                             if (goodsList[val].goods_price != fn.goods_price) {
@@ -779,7 +780,7 @@ Page({
               priceFree,
               repurse_price
             })
-            // console.log(shopcartObj)
+            console.log(shopcartObj)
             wxSet('goodsList', shopcartObj);
           })
           // 获取商品模块的节点
@@ -882,7 +883,6 @@ Page({
       shopcartNum = 0,
       priceFree = 0,
       repurse_price = 0;
-    console.log(goodlist)
     for (let keys in goodlist) {
       if (e.currentTarget.dataset.goods_discount) {
         if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {

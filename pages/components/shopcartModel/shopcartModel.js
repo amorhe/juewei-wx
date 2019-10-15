@@ -339,7 +339,7 @@ Component({
             // 套餐
             for (let ott of PKG) {
               for (let fn of ott.goods_format) {
-                if (val == `${fn.goods_activity_code}_${fn.type}`) {
+                if (val == `${fn.goods_activity_code}_${fn.type != undefined ? fn.type:''}`) {
                   shopcartObj[val] = goodsList[val];
                   // 判断购物车商品价格更新
                   if (parseInt(goodsList[val].goods_price) != parseInt(fn.goods_price)) {

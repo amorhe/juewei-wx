@@ -1,8 +1,8 @@
 <wxs module="m1">
-  var numberToFix= function (value) {
+  var numberToFix = function(value) {
     return value.toFixed(2)
   }
- module.exports.numberToFix=numberToFix;
+  module.exports.numberToFix = numberToFix;
 </wxs>
 <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type!='PKG'}}" src="{{goodsInfo.goods_img_detail[0]}}" />
 <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type=='PKG'}}" src="{{img_url + goodsInfo.goods_img[0]}}" />
@@ -35,36 +35,39 @@
       <!-- 无sku -->
       <view wx:if="{{goodsInfo.goods_format.length==1}}" class="goodsNumber">
         <!-- 折扣套餐 -->
-        <view wx:if="{{(!shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + goodsInfo.goods_format[0].type]||shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum==0) && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}"
-          class="fontTwentySix addShopcart" bindtap="addshopcart" catchtap="addshopcart" data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_format[0].goods_activity_code}}" data-goods_format="{{goodsInfo.goods_format[0].type}}" data-goods_price="{{goodsInfo.goods_format[0].goods_price / 100}}"
-          data-goods_img="{{goodsInfo.goods_small_img[0]}}" data-goods_name="{{goodsInfo.goods_name}}" data-taste_name="{{goodsInfo.taste_name}}" data-sap_code="{{goodsInfo.sap_code}}" data-goods_discount="{{goodsInfo.goods_format[0].goods_discount}}" data-goods_unit="{{goodsInfo.goods_unit}}"
-          data-goods_discount_user_limit="{{goodsInfo.goods_format[0].goods_discount_user_limit}}" data-goods_order_limit="{{goodsInfo.goods_format[0].goods_order_limit}}" data-goods_original_price="{{goodsInfo.goods_format[0].goods_original_price / 100}}"
+        <view wx:if="{{(!shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:''] || shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum==0) && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}"
+          class="fontTwentySix addShopcart" bindtap="addshopcart" catchtap="addshopcart" data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_format[0].goods_activity_code}}" data-goods_format="{{goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:''}}"
+          data-goods_price="{{goodsInfo.goods_format[0].goods_price / 100}}" data-goods_img="{{goodsInfo.goods_small_img[0]}}" data-goods_name="{{goodsInfo.goods_name}}" data-taste_name="{{goodsInfo.taste_name}}" data-sap_code="{{goodsInfo.sap_code}}" data-goods_discount="{{goodsInfo.goods_format[0].goods_discount}}"
+          data-goods_unit="{{goodsInfo.goods_unit}}" data-goods_discount_user_limit="{{goodsInfo.goods_format[0].goods_discount_user_limit}}" data-goods_order_limit="{{goodsInfo.goods_format[0].goods_order_limit}}" data-goods_original_price="{{goodsInfo.goods_format[0].goods_original_price / 100}}"
           data-goods_activity_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}">加入购物车</view>
         <!-- 非折扣套餐 -->
-        <view wx:if="{{(!shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type]||shopcartList[oodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum==0) && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}"
-          class="fontTwentySix addShopcart" bindtap="addshopcart" catchtap="addshopcart" data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}" data-goods_format="{{goodsInfo.goods_format[0].type}}"
+        <view wx:if="{{(!shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')] || shopcartList[oodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum==0) && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}"
+          class="fontTwentySix addShopcart" bindtap="addshopcart" catchtap="addshopcart" data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}" data-goods_format="{{goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:''}}"
           data-goods_price="{{goodsInfo.goods_format[0].goods_price / 100}}" data-goods_img="{{goodsInfo.goods_small_img[0]}}" data-goods_name="{{goodsInfo.goods_name}}" data-taste_name="{{goodsInfo.taste_name}}" data-sap_code="{{goodsInfo.sap_code}}" data-goods_unit="{{goodsInfo.goods_unit}}">加入购物车</view>
         <!-- 减 -->
-        <image wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}" src="{{imageUrl}}goods_reduce.png" bindtap="reduceshopcart"
-          data-goods_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}" data-goods_format="{{goodsInfo.goods_format[0].type}}" data-goods_discount="{{goodsInfo.goods_discount}}" />
+        <image wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}"
+          src="{{imageUrl}}goods_reduce.png" bindtap="reduceshopcart" data-goods_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}" data-goods_format="{{goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:''}}"
+          data-goods_discount="{{goodsInfo.goods_discount}}" />
         <!-- 折扣套餐 -->
-        <image wx:if="{{shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}" src="{{imageUrl}}goods_reduce.png" bindtap="reduceshopcart" data-goods_code="{{goodsInfo.goods_format[0].goods_activity_code}}"
-          data-goods_format="{{goodsInfo.goods_format[0].type}}" data-goods_discount="{{goodsInfo.goods_discount}}" />
+        <image wx:if="{{shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}" src="{{imageUrl}}goods_reduce.png"
+          bindtap="reduceshopcart" data-goods_code="{{goodsInfo.goods_format[0].goods_activity_code}}" data-goods_format="{{goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:''}}" data-goods_discount="{{goodsInfo.goods_discount}}"
+        />
         <!-- 非折扣套餐 -->
-        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}">{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].num}}</text>
+        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}">{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].num}}</text>
         <!-- 折扣套餐 -->
-        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}">{{shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + goodsInfo.goods_format[0].type].num}}</text>
+        <text wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}">{{shopcartList[goodsInfo.goods_format[0].goods_activity_code + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].num}}</text>
         <!-- 加 -->
         <!-- 非折扣套餐 -->
-        <image wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}" src="{{imageUrl}}goods_add.png" bindtap="addshopcart"
-          data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}" data-goods_format="{{goodsInfo.goods_format[0].type}}" data-goods_price="{{goodsInfo.goods_format[0].goods_price / 100}}"
-          data-goods_img="{{goodsInfo.goods_small_img[0]}}" data-goods_name="{{goodsInfo.goods_name}}" data-taste_name="{{goodsInfo.taste_name}}" data-sap_code="{{goodsInfo.sap_code}}" data-goods_unit="{{goodsInfo.goods_unit}}" />
-        <!-- 折扣套餐 -->
-        <image wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + goodsInfo.goods_format[0].type].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}" src="{{imageUrl}}goods_add.png" bindtap="addshopcart"
-          data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_format[0].goods_activity_code}}" data-goods_format="{{goodsInfo.goods_format[0].type}}" data-goods_price="{{goodsInfo.goods_format[0].goods_price / 100}}" data-goods_img="{{goodsInfo.goods_small_img[0]}}"
-          data-goods_name="{{goodsInfo.goods_name}}" data-taste_name="{{goodsInfo.taste_name}}" data-sap_code="{{goodsInfo.sap_code}}" data-goods_discount="{{goodsInfo.goods_format[0].goods_discount}}" data-goods_unit="{{goodsInfo.goods_unit}}" data-goods_discount_user_limit="{{goodsInfo.goods_format[0].goods_discount_user_limit}}"
-          data-goods_original_price="{{goodsInfo.goods_format[0].goods_original_price /100}}" data-goods_activity_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}" data-goods_order_limit="{{goodsInfo.goods_format[0].goods_order_limit}}"
+        <image wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum>0 && (goodsInfo.key!='折扣' && goodsInfo.key!='套餐')}}"
+          src="{{imageUrl}}goods_add.png" bindtap="addshopcart" data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}" data-goods_format="{{goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:''}}"
+          data-goods_price="{{goodsInfo.goods_format[0].goods_price / 100}}" data-goods_img="{{goodsInfo.goods_small_img[0]}}" data-goods_name="{{goodsInfo.goods_name}}" data-taste_name="{{goodsInfo.taste_name}}" data-sap_code="{{goodsInfo.sap_code}}" data-goods_unit="{{goodsInfo.goods_unit}}"
         />
+        <!-- 折扣套餐 -->
+        <image wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum>0 && (goodsInfo.key=='折扣' || goodsInfo.key=='套餐')}}"
+          src="{{imageUrl}}goods_add.png" bindtap="addshopcart" data-key="{{goodsInfo.key}}" data-goods_code="{{goodsInfo.goods_format[0].goods_activity_code}}" data-goods_format="{{goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:''}}"
+          data-goods_price="{{goodsInfo.goods_format[0].goods_price / 100}}" data-goods_img="{{goodsInfo.goods_small_img[0]}}" data-goods_name="{{goodsInfo.goods_name}}" data-taste_name="{{goodsInfo.taste_name}}" data-sap_code="{{goodsInfo.sap_code}}" data-goods_discount="{{goodsInfo.goods_format[0].goods_discount}}"
+          data-goods_unit="{{goodsInfo.goods_unit}}" data-goods_discount_user_limit="{{goodsInfo.goods_format[0].goods_discount_user_limit}}" data-goods_original_price="{{goodsInfo.goods_format[0].goods_original_price /100}}" data-goods_activity_code="{{goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id}}"
+          data-goods_order_limit="{{goodsInfo.goods_format[0].goods_order_limit}}" />
       </view>
       <!-- sku商品 -->
       <view class="fontTwentySix addShopcart" wx:if="{{goodsInfo.goods_format.length>1}}" bindtap="eveChooseSizeTap" data-item="{{goodsInfo}}">加入购物车</view>
@@ -189,6 +192,7 @@
 </view>
 <view style="height:100rpx;background:transparent"></view>
 <!-- 购物车 -->
-<shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart" class="e1"/>
+<shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart"
+  class="e1" />
 <!-- 加入购物车选择商品规格 -->
-<goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"/>
+<goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" />
