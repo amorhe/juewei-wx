@@ -837,7 +837,7 @@ Page({
     let goods_car = {};
     let goods_code = e.currentTarget.dataset.goods_code;
     // let goods_format = e.currentTarget.dataset.goods_format;
-    let goods_format = e.currentTarget.dataset.goods_format != undefined ? e.currentTarget.dataset.goods_format : '';
+    let goods_format = e.currentTarget.dataset.goods_format;
     let goodlist = wxGet('goodsList') || {};
     if (goodlist[`${goods_code}_${goods_format}`]) {
       goodlist[`${goods_code}_${goods_format}`].num += 1;
@@ -882,9 +882,10 @@ Page({
       shopcartNum = 0,
       priceFree = 0,
       repurse_price = 0;
+    console.log(goodlist)
     for (let keys in goodlist) {
       if (e.currentTarget.dataset.goods_discount) {
-        if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${e.currentTarget.dataset.goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
+        if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           wx.showToast({
             title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`,
             icon: 'none'
@@ -934,7 +935,7 @@ Page({
   },
   eveReduceshopcart(e) {
     let code = e.currentTarget.dataset.goods_code;
-    let format = e.currentTarget.dataset.goods_format
+    let format = e.currentTarget.dataset.goods_format;
     let goodlist = wxGet('goodsList') || {};
     let shopcartAll = [],
       priceAll = 0,

@@ -21,7 +21,7 @@
       <swiper indicator-dots="{{imgUrls.length>1?true:false}}" autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" indicator-active-color="#E60012" indicator-color="#E8E8E8">
         <block wx:for="{{imgUrls}}" wx:key="unique">
           <swiper-item>
-            <image src="{{imageUrl2 + item.pic_src}}"  bindtap="linkUrl" data-link="{{item.link_url}}" />
+            <image src="{{imageUrl2 + item.pic_src}}" bindtap="linkUrl" data-link="{{item.link_url}}" />
           </swiper-item>
         </block>
       </swiper>
@@ -211,23 +211,23 @@
                   <view class="goodsNumber" wx:if="{{v.goods_format.length==1}}">
                     <!-- 减 -->
                     <!-- 折扣套餐 -->
-                    <image wx:if="{{shopcartList[v.goods_format[0].goods_activity_code + '_' + v.goods_format[0].type].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}"
-                      data-goods_format="{{v.goods_format[0].type}}" data-goods_activity_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" />
+                    <image wx:if="{{shopcartList[v.goods_format[0].goods_activity_code + '_' + (v.goods_format[0].type!=undefined?v.goods_format[0].type:'')].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart"
+                      data-goods_code="{{v.goods_format[0].goods_activity_code}}" data-goods_format="{{v.goods_format[0].type!=undefined?v.goods_format[0].type:''}}" data-goods_activity_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" />
                     <!-- 爆款 -->
-                    <image wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && item.key=='爆款'}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
-                      data-goods_format="{{v.goods_format[0].type}}" />
+                    <image wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + (v.goods_format[0].type!=undefined?v.goods_format[0].type:'')].sumnum>0 && item.key=='爆款'}}" src="{{imageUrl}}goods_reduce.png" catchtap="eveReduceshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
+                      data-goods_format="{{v.goods_format[0].type!=undefined?v.goods_format[0].type:''}}" />
                     <!-- 爆款 -->
-                    <text wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].sumnum>0 && item.key=='爆款'}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + v.goods_format[0].type].num}}</text>
+                    <text wx:if="{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + (v.goods_format[0].type!=undefined?v.goods_format[0].type:'')].sumnum>0 && item.key=='爆款'}}">{{shopcartList[v.goods_channel + v.goods_type + v.company_goods_id + '_' + (v.goods_format[0].type!=undefined?v.goods_format[0].type:'')].num}}</text>
                     <!-- 折扣套餐 -->
-                    <text wx:if="{{shopcartList[v.goods_format[0].goods_activity_code + '_' + v.goods_format[0].type].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}">{{shopcartList[v.goods_format[0].goods_activity_code + '_' + v.goods_format[0].type].num}}</text>
+                    <text wx:if="{{shopcartList[v.goods_format[0].goods_activity_code + '_' + (v.goods_format[0].type!=undefined?v.goods_format[0].type:'')].sumnum>0 && (item.key=='折扣' || item.key=='套餐')}}">{{shopcartList[v.goods_format[0].goods_activity_code + '_' + (v.goods_format[0].type!=undefined?v.goods_format[0].type:'')].num}}</text>
                     <!-- 加 -->
                     <!-- 折扣套餐 -->
-                    <image wx:if="{{item.key=='折扣' || item.key=='套餐'}}" src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
-                      data-goods_img="{{item.key=='套餐'?imageUrl2 + v.goods_img[0]:v.goods_img[0]}}" data-goods_name="{{v.goods_name}}" data-taste_name="{{v.taste_name?v.taste_name:''}}" data-goods_activity_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
+                    <image wx:if="{{item.key=='折扣' || item.key=='套餐'}}" src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{v.goods_format[0].goods_activity_code}}" data-goods_format="{{v.goods_format[0].type==undefined?'':v.goods_format[0].type}}"
+                      data-goods_price="{{v.goods_format[0].goods_price / 100}}" data-goods_img="{{item.key=='套餐'?imageUrl2 + v.goods_img[0]:v.goods_img[0]}}" data-goods_name="{{v.goods_name}}" data-taste_name="{{v.taste_name?v.taste_name:''}}" data-goods_activity_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}"
                       data-goods_discount="{{v.goods_format[0].goods_discount}}" data-goods_original_price="{{v.goods_format[0].goods_original_price}}" data-goods_discount_user_limit="{{v.goods_format[0].goods_discount_user_limit}}" data-goods_order_limit="{{v.goods_format[0].goods_order_limit}}"
                       data-key="{{item.key}}" data-sap_code="{{v.sap_code}}" data-huangou="{{v.huangou}}" data-goods_unit="{{v.goods_unit}}" />
                     <!-- 爆款 -->
-                    <image wx:if="{{item.key=='爆款'}}" src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" data-goods_format="{{v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
+                    <image wx:if="{{item.key=='爆款'}}" src="{{imageUrl}}goods_add.png" catchtap="eveAddshopcart" data-goods_code="{{v.goods_channel + v.goods_type + v.company_goods_id}}" data-goods_format="{{v.goods_format[0].type==undefined?'':v.goods_format[0].type}}" data-goods_price="{{v.goods_format[0].goods_price / 100}}"
                       data-goods_img="{{v.goods_img[0]}}" data-goods_name="{{v.goods_name}}" data-taste_name="{{v.taste_name?v.taste_name:''}}" data-goods_unit="{{v.goods_unit}}" />
                   </view>
                   <view class="goodsSize" data-item="{{item}}" data-key="{{item.key}}" data-type="{{index}}" data-index="{{i}}" catchtap="eveChooseSizeTap" wx:if="{{v.goods_format.length>1}}">
