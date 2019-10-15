@@ -185,7 +185,7 @@ Page({
         wx.hideLoading();
         wx.showToast({
           icon: 'none',
-          title: '短信发送失败',
+          title: res.msg,
         })
       }
     }

@@ -95,47 +95,25 @@ Page({
       goodlist = [];
     for (let key in goodsList) {
       if (goodsList[key].goods_discount) {
-        if (key.indexOf('PKG') == -1) {
-          if (goodsList[key].num > goodsList[key].goods_order_limit) {
-            // 非折扣部分
-            obj1['goods_price'] = goodsList[key].goods_original_price;
-            obj1['goods_quantity'] = goodsList[key].num - goodsList[key].goods_order_limit;
-            obj1['goods_code'] = goodsList[key].goods_activity_code;
-            obj1['goods_format'] = goodsList[key].goods_format;
-            //  折扣部分
-            obj2['goods_price'] = goodsList[key].goods_price;
-            obj2['goods_quantity'] = goodsList[key].goods_order_limit;
-            obj2['goods_code'] = goodsList[key].goods_code;
-            obj2['goods_format'] = goodsList[key].goods_format;
-            goodlist.push(obj1, obj2);
-          } else {
-            obj4['goods_price'] = goodsList[key].goods_price;
-            obj4['goods_quantity'] = goodsList[key].num;
-            obj4['goods_code'] = goodsList[key].goods_code;
-            obj4['goods_format'] = goodsList[key].goods_format;
-            goodlist.push(obj4);
-          }
+        if (goodsList[key].num > goodsList[key].goods_order_limit) {
+          goodlist.push({
+            goods_price: goodsList[key].goods_price,
+            goods_quantity: goodsList[key].goods_order_limit,
+            goods_code: goodsList[key].goods_code,
+            goods_format: goodsList[key].goods_format
+          }, {
+              goods_price: goodsList[key].goods_original_price,
+              goods_quantity: goodsList[key].goodsList[key].num - goodsList[key].goods_order_limit,
+              goods_code: goodsList[key].goods_activity_code,
+              goods_format: goodsList[key].goods_format
+            });
         } else {
-          // 套餐
-          if (goodsList[key].num > goodsList[key].goods_order_limit) {
-            // 非折扣部分
-            obj5['goods_price'] = goodsList[key].goods_original_price;
-            obj5['goods_quantity'] = goodsList[key].num - goodsList[key].goods_order_limit;
-            obj5['goods_code'] = goodsList[key].goods_activity_code;
-            obj5['goods_format'] = goodsList[key].goods_format;
-            // 折扣部分
-            obj3['goods_price'] = goodsList[key].goods_price;
-            obj3['goods_quantity'] = goodsList[key].goods_order_limit;
-            obj3['goods_code'] = goodsList[key].goods_code;
-            obj3['goods_format'] = goodsList[key].goods_format;
-            goodlist.push(obj3, obj5)
-          } else {
-            obj6['goods_price'] = goodsList[key].goods_price;
-            obj6['goods_quantity'] = goodsList[key].num;
-            obj6['goods_code'] = goodsList[key].goods_code;
-            obj6['goods_format'] = goodsList[key].goods_format;
-            goodlist.push(obj6);
-          }
+          goodlist.push({
+            goods_price: goodsList[key].goods_price,
+            goods_quantity: goodsList[key].num,
+            goods_code: goodsList[key].goods_code,
+            goods_format: goodsList[key].goods_format
+          });
         }
       } else {
         //  普通商品
@@ -144,6 +122,7 @@ Page({
       }
     }
     const self = app.globalData.shopTakeOut;
+    console.log(goodlist)
     this.setData({
       goodsList: goodlist,
       shopObj: self
@@ -470,7 +449,7 @@ Page({
                 val['goods_img'] = img_url + app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.goods_code == val.goods_code)].goods_img[0];
               } else {
                 console.log(app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0])
-                val['goods_img'] = app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0].indexOf('http://imgcdnjwd.juewei.com/') == -1 ? 'http://imgcdnjwd.juewei.com/'+ app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0] : app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0];
+                val['goods_img'] = app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0].indexOf('http://imgcdnjwd.juewei.com/') == -1 ? 'http://imgcdnjwd.juewei.com/' + app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0] : app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0];
               }
             }
           }
