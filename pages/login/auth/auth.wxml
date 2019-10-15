@@ -15,17 +15,19 @@
 <view class="bottomTitle">登录代表你已同意
   <text class="xyClass" bindtap="toUrl" data-url='/pages/login/protocol/protocol'>《绝味注册协议及用户服务条款》</text>
 </view>
-<modal show="{{modalOpened}}" showClose="{{ false }}">
-  <view slot="header">请输入图形验证码</view>
-  <view class="modelBody">
-    <view class="modelInput">
-      <input placeholder="请按右图输入" value="{{img_code}}" onInput="getcodeImg" />
-    </view>
-    <view class="imgCode">
-      <image class="imgCodeIcon" src="{{ imgUrl }}" bindtap="newImg" />
-    </view>
-  </view>
+<view class="modalCode" wx:if="{{modalOpened}}" bindtap="onModalClose">
   <view>
-    <view class="addButton addButtonTrue" bindtap="getImgcodeFn">提交</view>
+    <view class="headers">请输入图形验证码</view>
+    <view class="modelBody">
+      <view class="modelInput">
+        <input placeholder="请按右图输入" value="{{img_code}}" bindinput="getcodeImg" />
+      </view>
+      <view class="imgCode">
+        <image class="imgCodeIcon" src="{{ imgUrl }}" bindtap="newImg" />
+      </view>
+    </view>
+    <view>
+      <view class="addButton addButtonTrue" bindtap="getImgcodeFn">提交</view>
+    </view>
   </view>
-</modal>
+</view>
