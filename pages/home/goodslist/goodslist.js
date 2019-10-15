@@ -366,37 +366,37 @@ Page({
   },
   funGotopage() {
     // 自定义跳转页面
-    let topage = (app.globalData.page || wxGet('query') || '');
-    app.globalData.page = null; //删除
+    let topage = (app.globalData.gopages || wxGet('query') || '');
+    app.globalData.gopages = ''; //删除
     wx.removeStorageSync('query'); //删除
     if (topage != '') {
       switch (topage) {
-        //会员
+        //商城首页
         case '/pages/home/goodslist/goodslist':
           //就是当前页不用跳转任何
           break;
           //会员
         case '/pages/vip/index/index':
-          redirectTo({
+          wx.reLaunch({
             url: topage
           });
           break;
           // 订单
         case '/pages/order/list/list':
-          redirectTo({
+          wx.reLaunch({
             url: topage
           });
           break;
           // 个人中心
         case '/pages/my/index/index':
-          redirectTo({
-            url: topage
+          wx.reLaunch({
+            url: '/pages/my/index/index'
           });
           break;
           // 优惠券
         case '/package_my/pages/coupon/coupon':
           setTimeout(function() {
-            navigateTo({
+            wx.navigateTo({
               url: topage
             });
           }, 200)
@@ -404,7 +404,7 @@ Page({
           // 会员卡
         case '/package_my/pages/membercard/membercard':
           setTimeout(function() {
-            navigateTo({
+            wx.navigateTo({
               url: topage
             });
           }, 200)
@@ -412,17 +412,17 @@ Page({
           //  附近门店
         case '/package_my/pages/nearshop/nearshop':
           setTimeout(function() {
-            navigateTo({
-              url: topage
-            });
-          }, 500)
-          break;
-        default:
-          setTimeout(function() {
-            navigateTo({
+            wx.navigateTo({
               url: topage
             });
           }, 200)
+          break;
+        default:
+          setTimeout(function() {
+            wx.navigateTo({
+              url: topage
+            });
+          },200)
           break;
       }
     }
