@@ -408,10 +408,11 @@ Page({
     if (d.receive_type == 2) {
       if (!order_sn ||
         !user_address_name ||
-        !user_address_phone ||
-        !province ||
-        !city ||
-        !district
+        !user_address_phone 
+        // ||
+        // !province ||
+        // !city ||
+        // !district
       ) {
         return
       }

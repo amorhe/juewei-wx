@@ -419,7 +419,7 @@ Page({
             wx.navigateTo({
               url: topage
             });
-          },200)
+          }, 200)
           break;
       }
     }
@@ -835,8 +835,9 @@ Page({
   // 加入购物车
   eveAddshopcart(e) {
     let goods_car = {};
-    let goods_code = e.currentTarget.dataset.goods_code;;
-    let goods_format = e.currentTarget.dataset.goods_format;
+    let goods_code = e.currentTarget.dataset.goods_code;
+    // let goods_format = e.currentTarget.dataset.goods_format;
+    let goods_format = e.currentTarget.dataset.goods_format != undefined ? e.currentTarget.dataset.goods_format : '';
     let goodlist = wxGet('goodsList') || {};
     if (goodlist[`${goods_code}_${goods_format}`]) {
       goodlist[`${goods_code}_${goods_format}`].num += 1;
