@@ -181,7 +181,7 @@
           <view id="s{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
             <view class="goodsTypeEv">{{item.key}}</view>
             <!-- 折扣套餐爆款 -->
-            <view class="goodsBox" wx:for="{{item.last}}" wx:key="unique" wx:for-index="i" wx:for-item="v" catchtap="eveGoodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_code}}" data-goods_id="{{v.goods_id}}" data-shop_id="{{v}}" data-key="{{item.key}}"
+            <view class="goodsBox" wx:for="{{item.last}}" wx:key="unique" wx:for-index="i" wx:for-item="v" catchtap="eveGoodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_format[0].goods_activity_code || (v.goods_channel + v.goods_type + v.company_goods_id)}}" data-goods_id="{{v.goods_id}}" data-shop_id="{{v}}" data-key="{{item.key}}"
               wx:if="{{item.key=='套餐'||item.key=='爆款'||item.key=='折扣'}}">
               <view class="discountImg">
                 <image wx:if="{{item.key=='折扣'}}" class="discountPng" src="{{imageUrl}}discount_img.png" />

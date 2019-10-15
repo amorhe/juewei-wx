@@ -11,7 +11,8 @@
   border-radius:32rpx;
   text-align: center;
   line-height: 52rpx;
-  color: #fff
+  color: #fff;
+  position: relative
 }
 .activeFont {
   font-weight: 600;
@@ -176,4 +177,17 @@
   bottom: 0;
   position: fixed;
   z-index: 1003;
+}
+
+.countTotal {
+  width: 29rpx;
+  height: 29rpx;
+  background: linear-gradient(135deg, rgba(253, 235, 113, 1) 0%, rgba(248, 216, 0, 1) 100%);
+  text-align: center;
+  line-height: 29rpx;
+  position: absolute;
+  border-radius: 50%;
+  right: 0;
+  top: -8rpx;
+  font-size: 20rpx;
 }
