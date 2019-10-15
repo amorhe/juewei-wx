@@ -50,6 +50,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (options && options.go && options.go!=''){
+      console.log(options.go);
+      app.globalData.gopages = options.go;
+    }
     let that = this;
     wx.getSetting({
       success(res) {
@@ -213,7 +217,7 @@ Page({
     const location = `${lng},${lat}`
     const str = new Date().getTime();
     wx.request({
-      url: `https://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${lng}%2C${lat}&ak=${ak}&radius=3000&sortby=distance%3A1&_=1504837396593&page_index=0&page_size=50&_=${str}`,
+      url: `https://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${lng}%2C${lat}&ak=${ak}&radius=3000&sortby=distance%3A1&page_index=0&page_size=50&_=${str}`,
       success: (res) => {
         // 3公里有门店
         if (res.data.contents && res.data.contents.length > 0) {
@@ -221,7 +225,7 @@ Page({
         } else {
           // 没有扩大搜索范围到1000000公里
           wx.request({
-            url: `https://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${lng}%2C${lat}&ak=${ak}&radius=1000000000&sortby=distance%3A1&_=1504837396593&page_index=0&page_size=50&_=${str}`,
+            url: `https://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${lng}%2C${lat}&ak=${ak}&radius=1000000000&sortby=distance%3A1&page_index=0&page_size=50&_=${str}`,
             success: (conf) => {
               if (conf.data.contents.length > 0) {
                 this.funGetSelf(conf.data.contents)

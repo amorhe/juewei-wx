@@ -395,7 +395,6 @@ page {
 .code-img {
     width: 380rpx;
     height: 380rpx;
-    background: red;
     padding: 24rpx;
     margin: 24rpx;
 }

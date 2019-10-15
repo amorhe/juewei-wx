@@ -19,13 +19,13 @@
 
  
 ####正式环境
-    AppID(小程序ID)：
+    AppID(小程序ID)：   wx48d6e365fcea9989
     AppSecret(小程序密钥)：
     接口：              https://wap.juewei.com/api/
     小图标cdn路径：      https://wap.juewei.com/m/wx-mini/image/
     商品图片和json文件： https://imgcdnjwd.juewei.com/static/product/
-    百度测试ak           ak = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7'; geotable_id='134917';
-    腾讯地图：
+    百度测试ak          ak = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7'; geotable_id='134917';
+    腾讯地图：          
 
 ##文件结构说明
 ├─ pages    主包

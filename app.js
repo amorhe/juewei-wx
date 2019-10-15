@@ -1,7 +1,7 @@
 //app.js
 import { WX_LOGIN } from "./pages/common/js/login";
-import { wxGet, wxSet } from "./pages/common/js/baseUrl";
-
+import { wxGet, wxSet, imageUrl } from "./pages/common/js/baseUrl";
+ 
 App({
   onLaunch: function () {
     // 获取用户信息
@@ -72,5 +72,13 @@ App({
     chooseBool: false,
     isSelf: false,
     refresh: false, // 当前页面是否需要刷新
+    gopages:''//跳转到相应文件
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '会员专享服务，便捷 实惠 放心',
+      path: '/pages/position/position',
+      imageUrl: imageUrl+'jwdlogo.png'
+    }
   }
 });
