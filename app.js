@@ -81,7 +81,7 @@ App({
             return {
               title: '会员专享服务，便捷 实惠 放心',
               path: '/pages/position/position',
-              imageUrl: imageUrl + 'jwdlogo.png'
+              imageUrl: imageUrl + 'share_default.png'
             };
           }
         }
