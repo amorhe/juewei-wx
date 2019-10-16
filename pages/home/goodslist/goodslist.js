@@ -169,11 +169,11 @@ Page({
     }).exec()
     //获取节点距离顶部的距离
     setTimeout(() => {
-      wx.createSelectorQuery().select('#pages_s').boundingClientRect().exec((rect) => {
+      wx.createSelectorQuery().select('.pagesScorll ').boundingClientRect().exec((rect) => {
         if (rect[0] != null) {
           var navbarInitTop = parseInt(rect[0].top);
           this.setData({
-            navbarInitTop: navbarInitTop * 2
+            navbarInitTop: navbarInitTop * 200
           });
         }
       });
@@ -243,7 +243,6 @@ Page({
       // 优惠券
       this.funGetcouponsExpire(wxGet('_sid'));
     }
-    this.funGetCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品
     this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
     this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id) //营销活动
@@ -282,8 +281,6 @@ Page({
     var that = this;
     var scrollTop = parseInt(e.scrollTop); //滚动条距离顶部高度
     //判断'滚动条'滚动的距离 和 '元素在初始时'距顶部的距离进行判断
-    // console.log(scrollTop)
-    // console.log('1', that.data.navbarInitTop / 2)
     var isSatisfy = scrollTop >= (that.data.navbarInitTop / 2 - 44) ? true : false;
     //为了防止不停的setData, 这儿做了一个等式判断。 只有处于吸顶的临界值才会不相等
     if (that.data.isFixedTop === isSatisfy) {
@@ -447,7 +444,6 @@ Page({
         jingxuan: true
       });
       app.globalData.type = 2;
-      this.funGetCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
       this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
       this.funGetBannerList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id); //banner
       this.funGetShowpositionList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id);
@@ -467,7 +463,6 @@ Page({
         jingxuan: true
       })
       app.globalData.type = 1;
-      this.funGetCompanyGoodsList(shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
       this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
       this.funGetBannerList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id); //banner
       this.funGetShowpositionList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id);
@@ -515,6 +510,31 @@ Page({
       })
     })
   },
+  // 门店营销活动(折扣和套餐)
+  async funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
+    let res = await activityList(city_id, district_id, company_id, buy_type, user_id, 2, 2);
+    // 获取加价购商品
+    if ('MARKUP' in res.data && res.data.MARKUP != null) {
+      app.globalData.gifts = res.data.MARKUP.gifts;
+      // 获取活动金额
+      let newArr = Object.keys(res.data.MARKUP.gifts);
+      app.globalData.fullActivity = newArr;
+      this.setData({
+        fullActivity: newArr
+      })
+    } else {
+      app.globalData.gifts = [];
+      app.globalData.fullActivity = [];
+      this.setData({
+        fullActivity: []
+      })
+    }
+    this.setData({
+      activityList: res.data
+    },()=>{
+      this.funGetCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
+    })
+  },
   // 公司商品列表
   funGetCompanyGoodsList(company_id) {
     const timestamp = new Date().getTime();
@@ -524,35 +544,11 @@ Page({
         // 该公司所有的商品
         this.setData({
           companyGoodsList: res.data.data[`${company_id}`]
+        },()=>{
+          this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
         })
       }
     });
-  },
-  // 门店营销活动(折扣和套餐)
-  funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
-    activityList(city_id, district_id, company_id, buy_type, user_id, 2, 2).then((res) => {
-      // 获取加价购商品
-      if ('MARKUP' in res.data && res.data.MARKUP != null) {
-        app.globalData.gifts = res.data.MARKUP.gifts;
-        // 获取活动金额
-        let newArr = Object.keys(res.data.MARKUP.gifts);
-        app.globalData.fullActivity = newArr;
-        this.setData({
-          fullActivity: newArr
-        })
-      } else {
-        app.globalData.gifts = [];
-        app.globalData.fullActivity = [];
-        this.setData({
-          fullActivity: []
-        })
-      }
-      this.setData({
-        activityList: res.data
-      }, () => {
-        this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
-      })
-    })
   },
   // 门店商品列表
   funGetShopGoodsList(shop_id) {

@@ -165,7 +165,7 @@
     </navigator>
   </view>
   <view class="{{maskView?'content_other':'content_main'}}" style="{{isShow?'top:254rpx':'top:208rpx'}}">
-    <view class="pages_scroll pagesinfo" style="{{isShow?'height:63vh':'height:68vh'}}">
+    <view class="pages_scroll pagesinfo" style="{{isShow?'min-height:70vh':'min-height:75vh'}}">
       <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;padding-bottom:50rpx" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
         <view class="goodsUl">
           <view bindtap="eveChooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">

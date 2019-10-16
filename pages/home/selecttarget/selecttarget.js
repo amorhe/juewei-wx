@@ -21,7 +21,7 @@ import {
 } from '../../common/js/time'
 import {
   navigateTo,
-  switchTab
+  reLaunch
 } from '../../common/js/router.js'
 var app = getApp();
 // 引入百度地图微信小程序
@@ -383,7 +383,7 @@ Page({
         wxSet('takeout', shopArray); // 保存外卖门店到本地
         // that.funGetNearbyShop(lng, lat, address);
         if (str) {
-          switchTab({
+          reLaunch({
             url: '/pages/home/goodslist/goodslist'
           })
         }
@@ -474,7 +474,7 @@ Page({
     let shopArray = wxGet('self') || [];
     app.globalData.position.cityAdcode = shopArray[0].city_id;
     app.globalData.position.districtAdcode = shopArray[0].district_id;
-    switchTab({
+    reLaunch({
       url: '/pages/home/goodslist/goodslist'
     })
   }
