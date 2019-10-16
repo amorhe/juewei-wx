@@ -173,7 +173,7 @@ Page({
         if (rect[0] != null) {
           var navbarInitTop = parseInt(rect[0].top);
           this.setData({
-            navbarInitTop: navbarInitTop * 200
+            navbarInitTop: navbarInitTop * 100
           });
         }
       });
