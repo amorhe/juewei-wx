@@ -86,39 +86,16 @@ Page({
     wx.request({
       url: 'https://checkservice.juewei.com/payment/wechatMiniCallPayCode',
       success(res) {
-
-        console.log('res',res)
-        console.log('ddddd appId:' + res.data.data.appId 
-        + ' timeStamp:' + res.data.data.timeStamp 
-        + ' nonceStr:' + res.data.data.nonceStr 
-        + ' package:' + res.data.data.package 
-        + ' signType:' + res.data.data.signType 
-        + ' paySign:' + res.data.data.paySign);
-
-
         wx.openOfflinePayView({
-          // appId: '4B88CC8CFD619428B5FB335F99E89B4D',
-          // timeStamp: '1571054735',
-          // nonceStr: '941wbm9f4re40lpuokl707qgivw0egs5',
-          // package: 'mch_id=1521764071',
-          // signType: 'MD5',
-          // paySign: '4B88CC8CFD619428B5FB335F99E89B4D',
-
           appId: res.data.data.appId,
           timeStamp: res.data.data.timeStamp,
           nonceStr: res.data.data.nonceStr,
           package: res.data.data.package,
           signType: res.data.data.signType,
           paySign: res.data.data.paySign,
-          success: function(confg) {
-            console.log(confg)
-          },
-          fail: function(e) {
-            console.log(e,  1)
-          },
-          complete: function(f) {
-            console.log(f,   2)
-          }
+          success: function(res) {},
+          fail: function(err) {},
+          complete: function(res) {}
         })
       }
     })
