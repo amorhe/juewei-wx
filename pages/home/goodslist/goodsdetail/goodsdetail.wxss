@@ -17,6 +17,9 @@
 .activeFont {
   font-weight: 600;
 }
+.borderFont {
+  border-bottom: 16rpx #eee solid
+}
 .goodsintro {
   padding: 24rpx 32rpx;
 }

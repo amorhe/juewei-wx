@@ -131,7 +131,7 @@
         <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}explain2.png" />
       </navigator>
       <view>
-        <view class="fontTwentySix">
+        <view class="fontTwentySix" wx:if="{{orderInfo.reduce_price>0}}">
           <text>已优惠</text>
           <text class="numberColor">¥{{orderInfo.reduce_price/100 || 0}}</text>
         </view>
@@ -220,7 +220,8 @@
 <view class="null"></view>
 <!-- 底部支付 -->
 <view class="orderConfirm">
-  <view class="colorNine">已优惠¥{{orderInfo.reduce_price/100 || 0}}</view>
+  <view class="colorNine" wx:if="{{orderInfo.reduce_price>0}}">已优惠¥{{orderInfo.reduce_price/100 || 0}}</view>
+  <view wx:if="{{orderInfo.reduce_price==0}}"></view>
   <view class="orderPrimary">
     <view>
       <text>合计</text>

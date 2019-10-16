@@ -6,7 +6,7 @@
 </wxs>
 <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type!='PKG'}}" src="{{goodsInfo.goods_img_detail[0]}}" />
 <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type=='PKG'}}" src="{{img_url + goodsInfo.goods_img[0]}}" />
-<view class="goodsWrap borderBottom">
+<view class="goodsWrap borderFont">
   <view class="goodsTitle marginB">
     <view>
       <view class="goodsName">{{goodsInfo.goods_name}}</view>
@@ -79,7 +79,7 @@
   </view>
 </view>
 <!-- 简介、详情 -->
-<view>
+<view class="borderFont">
   <view class="menus">
     <view data-cur="{{index}}" bindtap="eveChangeMenu" class="menu {{activeTab === index ? 'active':''}}" wx:for="{{tabs}}" wx:key="unique">
       {{item.title}}

@@ -1,5 +1,9 @@
 {
   "navigationBarTitleText":"确认订单",
+  "backgroundColorTop": "#f23124",
+  "backgroundColor": "#f23124",
+  "navigationBarBackgroundColor": "#f23124",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
     "confirm":"../../components/confirm/confirm"
   }
