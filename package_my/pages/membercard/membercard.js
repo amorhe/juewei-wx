@@ -84,7 +84,7 @@ Page({
   },
   eveGoPay() {
     wx.request({
-      url: 'https://checkservice.juewei.com/payment/wechatMiniCallPayCode',
+      url: baseUrl+'/juewei-service/payment/wechatMiniCallPayCode',
       success(res) {
         wx.openOfflinePayView({
           appId: res.data.data.appId,
