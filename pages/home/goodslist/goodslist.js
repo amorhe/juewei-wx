@@ -531,7 +531,7 @@ Page({
     }
     this.setData({
       activityList: res.data
-    },()=>{
+    }, () => {
       this.funGetCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
     })
   },
@@ -544,7 +544,7 @@ Page({
         // 该公司所有的商品
         this.setData({
           companyGoodsList: res.data.data[`${company_id}`]
-        },()=>{
+        }, () => {
           this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
         })
       }
@@ -778,7 +778,7 @@ Page({
           })
           // 获取商品模块的节点
           wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
-            if (ret[0] == null || ret[0][0]==null) {
+            if (ret[0] == null || ret[0][0] == null) {
               return;
             }
             let top = ret[0][0].top;
@@ -982,6 +982,7 @@ Page({
       priceFree: data.detail.priceFree || 0,
       repurse_price: data.detail.repurse_price || 0
     })
+    this.funShopcartPrompt(this.data.fullActivity, data.detail.priceFree || 0, data.detail.repurse_price || 0)
   },
   // 购物车
   funChangeShopcart(data) {
