@@ -146,7 +146,16 @@ Page({
       })
       return
     }
+    this.setData({
+      inputAddress:e.detail.value
+    })
     this.searchShop(e.detail.value)
+  },
+  closeFN(){
+    this.setData({
+      inputAddress: '',
+      searchResult: []
+    })
   },
   // 输入地址搜索门店
   searchShop(value) {
@@ -157,7 +166,7 @@ Page({
     wx.request({
       url,
       success: (res) => {
-        if (res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
+        if (res.data.results!=[] && res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
           let lng = res.data.result.location.lng;
           let lat = res.data.result.location.lat;
           let location = `${lng},${lat}`;
@@ -182,15 +191,16 @@ Page({
   },
   // 选择门店
   eveChooseshop(e) {
-    if (e.currentTarget.dataset.name.indexOf('绝味鸭脖') != -1) {
-      this.funGetLbsShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.address, 'click');
-      this.funGetNearbyShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.address, 'click');
-    } else {
-      wx.showToast({
-        title: '请搜索绝味鸭脖相关字',
-        icon: 'none'
-      })
-    }
+    // if (e.currentTarget.dataset.name.indexOf('绝味鸭脖') != -1) {
+      
+    // } else {
+    //   wx.showToast({
+    //     title: '请搜索绝味鸭脖相关字',
+    //     icon: 'none'
+    //   })
+    // }
+    this.funGetLbsShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.name, 'click');
+    this.funGetNearbyShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.name, 'click');
   },
   //附近地址列表
   funGetAddressList(location, lat, lng) {

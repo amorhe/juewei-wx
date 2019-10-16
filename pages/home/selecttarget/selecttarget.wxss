@@ -19,6 +19,13 @@
   align-items: center;
 }
 
+.arrow {
+  width: 32rpx;
+  height: 32rpx;
+  position: relative;
+  z-index: 100
+}
+
 .positionTxt image {
   width: 32rpx;
   height: 32rpx;
@@ -109,10 +116,12 @@
 
 .searchView {
   padding: 18rpx 32rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
 }
 
 .searchView>view {
-  width: 686rpx;
   height: 64rpx;
   background: #eee;
   border-radius: 32rpx;
@@ -144,17 +153,23 @@
   height: 40rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 20rpx 0 16rpx;
   flex: 1;
+}
+.searchBox>view {
+  display: flex;
+  align-items: center;
+  flex: 1
 }
 
 .searchIcon {
   width: 24rpx;
   height: 24rpx;
-  margin-left: 16rpx;
+  margin-right: 20rpx
 }
 
-.searchBox>input {
-  width: 432rpx;
+.searchBox>view>input {
   margin-left: 8rpx;
   background: #eee;
 }

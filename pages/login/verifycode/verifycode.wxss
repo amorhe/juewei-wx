@@ -87,7 +87,11 @@ page{
   border-bottom: 1px solid #eee;
   height: 70rpx;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end
 }
+
 
 .imgCode{
   width: 160rpx;
@@ -115,4 +119,30 @@ page{
 
 .addButtonTrue{
    background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%);
+}
+.modalBg {
+  width: 100vw;
+  height: 100vh
+}
+.posscc {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 10
+}
+.giftsBox {
+  width: 560rpx;
+  height: 343rpx;
+  border-radius: 30rpx;
+  overflow: hidden;
+  background: #fff;
+  padding: 40rpx 24rpx 24rpx;
+  box-sizing: border-box
+}
+.headers {
+  font-size: 36rpx;
+  margin-bottom: 40rpx;
 }

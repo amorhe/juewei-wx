@@ -5,14 +5,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    remarks: ''
+    remarks: '',
+    noteNowLen: 0,
+    noteMaxLen: 100
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (app.globalData.remarks) {
+      this.setData({
+        remarks: app.globalData.remarks
+      })
+    }
   },
 
   /**
@@ -64,8 +70,14 @@ Page({
 
   },
   inputRemarks(e) {
+    var that = this
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > that.data.noteMaxLen)
+      return;
     this.setData({
-      remarks: e.detail.value
+      remarks: e.detail.value,
+      noteNowLen: len
     })
   },
   eveRemarksBtn() {

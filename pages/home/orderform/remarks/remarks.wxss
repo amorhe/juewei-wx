@@ -35,6 +35,7 @@
   border-radius: 47rpx;
   color: #fff;
   margin-top: 100rpx;
+  position: relative
 }
 
 .noWrite {
@@ -43,4 +44,10 @@
 
 .hasWrite {
   background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+}
+
+.chnumber {
+  position: absolute;
+  right: 0;
+  bottom: 0
 }

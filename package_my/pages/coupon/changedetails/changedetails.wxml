@@ -23,7 +23,7 @@
     <view class="middleShow borderBottom">
       <view>
         <view class="typeFont">商品有效期时间</view>
-        <view>{{exchangeObj.order_ctime.split(' ')[0]}}至{{exchangeObj.gift_use_time.split(' ')[0]}}</view>
+        <view>{{exchangeObj.order_ctime}}至{{exchangeObj.gift_use_time}}</view>
       </view>
       <view>
         <view class="typeFont">兑换次数</view>

@@ -159,7 +159,7 @@
                 </view>
             </view>
             <view class="reduce">
-                <view class="reduce-item">
+                <!-- <view class="reduce-item">
                     <view class="left">
                         <image mode="scaleToFill" src="{{imageUrl}}reduce.png"/>
                         活动满减
@@ -167,7 +167,7 @@
                     <view class="value">
                         <text>-￥{{(d.activity_money / 100)}}</text>
                     </view>
-                </view>
+                </view> -->
                 <view class="reduce-item">
                     <view class="left">
                         <image mode="scaleToFill" src="{{imageUrl}}coupon.png"/>

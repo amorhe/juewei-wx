@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 21,
+			"current": 24,
 			"list": [
 				{
 					"id": -1,
@@ -205,6 +205,26 @@
 					"name": "pages/login/auth/auth",
 					"pathName": "pages/login/auth/auth",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/home/selecttarget/selecttarget",
+					"pathName": "pages/home/selecttarget/selecttarget",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "备注",
+					"pathName": "pages/home/orderform/remarks/remarks",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "验证码",
+					"pathName": "pages/login/verifycode/verifycode",
 					"scene": null
 				}
 			]

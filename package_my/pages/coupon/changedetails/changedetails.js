@@ -101,6 +101,8 @@ Page({
         parseData({ bindName: '_desciption', html: res.DATA.gift_desciption, target: this });
         parseData({ bindName: '_process', html: res.DATA.gift_exchange_process, target: this });
         parseData({ bindName: '_telephone', html: res.DATA.gift_service_telephone, target: this });
+        res.DATA.order_ctime = res.DATA.order_ctime.split(' ')[0];
+        res.DATA.gift_use_time = res.DATA.gift_use_time.split(' ')[0];
         this.setData({
           exchangeObj: res.DATA
         })

@@ -1,6 +1,8 @@
 <view class="remarks">
   <view class="textareabody">
-  <textarea class="remarksTextarea" placeholder="请输入口味、偏好如多放辣油、少放辣油、多放手套等" placeholder-class="placeStyle" maxlength="100" bindinput="inputRemarks" value="{{remarks}}" auto-height></textarea>
+    <textarea class="remarksTextarea" placeholder="请输入口味、偏好如多放辣油、少放辣油、多放手套等" placeholder-class="placeStyle" maxlength="{{noteMaxLen}}" bindinput="inputRemarks" value="{{remarks}}" auto-height>
+      <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
+    </textarea>
   </view>
   <button size="default" hover-class="none" class="{{remarks.length>0?'confirmRemarks hasWrite':'confirmRemarks noWrite'}}" bindtap="eveRemarksBtn">确认</button>
 </view>

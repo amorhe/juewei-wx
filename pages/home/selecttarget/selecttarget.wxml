@@ -1,16 +1,20 @@
 <view class="searchView" style="background:#fff">
-  <view>
+  <view style="{{inputAddress.length>0?'width: 598rpx;':'width: 694rpx;'}}">
     <view class="positionAddress" bindtap="eveChoosecityTap">
       <text>{{city}}</text>
       <image src="{{imageUrl}}arrow_down1.png" />
     </view>
     <view class="searchBox">
-      <image class="searchIcon" src="{{imageUrl}}search.png" />
-      <input value="{{inputAddress}}" confirm-type="search" placeholder="小区/写字楼/学校等" placeholder-class="colorGray" bindinput="funInputword" />
+      <view>
+        <image class="searchIcon" src="{{imageUrl}}search.png" />
+        <input value="{{inputAddress}}" confirm-type="search" placeholder="小区/写字楼/学校等" placeholder-class="colorGray" bindinput="funInputword" />
+      </view>
+      <image wx:if="{{inputAddress!=''}}" class="arrow" mode="scaleToFill" bindtap="closeFN" src="{{imageUrl}}close3.png" />
     </view>
   </view>
+  <text wx:if="{{inputAddress!=''}}" bindtap="closeFN">取消</text>
 </view>
-<view wx:if="{{searchResult.length == 0}}">
+<view wx:if="{{searchResult.length == 0 || inputAddress==''}}">
   <view class="positionIng">
     <view class="fontGray">当前定位</view>
     <view class="positionTxt">
@@ -46,7 +50,7 @@
   </view>
 </view>
 
-<view wx:if="{{searchResult.length > 0}}">
+<view wx:if="{{searchResult.length>0 && inputAddress!=''}}">
   <view class="shopsearch" wx:for="{{searchResult}}" wx:key="unique" bindtap="eveChooseshop" data-address="{{item.address}}" data-lng="{{item.location.lng}}" data-lat="{{item.location.lat}}" data-name="{{item.name}}">
     <view class="searchTitle">
       <text class="fontBold">{{item.name}}</text>

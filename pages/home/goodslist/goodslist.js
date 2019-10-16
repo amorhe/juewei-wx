@@ -515,6 +515,19 @@ Page({
       })
     })
   },
+  // 公司商品列表
+  funGetCompanyGoodsList(company_id) {
+    const timestamp = new Date().getTime();
+    wx.request({
+      url: `${jsonUrl}/api/product/company_sap_goods${company_id}.json?v=${timestamp}`,
+      success: (res) => {
+        // 该公司所有的商品
+        this.setData({
+          companyGoodsList: res.data.data[`${company_id}`]
+        })
+      }
+    });
+  },
   // 门店营销活动(折扣和套餐)
   funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
     activityList(city_id, district_id, company_id, buy_type, user_id, 2, 2).then((res) => {
@@ -536,25 +549,11 @@ Page({
       }
       this.setData({
         activityList: res.data
+      }, () => {
+        this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
       })
     })
   },
-  // 公司商品列表
-  funGetCompanyGoodsList(company_id) {
-    const timestamp = new Date().getTime();
-    wx.request({
-      url: `${jsonUrl}/api/product/company_sap_goods${company_id}.json?v=${timestamp}`,
-      success: (res) => {
-        // 该公司所有的商品
-        this.setData({
-          companyGoodsList: res.data.data[`${company_id}`]
-        }, () => {
-          this.funGetShopGoodsList(this.data.shopTakeOut.shop_id);
-        })
-      }
-    });
-  },
-
   // 门店商品列表
   funGetShopGoodsList(shop_id) {
     GetShopGoods(shop_id).then((res) => {
@@ -783,7 +782,7 @@ Page({
           })
           // 获取商品模块的节点
           wx.createSelectorQuery().selectAll('.goodsTypeEv').boundingClientRect().exec((ret) => {
-            if (ret[0] == null) {
+            if (ret[0] == null || ret[0][0]==null) {
               return;
             }
             let top = ret[0][0].top;
@@ -1080,7 +1079,7 @@ Page({
   // 去商品详情页
   eveGoodsdetailContent(e) {
     navigateTo({
-      url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code
+      url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code + '&key=' + e.currentTarget.dataset.key
     });
   },
   // 清空购物车

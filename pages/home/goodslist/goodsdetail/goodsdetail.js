@@ -80,10 +80,12 @@ Page({
         }
       }else{
         if (value.goods_channel + value.goods_type + value.company_goods_id == e.goods_code) {
-          goodsInfo = value;
+          goodsInfo = value; 
         }
       }  
     }
+    goodsInfo['key'] = e.key
+    console.log(goodsInfo)
     for (let keys in goodlist) {
       if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
@@ -363,7 +365,6 @@ Page({
       priceAll,
       shopcartNum
     })
-    console.log(goodlist)
     wxSet('goodsList', goodlist)
   },
   reduceshopcart(e) {

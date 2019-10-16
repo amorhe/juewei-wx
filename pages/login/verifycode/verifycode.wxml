@@ -7,33 +7,32 @@
     <view class="inputInfo {{ value[1]?value[2]?'':'inputFocus':''  }}">{{ value[2] }}</view>
     <view class="inputInfo {{ value[2]?value[3]?'':'inputFocus':''  }}">{{ value[3] }}</view>
   </view>
-  <input class="inputClass" focus="{{focus}}" cursor="{{ cursor }}" bindfocus="onFocus" maxlength="{{4}}" type="number" bindinput="inputValue"/>
+  <input class="inputClass" focus="{{focus}}" cursor="{{ cursor }}" bindfocus="onFocus" maxlength="{{4}}" type="number" bindinput="inputValue" />
   <view class="errorTitel" wx:if="{{false}}">
     验证码输入错误，请重新输入
   </view>
   <view wx:if="{{isnew}}">
     <text class="timeClass">{{countTime}}秒</text>后重新获取验证码
   </view>
-   <view class="top" wx:else bindtap="timeDate" data-is='1'>
+  <view class="top" wx:else bindtap="timeDate" data-is='1'>
     重新获取验证码
   </view>
 </view>
 
 <!-- 图片验证码弹框 -->
-<modal
-    wx:if="{{modalOpened}}"
-    showClose="{{ false }}"
-  >
-    <view slot="header">请输入图形验证码</view>
+<view wx:if="{{modalOpened}}" style="background:rgba(0,0,0,.5);width:100vw;height:100vh;position:absolute;left:0;top:0">
+  <view class="posscc giftsBox">
+    <view class="headers">请输入图形验证码</view>
     <view class="modelBody">
       <view class="modelInput">
-        <input placeholder="请按右图输入" value="{{img_code}}" maxlength="4" bindinput="getcodeImg"/>
+        <input placeholder="请按右图输入" value="{{img_code}}" maxlength="4" bindinput="getcodeImg" />
       </view>
       <view class="imgCode">
-        <image class="imgCodeIcon" src="{{ imgUrl }}"/>
+        <image class="imgCodeIcon" src="{{ imgUrl }}" />
       </view>
     </view>
     <view>
       <view class="addButton addButtonTrue" bindtap="getcodeFn">提交</view>
     </view>
-</modal>
+  </view>
+</view>

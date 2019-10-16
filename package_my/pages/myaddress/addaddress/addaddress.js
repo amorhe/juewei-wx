@@ -78,11 +78,14 @@ Page({
     if (options.Id) {
       this.setData({
         addressId: options.Id
-      })
-      this.getInfo(options.Id)
+      });
+      this.getInfo(options.Id);
     } else {
       this.data.addressId = ''
-      this.getLocation()
+      this.getLocation();
+      wx.setNavigationBarTitle({
+        title: '新增收货地址'
+      })
     }
     if (options.order) {
       this.data.order = 1
@@ -399,14 +402,6 @@ Page({
       });
       return
     }
-    if (this.data.shop_id == '') {
-      wx.showToast({
-        icon: 'none',
-        title: '当前地址周边无可配送门店',
-        duration: 1000
-      });
-      return
-    }
     if (this.data.clickadd) {
       return
     }
@@ -448,6 +443,14 @@ Page({
         }
       })
     } else {
+      if (this.data.shop_id == '') {
+        wx.showToast({
+          icon: 'none',
+          title: '当前地址周边无可配送门店',
+          duration: 1000
+        });
+        return
+      }
       // 添加
       var data = {
         _sid: this.data._sid,

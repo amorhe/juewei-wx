@@ -207,10 +207,10 @@ Page({
       let time = wxGet('time');
       if (time) {
         if (time != new Date().toLocaleDateString()) {
-          wx.removeStorageSync({
+          wx.removeStorage({
             key: 'time',
           });
-          wx.removeStorageSync({
+          wx.removeStorage({
             key: 'count',
           });
         }
@@ -245,7 +245,7 @@ Page({
         that.setData({
           imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + _sid + '&s=' + (new Date()).getTime()
         });
-        my.showToast({
+        wx.showToast({
           icon: 'none',
           duration: 2000,
           title: code.msg
