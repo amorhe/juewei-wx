@@ -692,7 +692,6 @@ Page({
               priceAll = 0;
               repurse_price = 0
             };
-            console.log(goodsList)
             // 判断购物车商品是否在当前门店里
             for (let val in goodsList) {
               if (goodsList[val].goods_discount) {
@@ -780,7 +779,6 @@ Page({
               priceFree,
               repurse_price
             })
-            console.log(shopcartObj)
             wxSet('goodsList', shopcartObj);
           })
           // 获取商品模块的节点

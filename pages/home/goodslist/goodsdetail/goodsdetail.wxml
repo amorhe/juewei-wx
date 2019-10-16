@@ -70,7 +70,11 @@
           data-goods_order_limit="{{goodsInfo.goods_format[0].goods_order_limit}}" />
       </view>
       <!-- sku商品 -->
-      <view class="fontTwentySix addShopcart" wx:if="{{goodsInfo.goods_format.length>1}}" bindtap="eveChooseSizeTap" data-item="{{goodsInfo}}">加入购物车</view>
+      <view class="fontTwentySix addShopcart" wx:if="{{goodsInfo.goods_format.length>1}}" bindtap="eveChooseSizeTap" data-item="{{goodsInfo}}">
+        <view>加入购物车</view>
+        <!-- 购物车中该商品数量 -->
+        <view class="countTotal" wx:if="{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum>0 || shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[1].type!=undefined?goodsInfo.goods_format[1].type:'')].sumnum>0}}">{{shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum?shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[0].type!=undefined?goodsInfo.goods_format[0].type:'')].sumnum:shopcartList[goodsInfo.goods_channel + goodsInfo.goods_type + goodsInfo.company_goods_id + '_' + (goodsInfo.goods_format[1].type!=undefined?goodsInfo.goods_format[1].type:'')].sumnum}}</view>
+      </view>
     </view>
   </view>
 </view>

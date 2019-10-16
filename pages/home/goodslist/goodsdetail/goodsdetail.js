@@ -72,12 +72,17 @@ Page({
       priceFree = 0,
       repurse_price = 0,
       shop_id = wxGet('shop_id') || {};
-    
     for (let value of goods) {
-      if (value.goods_code == e.goods_code) {
-        goodsInfo = value;
-        // goodsInfo['key'] = e.goodsKey
-      }
+      // 折扣套餐爆款
+      if (value.goods_discount_user_limit || value.goods_discount_id){
+        if (value.goods_format[0].goods_activity_code == e.goods_code) {
+          goodsInfo = value;
+        }
+      }else{
+        if (value.goods_channel + value.goods_type + value.company_goods_id == e.goods_code) {
+          goodsInfo = value;
+        }
+      }  
     }
     for (let keys in goodlist) {
       if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
