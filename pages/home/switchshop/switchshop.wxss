@@ -62,12 +62,10 @@ searchView {
 
 .shopBox {
   position: fixed;
-  width: 750rpx;
+  width: 100vw;
   left: 0;
   bottom: 0;
   background: #fff;
-  padding: 40rpx 32rpx;
-  box-sizing: border-box;
   max-height: 50vh;
   overflow-y: scroll
 }
@@ -166,9 +164,9 @@ searchView {
   border-radius: 10rpx;
   padding: 24rpx 24rpx 16rpx;
   display: flex;
-  /* justify-content: space-between; */
   align-items: flex-start;
   position: relative;
+  margin: 40rpx 32rpx
 }
 
 .tapCoverView {
