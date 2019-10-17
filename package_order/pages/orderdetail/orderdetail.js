@@ -68,10 +68,10 @@ Page({
     ],
 
     cancelReasonList: [{
-        reason: '下错单/临时不想要了',
-        value: true,
-        cancel_code: 9
-      },
+      reason: '下错单/临时不想要了',
+      value: true,
+      cancel_code: 9
+    },
       {
         reason: '订单长时间未分配骑手',
         value: false,
@@ -127,7 +127,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(e) {
+  onLoad: function (e) {
     let {
       order_no
     } = e;
@@ -140,14 +140,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: async function() {
+  onShow: async function () {
     await this.getOrderDetail()
 
   },
@@ -155,7 +155,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
     clearInterval(this.data.time);
     this.setData({
       time: -1
@@ -166,32 +166,33 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     clearInterval(this.data.time);
     this.setData({
       time: -1
     });
-    this.setData = () => {}
+    this.setData = () => {
+    }
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: async function() {
+  onPullDownRefresh: async function () {
     await this.getOrderDetail()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
@@ -245,9 +246,9 @@ Page({
         // 6） 订单已完成，时间：data.dis_finish_time  //送达时间
         // 7） 订单已取消，时间：data.cancel_time      //取消时间
         timeArr = [{
-            state: '等待支付',
-            time: order_ctime
-          },
+          state: '等待支付',
+          time: order_ctime
+        },
           {
             state: '订单已提交',
             time: pay_time
@@ -275,9 +276,9 @@ Page({
         ];
 
         timeArr = timeArr.map(({
-          state,
-          time
-        }) => ({
+                                 state,
+                                 time
+                               }) => ({
           state,
           time: time.split(' ')[1]
         }));
@@ -297,9 +298,9 @@ Page({
         // 10：店pos取消 1,2,7
 
         let orderStatus = [{
-            state: '等待支付',
-            timeArr: [1]
-          },
+          state: '等待支付',
+          timeArr: [1]
+        },
           {
             state: '支付成功',
             timeArr: [1, 2]
@@ -351,7 +352,7 @@ Page({
 
         }
 
-        (curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4): curTimeArr;
+        (curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
         curState === 3 && dis_take_time != '0000-00-00 00:00:00' ? curTimeArr.push(5) : curTimeArr;
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
 
@@ -364,9 +365,9 @@ Page({
         // 6） 订单已完成，时间：data.dis_finish_time  //送达时间
         // 7） 订单已取消，时间：data.cancel_time      //取消时间
         timeArr = [{
-            state: '等待支付',
-            time: order_ctime
-          },
+          state: '等待支付',
+          time: order_ctime
+        },
           {
             state: '待取餐',
             time: pay_time
@@ -393,9 +394,9 @@ Page({
           },
         ];
         timeArr = timeArr.map(({
-          state,
-          time
-        }) => ({
+                                 state,
+                                 time
+                               }) => ({
           state,
           time: time.split(' ')[1]
         }));
@@ -414,9 +415,9 @@ Page({
         // 10：店pos取消   1,2，7
 
         let orderStatus = [{
-            state: '等待支付',
-            timeArr: [1]
-          },
+          state: '等待支付',
+          timeArr: [1]
+        },
           {
             state: '支付成功',
             timeArr: [1, 2]
@@ -498,7 +499,8 @@ Page({
       remaining_pay_second = 59
     }
     this.setData({
-      d: { ...item,
+      d: {
+        ...item,
         remaining_pay_second,
         remaining_pay_minute
       },
