@@ -341,9 +341,9 @@ Page({
       wx.removeStorage({
         key: 'goodsList'
       })
-      wx.navigateBack({
-        delta: 1
-      });
+      redirectTo({
+        url: '/pages/home/goodslist/goodslist'
+      })
       return;
     }
     for (let ott in newShopcart) {
@@ -355,9 +355,12 @@ Page({
     })
     // 重新选择商品
     if (data.detail.isType == 'orderConfirm' && data.detail.type == 1) {
-      wx.navigateBack({
-        delta: 1
-      });
+      // wx.navigateBack({
+      //   delta: 1
+      // });
+      redirectTo({
+        url:'/pages/home/goodslist/goodslist'
+      })
       return;
     }
     // 继续结算
