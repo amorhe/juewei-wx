@@ -1,6 +1,14 @@
-import { imageUrl, wxGet } from '../../common/js/baseUrl'
-import { upformId } from '../../common/js/time'
-import { navigateTo } from '../../common/js/router.js'
+import {
+  imageUrl,
+  wxGet,
+  wxSet
+} from '../../common/js/baseUrl'
+import {
+  upformId
+} from '../../common/js/time'
+import {
+  navigateTo
+} from '../../common/js/router.js'
 
 const app = getApp();
 Page({
@@ -20,22 +28,26 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    const { user_id, nick_name, head_img } = wxGet('userInfo');
+  onShow: function() {
+    const {
+      user_id,
+      nick_name,
+      head_img
+    } = wxGet('userInfo');
     this.setData({
       user_id,
       nick_name,
@@ -46,35 +58,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
@@ -84,11 +96,6 @@ Page({
     if (!userInfo.user_id) {
       navigateTo({
         url: '/pages/login/auth/auth'
-      });
-    }
-    if (userInfo.hasOwnProperty('head_img')) {
-      navigateTo({
-        url: '/package_my/pages/mycenter/mycenter?img=' + userInfo.head_img + '&name=' + userInfo.nick_name
       });
     }
   },
@@ -105,6 +112,28 @@ Page({
         url: '/pages/login/auth/auth',
       });
     }
+  },
+  bindgetuserinfo(e) {
+    const {
+      errMsg,
+      userInfo,
+      ...rest
+    } = e.detail;
+    if (errMsg === 'getUserInfo:ok') {
+      const {
+        user_id
+      } = wxGet('userInfo') || {
+        user_id: ''
+      };
+      if (!user_id) {
+        wxSet('rest', rest);
+        wxSet('userInfo', userInfo);
+        return
+      }
+      return navigateTo({
+        url: '/package_my/pages/mycenter/mycenter?img=' + userInfo.head_img + '&name=' + userInfo.nick_name
+      })
+    } 
   },
   // 上传模版消息
   onSubmit(e) {

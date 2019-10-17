@@ -974,6 +974,9 @@ Page({
   },
   // sku商品
   funCart(data) {
+    if (Object.keys(data).length == 0) {
+      return
+    }
     this.setData({
       shopcartList: data.detail.goodlist || {},
       shopcartAll: data.detail.shopcartAll || [],

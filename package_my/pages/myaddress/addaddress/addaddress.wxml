@@ -12,7 +12,7 @@
     </view>
     <view class="list">
       <view class="item">电话</view>
-      <input placeholder="手机号码" type="numberpad" value="{{phone}}" maxlength="11" data-key="phone" bindinput="handelChange" />
+      <input placeholder="手机号码" type="number" value="{{phone}}" maxlength="11" data-key="phone" bindinput="handelChange" />
     </view>
     <view class="select-address list" bindtap="chooseLocation">
       <view class="item">地址</view>

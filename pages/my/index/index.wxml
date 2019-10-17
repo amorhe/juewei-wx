@@ -1,19 +1,18 @@
 <view class="myContent">
   <view class="myTop flexNormal">
-    <view class="flexSpecial" bindtap="isloginFn">
+    <button class="flexSpecial" bindtap="isloginFn" hover-class="none" open-type="getUserInfo" bindgetuserinfo="bindgetuserinfo">
       <image class="avatar" mode="scaleToFill" src="{{ user_id ? head_img : imageUrl+'default_head2.png' }}" />
       <view class="fontFourtyWeight">
         <view>{{ user_id ? nick_name : '登录' }}</view>
       </view>
-    </view>
-    <view bindtap="isloginFn">
-      <!-- <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:5%;height:44rpx;right:30rpx" form-type="submit"></button> -->
+    </button>
+    <button bindtap="isloginFn" hover-class="none" open-type="getUserInfo" bindgetuserinfo="bindgetuserinfo">
       <image class="ImageFourty" mode="scaleToFill" src="{{imageUrl}}settings.png" />
-    </view>
+    </button>
   </view>
   <view class="vipView" data-url="/package_my/pages/membercard/membercard" bindtap="toUrl">
     <view class="flexNormal">
-      <view>会员卡</view>
+      <view class="fontThirtyFour fontBold">会员卡</view>
       <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}qrcode.png" />
     </view>
     <image class="vipcardPng" mode="scaleToFill" src="{{imageUrl}}position_tit.png" />
@@ -26,46 +25,36 @@
       <view bindtap="toUrl" data-url='/package_my/pages/coupon/coupon'>
         <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
         <view>
-          <view>
-            <image mode="scaleToFill" src="{{imageUrl}}my_coupon.png" />
-            <view>卡券</view>
-          </view>
+          <image mode="scaleToFill" src="{{imageUrl}}my_coupon.png" />
+          <view>卡券</view>
         </view>
       </view>
       <view bindtap="toUrl" data-url='/package_vip/pages/pointlist/pointlist'>
         <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
         <view>
-          <view>
-            <image mode="scaleToFill" src="{{imageUrl}}my_points.png" />
-            <view>积分</view>
-          </view>
+          <image mode="scaleToFill" src="{{imageUrl}}my_points.png" />
+          <view>积分</view>
         </view>
       </view>
       <view bindtap="toUrl" data-url='/package_my/pages/myaddress/myaddress'>
         <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
         <view>
-          <view>
-            <image mode="scaleToFill" src="{{imageUrl}}my_address.png" />
-            <view>地址</view>
-          </view>
+          <image mode="scaleToFill" src="{{imageUrl}}my_address.png" />
+          <view>地址</view>
         </view>
       </view>
       <navigator url='/package_my/pages/nearshop/nearshop' hover-class="none">
         <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:160rpx;height:126rpx" form-type="submit"></button>
         <view>
-          <view>
-            <image mode="scaleToFill" src="{{imageUrl}}my_nearshop.png" />
-            <view>附近门店</view>
-          </view>
+          <image mode="scaleToFill" src="{{imageUrl}}my_nearshop.png" />
+          <view>附近门店</view>
         </view>
       </navigator>
       <navigator url="/package_my/pages/entitlement/entitlement">
         <view>
           <view>
-            <view>
-              <image mode="scaleToFill" src="{{imageUrl}}my_quity.png" />
-              <view>专享权益</view>
-            </view>
+            <image mode="scaleToFill" src="{{imageUrl}}my_quity.png" />
+            <view>专享权益</view>
           </view>
         </view>
       </navigator>

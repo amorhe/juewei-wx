@@ -42,7 +42,7 @@
 .p-good, .store {
     padding: 24rpx 32rpx;
     background: white;
-    border-radius: 20rpx;
+    /* border-radius: 20rpx; */
 }
 
 .store {

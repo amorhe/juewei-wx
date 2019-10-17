@@ -91,7 +91,7 @@ Page({
     });
   },
   inputValue(e) {
-    const phone = e.detail.value;
+    let phone = e.detail.value;
     if (phone.length === 11) {
       this.setData({
         phone: phone,

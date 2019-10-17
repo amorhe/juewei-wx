@@ -12,7 +12,7 @@
   width:670rpx;
   height:94rpx;
   border-radius:47rpx;
-  border:1rpx solid #333333;
+  border:1rpx solid #333;
   overflow: hidden;
   padding: 0 40rpx;
   box-sizing: border-box;

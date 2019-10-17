@@ -6,6 +6,11 @@
   padding: 40rpx 32rpx;
   background: #f5f5f5;
 }
+.myTop button {
+  margin: 0!important;
+  padding-left:0;
+  padding-right: 0
+}
 .avatar {
   width: 104rpx;
   height: 104rpx;
@@ -50,7 +55,7 @@
   width:686rpx;
   height:434rpx;
   background:rgba(255,255,255,1);
-  box-shadow:0 0 10rpx 0 rgba(153,153,153,0.2);
+  box-shadow:0 2px 10px 0 rgba(153,153,153,0.2);
   border-radius:10rpx;
   margin-left: 32rpx;
   padding: 30rpx 24rpx 32rpx;
@@ -67,17 +72,19 @@
   margin-top: 32rpx;
 }
 .menuList>navigator {
-  width: 25%;
+  width: 104rpx;
   margin-top: 32rpx;
 }
-.menuList>view>view {
+/* .menuList>navigator>view,.menuList>view>view {
   display: flex;
   flex-direction: column;
-}
-.menuList>view>view>view {
-  text-align: center;
+} */
+.menuList>navigator>view,.menuList>view>view {
   width: 104rpx;
   font-size: 26rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center
 }
 .menuList image {
   width: 94rpx;

@@ -12,7 +12,7 @@
 }
 
 .inputView {
-  margin: 40rpx 0 10rpx;
+  margin: 105rpx 0 10rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;

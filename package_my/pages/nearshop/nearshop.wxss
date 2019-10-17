@@ -79,13 +79,8 @@
   height: 32rpx;
   margin-right: 16rpx;
 }
-.shopLi>cover-view {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  white-space: pre-wrap;
-  line-height: 30rpx!important;
+.wqe {
+  margin-bottom: 10rpx
 }
 .shopTxt {
   display: flex;

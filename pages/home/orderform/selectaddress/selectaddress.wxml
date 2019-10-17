@@ -1,5 +1,5 @@
 <view class="addressView">
-  <view wx:if="{{addressList.length>0}}" class="addressBox">
+  <view wx:if="{{addressList.length>0}}">
     <radio-group class="radio-group" name="lib">
       <view class="borderBottomSolid" wx:for="{{addressList}}" bindtap="eveChooseAddress" data-id="{{item.user_address_id}}" wx:key="unique">
         <view class="flexSpecial">

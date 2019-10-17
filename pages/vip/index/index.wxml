@@ -110,10 +110,10 @@
               valid_num: "12"  总剩余库存
               是否显示已对完的图标是通过这三个值来确认的
               剩余库存为0 或者 （每天兑换限额不为零并且每天兑换剩余次数为0的时候） -->
-         <view class="bottom" wx:if="{{item.exchange_day_num != 0}}" style="background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%, white '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%)'}}">
+         <view class="bottom" wx:if="{{item.exchange_day_num != 0}}" style="background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%, #fbfbfb '+ ((item.exchange_day_num - item.exchange_day_vaild_num)/item.exchange_day_num)*100 +'%)'}}">
           已抢{{ m1.numberToFix((item.exchange_day_num - item.exchange_day_vaild_num ) * 100 / item.exchange_day_num)}} %
         </view>
-        <view class="bottom" wx:if="{{item.exchange_day_num == 0}}" style="background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((item.total_num - item.valid_num)/item.total_num)*100 +'%, white '+ ((item.total_num - item.valid_num)/item.total_num)*100 +'%)'}}">
+        <view class="bottom" wx:if="{{item.exchange_day_num == 0}}" style="background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((item.total_num - item.valid_num)/item.total_num)*100 +'%, #fbfbfb '+ ((item.total_num - item.valid_num)/item.total_num)*100 +'%)'}}">
           已抢{{ m1.numberToFix((item.total_num - item.valid_num) * 100 / item.total_num ) }} %
         </view>
       </view>

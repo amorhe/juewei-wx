@@ -1,6 +1,9 @@
 {
   "navigationBarTitleText": "选择地址",
-  "backgroundColor": "#fff",
+  "backgroundColorTop": "#f23124",
+  "backgroundColor": "#f23124",
+  "navigationBarBackgroundColor": "#f23124",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
     "confirm": "../../../components/confirm/confirm"
   }

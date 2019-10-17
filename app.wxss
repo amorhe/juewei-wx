@@ -207,3 +207,6 @@ view {
   display: block;
   margin-bottom: 32rpx;
 }
+.fontThirtyFour{
+  font-size: 34rpx
+}

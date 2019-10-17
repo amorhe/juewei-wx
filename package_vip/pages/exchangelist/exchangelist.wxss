@@ -11,6 +11,7 @@ page{
     background: white;
     border-radius: 10rpx;
     margin-bottom: 20rpx;
+    overflow: hidden
 }
 
 .header {
