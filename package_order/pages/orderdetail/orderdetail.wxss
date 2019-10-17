@@ -424,10 +424,9 @@ view.pay {
   line-height: 96rpx;
   color: #fff;
   text-align: center;
-  font-size: r34px;
+  font-size: 34rpx;
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  color: rgba(255, 255, 255, 1);
 }
 
 .cancel-buttons view:first-child {

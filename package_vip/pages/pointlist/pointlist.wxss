@@ -4,10 +4,9 @@
   top: 0rpx;
   width: 100vw;
   text-align: center;
-  font-size: 30rpx;
+  font-size: 36rpx;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  text-align: center
 }
 
 .title_bg {

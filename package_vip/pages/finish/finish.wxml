@@ -61,7 +61,7 @@
                     </view>
                 </view>
             </view>
-            <view class="hint hr" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
+            <view class="hint hr colorNine" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
                 温馨提示：可到会员专享>兑换记录中查看
             </view>
             <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
@@ -91,12 +91,12 @@
                 在<text>http://www.ebeecake.com</text> 输入兑换码兑换；<view>活动所有权归本公司所有。</view></view> -->
             </view>
             <!--<view class="explain" wx:if="{{d.intro}}"><view class="explain-title">商品</view><rich-text nodes="{{d._intro}}"></rich-text><view class="explain-detail"><view>全场通用</view><view>活动所有权归本公司所有。</view></view></view> -->
-            <view class="hint" wx:if="{{!d.get_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
+            <view class="hint colorNine" wx:if="{{!d.get_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
                 温馨提示：可到会员专享>兑换记录中查看
             </view>
-            <view class="hint" wx:if="{{d.get_code}}">
+            <view class="hint colorNine" wx:if="{{d.get_code}}">
                 温馨提示：可到
-                <text style="color:#108EE9">我的>卡劵</text> 中查看
+                <text style="color:#999">我的>卡劵</text> 中查看
             </view>
             <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
                 返回会员专享
@@ -118,9 +118,9 @@
             <view class="hint" wx:if="{{d.gift_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
                 温馨提示：可到会员专享>兑换记录中查看
             </view>
-            <view class="hint" wx:if="{{!d.gift_code}}">
+            <view class="hint colorNine" wx:if="{{!d.gift_code}}">
                 温馨提示：可到
-                <text style="color:#108EE9" data-url="/package_my/pages/coupon/coupon" catchtap="liTo">我的>卡劵</text> 中查看
+                <text style="color:#999" data-url="/package_my/pages/coupon/coupon" catchtap="liTo">我的>卡劵</text> 中查看
             </view>
             <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
                 返回会员专享

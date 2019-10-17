@@ -45,6 +45,7 @@ Page({
     inputAddress: '', //手动输入的地址
     loginOpened: false,
     searchResult: [], // 搜索结果
+    isOnfoucs:false
   },
 
   /**
@@ -147,7 +148,8 @@ Page({
       return
     }
     this.setData({
-      inputAddress:e.detail.value
+      inputAddress:e.detail.value,
+      isOnfoucs: false
     })
     this.searchShop(e.detail.value)
   },
@@ -166,7 +168,8 @@ Page({
     wx.request({
       url,
       success: (res) => {
-        if (res.data.results!=[] && res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
+        if (res.data.status == 0) {
+          console.log(1)
           let lng = res.data.result.location.lng;
           let lat = res.data.result.location.lat;
           let location = `${lng},${lat}`;
@@ -191,14 +194,6 @@ Page({
   },
   // 选择门店
   eveChooseshop(e) {
-    // if (e.currentTarget.dataset.name.indexOf('绝味鸭脖') != -1) {
-      
-    // } else {
-    //   wx.showToast({
-    //     title: '请搜索绝味鸭脖相关字',
-    //     icon: 'none'
-    //   })
-    // }
     this.funGetLbsShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.name, 'click');
     this.funGetNearbyShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.name, 'click');
   },
@@ -476,6 +471,16 @@ Page({
     app.globalData.position.districtAdcode = shopArray[0].district_id;
     reLaunch({
       url: '/pages/home/goodslist/goodslist'
+    })
+  },
+  funOnfocus(){
+    this.setData({
+      isOnfoucs:true
+    })
+  },
+  funOutfocus(){
+    this.setData({
+      isOnfoucs: false
     })
   }
 })

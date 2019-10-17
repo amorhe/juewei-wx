@@ -1,6 +1,6 @@
 <!-- 遮罩层 -->
-<view class="mask" style="z-index:1004" wx:if="{{maskView}}" bindtap="eveCloseModal"></view>
-<view class="goodsModalBox" wx:if="{{goodsModal}}">
+<view class="mask" style="z-index:1004" wx:if="{{maskView}}" bindtap="eveCloseModal" catchtouchmove="touchstart"></view>
+<view class="goodsModalBox" wx:if="{{goodsModal}}"  catchtouchmove="touchstart">
   <view class="goodsTop">
     <view>
       <image class="goods_image" mode="scaleToFill" src="{{goodsItem.goods_small_img[0]}}" />
