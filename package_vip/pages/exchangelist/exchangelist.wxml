@@ -1,10 +1,17 @@
 <!--package_vip/pages/exchangelist/exchangelist.wxml-->
+<wxs module="m2">
+
+    var slice= function (value) {
+    return value.split(' ')
+    }
+    module.exports.slice=slice;
+</wxs>
 <view wx:if="{{finish}}">
     <!-- 兑换记录列表 -->
     <view class="list">
         <view class="item" wx:for="{{orderList}}" wx:key="{{ index }}" data-url="./exchangedetail/exchangedetail" data-query="{{ {id:item.id} }}" catchtap="navigateTo">
             <view class="header">
-                <view class="time">{{item.order_ctime.split(' ')[0]}}</view>
+                <view class="time">{{m2.slice(item.order_ctime)[0]}}</view>
                 <view class="state">{{(item.status_name == '未支付'  && item.remaining_pay_minute < 0) ? '已关闭': item.status_name}}</view>
             </view>
             <view class="body">
