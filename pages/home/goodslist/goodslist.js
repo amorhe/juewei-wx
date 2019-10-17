@@ -360,9 +360,9 @@ Page({
   },
   funGotopage() {
     // 自定义跳转页面
-    let topage = (app.globalData.gopages || wxGet('query') || '');
+    let topage = (app.globalData.gopages || '');
+    topage = decodeURIComponent(topage);
     app.globalData.gopages = ''; //删除
-    wx.removeStorageSync('query'); //删除
     if (topage != '') {
       switch (topage) {
         //商城首页

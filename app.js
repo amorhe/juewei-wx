@@ -9,7 +9,13 @@ import {
 } from "./pages/common/js/baseUrl";
 
 App({
-  onLaunch: function() {
+  onLaunch: function (options) {
+    // options.scene == 1035 &&  这里不判断场景，原因是会有很多场景
+    if (options && options.query && options.query.go && options.query.go != '') {
+      this.globalData.gopages = options.query.go;
+    }else{
+    	this.globalData.gopages ='';
+    }
     // 获取用户信息
     wx.getSetting({
       success: ott => {
@@ -89,7 +95,6 @@ App({
     })
   },
   globalData: {
-    query: null,
     location: { //获取地区
       longitude: null,
       latitude: null
