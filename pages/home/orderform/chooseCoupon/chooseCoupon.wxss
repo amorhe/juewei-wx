@@ -205,6 +205,7 @@
 .code-img {
   width: 380rpx;
   height: 380rpx;
+  background: red;
   padding: 24rpx;
   margin: 24rpx;
 }
@@ -253,7 +254,7 @@
 
 .rule view{
  line-height: 1.5
-}
+} 
 .select {
   width: 40rpx;
   height: 40rpx
