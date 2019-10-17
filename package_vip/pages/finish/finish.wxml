@@ -217,9 +217,9 @@
     <view class="code-phone">
         {{m2.slice(d.user_phone,0,3)}} **** {{m2.slice(d.user_phone,7,11)}}
     </view>
-    <!-- <view class="code-pay" catchtap="wait">
+     <view class="code-pay" catchtap="wait">
       确认支付
-    </view> -->
+    </view>
 </view>
 </view>
 
