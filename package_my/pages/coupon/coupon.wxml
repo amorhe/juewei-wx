@@ -69,11 +69,12 @@
         </view>
       </view>
       <!-- 空状态 -->
-      <view class="nullBox" style="height:85vh;padding-top:207rpx;box-sizing:border-box" wx:if="{{exchangeList.length== 0}}">
+      <view class="nullBox" style="height:100vh;padding-top:207rpx;box-sizing:border-box" wx:if="{{exchangeList.length== 0}}">
         <image class='nullImg' src="{{ imageUrl }}bg_coupon.png" />
         <text>暂无兑换码</text>
+        <navigator url="/package_my/pages/coupon/redeemCodeRecord/redeemCodeRecord" class="fontSmallGray codeMiddle" hover-class="none" style="margin-top:325rpx">查看历史兑换码</navigator>
       </view>
-      <navigator url="/package_my/pages/coupon/redeemCodeRecord/redeemCodeRecord" class="fontSmallGray codeMiddle" hover-class="none">查看历史兑换码</navigator>
+      <navigator url="/package_my/pages/coupon/redeemCodeRecord/redeemCodeRecord" class="fontSmallGray codeMiddle" hover-class="none" wx:if="{{exchangeList.length> 0}}">查看历史兑换码</navigator>
     </view>
   </view>
 </view>

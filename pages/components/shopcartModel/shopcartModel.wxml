@@ -1,4 +1,4 @@
-<view class="goodsBottom">
+<view class="goodsBottom" catchtouchmove="touchstart">
   <view class="fullReduce" wx:if="{{activityText!='' && !showShopcar}}">{{activityText}}</view>
   <view class="shopcart">
     <image class="shopcarImage" wx:if="{{ shopcartNum== 0}}" src="{{imageUrl}}shopcart_empty.png" />
@@ -26,7 +26,7 @@
   </view>
 </view>
 <!-- 购物车弹框 -->
-<view wx:if="{{showShopcar && shopcartAll.length>0}}" class="shopcarContent" style="bottom:{{h}}">
+<view wx:if="{{showShopcar && shopcartAll.length>0}}" class="shopcarContent" style="bottom:{{h}}" catchtouchmove="touchstart">
   <view class="fullReduce fontSmall" wx:if="{{activityText!=''}}">{{activityText}}</view>
   <view class="clearShopcar" bindtap="eveClearShopcart">
     <image src="{{imageUrl}}deleteIcon.png" />
@@ -61,4 +61,4 @@
   </view>
 </view>
 <!-- 遮罩层 -->
-<view wx:if="{{mask1 && shopcartAll.length>0}}" class="mask" bindtap="eveHiddenShopcart"></view>
+<view wx:if="{{mask1 && shopcartAll.length>0}}" class="mask" bindtap="eveHiddenShopcart" catchtouchmove="touchstart"></view>

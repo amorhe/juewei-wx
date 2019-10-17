@@ -1,5 +1,5 @@
 <view class="searchView" style="background:#fff">
-  <view style="{{inputAddress.length>0?'width: 598rpx;':'width: 694rpx;'}}">
+  <view style="{{(inputAddress.length>0|| isOnfoucs)?'width: 598rpx;':'width: 694rpx;'}}">
     <view class="positionAddress" bindtap="eveChoosecityTap">
       <text>{{city}}</text>
       <image src="{{imageUrl}}arrow_down1.png" />
@@ -7,12 +7,12 @@
     <view class="searchBox">
       <view>
         <image class="searchIcon" src="{{imageUrl}}search.png" />
-        <input value="{{inputAddress}}" confirm-type="search" placeholder="小区/写字楼/学校等" placeholder-class="colorGray" bindinput="funInputword" />
+        <input value="{{inputAddress}}" confirm-type="search" placeholder="小区/写字楼/学校等" placeholder-class="colorGray" bindinput="funInputword" bindfocus="funOnfocus" bindblur="funOutfocus"/>
       </view>
       <image wx:if="{{inputAddress!=''}}" class="arrow" mode="scaleToFill" bindtap="closeFN" src="{{imageUrl}}close3.png" />
     </view>
   </view>
-  <text wx:if="{{inputAddress!=''}}" bindtap="closeFN">取消</text>
+  <text wx:if="{{inputAddress!='' || isOnfoucs}}" bindtap="closeFN">取消</text>
 </view>
 <view wx:if="{{searchResult.length == 0 || inputAddress==''}}">
   <view class="positionIng">
@@ -59,3 +59,6 @@
     <view class="search_b">{{item.address}}</view>
   </view>
 </view>
+
+
+<view class="mask_vciew" style="{{isOnfoucs?'top:106rpx':'top:100vh'}}"></view>

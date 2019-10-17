@@ -9,7 +9,7 @@
   <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
   <!-- <image style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px" mode="scaleToFill" class="title_bg" src="{{imageUrl}}title_bg.png"/> -->
   <image mode="scaleToFill" class="body_bg" src="{{imageUrl}}body_bg.png"/>
-<view class="bg" style="z-index:{{(open1||open2)? 0 : 1}}">
+<view class="bg" style="z-index:{{(open1||open2)? 0 : 1}};padding-bottom:60rpx">
   <!-- 兑换详记录情页 分为 官方兑换和 兑换码(非官方)兑换商品 -->
   <!-- 状态 -->
   <view class="state">

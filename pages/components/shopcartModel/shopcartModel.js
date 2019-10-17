@@ -118,7 +118,7 @@ Component({
     eveClearShopcart() {
       var that = this;
       wx.showModal({
-        content: '清空购物车？',
+        content: '是否清空购物车？',
         cancelText: "确定",
         confirmText: "取消",
         cancelColor: "#999999",
@@ -437,5 +437,8 @@ Component({
         url: '/pages/home/orderform/orderform'
       })
     },
+    touchstart(){
+
+    }
   }
 })

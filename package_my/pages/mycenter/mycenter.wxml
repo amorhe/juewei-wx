@@ -9,12 +9,12 @@
       <view class="Itemlabel">昵称</view>
       <view class="ItimInfo">{{userinfo.nick_name||'绝味会员'}}</view>
     </view>
-    <view class="listItem" bindtap="onTopBtnTap">
+    <view class="listItem" bindtap="changeSex">
       <view class="Itemlabel">性别</view>
       <view class="ItimInfo">
-        <picker range="{{sex_array}}" bindchange="genderFN">
+        <!-- <picker range="{{sex_array}}" bindchange="genderFN"> -->
           <view>{{userinfo.sex==0?'男':'女'}}</view>
-        </picker>
+        <!-- </picker> -->
       </view>
       <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
     </view>

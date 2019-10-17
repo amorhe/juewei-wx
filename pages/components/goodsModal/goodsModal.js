@@ -242,6 +242,9 @@ Component({
         shopcartAll
       })
       wxSet('goodsList', goodlist)
+    },
+    touchstart() {
+
     }
-  }
+  }, 
 })

@@ -1,4 +1,5 @@
 /* package_my/pages/myaddress/myaddress.wxss */
+
 .addressList {
   padding: 32rpx;
   padding-bottom: 50rpx;
@@ -10,6 +11,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.listItme:last-child {
+  border: none;
 }
 
 .spanClass {
@@ -24,17 +29,17 @@
 
 .spanColor {
   color: rgba(143, 215, 95, 1);
-  background: rgba(143, 215, 95, 0.3)
+  background: rgba(143, 215, 95, 0.3);
 }
 
 .spangsColor {
   color: rgba(16, 142, 233, 1);
-  background: rgba(16, 142, 233, 0.3)
+  background: rgba(16, 142, 233, 0.3);
 }
 
 .spajiaColor {
   color: rgba(230, 0, 18, 1);
-  background: rgba(230, 0, 18, 0.3)
+  background: rgba(230, 0, 18, 0.3);
 }
 
 .lefttop {

@@ -7,7 +7,7 @@
   module.exports.slice = slice;
 </wxs>
 
-<view>
+<view style="padding-bottom:60rpx">
   <!-- 外卖和自提订单详情 -->
   <view style="height:1rpx"></view>
   <view class="board">
@@ -242,7 +242,7 @@
             门店地址
           </view>
           <view class="value">
-            <view>{{d.province}} {{d.city}} {{d.district}}</view>
+            <!-- <view>{{d.province}} {{d.city}} {{d.district}}</view> -->
             <view>{{d.shop_address}}</view>
           </view>
         </view>

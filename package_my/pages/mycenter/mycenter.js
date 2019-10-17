@@ -159,9 +159,9 @@ Page({
     })
   },
   // 选择性别
-  genderFN(e) {
+  genderFN(data) {
     const that = this;
-    var data = e.detail.value;
+    // var data = e.detail.value;
     var sex = data == 1 ? 0 : 1;
     UpdateUserInfo({
       sex,
@@ -380,4 +380,20 @@ Page({
 
     })
   },
+
+  changeSex(){
+    const that = this
+    wx.showActionSheet({
+      itemList: ['女', '男'],
+      success(res) {
+        console.log(res.tapIndex)
+        that.genderFN(res.tapIndex)
+      },
+      fail(res) {
+        console.log(res.errMsg)
+      }
+
+    })
+  }
+
 });
