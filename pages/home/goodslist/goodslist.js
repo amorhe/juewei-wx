@@ -297,6 +297,12 @@ Page({
   onShareAppMessage: function() {
 
   },
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    // Do something when pull down.
+    this.onShow();
+    wx.stopPullDownRefresh()
+  },
   setDelayTime(sec) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

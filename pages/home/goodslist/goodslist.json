@@ -1,4 +1,5 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "confirm": "../../components/confirm/confirm",
     "shopcart-model": "../../components/shopcartModel/shopcartModel",
