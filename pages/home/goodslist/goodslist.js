@@ -795,16 +795,20 @@ Page({
   },
   // 监听商品列表滚动
   bindscroll(e) {
-    if (e.detail.scrollTop <= 0) {
-      // 滚动到最顶部
-      this.setData({
-        isTab: true
-      })
-    }
-    if (!this.data.isTab) {
-      wx.pageScrollTo({
-        scrollTop: this.data.navbarInitTop
-      })
+    // wx.pageScrollTo({
+    //   scrollTop: 999999  //this.data.navbarInitTop
+    // })
+
+    // console.log('e.detail.scrollTop', e.detail.scrollTop);
+ 
+    // if (e.detail.scrollTop <= 0) {
+    //   // 滚动到最顶部
+    //   this.setData({
+    //     isTab: true
+    //   })
+    // } 
+    //console.log(e.detail.scrollTop);
+    if (e.detail.scrollTop > 0) {
       let retArr = [...goodsret];
       wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
         let sum = 0;
@@ -817,7 +821,6 @@ Page({
           retArr.sort((a, b) => a - b);
           sum = retArr.findIndex(item => (item == ret[0].scrollTop));
         }
-        // console.log(sum)
         if (this.data.goodsType != sum) {
           this.setData({
             goodsType: sum
@@ -825,6 +828,17 @@ Page({
         }
       })
     }
+  },
+  //手势移开
+  bindtouchend(e){
+    //e没有可用参数所以用查询办法
+    wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
+      if (ret[0].scrollTop > 0) {
+        wx.pageScrollTo({
+          scrollTop: 999999  //这里可以给了最大的数字，来代表滚动到最底部就可以了  this.data.navbarInitTop
+        })
+      }
+    })
   },
   // 加入购物车
   eveAddshopcart(e) {
