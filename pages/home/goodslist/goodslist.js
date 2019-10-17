@@ -113,7 +113,7 @@ Page({
     priceFree: 0, // 购物车包邮商品价格
     freeText: '', // 购物车包邮提示内容
     isScorll: true,
-    isTab: false,
+    // isTab: false,
     goodsClass: {
       "折扣": 1,
       "套餐": 2,
@@ -613,7 +613,7 @@ Page({
       }
       const str = new Date().getTime();
       wx.request({
-        url: `https://images.juewei.com/prod/shop/goods_sort.json?v=${str}`,
+        url: `${jsonUrl}/goods/goods_sort.json?v=${str}`,
         success: (conf) => {
           let _T = conf.data.data.country
           const {
@@ -795,19 +795,14 @@ Page({
   },
   // 监听商品列表滚动
   bindscroll(e) {
-    // wx.pageScrollTo({
-    //   scrollTop: 999999  //this.data.navbarInitTop
-    // })
-
-    // console.log('e.detail.scrollTop', e.detail.scrollTop);
- 
     // if (e.detail.scrollTop <= 0) {
     //   // 滚动到最顶部
     //   this.setData({
     //     isTab: true
     //   })
-    // } 
-    //console.log(e.detail.scrollTop);
+    // }
+
+    //用于判断左侧显示的位置 
     if (e.detail.scrollTop > 0) {
       let retArr = [...goodsret];
       wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
