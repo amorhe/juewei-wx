@@ -1,3 +1,10 @@
+<wxs module="m6">
+    var split = function (value) {
+    return value.split(' ')
+    }
+    module.exports.split=split;
+</wxs>
+
 <view class="couponContainer">
   <view>
     <i-tabs color="#E60012" bind:change="handleTabClick" current="{{activeTab}}">
@@ -64,7 +71,7 @@
           <view class="redeemContent">
             <view class="fontBold">{{item.gift_name}}</view>
             <view class="fontSmallGray">{{item.source==1?'活动赠品':'积分兑换'}}</view>
-            <view class="fontTwentyTwo">有效时间 {{item.gift_use_time}}</view>
+            <view class="fontTwentyTwo">有效期至 {{m6.split(item.gift_use_time)[0]}}</view>
           </view>
         </view>
       </view>
