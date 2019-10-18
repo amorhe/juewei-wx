@@ -245,10 +245,11 @@ Page({
         // 5） 骑手配送中，时间：data.dis_take_time    //配送员取货时间
         // 6） 订单已完成，时间：data.dis_finish_time  //送达时间
         // 7） 订单已取消，时间：data.cancel_time      //取消时间
-        timeArr = [{
-          state: '等待支付',
-          time: order_ctime
-        },
+        timeArr = [
+          {
+            state: '等待支付',
+            time: order_ctime
+          },
           {
             state: '订单已提交',
             time: pay_time
@@ -262,7 +263,7 @@ Page({
             time: dis_get_time
           },
           {
-            state: '骑手已取餐',
+            state: '骑手正在送货',
             time: dis_take_time
           },
           {
@@ -275,10 +276,11 @@ Page({
           },
         ];
 
-        timeArr = timeArr.map(({
-                                 state,
-                                 time
-                               }) => ({
+        timeArr = timeArr
+          .map(({
+             state,
+             time
+           }) => ({
           state,
           time: time.split(' ')[1]
         }));
@@ -297,10 +299,11 @@ Page({
         // 9，达达主动发起取消订单，1,2,3,7
         // 10：店pos取消 1,2,7
 
-        let orderStatus = [{
-          state: '等待支付',
-          timeArr: [1]
-        },
+        let orderStatus = [
+          {
+            state: '等待支付',
+            timeArr: [1]
+          },
           {
             state: '支付成功',
             timeArr: [1, 2]
