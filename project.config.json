@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 16,
 			"list": [
 				{
 					"id": -1,
@@ -169,7 +169,7 @@
 					"id": 16,
 					"name": "VIP待支付",
 					"pathName": "package_vip/pages/waitpay/waitpay",
-					"query": "order_sn=jwd03190917s4665235",
+					"query": "order_sn=jwd03191018s5385235&shop_id=0&shop_name=null&user_address_name=&user_address_phone=&user_address_address=undefined&user_address_id=undefined&user_address_detail_address=undefined&province=&city=&district=",
 					"scene": null
 				},
 				{
@@ -225,6 +225,7 @@
 					"id": -1,
 					"name": "验证码",
 					"pathName": "pages/login/verifycode/verifycode",
+					"query": "",
 					"scene": null
 				}
 			]

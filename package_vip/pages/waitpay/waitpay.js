@@ -63,7 +63,8 @@ Page({
     let { order_sn, shop_id, shop_name, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address, user_address_address }
       = e;
     this.setData({
-      shop_id, shop_name,
+      shop_id,
+      shop_name: shop_name === 'null' ? "" : shop_name,
       order_sn,
       user_address_map_addr,
       user_address_name,
@@ -158,7 +159,7 @@ Page({
         province: province || this.data.province,
         city: city || this.data.city,
         district: district || this.data.district,
-        address: (province || '省') + ' ' + (city || '市') + ' ' + (district || '区'),
+        address: (province || '北京') + ' ' + (city || '北京市') + ' ' + (district || '东城区'),
         user_address_id: user_address_id || this.data.user_address_id
       });
     }
