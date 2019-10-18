@@ -312,3 +312,27 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.noResult {
+  position: fixed;
+  left: 0;
+  top: 100rpx;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  z-index: 10;
+  text-align: center;
+  padding-top: 213rpx;
+  box-sizing: border-box
+}
+.position_icon {
+  width: 320rpx;
+  height: 320rpx;
+}
+
+.fontss {
+  font-size: 24rpx;
+  color: #999;
+  width: 408rpx;
+  margin: 0 auto
+}

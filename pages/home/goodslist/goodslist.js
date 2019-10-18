@@ -31,7 +31,8 @@ import {
   bd_encrypt
 } from '../../common/js/map'
 import {
-  navigateTo
+  navigateTo,
+  redirectTo
 } from '../../common/js/router.js'
 import {
   startAddShopAnimation
@@ -99,6 +100,7 @@ Page({
     goodsType: 1, //系列
     togoodsType: 1, // 点击跳转
     maskView: false,
+    shopcarShow: false,
     goodsModal: false,
     scrollT: 0,
     couponsExpire: {}, // 优惠券过期提醒     
@@ -137,6 +139,7 @@ Page({
     shopcart_top: 0,
     shopcart_left: 0,
     togoodsType: 1, //点击跳转
+    totalH: 0
   },
 
   /**
@@ -242,6 +245,10 @@ Page({
       user_id = wxGet('userInfo').user_id;
       // 优惠券
       this.funGetcouponsExpire(wxGet('_sid'));
+    }else{
+      this.setData({
+        totalH: wx.getSystemInfoSync().windowHeight * (750 / wx.getSystemInfoSync().windowWidth) - 408
+      })
     }
     this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
@@ -298,7 +305,7 @@ Page({
 
   },
   // 下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     // Do something when pull down.
     this.onShow();
     wx.stopPullDownRefresh()
@@ -454,11 +461,26 @@ Page({
       this.funGetBannerList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id); //banner
       this.funGetShowpositionList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id);
     } else {
-      console.log('外卖');
       //切换外卖
       if (!wxGet('takeout')) {
         this.setData({
           btnClick: true
+        })
+        wx.showModal({
+          content: '您的定位地址无可配送门店',
+          cancelText:'去自提',
+          cancelColor:'#E60012',
+          confirmText:'修改地址',
+          confirmColor:'#E60012',
+          success(res){
+            if (res.confirm) {
+              navigateTo({
+                url:'/pages/home/selecttarget/selecttarget?type=true'
+              })
+            } else if (res.cancel) {
+              
+            }
+          }
         })
         return
       }
@@ -831,12 +853,12 @@ Page({
     }
   },
   //手势移开
-  bindtouchend(e){
+  bindtouchend(e) {
     //e没有可用参数所以用查询办法
     wx.createSelectorQuery().select('.scrolllist').scrollOffset().exec((ret) => {
       if (ret[0].scrollTop > 0) {
         wx.pageScrollTo({
-          scrollTop: 999999  //这里可以给了最大的数字，来代表滚动到最底部就可以了  this.data.navbarInitTop
+          scrollTop: 999999 //这里可以给了最大的数字，来代表滚动到最底部就可以了  this.data.navbarInitTop
         })
       }
     })
@@ -1033,28 +1055,34 @@ Page({
       goodsLast: e.currentTarget.dataset.index
     })
   },
+  funOpenShopcar(data) {
+    this.setData({
+      shopcarShow: data.detail
+    })
+  },
   // 优惠券过期提醒
   funGetcouponsExpire(_sid) {
     couponsExpire(_sid).then((res) => {
-      // console.log(res)
       if (Object.keys(res.data).length > 0) {
-        res.data.days = datedifference(getNowDate(), res.data.end_time)
+        res.data.days = datedifference(getNowDate(), res.data.end_time);
         this.setData({
           couponsExpire: res.data,
-          isShow: true
+          isShow: true,
+          totalH: wx.getSystemInfoSync().windowHeight * (750 / wx.getSystemInfoSync().windowWidth) - 454
         })
       } else {
         this.setData({
-          isShow: false
+          isShow: false,
+          totalH: wx.getSystemInfoSync().windowHeight * (750 / wx.getSystemInfoSync().windowWidth) - 408
         })
       }
-
     })
   },
   // 关闭优惠券提醒
   eveCloseCouponView() {
     this.setData({
-      isShow: false
+      isShow: false,
+      totalH: wx.getSystemInfoSync().windowHeight * (750 / wx.getSystemInfoSync().windowWidth) - 408
     })
   },
   // 购物车活动提示

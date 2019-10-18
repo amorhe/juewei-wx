@@ -62,3 +62,10 @@
 
 
 <view class="mask_vciew" style="{{isOnfoucs?'top:106rpx':'top:100vh'}}"></view>
+
+<view wx:if="{{noResult}}" class="noResult">
+  <image class="position_icon" mode="scaleToFill" src="{{imageUrl}}bg_position.png"/>
+  <view style="margin:32rpx 0 10rpx">找不到地址</view>
+  <view class="fontss">请尝试只输入小区、写字楼或学校名，
+详细地址（如门牌号）可稍后输入哦。</view>
+</view>

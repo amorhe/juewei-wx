@@ -103,7 +103,7 @@ Page({
             goods_format: goodsList[key].goods_format
           }, {
               goods_price: goodsList[key].goods_original_price,
-              goods_quantity: goodsList[key].goodsList[key].num - goodsList[key].goods_order_limit,
+              goods_quantity: goodsList[key].num - goodsList[key].goods_order_limit,
               goods_code: goodsList[key].goods_activity_code,
               goods_format: goodsList[key].goods_format
             });

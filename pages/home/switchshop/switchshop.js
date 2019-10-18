@@ -5,6 +5,9 @@ import {
 import {
   tx_decrypt
 } from '../../../pages/common/js/map'
+import {
+  redirectTo
+} from '../../../pages/common/js/router.js'
 var app = getApp();
 Page({
 
@@ -131,7 +134,7 @@ Page({
     app.globalData.position.cityAdcode = e.currentTarget.dataset.shoping.city_id;
     app.globalData.position.districtAdcode = e.currentTarget.dataset.shoping.district_id;
     app.globalData.switchClick = null
-    wx.navigateBack({ //由于商城首页选用的是navigate  所以这里需要用返回
+    redirectTo({ //由于商城首页选用的是navigate  所以这里需要用返回
       url: '/pages/home/goodslist/goodslist'
     })
   },

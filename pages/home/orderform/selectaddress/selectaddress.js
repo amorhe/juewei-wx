@@ -34,7 +34,8 @@ Page({
     address_id: '',
     lng: '',
     lat: '',
-    address: ''
+    address: '',
+    noResult:true
   },
 
   /**

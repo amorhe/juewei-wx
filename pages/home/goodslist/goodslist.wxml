@@ -1,6 +1,6 @@
 <view>
   <!-- 定位 -->
-  <view class="goodsPosition">
+  <view class="goodsPosition" style="{{shopcarShow?'z-index:0':'z-index:1000'}}">
     <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft" hover-class="none">
       <image src="{{imageUrl}}position.png" />
       <text>{{firstAddress}}</text>
@@ -62,24 +62,24 @@
     <view wx:for="{{showListObj}}" wx:key="unique">
       <!-- 类型1 -->
       <view class="activityBox1 marginBEight" wx:if="{{item.type==1}}">
-        <image mode="scaleToFill" src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{imageUrl2 + item.link_url[0]}}" bindtap="imageLink" />
+        <image mode="scaleToFill" src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{item.link_url[0]}}" bindtap="imageLink" />
       </view>
       <!-- 类型2 -->
       <view class="activityBox marginBEight" wx:if="{{item.type==2}}">
-        <image src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{imageUrl2 + item.link_url[0]}}" bindtap="imageLink" />
+        <image src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{item.link_url[0]}}" bindtap="imageLink" />
         <view>
-          <image src="{{imageUrl2 + item.pic_src[1]}}" data-link="{{imageUrl2 + item.link_url[1]}}" bindtap="imageLink" />
-          <image src="{{imageUrl2 + item.pic_src[2]}}" data-link="{{imageUrl2 + item.link_url[2]}}" bindtap="imageLink" />
+          <image src="{{imageUrl2 + item.pic_src[1]}}" data-link="{{item.link_url[1]}}" bindtap="imageLink" />
+          <image src="{{imageUrl2 + item.pic_src[2]}}" data-link="{{item.link_url[2]}}" bindtap="imageLink" />
         </view>
       </view>
       <!-- 类型3 -->
       <view class="activityBox3 marginBEight" wx:if="{{item.type==3}}">
-        <image mode="scaleToFill" src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{imageUrl2 + item.link_url[0]}}" bindtap="imageLink" />
-        <image mode="scaleToFill" src="{{imageUrl2 + item.pic_src[1]}}" data-link="{{imageUrl2 + item.link_url[1]}}" bindtap="imageLink" />
+        <image mode="scaleToFill" src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{item.link_url[0]}}" bindtap="imageLink" />
+        <image mode="scaleToFill" src="{{imageUrl2 + item.pic_src[1]}}" data-link="{{item.link_url[1]}}" bindtap="imageLink" />
       </view>
       <!-- 类型4 -->
       <view class="activityWrap marginBEight" wx:if="{{item.type==4}}">
-        <image src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{imageUrl2 + item.link_url[0]}}" bindtap="imageLink" />
+        <image src="{{imageUrl2 + item.pic_src[0]}}" data-link="{{item.link_url[0]}}" bindtap="imageLink" />
       </view>
     </view>
   </view>
@@ -165,7 +165,7 @@
     </navigator>
   </view>
   <view class="{{maskView?'content_other':'content_main'}}" style="{{isShow?'top:254rpx':'top:208rpx'}}">
-    <view class="pages_scroll pagesinfo" style="{{isShow?'max-height:63vh':'max-height:68vh'}}">
+    <view class="pages_scroll pagesinfo" style="max-height:{{totalH}}rpx">
       <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;padding-bottom:50rpx" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
         <view class="goodsUl">
           <view bindtap="eveChooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">
@@ -298,7 +298,7 @@
     <view style="width:750rpx;height:200rpx;"></view>
     <!-- 购物车 -->
     <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" type="{{type}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" bindChangeShopcart="funChangeShopcart"
-      class="e1" />
+      class="e1" bindOpenShopcar="funOpenShopcar"/>
     <!-- 加入购物车选择商品规格 -->
     <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"
     />

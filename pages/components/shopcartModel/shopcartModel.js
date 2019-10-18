@@ -106,6 +106,7 @@ Component({
         showShopcar: true,
         mask1: true
       })
+      this.triggerEvent('OpenShopcar', true)
     },
     // 隐藏购物车
     eveHiddenShopcart() {
@@ -113,10 +114,14 @@ Component({
         showShopcar: false,
         mask1: false
       })
+      this.triggerEvent('OpenShopcar', false)
     },
     // 清空购物车
     eveClearShopcart() {
       var that = this;
+      that.setData({
+        mask1: false
+      })
       wx.showModal({
         content: '是否清空购物车？',
         cancelText: "确定",
@@ -126,13 +131,16 @@ Component({
         success(res) {
           if (res.confirm) {
             console.log('用户点击取消')
+            that.setData({
+              mask1: true
+            })
           } else if (res.cancel) {
             console.log('用户点击确定')
-            that.triggerEvent('Clearshopcart');
             that.setData({
-              mask1: false,
               showShopcar: false
             })
+            that.triggerEvent('Clearshopcart');
+            that.triggerEvent('OpenShopcar', false)
           }
         }
       })
@@ -437,7 +445,7 @@ Component({
         url: '/pages/home/orderform/orderform'
       })
     },
-    touchstart(){
+    touchstart() {
 
     }
   }

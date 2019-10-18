@@ -45,7 +45,8 @@ Page({
     inputAddress: '', //手动输入的地址
     loginOpened: false,
     searchResult: [], // 搜索结果
-    isOnfoucs:false
+    isOnfoucs: false,
+    noResult:false
   },
 
   /**
@@ -148,15 +149,17 @@ Page({
       return
     }
     this.setData({
-      inputAddress:e.detail.value,
-      isOnfoucs: false
+      inputAddress: e.detail.value,
+      isOnfoucs: false,
+      noResult: false
     })
     this.searchShop(e.detail.value)
   },
-  closeFN(){
+  closeFN() {
     this.setData({
       inputAddress: '',
-      searchResult: []
+      searchResult: [],
+      noResult:false
     })
   },
   // 输入地址搜索门店
@@ -168,13 +171,16 @@ Page({
     wx.request({
       url,
       success: (res) => {
-        if (res.data.status == 0) {
-          console.log(1)
+        if (res.data.status == 0 && res.data.result.level != '城市') {
           let lng = res.data.result.location.lng;
           let lat = res.data.result.location.lat;
           let location = `${lng},${lat}`;
           that.funGetAddressList(location, lat, lng);
           that.funSearchShop(that, value, lat, lng);
+        } else {
+          this.setData({
+            noResult:true
+          })
         }
       },
     });
@@ -186,7 +192,8 @@ Page({
       success(res) {
         if (res.data.results.length > 0) {
           that.setData({
-            searchResult: res.data.results
+            searchResult: res.data.results,
+            noResult: false
           })
         }
       }
@@ -208,7 +215,8 @@ Page({
       success: (res) => {
         if (res.data.status == 0) {
           this.setData({
-            nearAddress: res.data.results
+            nearAddress: res.data.results,
+            noResult: false
           })
         } else {
           this.setData({
@@ -473,12 +481,12 @@ Page({
       url: '/pages/home/goodslist/goodslist'
     })
   },
-  funOnfocus(){
+  funOnfocus() {
     this.setData({
-      isOnfoucs:true
+      isOnfoucs: true
     })
   },
-  funOutfocus(){
+  funOutfocus() {
     this.setData({
       isOnfoucs: false
     })

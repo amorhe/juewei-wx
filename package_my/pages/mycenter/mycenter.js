@@ -17,7 +17,8 @@ import {
 } from '../../../pages/common/js/login'
 import {
   navigateTo,
-  redirectTo
+  redirectTo,
+  reLaunch
 } from '../../../pages/common/js/router.js'
 
 var app = getApp();
@@ -143,8 +144,8 @@ Page({
           return item.addrid == res.data.region_id
         })[0]
         res.data.cityName = city.name || '';
-      }  
-      if(regions){
+      }
+      if (regions) {
         res.data.regionName = regions.name || '';
       }
       that.setData({
@@ -337,8 +338,8 @@ Page({
         wxSet('userInfo', {});
         wx.removeStorageSync('user_id');
         app.globalData._sid = "";
-        redirectTo({
-          url: '/pages/home/goodslist/goodslist'
+        reLaunch({
+          url: "/pages/my/index/index"
         })
       } else {
         wx.showToast({
@@ -381,7 +382,7 @@ Page({
     })
   },
 
-  changeSex(){
+  changeSex() {
     const that = this
     wx.showActionSheet({
       itemList: ['女', '男'],
