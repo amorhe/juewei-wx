@@ -49,7 +49,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
+  onLoad: function(options) {
+    console.log('position_onload', options);
+    if (options && options.go != '') {
+      app.globalData.gopages = options.go;
+    } else {
+      app.globalData.gopages = '';
+    }
     let that = this;
     wx.getSetting({
       success(res) {

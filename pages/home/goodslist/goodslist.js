@@ -374,6 +374,7 @@ Page({
   funGotopage() {
     // 自定义跳转页面
     let topage = (app.globalData.gopages || '');
+    console.log('funGotopage',app.globalData.gopages);
     topage = decodeURIComponent(topage);
     app.globalData.gopages = ''; //删除
     if (topage != '') {

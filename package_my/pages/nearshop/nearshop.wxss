@@ -60,15 +60,15 @@
   width: 100vw;
   left: 0;
   bottom: 0;
-  background: #fff;
+  background: transparent;
   overflow-y: scroll;
 }
 .shopLi {
   background: #fff;
-  margin-bottom: 16rpx;
+  padding:20rpx;
   box-shadow:0 2rpx 10rpx 0 rgba(153,153,153,0.2);
   border-radius:10rpx;
-  padding: 40rpx 32rpx;
+  margin: 16rpx 32rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

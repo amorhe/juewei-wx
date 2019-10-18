@@ -20,7 +20,7 @@
  
 ####正式环境
     AppID(小程序ID)：   wx48d6e365fcea9989
-    AppSecret(小程序密钥)：
+    AppSecret(小程序密钥)：6b3ab82314018eb7fc9252e367f1bb30
     接口：              https://wap.juewei.com/api/
     小图标cdn路径：      https://wap.juewei.com/m/wx-mini/image/
     商品图片和json文件： https://imgcdnjwd.juewei.com/static/product/
