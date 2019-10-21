@@ -159,7 +159,7 @@ Page({
         province: province || this.data.province,
         city: city || this.data.city,
         district: district || this.data.district,
-        address: (province || '北京') + ' ' + (city || '北京市') + ' ' + (district || '东城区'),
+        address: (province || '') + ' ' + (city || '') + ' ' + (district || ''),
         user_address_id: user_address_id || this.data.user_address_id
       });
     }

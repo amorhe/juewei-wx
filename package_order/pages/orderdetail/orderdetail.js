@@ -42,7 +42,7 @@ Page({
       '等待支付',
       '订单已提交',
       '商家已接单',
-      '骑手已取餐',
+      '骑手正在送货',
       '订单已完成',
       '订单已取消',
       '订单已取消',
@@ -67,31 +67,12 @@ Page({
       '订单已取消'
     ],
 
-    cancelReasonList: [{
-      reason: '下错单/临时不想要了',
-      value: true,
-      cancel_code: 9
-    },
-      {
-        reason: '订单长时间未分配骑手',
-        value: false,
-        cancel_code: 1
-      },
-      {
-        reason: '门店商品缺货/无法出货/已售完',
-        value: false,
-        cancel_code: 4
-      },
-      {
-        reason: '联系不上门店/门店关门了',
-        value: false,
-        cancel_code: 5
-      },
-      {
-        reason: '其他',
-        value: false,
-        cancel_code: 0
-      },
+    cancelReasonList: [
+      { reason: '下错单/临时不想要了', value: true, cancel_code: 9 },
+      { reason: '订单长时间未分配骑手', value: false, cancel_code: 1 },
+      { reason: '门店商品缺货/无法出货/已售完', value: false, cancel_code: 4 },
+      { reason: '联系不上门店/门店关门了', value: false, cancel_code: 5 },
+      { reason: '其他', value: false, cancel_code: 0 },
     ],
 
     curOrderState: [],
@@ -240,40 +221,19 @@ Page({
         // //显示状态和时间的语句
         // 1） 待支付，时间：data.order_ctime      //创建时间
         // 2） 待取餐，时间：data.pay_time         //支付时间
-        // 3） 门店已接单，时间：data.push_time         //门店接单时间
+        // 3） 门店已接单，时：data.push_time         //门店接单时间
         // 4） 配送已接单，时间：data.dis_get_time     //物流接单时间
         // 5） 骑手配送中，时间：data.dis_take_time    //配送员取货时间
         // 6） 订单已完成，时间：data.dis_finish_time  //送达时间
         // 7） 订单已取消，时间：data.cancel_time      //取消时间
         timeArr = [
-          {
-            state: '等待支付',
-            time: order_ctime
-          },
-          {
-            state: '订单已提交',
-            time: pay_time
-          },
-          {
-            state: '商家已接单',
-            time: push_time
-          },
-          {
-            state: '骑手已接单',
-            time: dis_get_time
-          },
-          {
-            state: '骑手正在送货',
-            time: dis_take_time
-          },
-          {
-            state: '订单已完成',
-            time: dis_finish_time
-          },
-          {
-            state: '订单已取消',
-            time: cancel_time
-          },
+          { state: '等待支付', time: order_ctime },
+          { state: '订单已提交', time: pay_time },
+          { state: '商家已接单', time: push_time },
+          { state: '骑手已接单', time: dis_get_time },
+          { state: '骑手正在送货', time: dis_take_time },
+          { state: '订单已完成', time: dis_finish_time },
+          { state: '订单已取消', time: cancel_time },
         ];
 
         timeArr = timeArr
@@ -300,50 +260,17 @@ Page({
         // 10：店pos取消 1,2,7
 
         let orderStatus = [
-          {
-            state: '等待支付',
-            timeArr: [1]
-          },
-          {
-            state: '支付成功',
-            timeArr: [1, 2]
-          },
-          {
-            state: '商家接单/商家已确认',
-            timeArr: [1, 2, 3]
-          },
-          {
-            state: '正在配送/配送中',
-            timeArr: [1, 2, 3, 4]
-          },
-          {
-            state: '确认收货/已送到/完成',
-            timeArr: [1, 2, 3, 4, 5, 6]
-          },
-          {
-            state: '用户取消',
-            timeArr: [1, 7]
-          },
-          {
-            state: '自动取消',
-            timeArr: [1, 7]
-          },
-          {
-            state: '后台客服退单',
-            timeArr: [1, 2, 7]
-          },
-          {
-            state: '后台审核退单成功',
-            timeArr: [1, 7]
-          },
-          {
-            state: '达达主动发起取消订单',
-            timeArr: [1, 2, 3, 7]
-          },
-          {
-            state: '店pos取消',
-            timeArr: [1, 2, 7]
-          },
+          { state: '等待支付', timeArr: [1] },
+          { state: '支付成功', timeArr: [1, 2] },
+          { state: '商家接单/商家已确认', timeArr: [1, 2, 3] },
+          { state: '正在配送/配送中', timeArr: [1, 2, 3, 4] },
+          { state: '确认收货/已送到/完成', timeArr: [1, 2, 3, 4, 5, 6] },
+          { state: '用户取消', timeArr: [1, 7] },
+          { state: '自动取消', timeArr: [1, 7] },
+          { state: '后台客服退单', timeArr: [1, 2, 7] },
+          { state: '后台审核退单成功', timeArr: [1, 7] },
+          { state: '达达主动发起取消订单', timeArr: [1, 2, 3, 7] },
+          { state: '店pos取消', timeArr: [1, 2, 7] },
         ];
 
 
@@ -355,7 +282,7 @@ Page({
 
         }
 
-        (curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
+        ;(curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
         curState === 3 && dis_take_time != '0000-00-00 00:00:00' ? curTimeArr.push(5) : curTimeArr;
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
 
@@ -367,34 +294,14 @@ Page({
         // 2） 待取餐，时间：data.pay_time         //支付时间
         // 6） 订单已完成，时间：data.dis_finish_time  //送达时间
         // 7） 订单已取消，时间：data.cancel_time      //取消时间
-        timeArr = [{
-          state: '等待支付',
-          time: order_ctime
-        },
-          {
-            state: '待取餐',
-            time: pay_time
-          },
-          {
-            state: '商家已接单',
-            time: push_time
-          },
-          {
-            state: '配送已接单',
-            time: dis_get_time
-          },
-          {
-            state: '骑手配送中',
-            time: dis_take_time
-          },
-          {
-            state: '订单已完成',
-            time: dis_finish_time
-          },
-          {
-            state: '订单已取消',
-            time: cancel_time
-          },
+        timeArr = [
+          { state: '等待支付', time: order_ctime },
+          { state: '待取餐', time: pay_time },
+          { state: '商家已接单', time: push_time },
+          { state: '配送已接单', time: dis_get_time },
+          { state: '骑手配送中', time: dis_take_time },
+          { state: '订单已完成', time: dis_finish_time },
+          { state: '订单已取消', time: cancel_time },
         ];
         timeArr = timeArr.map(({
                                  state,
@@ -417,50 +324,18 @@ Page({
         // 9，达达主动发起取消订单 1,2，7
         // 10：店pos取消   1,2，7
 
-        let orderStatus = [{
-          state: '等待支付',
-          timeArr: [1]
-        },
-          {
-            state: '支付成功',
-            timeArr: [1, 2]
-          },
-          {
-            state: '商家接单/商家已确认',
-            timeArr: [1, 2, 3]
-          },
-          {
-            state: '正在配送/配送中',
-            timeArr: [1, 2, 3]
-          },
-          {
-            state: '确认收货/已送到/完成',
-            timeArr: [1, 3, 2, 6]
-          },
-          {
-            state: '用户取消',
-            timeArr: [1, 7]
-          },
-          {
-            state: '自动取消',
-            timeArr: [1, 7]
-          },
-          {
-            state: '后台客服退单',
-            timeArr: [1, 2, 7]
-          },
-          {
-            state: '后台审核退单成功',
-            timeArr: [1, 2, 7]
-          },
-          {
-            state: '达达主动发起取消订单',
-            timeArr: [1, 2, 7]
-          },
-          {
-            state: '店pos取消',
-            timeArr: [1, 2, 7]
-          },
+        let orderStatus = [
+          { state: '等待支付', timeArr: [1] },
+          { state: '支付成功', timeArr: [1, 2] },
+          { state: '商家接单/商家已确认', timeArr: [1, 2, 3] },
+          { state: '正在配送/配送中', timeArr: [1, 2, 3] },
+          { state: '确认收货/已送到/完成', timeArr: [1, 3, 2, 6] },
+          { state: '用户取消', timeArr: [1, 7] },
+          { state: '自动取消', timeArr: [1, 7] },
+          { state: '后台客服退单', timeArr: [1, 2, 7] },
+          { state: '后台审核退单成功', timeArr: [1, 2, 7] },
+          { state: '达达主动发起取消订单', timeArr: [1, 2, 7] },
+          { state: '店pos取消', timeArr: [1, 2, 7] },
         ];
 
         let curState = res.data.order_status_info.order_status;

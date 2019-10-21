@@ -1,0 +1,489 @@
+page {
+  background: #f5f5f5
+}
+
+.board {
+  background: white;
+  width: 702rpx;
+  margin: 16rpx auto;
+  padding: 40rpx 0 24rpx;
+  border-radius: 10rpx;
+}
+
+.board-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  text-align: center;
+  margin-bottom: 12rpx;
+}
+
+.board-state image {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.board-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 10rpx;
+}
+
+.board-last {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.board-last-time {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: #E60012;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons view {
+  padding: 15rpx 18rpx;
+  border: 1rpx solid #999;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  border-radius: 32rpx;
+  margin-right: 24rpx
+}
+
+view.pay {
+  color: #E60012;
+  border-color: #E60012;
+}
+
+.good, .poster {
+  background: white;
+  width: 702rpx;
+  margin: 16rpx auto;
+  padding: 30rpx 24rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+
+.address {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  padding: 0 0 30rpx 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.address image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.good-list {
+  margin-top: 24rpx;
+}
+
+.good-item image {
+  width: 86rpx;
+  height: 86rpx;
+  border: 1px solid #f2f2f2;
+  margin-right: 28rpx;
+}
+
+.good-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.body {
+  width: 320rpx;
+  height: 86rpx;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.num {
+  flex: 1;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.price {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.del {
+  color: #999;
+  text-decoration: line-through;
+  margin-right: 16rpx;
+}
+
+.name {
+  display: flex;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.top text {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: #999;
+}
+
+.size {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+
+.name .image {
+  width: 28rpx;
+  height: 28rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 4rpx;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  line-height: 28rpx;
+  margin-right: 5rpx;
+}
+
+.post {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+
+.post .value {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.post .value {
+  color: #E60012
+}
+
+.reduce-item {
+  margin-top: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.reduce-item, .left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reduce image {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+
+.reduce .value {
+  color: #E60012
+}
+
+.total {
+  font-size: 26rpx;
+  font-weight: 400;
+  padding-top: 24rpx;
+  color: rgba(51, 51, 51, 1);
+  text-align: right;
+}
+
+.total text {
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.list .item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24rpx;
+}
+
+.item .value{
+  text-align: right
+}
+
+.item .label {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  width:200rpx;
+}
+
+
+
+.label.flex,.value.flex {
+  display: flex;
+  align-items: center;
+}
+
+.dis {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(230, 0, 18, 1);
+}
+
+.dis text {
+  margin-left: 15rpx;
+}
+
+.cancelr {
+  font-size: 22rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  text-align: center;
+  padding: 8rpx 0 40rpx;
+}
+
+.out-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  margin-top: 40rpx;
+}
+
+.out-footer view:last-child {
+  border-color: #E60012;
+  color: #E60012
+}
+
+.topay {
+  padding: 0 18rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  border: 1px solid rgba(230, 0, 18, 1);
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(230, 0, 18, 1);
+  line-height: 64rpx;
+  text-align: center
+}
+
+.cancel-order {
+  width: 140rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  border: 1px solid rgba(153, 153, 153, 1);
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 64rpx;
+  text-align: center;
+  margin-left: 20rpx
+}
+
+.item .label {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+
+.dis {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(230, 0, 18, 1);
+}
+
+.dis text {
+  margin-left: 15rpx;
+}
+
+.order-trace {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  text-align: center;
+  padding-top: 32rpx
+}
+
+.order-trace image {
+  position: absolute;
+  right: 40rpx;
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.order-trace-ul {
+  padding: 42rpx 32rpx;
+}
+
+.order-trace-li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.order-trace-left {
+  display: flex;
+  flex: 1
+}
+
+.order-trace-state, .order-trace-time {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  margin-left: 10rpx;
+}
+
+.order-trace-state.active, .order-trace-time.active {
+  font-size: 28rpx;
+  font-family: PingFangSC-Semibold;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+}
+
+.order-trace-left image {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.select {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.cancle-title {
+  padding: 40rpx 32rpx 10rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+
+.cancel-list {
+  margin: 0 32rpx;
+  padding: 30rpx 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #eee
+}
+
+.cancel-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 670rpx;
+  margin: 30rpx auto 0;
+}
+
+.cancel-buttons view {
+  width: 50%;
+  height: 96rpx;
+  line-height: 96rpx;
+  color: #fff;
+  text-align: center;
+  font-size: r34px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+.cancel-buttons view:first-child {
+  background: #CCCCCC;
+  border-radius: 48rpx 0 0 48rpx;
+}
+
+.cancel-buttons view:last-child {
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 0 48rpx 48rpx 0;
+}
+
+.code-button {
+  width: 80rpx;
+  height: 52rpx;
+  border-radius: 26rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #333;
+  line-height: 52rpx;
+  text-align: center;
+  border: 1px solid rgba(153, 153, 153, 1);
+  margin-left: 10rpx;
+}
+
+.get-code-p {
+  position: relative;
+  width: 652rpx;
+  height: 200rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 10px;
+  margin: 16rpx auto;
+  padding: 30rpx 24rpx;
+}
+
+.get-code-title {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+.get-code-code {
+  font-size: 64rpx;
+  font-family: PingFangSC-Semibold;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  margin-top: 30rpx;
+}
+
+.get-code-p image {
+  position: absolute;
+  width: 140rpx;
+  height: 140rpx;
+  right: 20rpx;
+  top: 10rpx;
+}
+
+.orderInfo .list .item {
+  height: 52rpx;
+  line-height: 52rpx;
+}
