@@ -61,10 +61,10 @@ Component({
     btuBottom:0
   },
   attached(){
-    let isPhone = app.globalData.isIpx;
+    let isPhone = app.globalData.isIphoneX;
     if (isPhone) {
       this.setData({
-        btuBottom: "68rpx",
+        btuBottom: "48rpx",
       })
     }
   },

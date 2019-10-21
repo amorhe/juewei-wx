@@ -460,7 +460,7 @@ Page({
   // 新增地址
   eveAddAddressTap() {
     // 判断 是否登录
-    if (wxGet('user_id') == undefined) {
+    if (wxGet('userInfo').user_id == undefined ) {
       navigateTo({
         url: '/pages/login/auth/auth'
       });

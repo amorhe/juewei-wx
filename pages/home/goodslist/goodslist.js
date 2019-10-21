@@ -37,6 +37,7 @@ import {
 import {
   startAddShopAnimation
 } from '../../common/js/AddShopCar.js'
+import { event_getNavHeight } from '../../common/js/utils.js'
 var app = getApp();
 let tim = null,
   goodsret = [];
@@ -139,7 +140,8 @@ Page({
     shopcart_top: 0,
     shopcart_left: 0,
     togoodsType: 1, //点击跳转
-    totalH: 0
+    totalH: 0,
+    bottomTabbar:98,
   },
 
   /**
@@ -158,6 +160,12 @@ Page({
       wx.removeStorage({
         key: 'appglobalData'
       });
+    }
+    let isPhone = app.globalData.isIphoneX;
+    if (isPhone) {
+      this.setData({
+        bottomTabbar: 146,
+      })
     }
   },
 
@@ -307,6 +315,9 @@ Page({
   // 下拉刷新
   onPullDownRefresh: function() {
     // Do something when pull down.
+    wx.showLoading({
+      title: '加载中...',
+    })
     this.onShow();
     wx.stopPullDownRefresh()
   },
@@ -610,10 +621,12 @@ Page({
         obj2 = {};
       if (this.data.activityList.DIS) {
         DIS = this.data.activityList.DIS.filter(item => arr.findIndex(value => value.sap_code == item.goods_sap_code) != -1)
+        DIS.forEach(item => item.key='折扣');
       }
       // 筛选在当前门店里面的套餐商品  
       if (this.data.activityList.PKG) {
         PKG = this.data.activityList.PKG.filter(item => item.pkg_goods.map(ott => arr.findIndex(value => value.sap_code == ott.sap_code) != -1));
+        PKG.forEach(item => item.key = '套餐');
       }
       // 套餐商品图片格式
       for (let item of PKG) {
@@ -668,7 +681,7 @@ Page({
                 last: []
               }
             }
-
+            
             let last = []
             _t.map(_item => {
               if (values.length == 0) {
@@ -677,6 +690,9 @@ Page({
               let cur = values.filter(({
                 goods_code
               }) => goods_code === _item);
+              if(cur.length>0){
+                cur[0].key = cur[0].taste_name
+              }
               last = new Set([...last, ...cur])
             })
             return {
@@ -816,7 +832,8 @@ Page({
             })
             goodsret = arr;
           })
-          wxSet('shopGoods', goodsArr)
+          wxSet('shopGoods', goodsArr);
+          wx.hideLoading();
         },
       });
 
@@ -1123,7 +1140,7 @@ Page({
   // 去商品详情页
   eveGoodsdetailContent(e) {
     navigateTo({
-      url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code + '&key=' + e.currentTarget.dataset.key
+      url: '/pages/home/goodslist/goodsdetail/goodsdetail?goods_code=' + e.currentTarget.dataset.goods_code
     });
   },
   // 清空购物车

@@ -56,13 +56,14 @@ Page({
     freeText: '',
     freeMoney: 0,
     goodsInfo: {}, // 商品数据
-    repurse_price: 0
+    repurse_price: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(e) {
+    let isPhone = app.globalData.isIphoneX;
     let goods = app.globalData.goodsArr,
       goodlist = wxGet('goodsList') || {},
       goodsInfo = {},
@@ -84,8 +85,6 @@ Page({
         }
       }  
     }
-    goodsInfo['key'] = e.key
-    console.log(goodsInfo)
     for (let keys in goodlist) {
       if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;

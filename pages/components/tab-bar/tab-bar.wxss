@@ -1,36 +1,41 @@
 /* pages/components/tab-bar.wxss */
 
-.my-tabs{
-    z-index: 1000;
-    position: fixed;
-    height: 98rpx;
-    width: 100vw;
-    display: flex;
-    background: #fff;
-    border-top: 2rpx #eee solid
+.my-tabs {
+  z-index: 1999;
+  position: fixed;
+  height: 98rpx;
+  width: 100vw;
+  background: #fff;
+  border-top: 2rpx #eee solid;
+  bottom: 0;
+  left: 0;
 }
 
-.button{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    padding: 0;
-    margin: 0;
-    background: #fff
+.tabs_tt {
+  display: flex;
 }
 
-.image{
-    width: 54rpx;
-    height: 54rpx;
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  padding: 0;
+  margin: 0;
+  background: #fff;
 }
 
-.text{
-    font-size:20rpx;
-    height: 36rpx;
-    margin-top: -6rpx;
-    font-family:PingFangSC;
-    font-weight:400;
-    color:rgba(127,131,137,1);
+.image {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.text {
+  font-size: 20rpx;
+  height: 36rpx;
+  margin-top: -6rpx;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: rgba(127, 131, 137, 1);
 }

@@ -1,8 +1,9 @@
 <!--pages/components/tab-bar.wxml-->
-<view class="my-tabs" style="bottom:{{btuBottom}}">
-    <button  class="my-tab button" wx:for="{{ tabBar.list }}" wx:key="text" data-url="{{ item.pagePath }}"  bindtap="buttonClick" hover-class="none">
-        <image class="image" src="{{ cur === index ? item.selectedIconPath : item.iconPath }}"/>
-        <text class="text" style="color: {{ cur === index ? tabBar.selectedColor : '' }}">{{ item.text }}</text>
+<view class="my-tabs" style="padding-bottom:{{btuBottom}}">
+  <view class="tabs_tt">
+    <button class="my-tab button" wx:for="{{ tabBar.list }}" wx:key="text" data-url="{{ item.pagePath }}" bindtap="buttonClick" hover-class="none">
+      <image class="image" src="{{ cur === index ? item.selectedIconPath : item.iconPath }}" />
+      <text class="text" style="color: {{ cur === index ? tabBar.selectedColor : '' }}">{{ item.text }}</text>
     </button>
+  </view>
 </view>
-

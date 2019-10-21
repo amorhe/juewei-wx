@@ -309,7 +309,7 @@ Page({
       newGoodsArr = [],
       obj1 = {},
       obj2 = {};
-    if (this.data.newArr.length > 0) {
+    if (this.data.newArr.length > 0 && !this.data.newArr[0].user_id) {
       for (let _item of this.data.newArr) {
         for (let item of this.data.goodsList) {
           // 商品价格变更
@@ -326,26 +326,29 @@ Page({
           }
         }
       }
-    }
-    if (Object.keys(obj2).length > 0 && Object.keys(obj1).length == 0) {
-      newShopcart = obj2;
-    } else if (Object.keys(obj1).length > 0 && Object.keys(obj2).length == 0) {
-      newShopcart = obj1;
-    } else if (Object.keys(obj1).length > 0 && Object.keys(obj2).length > 0) {
-      for (let key in obj1) {
-        if (obj2[key]) {
-          newShopcart[key] = obj1[key];
+      if (Object.keys(obj2).length > 0 && Object.keys(obj1).length == 0) {
+        newShopcart = obj2;
+      } else if (Object.keys(obj1).length > 0 && Object.keys(obj2).length == 0) {
+        newShopcart = obj1;
+      } else if (Object.keys(obj1).length > 0 && Object.keys(obj2).length > 0) {
+        for (let key in obj1) {
+          if (obj2[key]) {
+            newShopcart[key] = obj1[key];
+          }
         }
+      } else {
+        wx.removeStorage({
+          key: 'goodsList'
+        })
+        redirectTo({
+          url: '/pages/home/goodslist/goodslist'
+        })
+        return;
       }
-    } else {
-      wx.removeStorage({
-        key: 'goodsList'
-      })
-      redirectTo({
-        url: '/pages/home/goodslist/goodslist'
-      })
-      return;
+    }else{
+      newShopcart = goodlist;
     }
+    
     for (let ott in newShopcart) {
       newGoodsArr.push(newShopcart[ott])
     }
@@ -355,12 +358,12 @@ Page({
     })
     // 重新选择商品
     if (data.detail.isType == 'orderConfirm' && data.detail.type == 1) {
-      // wx.navigateBack({
-      //   delta: 1
-      // });
-      redirectTo({
-        url:'/pages/home/goodslist/goodslist'
-      })
+      wx.navigateBack({
+        delta: 1
+      });
+      // redirectTo({
+      //   url:'/pages/home/goodslist/goodslist'
+      // })
       return;
     }
     // 继续结算
@@ -631,7 +634,7 @@ Page({
             wx.removeStorage({
               key: 'goodsList', // 缓存数据的key
             });
-            reLaunch({
+            redirectTo({
               url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no, // 需要跳转的应用内非 tabBar 的目标页面路径 ,路径后可以带参数。参数规则如下：路径与参数之间使用
             });
           })
@@ -658,7 +661,7 @@ Page({
                 add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
                   if (confs.CODE == 'A100') {
                     wx.removeStorageSync('goodsList');
-                    reLaunch({
+                    redirectTo({
                       url: '/pages/home/orderfinish/orderfinish?order_no=' + res.data.order_no
                     });
                   }
@@ -668,12 +671,12 @@ Page({
                 wx.removeStorageSync('goodsList');
                 if (conf.errMsg.indexOf('cancel') != -1) {
                   // 取消支付
-                  reLaunch({
+                  redirectTo({
                     url: '/package_order/pages/orderdetail/orderdetail?order_no=' + res.data.order_no
                   })
                 } else {
                   // 支付失败
-                  reLaunch({
+                  redirectTo({
                     url: '/pages/home/orderError/orderError'
                   })
                 }

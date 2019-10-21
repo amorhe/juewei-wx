@@ -54,7 +54,8 @@ Component({
     isTake: false,
     isOpen: '',
     priceAll: 0,
-    h: 0
+    h: 0,
+    curUrl:false
   },
   observers: {
     '**': function() {
@@ -78,10 +79,24 @@ Component({
       type: this.properties.type
     })
     this.funGetSendPrice();
-    if (getCurUrl() === 'pages/home/goodslist/goodslist') {
+    let isPhone = app.globalData.isIphoneX;
+    if (isPhone) {
       this.setData({
-        h: '198rpx'
+        bottomTabbar: 146,
       })
+    }
+    if (getCurUrl() === 'pages/home/goodslist/goodslist') {
+      if (isPhone) {
+        this.setData({
+          h: '246rpx',
+          curUrl:true
+        })
+      } else {
+        this.setData({
+          h: '198rpx',
+          curUrl:true
+        })
+      }
     }
     if (getCurUrl() === 'pages/home/goodslist/goodsdetail/goodsdetail') {
       this.setData({

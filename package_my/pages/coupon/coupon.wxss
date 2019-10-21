@@ -323,7 +323,7 @@ page {
     position: absolute;
     top: 0;
     width: 580rpx;
-    height: 720rpx;
+    height: 650rpx;
     padding: 10rpx 0 56rpx;
     border-radius: 10rpx;
     text-align: center;

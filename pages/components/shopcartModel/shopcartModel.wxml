@@ -1,4 +1,4 @@
-<view class="goodsBottom" catchtouchmove="touchstart">
+<view catchtouchmove="touchstart">
   <view class="fullReduce" wx:if="{{activityText!='' && !showShopcar}}">{{activityText}}</view>
   <view class="shopcart">
     <image class="shopcarImage" wx:if="{{ shopcartNum== 0}}" src="{{imageUrl}}shopcart_empty.png" />
@@ -62,3 +62,5 @@
 </view>
 <!-- 遮罩层 -->
 <view wx:if="{{mask1 && shopcartAll.length>0}}" class="mask" bindtap="eveHiddenShopcart" catchtouchmove="touchstart"></view>
+
+<tab-bar cur="{{ 0 }}" wx:if="{{curUrl}}"></tab-bar>

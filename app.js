@@ -119,6 +119,7 @@ App({
     chooseBool: false,
     isSelf: false,
     refresh: false, // 当前页面是否需要刷新
-    gopages: '' //跳转到相应文件
+    gopages: '', //跳转到相应文件
+    isIphoneX: false,
   }
 });

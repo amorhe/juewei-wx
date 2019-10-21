@@ -125,6 +125,6 @@
   </view>
 </view>
 
-<view style="height: 40rpx;"></view>
+<view style="height: 100rpx;"></view>
 
 <tab-bar cur="{{ 1 }}"></tab-bar>
