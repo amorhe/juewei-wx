@@ -18,7 +18,7 @@
 }
 .goods_image {
   width: 160rpx;
-  height: 136rpx;
+  height: 126rpx;
   margin-right: 24rpx;
   border: 1px #E7E7E7 solid;
   border-radius: 4rpx

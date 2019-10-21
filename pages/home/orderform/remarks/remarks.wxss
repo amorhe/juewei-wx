@@ -16,6 +16,7 @@
   box-sizing: border-box;
   border-radius: 10rpx;
   width: 686rpx;
+  height: 320rpx
 }
 
 .remarksTextarea {
@@ -35,7 +36,8 @@
   border-radius: 47rpx;
   color: #fff;
   margin-top: 100rpx;
-  position: relative
+  position: relative;
+  line-height: 94rpx
 }
 
 .noWrite {

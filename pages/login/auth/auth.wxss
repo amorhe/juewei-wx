@@ -30,6 +30,7 @@
 .inputClass {
   width: 670rpx;
   height: 50rpx;
+  font-size: 40rpx
 }
 
 .loginTitel {

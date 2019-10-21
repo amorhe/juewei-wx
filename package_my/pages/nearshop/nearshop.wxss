@@ -62,13 +62,14 @@
   bottom: 0;
   background: transparent;
   overflow-y: scroll;
+  padding: 40rpx 32rpx;
+  background: #fff
 }
 .shopLi {
   background: #fff;
   padding:20rpx;
   box-shadow:0 2rpx 10rpx 0 rgba(153,153,153,0.2);
   border-radius:10rpx;
-  margin: 16rpx 32rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

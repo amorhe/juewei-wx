@@ -120,10 +120,10 @@
           </view>
           <view class="num">×{{item.goods_quantity}}</view>
           <view class="price">
-            <text class="del" wx:if="{{item.goods_price!=item.goods_original_price}}">
+            <view class="del" wx:if="{{item.goods_price!=item.goods_original_price}}">
                             ￥{{(item.goods_original_price * item.goods_quantity / 100)}}
-                        </text>
-            <text>￥{{(item.goods_price * item.goods_quantity /100)}}</text>
+                        </view>
+            <view>￥{{(item.goods_price * item.goods_quantity /100)}}</view>
           </view>
         </view>
       </view>

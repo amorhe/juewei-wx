@@ -2,8 +2,14 @@
 
 .positionIng {
   padding: 18rpx 32rpx 16rpx;
-  border-bottom: 16rpx #f5f5f5 solid;
+  /* border-bottom: 16rpx #f5f5f5 solid; */
   background: #fff;
+}
+.grayView {
+  width:100vw;
+  height: 16rpx;
+  background: #f5f5f5;
+  border-radius: 20rpx
 }
 .mask_vciew {
   width: 100vw;
@@ -48,7 +54,7 @@
 
 .delivery {
   padding: 30rpx 32rpx 26rpx;
-  border-bottom: 24rpx #f5f5f5 solid;
+  /* border-bottom: 24rpx #f5f5f5 solid; */
   background: #fff;
 }
 

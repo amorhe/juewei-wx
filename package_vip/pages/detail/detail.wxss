@@ -33,7 +33,7 @@ page{
 
 .coast{
     margin: 0 32rpx;
-    margin-top: 10rpx;
+    /* margin-top: 10rpx; */
     margin-bottom: 21rpx;
     font-size: 56rpx;
     color:#e60012;
@@ -53,6 +53,8 @@ page{
     text-align: center;
     color:#e60012;
     border-radius: 0 0 20rpx 0;
+    line-height: 32rpx;
+    font-size: 22rpx
 }
 .bottom.bottom-back{
     margin-top: -32rpx;

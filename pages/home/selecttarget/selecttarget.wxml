@@ -30,6 +30,7 @@
     </view>
   </view>
   <!-- 收货地址 -->
+  <view class="grayView"></view>
   <view class="delivery">
     <view class="fontGray">收货地址</view>
     <view class="addressList">
@@ -46,6 +47,7 @@
       <image class="normalImage" src="{{imageUrl}}arrow_right1.png" />
     </view>
   </view>
+  <view class="grayView"></view>
   <!-- 附近地址 -->
   <view class="nearAddressBox">
     <view class="fontGray">附近地址</view>

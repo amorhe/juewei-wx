@@ -1,4 +1,4 @@
-<view>
+<view style="position:relative">
   <!-- 定位 -->
   <view wx:if="{{!isSelf}}" class="goodsPosition" style="{{shopcarShow?'z-index:0':'z-index:1000'}}">
     <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft" hover-class="none">
@@ -166,7 +166,7 @@
   </view>
   <view class="{{maskView?'content_other':'content_main'}}" style="{{isShow?'top:254rpx':'top:208rpx'}}">
     <view class="pages_scroll pagesinfo" style="height:{{totalH}}rpx">
-      <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;padding-bottom:50rpx" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
+      <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;padding-bottom:60rpx" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
         <view class="goodsUl">
           <view bindtap="eveChooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">
             <image wx:if="{{goodsType != index + 1}}" src="{{imageUrl}}m_{{goodsClass[item.key]}}_1.png" />
@@ -176,7 +176,7 @@
           </view>
         </view>
       </scroll-view>
-      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;padding-bottom:50rpx" scroll-into-view="s{{togoodsType}}" scroll-with-animation="true" scroll-animation-duration="30" class="scrolllist" bindscroll="bindscroll" bindtouchend="bindtouchend">
+      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;" scroll-into-view="s{{togoodsType}}" scroll-with-animation="true" scroll-animation-duration="30" class="scrolllist" bindscroll="bindscroll" bindtouchend="bindtouchend">
         <view>
           <view id="s{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
             <view class="goodsTypeEv">{{item.key}}</view>
@@ -248,9 +248,9 @@
               wx:if="{{item.key!='套餐' && item.key!='爆款' &&item.key!='折扣'}}" wx:key="unique">
               <view class="discountImg">
                 <image wx:if="{{v.huangou==1}}" class="huangouPng" mode="scaleToFill" src="{{imageUrl}}markup_icon.png" />
-                <image class="goods_ss_img" src="{{v.goods_small_img[0]}}" />
+                <image class="goods_ss_img" src="{{v.goods_small_img[0]}}" mode="scaleToFill"/>
               </view>
-              <view class="goodsInfos">
+              <view class="goodsInfos" style="height:136rpx">
                 <view>
                   <text class="goodsName">{{v.goods_name}}</text>
                   <text class="goodsKind">（{{v.taste_name}}）</text>

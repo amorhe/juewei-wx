@@ -17,8 +17,11 @@
 .activeFont {
   font-weight: 600;
 }
-.borderFont {
-  border-bottom: 16rpx #eee solid
+.grayView {
+  width: 100vw;
+  height: 16rpx;
+  background: #eee;
+  border-radius: 20rpx
 }
 .goodsintro {
   padding: 24rpx 32rpx;

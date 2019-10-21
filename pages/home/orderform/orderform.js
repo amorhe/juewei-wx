@@ -153,6 +153,8 @@ Page({
             borderRadius: 30,
             bgColor: "#ffffff",
             padding: 8,
+            anchorX:-36,
+            anchorY:-72
           }
         }
       ]

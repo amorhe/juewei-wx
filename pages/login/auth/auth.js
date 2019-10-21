@@ -166,7 +166,7 @@ Page({
       };
       let res = await sendCode(data);
       if (res.code === 0 && res.msg === 'OK') {
-        wxSet('count', new Date().count - '' + 1);
+        wxSet('count', count + 1);
         this.setData({
           modalOpened: false,
           img_code: ''

@@ -235,7 +235,7 @@ Page({
       };
       let code = await sendCode(data);
       if (code.code == 0 && code.msg == 'OK') {
-        wxSet('count', count - '' + 1);
+        wxSet('count', count + 1);
         this.setData({
           modalOpened: false,
           img_code: ''

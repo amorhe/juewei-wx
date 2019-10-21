@@ -18,7 +18,7 @@
     </view>
   </view>
   <view class="goods_bottom_view">
-    <view class="numberColor flexNormal" style="align-items:flex-end">
+    <view class="numberColor flexNormal" style="vertical-align:text-bottom">
       <text>￥</text>
       <view wx:if="{{size==999}}">
         <text class="goods_prices">{{goodsItem.goods_format[0].goods_price / 100< goodsItem.goods_format[1].goods_price / 100 ?goodsItem.goods_format[0].goods_price / 100 :goodsItem.goods_format[1].goods_price / 100}}</text>
