@@ -16,7 +16,7 @@
 }
 .quan {
   width: 287rpx;
-  height: 334rpx;
+  height: 254rpx;
   position: absolute;
   left: 0;
   top: 0

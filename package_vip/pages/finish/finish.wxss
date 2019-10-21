@@ -108,7 +108,7 @@ page {
 .hint {
     font-size: 24rpx;
     font-weight: 400;
-    color: rgba(230, 0, 18, 1);
+    color: #999;
     margin-top: 20rpx;
 }
 

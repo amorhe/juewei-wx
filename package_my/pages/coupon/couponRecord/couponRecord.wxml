@@ -1,6 +1,6 @@
 <view class="couponUl" wx:if="{{couponList.length>0}}">
   <view class="couponLi" wx:for="{{couponList}}" wx:key="unique" style="{{item.toggleRule?'max-height:900rpx':'max-height:254rpx'}}">
-    <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="widthFix" />
+    <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="scaleToFill" />
     <view>
       <view class="couponNumber">
         <text>{{item.money /100}}</text>

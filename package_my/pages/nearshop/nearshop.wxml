@@ -37,18 +37,16 @@
 </view>
 
 <view wx:if="{{isSearch}}">
-  <view class="shopLi" wx:for="{{shopList}}" wx:key="unique" style="margin-bottom:0">
+  <view class="shopLi" wx:for="{{shopList}}" wx:key="unique" style="margin-bottom:0;box-shadow:none;padding:0">
     <view>
       <view class="flexNormal">
         <view class="shopTxt">
-          <image wx:if="{{activeIndex==index}}" class="shopIcon" src="{{imageUrl}}position_map1.png" />
-          <image wx:if="{{activeIndex!=index}}" class="shopIcon" src="{{imageUrl}}order2.png" />
           <view>{{item.title}}</view>
         </view>
         <view class="fontTwentyTwo">距离{{item.distance}}米</view>
       </view>
-      <view class="fontTwentyTwo paddingLeft">营业时间：{{item.start_time}}-{{item.end_time}}</view>
-      <view class="fontSmallGray paddingLeft">{{item.address}}</view>
+      <view class="fontTwentyTwo">营业时间：{{item.start_time}}-{{item.end_time}}</view>
+      <view class="fontSmallGray">{{item.address}}</view>
     </view>
     <view bindtap="eveSwitchShop" data-index="{{index}}" class="modalTap"></view>
     <view class="menuBtn">
