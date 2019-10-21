@@ -141,37 +141,44 @@ Page({
       url: '/pages/city/city'
     })
   },
-  funInputword(e) {
+
+  evebindinput(e) {
     if (e.detail.value == '') {
       this.setData({
-        searchResult: []
+        searchResult: [],
+        isOnfoucs: false,
+        noResult: false
       })
-      return
+    }else{
+      this.setData({
+        inputAddress: e.detail.value 
+        // isOnfoucs: false,
+        // noResult: false
+      })
+      this.searchShop(e.detail.value);
     }
-    this.setData({
-      inputAddress: e.detail.value,
-      isOnfoucs: false,
-      noResult: false
-    })
-    this.searchShop(e.detail.value)
   },
   closeFN() {
     this.setData({
       inputAddress: '',
       searchResult: [],
-      noResult:false
+      noResult:false,
+      isOnfoucs: false
     })
   },
   // 输入地址搜索门店
   searchShop(value) {
     let that = this;
     //附近地址列表
-    let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
-    url = encodeURI(url);
+    let url = 'https://api.map.baidu.com/geocoding/v3/?address=' + encodeURI(this.data.city + ',' + value) +'&output=json&ak='+ ak
+    // wx.showToast({
+    //   title: url,
+    //   duration: 8000
+    // })
     wx.request({
       url,
       success: (res) => {
-        if (res.data.status == 0 && res.data.result.level != '城市') {
+        if (res.data.status == 0) {
           let lng = res.data.result.location.lng;
           let lat = res.data.result.location.lat;
           let location = `${lng},${lat}`;
@@ -183,6 +190,11 @@ Page({
           })
         }
       },
+      fail: (res) => {
+        this.setData({
+          noResult: true
+        })
+      }
     });
   },
   // 搜索门店
@@ -487,8 +499,11 @@ Page({
     })
   },
   funOutfocus() {
-    this.setData({
-      isOnfoucs: false
-    })
+    //判断是否有信息如果有不能false
+    if (this.data.inputAddress==''){
+      this.setData({
+        isOnfoucs: false
+      })
+    }
   }
 })
