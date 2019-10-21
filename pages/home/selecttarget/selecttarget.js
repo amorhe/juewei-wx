@@ -371,14 +371,14 @@ Page({
 
         // 按照goods_num做降序排列
         let shopArray = shopArr1.concat(shopArr2);
-        shopArray.sort((a, b) => {
-          var value1 = a.goods_num,
-            value2 = b.goods_num;
-          if (value1 <= value2) {
-            return a.distance - b.distance;
-          }
-          return value2 - value1;
-        });
+        // shopArray.sort((a, b) => {
+        //   var value1 = a.goods_num,
+        //     value2 = b.goods_num;
+        //   if (value1 <= value2) {
+        //     return a.distance - b.distance;
+        //   }
+        //   return value2 - value1;
+        // });
         shopArray[0]['jingxuan'] = true;
         app.globalData.position.cityAdcode = shopArray[0].city_id
         app.globalData.position.districtAdcode = shopArray[0].district_id
@@ -449,8 +449,8 @@ Page({
         }
       }
       // 根据距离最近排序
-      shopArr1.sort(sortNum('distance'));
-      shopArr2.sort(sortNum('distance'));
+      // shopArr1.sort(sortNum('distance'));
+      // shopArr2.sort(sortNum('distance'));
       const shopArray = shopArr1.concat(shopArr2);
       shopArray[0]['jingxuan'] = true;
       app.globalData.address = address;

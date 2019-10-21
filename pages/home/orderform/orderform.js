@@ -122,7 +122,7 @@ Page({
       }
     }
     const self = app.globalData.shopTakeOut;
-    console.log(goodlist)
+    // console.log(goodlist)
     this.setData({
       goodsList: goodlist,
       shopObj: self
@@ -454,7 +454,6 @@ Page({
               if (val.goods_type == 'PKG') {
                 val['goods_img'] = img_url + app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.goods_code == val.goods_code)].goods_img[0];
               } else {
-                console.log(app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0])
                 val['goods_img'] = app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0].indexOf('http://imgcdnjwd.juewei.com/') == -1 ? 'http://imgcdnjwd.juewei.com/' + app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0] : app.globalData.goodsArr[app.globalData.goodsArr.findIndex(item => item.sap_code == val.sap_code || item.goods_sap_code == val.sap_code)].goods_img[0];
               }
             }
