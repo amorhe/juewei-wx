@@ -188,7 +188,7 @@ Page({
   // 搜索门店
   funSearchShop(that, value, lat, lng) {
     wx.request({
-      url: `http://api.map.baidu.com/place/v2/search?query=${value}&location=${lat},${lng}&radius=100000&scope=2&output=json&ak=${ ak }`,
+      url: `https://api.map.baidu.com/place/v2/search?query=${value}&location=${lat},${lng}&radius=100000&scope=2&output=json&ak=${ ak }`,
       success(res) {
         if (res.data.results.length > 0) {
           that.setData({
