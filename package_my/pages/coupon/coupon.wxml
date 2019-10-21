@@ -13,9 +13,9 @@
     </i-tabs>
     <view class="tab-content tabBox" wx:if="{{activeTab==0}}">
       <view class="couponUl" wx:if="{{couponList.length>0}}">
-        <view class="couponLi" style="{{item.toggleRule?'max-height:800rpx':'max-height:270rpx'}}" wx:for="{{couponList}}" wx:key="unique">
-          <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="widthFix" />
-          <view>
+        <view class="couponLi" style="{{item.toggleRule?'max-height:800rpx':'max-height:240rpx'}}" wx:for="{{couponList}}" wx:key="unique">
+          <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="scaleToFill" />
+          <view class="flexC">
             <view class="couponNumber">
               <text>{{item.money/100}}</text>
               <text>元</text>
@@ -28,16 +28,13 @@
             <view class="useBtn fontTwentySix" data-way="{{item.way}}" data-code="{{item.code}}" catchtap="toUse">立即使用</view>
           </view>
           <view>
-            <view class="whiteCircleLeft"></view>
             <view class="dashLine"></view>
-            <view class="whiteCircleRight"></view>
           </view>
-          <view>
+          <view class="flexC">
             <view data-index="{{index}}" bindtap="evetoggleRule" style="position:relative;z-index:1;display:flex;align-item:center">
               <text class="colorWhite fontTwentyTwo">更多使用规则</text>
               <image class="arrow_down_icon" src="{{imageUrl}}arrow_down2.png" style="transform:rotate({{item.toggleRule?0:-180}}deg);transition:all .3s" />
             </view>
-            <!-- <image class="qr" src="{{imageUrl}}qrcode.png" data-code="{{item.code}}" catchtap="showCode" wx:if="{{item.way == 2}}" /> -->
             <image class="qr" data-code="{{item.code}}" wx:if="{{item.way != 2}}" />
             <image class="qr" data-code="{{item.code}}" wx:if="{{item.way == 2}}" />
           </view>

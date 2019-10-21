@@ -1,6 +1,6 @@
 <view class="couponUl" wx:if="{{couponList.length> 0}}">
-  <view class="couponLi" style="max-height:{{item.toggleRule?'620':'256'}}rpx" wx:for="{{couponList}}" wx:key="unique" wx:if="{{couponList.length>0}}" bindtap="chooseCouponed" data-coupon_code="{{item.code}}" data-index="{{index}}">
-    <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="widthFix" />
+  <view class="couponLi" style="max-height:{{item.toggleRule?'620':'220'}}rpx" wx:for="{{couponList}}" wx:key="unique" wx:if="{{couponList.length>0}}" bindtap="chooseCouponed" data-coupon_code="{{item.code}}" data-index="{{index}}">
+    <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="scaleToFill" />
     <view>
       <view class="couponNumber">
         <text>{{item.money/100}}</text>
@@ -15,9 +15,7 @@
       <image wx:if="{{couponChoosed['e' + index]}}" class="select" mode="scaleToFill" src="{{imageUrl}}select4.png" />
     </view>
     <view>
-      <view class="whiteCircleLeft"></view>
       <view class="dashLine"></view>
-      <view class="whiteCircleRight"></view>
     </view>
     <view>
       <view data-index="{{index}}" catchtap="toggleRule" style="position:relative;z-index:1;display:flex;align-item:center">

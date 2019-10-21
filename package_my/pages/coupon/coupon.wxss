@@ -1,5 +1,5 @@
 .activeFont {
-  font-weight: bold
+  font-weight: bold;
 }
 
 page {
@@ -8,7 +8,7 @@ page {
 
 .couponUl {
   padding: 16rpx 32rpx;
-  background: #F5F5F5;
+  background: #f5f5f5;
 }
 
 .couponLi {
@@ -20,42 +20,42 @@ page {
   margin-bottom: 16rpx;
   position: relative;
   overflow: hidden;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .quan {
   width: 287rpx;
-  height: 334rpx;
+  height: 240rpx;
   position: absolute;
   z-index: 0;
   left: 0;
-  top: 0
+  top: 0;
 }
 
-.couponLi>view:nth-child(1), .couponLi>view:nth-child(3), .couponLi>view:nth-child(4) {
+.flexC {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .couponNumber {
-  color: #FFE100
+  color: #ffe100;
 }
 
 .couponNumber>text:nth-child(1) {
   font-size: 120rpx;
-  font-weight: 600
+  font-weight: 600;
 }
 
 .couponMiddle {
   /* width: 154rpx; */
   display: flex;
   flex-direction: column;
-  color: #fff
+  color: #fff;
 }
 
 .couponMiddle>view {
-  margin-bottom: 8rpx
+  margin-bottom: 8rpx;
 }
 
 .useBtn {
@@ -65,14 +65,9 @@ page {
   border-radius: 32rpx;
   text-align: center;
   line-height: 64rpx;
-  color: #E60012
+  color: #e60012;
 }
 
-.couponLi>view:nth-child(2) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between
-}
 
 .whiteCircleLeft {
   width: 32rpx;
@@ -92,7 +87,7 @@ page {
 
 .dashLine {
   width: 638rpx;
-  border-bottom: 1px #C81802 dashed
+  border-bottom: 1rpx #c81802 dashed;
 }
 
 .arrow_down_icon {
@@ -101,9 +96,7 @@ page {
   margin-left: 8rpx;
 }
 
-.couponLi>view:nth-child(3) {
-  /* height: 64rpx; */
-}
+
 
 .qr {
   width: 40rpx;
@@ -117,7 +110,7 @@ page {
   padding-bottom: 208rpx;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 .grayLine {
@@ -144,14 +137,14 @@ page {
 }
 
 .couponContainer {
-  background: #F5F5F5;
-  min-height: 100vh
+  background: #f5f5f5;
+  min-height: 100vh;
 }
 
 /* 兑换码 */
 
 .redeemCode {
-  background: #F5F5F5;
+  background: #f5f5f5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,13 +172,13 @@ page {
   height: 110rpx;
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .tabBox {
   height: 100vh;
   overflow-y: scroll;
-  background: #F5F5F5
+  background: #f5f5f5;
 }
 
 .codeMiddle {
@@ -210,7 +203,7 @@ page {
 }
 
 .am-modal-footer {
-  background: rgba(0, 0, 0, 0)
+  background: rgba(0, 0, 0, 0);
 }
 
 .confirm {
@@ -218,7 +211,7 @@ page {
 }
 
 .cancel {
-  color: #E60012;
+  color: #e60012;
 }
 
 .to-use {
@@ -229,7 +222,7 @@ page {
   text-align: center;
   line-height: 64rpx;
   color: white;
-  align-self: flex-end
+  align-self: flex-end;
 }
 
 .code-img {
@@ -248,7 +241,7 @@ page {
   width: 580rpx;
   padding: 10rpx 0 56rpx;
   border-radius: 10rpx;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .code-phone {
@@ -261,8 +254,8 @@ page {
 .close {
   height: 32rpx;
   width: 32rpx;
-    margin-top: 10rpx;
-    margin-right: 20rpx;
+  margin-top: 10rpx;
+  margin-right: 20rpx;
 }
 
 .code-pay {
@@ -285,7 +278,7 @@ page {
 }
 
 .rule view {
-  line-height: 1.5
+  line-height: 1.5;
 }
 
 .noShow {
@@ -304,33 +297,32 @@ page {
   bottom: 0px;
 }
 
-.am-modal-body{
+.am-modal-body {
   max-width: 600rpx;
 }
 
-
-.code-wrap-wrap{
-    z-index: 9999;
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,.6);
+.code-wrap-wrap {
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .code-wrap {
-    z-index: 9999;
-    position: absolute;
-    top: 0;
-    width: 580rpx;
-    height: 650rpx;
-    padding: 10rpx 0 56rpx;
-    border-radius: 10rpx;
-    text-align: center;
-    background: white;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    overflow: hidden
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+  width: 580rpx;
+  height: 650rpx;
+  padding: 10rpx 0 56rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  background: white;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  overflow: hidden;
 }
