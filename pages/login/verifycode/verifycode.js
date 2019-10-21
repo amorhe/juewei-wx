@@ -120,7 +120,7 @@ Page({
   },
   async onBlur() {
     const { phone, value } = this.data;
-    const { errMsg, ...rest } = wxGet('rest');
+    const {  ...rest } = wxGet('rest');
     const _sid = wxGet('_sid');
     this.setData({
       focus: false,

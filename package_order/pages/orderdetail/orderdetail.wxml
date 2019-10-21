@@ -34,7 +34,7 @@
       <view class="cancel-order" wx:if="{{(1 == d.order_status_info.order_status || 2 == d.order_status_info.order_status) && !(2 ==(d.order_status_info.order_status) && (d.dis_tag == 'ZPS'||d.dis_type==2) ) }}" catchtap="showCancel">
         取消订单
       </view>
-      <view class="cancel-order" wx:if="{{(2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status)  && d.dis_type == 1 && d.dis_tag != 'ZPS' && '0000-00-00 00:00:00' != (d.dis_get_time) && '' !=(d.dis_get_time)}}" data-number="{{d.dis_tel}}"
+      <view class="cancel-order" wx:if="{{(2 == d.order_status_info.order_status || 3 == d.order_status_info.order_status)  && d.dis_type == 1 && d.dis_tag != 'ZPS' && (('0000-00-00 00:00:00' != d.dis_get_time) || ('' != d.dis_get_time))}}" data-number="{{d.dis_tel}}"
         catchtap="makePhoneCall">
         联系骑手
       </view>
@@ -284,7 +284,7 @@
         <view class="label">
           订单备注
         </view>
-        <view class="value">
+        <view class="value" style="text-align: left">
           <view>{{d.message}}</view>
         </view>
       </view>

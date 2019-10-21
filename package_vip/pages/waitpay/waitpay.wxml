@@ -33,7 +33,7 @@
                 </view>
                 <view class="select-address list" catchtap="showSelectAddress">
                     <view class="item">领取城市</view>
-                    <input placeholder="请选择领取城市" disabled="true" data-key="phone" value="{{address}}" bindinput="handelChange"/>
+                    <input placeholder="请选择领取城市" disabled="true" data-key="phone" value="{{address == '  ' ? '' : address}}" bindinput="handelChange"/>
                     <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
                 </view>
                 <view class="select-address list" catchtap="doSelectShop">

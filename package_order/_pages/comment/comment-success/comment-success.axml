@@ -1,0 +1,6 @@
+<view class="success">
+  <image mode="scaleToFill" src="{{imageUrl}}success.png"/>
+  <view class="pad">评价成功</view>
+
+  <view class="btn" onTap="sw">返回首页</view>
+</view>

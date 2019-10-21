@@ -1,0 +1,30 @@
+.success {
+  text-align: center;
+  padding: 72rpx 0 30rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.pad {
+  padding: 16rpx 0 40rpx;
+}
+
+image {
+  width: 136rpx;
+  height: 136rpx;
+}
+
+.btn {
+  width: 670rpx;
+  height: 94rpx;
+  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
+  border-radius: 47rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 94rpx;
+  margin: 0 auto;
+}
