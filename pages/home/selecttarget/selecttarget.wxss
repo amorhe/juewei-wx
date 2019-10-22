@@ -2,8 +2,8 @@
 
 .positionIng {
   padding: 18rpx 32rpx 16rpx;
-  /* border-bottom: 16rpx #f5f5f5 solid; */
   background: #fff;
+  border-radius:0 0 20rpx 20rpx;
 }
 .grayView {
   width:100vw;
@@ -54,8 +54,8 @@
 
 .delivery {
   padding: 30rpx 32rpx 26rpx;
-  /* border-bottom: 24rpx #f5f5f5 solid; */
   background: #fff;
+  border-radius: 20rpx
 }
 
 .addressList {
@@ -111,6 +111,7 @@
 .nearAddressBox {
   padding: 30rpx 32rpx 26rpx;
   background: #fff;
+  border-radius:20rpx 20rpx 0 0;
 }
 
 .nearList {

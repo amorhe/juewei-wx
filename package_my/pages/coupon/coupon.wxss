@@ -25,11 +25,17 @@ page {
 
 .quan {
   width: 287rpx;
-  height: 240rpx;
+  height: 264rpx;
   position: absolute;
   z-index: 0;
   left: 0;
   top: 0;
+}
+.content_v {
+  height: 236rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
 }
 
 .flexC {

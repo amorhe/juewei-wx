@@ -18,14 +18,14 @@
     </view>
   </view>
   <view class="goods_bottom_view">
-    <view class="numberColor flexNormal" style="vertical-align:text-bottom">
-      <text>￥</text>
+    <view class="numberColor flexNormal">
+      <text style="margin-top:16rpx">￥</text>
       <view wx:if="{{size==999}}">
         <text class="goods_prices">{{goodsItem.goods_format[0].goods_price / 100< goodsItem.goods_format[1].goods_price / 100 ?goodsItem.goods_format[0].goods_price / 100 :goodsItem.goods_format[1].goods_price / 100}}</text>
-        <text>起</text>
+        <text style="margin-top:6rpx">起</text>
       </view>
       <text wx:if="{{size!=999}}" class="goods_prices">{{price}}</text>
-      <text class="colorNine" wx:if="{{size!=999}}">（{{sizeText}}）</text>
+      <text class="colorNine" wx:if="{{size!=999}}" style="margin-top:6rpx">（{{sizeText}}）</text>
     </view>
     <view bindtap="eveAddshopcart" wx:if="{{!goodsList[goodsItem.goods_channel + goodsItem.goods_type + goodsItem.company_goods_id + '_' + goodsItem.goods_format[size].type]}}" class="{{size==999?'add_shopcart noChoose':'add_shopcart hasChoose'}}" disabled="{{size==999?'true':'false'}}"
       data-goods_code="{{goodsItem.goods_channel + goodsItem.goods_type + goodsItem.company_goods_id}}" data-goods_format_all="{{goodsItem.goods_format}}" data-goods_format="{{sizeText}}" data-goods_price="{{price}}" data-goods_img="{{goodsItem.goods_small_img[0]}}"

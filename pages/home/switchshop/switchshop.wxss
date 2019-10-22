@@ -65,7 +65,7 @@ searchView {
   width: 100vw;
   left: 0;
   bottom: 0;
-  background: transparent;
+  background: #fff;
   max-height: 50vh;
   overflow-y: scroll
 }

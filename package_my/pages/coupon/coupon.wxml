@@ -1,8 +1,8 @@
 <wxs module="m6">
-    var split = function (value) {
+  var split = function(value) {
     return value.split(' ')
-    }
-    module.exports.split=split;
+  }
+  module.exports.split = split;
 </wxs>
 
 <view class="couponContainer">
@@ -13,30 +13,32 @@
     </i-tabs>
     <view class="tab-content tabBox" wx:if="{{activeTab==0}}">
       <view class="couponUl" wx:if="{{couponList.length>0}}">
-        <view class="couponLi" style="{{item.toggleRule?'max-height:800rpx':'max-height:240rpx'}}" wx:for="{{couponList}}" wx:key="unique">
+        <view class="couponLi" style="{{item.toggleRule?'max-height:800rpx':'max-height:264rpx'}}" wx:for="{{couponList}}" wx:key="unique">
           <image class="quan" src="{{imageUrl}}coupon_bg.png" mode="scaleToFill" />
-          <view class="flexC">
-            <view class="couponNumber">
-              <text>{{item.money/100}}</text>
-              <text>元</text>
+          <view class="content_v">
+            <view class="flexC">
+              <view class="couponNumber">
+                <text>{{item.money/100}}</text>
+                <text>元</text>
+              </view>
+              <view class="couponMiddle">
+                <view>{{item.way==1?'外卖专享券':item.way==2?'门店专享券':'全场通享券'}}</view>
+                <view class="fontTwentyTwo">{{item.start_time}}至{{item.end_time}}</view>
+                <view class="fontTwentyTwo">{{item.full_money>0?'满'+ item.full_money / 100 + '可用':'立减券'}}</view>
+              </view>
+              <view class="useBtn fontTwentySix" data-way="{{item.way}}" data-code="{{item.code}}" catchtap="toUse">立即使用</view>
             </view>
-            <view class="couponMiddle">
-              <view>{{item.way==1?'外卖专享券':item.way==2?'门店专享券':'全场通享券'}}</view>
-              <view class="fontTwentyTwo">{{item.start_time}}至{{item.end_time}}</view>
-              <view class="fontTwentyTwo">{{item.full_money>0?'满'+ item.full_money / 100 + '可用':'立减券'}}</view>
+            <view>
+              <view class="dashLine"></view>
             </view>
-            <view class="useBtn fontTwentySix" data-way="{{item.way}}" data-code="{{item.code}}" catchtap="toUse">立即使用</view>
-          </view>
-          <view>
-            <view class="dashLine"></view>
-          </view>
-          <view class="flexC">
-            <view data-index="{{index}}" bindtap="evetoggleRule" style="position:relative;z-index:1;display:flex;align-item:center">
-              <text class="colorWhite fontTwentyTwo">更多使用规则</text>
-              <image class="arrow_down_icon" src="{{imageUrl}}arrow_down2.png" style="transform:rotate({{item.toggleRule?0:-180}}deg);transition:all .3s" />
+            <view class="flexC">
+              <view data-index="{{index}}" bindtap="evetoggleRule" style="position:relative;z-index:1;display:flex;align-item:center">
+                <text class="colorWhite fontTwentyTwo">更多使用规则</text>
+                <image class="arrow_down_icon" src="{{imageUrl}}arrow_down2.png" style="transform:rotate({{item.toggleRule?0:-180}}deg);transition:all .3s" />
+              </view>
+              <image class="qr" data-code="{{item.code}}" wx:if="{{item.way != 2}}" />
+              <image class="qr" data-code="{{item.code}}" wx:if="{{item.way == 2}}" />
             </view>
-            <image class="qr" data-code="{{item.code}}" wx:if="{{item.way != 2}}" />
-            <image class="qr" data-code="{{item.code}}" wx:if="{{item.way == 2}}" />
           </view>
           <view class="rule">
             <view wx:if="{{item.gift_usage_rule}}">1、{{item.gift_usage_rule}}</view>
@@ -88,23 +90,23 @@
 </navigator>
 <!-- 专享 -->
 <wxs module="m3">
-    var slice3 = function (value,start,end) {
-    return value.slice(start,end)
-    }
-    module.exports.slice3=slice3;
+  var slice3 = function(value, start, end) {
+    return value.slice(start, end)
+  }
+  module.exports.slice3 = slice3;
 </wxs>
 <view class="code-wrap-wrap" wx:if="{{open2}}" showClose="{{ false }}">
 
-    <view class="code-wrap" >
-        <view class="code-head">
-            <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>
-        </view>
-        <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>
-        <view class="code-phone">
-            {{m3.slice3(phone,0,3)}} **** {{m3.slice3(phone,7,11)}}
-        </view>
-        <!-- <view class="code-pay" catchtap="wait">
+  <view class="code-wrap">
+    <view class="code-head">
+      <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel" />
+    </view>
+    <image class="code-img" mode="scaleToFill" src="{{codeImg}}" />
+    <view class="code-phone">
+      {{m3.slice3(phone,0,3)}} **** {{m3.slice3(phone,7,11)}}
+    </view>
+    <!-- <view class="code-pay" catchtap="wait">
           确认支付
         </view> -->
-    </view>
+  </view>
 </view>
