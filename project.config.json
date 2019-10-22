@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 26,
 			"list": [
 				{
 					"id": -1,
@@ -232,6 +232,13 @@
 					"id": -1,
 					"name": "兑换详情",
 					"pathName": "package_vip/pages/exchangelist/exchangedetail/exchangedetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "package_my/pages/coupon/coupon",
+					"pathName": "package_my/pages/coupon/coupon",
 					"scene": null
 				}
 			]
