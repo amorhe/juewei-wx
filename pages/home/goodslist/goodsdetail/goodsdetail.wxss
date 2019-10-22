@@ -2,6 +2,7 @@
 .goodsImage {
   width: 750rpx;
   height: 592rpx;
+  display: block
 }
 
 .addShopcart {
