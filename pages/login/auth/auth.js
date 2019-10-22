@@ -155,7 +155,7 @@ Page({
         wx.hideLoading();
         this.setData({
           modalOpened: true,
-          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + wxGet('_sid') + '&s=' + (new Date()).getTime()
         });
         return
       }
@@ -180,7 +180,7 @@ Page({
         });
       } else {
         this.setData({
-          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + wxGet('_sid') + '&s=' + (new Date()).getTime()
         });
         wx.hideLoading();
         wx.showToast({
