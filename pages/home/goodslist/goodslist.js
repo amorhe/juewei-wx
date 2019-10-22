@@ -260,7 +260,7 @@ Page({
     }
     this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
-    this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id) //营销活动
+    this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id, app.globalData.type) //营销活动
     wxSet('vip_address', app.globalData.shopTakeOut);
     this.funGotopage()
   },
@@ -469,7 +469,7 @@ Page({
         jingxuan: true
       });
       app.globalData.type = 2;
-      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
+      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id, app.globalData.type)
       this.funGetBannerList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id); //banner
       this.funGetShowpositionList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id);
     } else {
@@ -503,7 +503,7 @@ Page({
         jingxuan: true
       })
       app.globalData.type = 1;
-      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id)
+      this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id, app.globalData.type)
       this.funGetBannerList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id); //banner
       this.funGetShowpositionList(shopTakeOut.city_id, shopTakeOut.district_id, shopTakeOut.company_sale_id);
     }
@@ -551,8 +551,8 @@ Page({
     })
   },
   // 门店营销活动(折扣和套餐)
-  async funGetActivityList(city_id, district_id, company_id, buy_type, user_id) {
-    let res = await activityList(city_id, district_id, company_id, buy_type, user_id, 2, 2);
+  async funGetActivityList(city_id, district_id, company_id, buy_type, user_id,type) {
+    let res = await activityList(city_id, district_id, company_id, buy_type, user_id, 2, type);
     // 获取加价购商品
     if ('MARKUP' in res.data && res.data.MARKUP != null) {
       app.globalData.gifts = res.data.MARKUP.gifts;

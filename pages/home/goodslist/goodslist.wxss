@@ -450,6 +450,8 @@ page {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: 0 0 20rpx 20rpx;
+  background: #fff
 }
 
 .goodsName {

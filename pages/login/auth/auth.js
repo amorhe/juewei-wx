@@ -147,8 +147,8 @@ Page({
         }
       }
 
-      let count = wxGet('count') || 0;
-      if (count === 0) {
+      let count = wxGet('count') || 1;
+      if (count === 1) {
         wxSet('time', new Date().toLocaleDateString())
       }
       if (count >= 5 && !this.data.modalOpened) {
