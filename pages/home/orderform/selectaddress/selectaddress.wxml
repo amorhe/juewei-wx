@@ -3,7 +3,7 @@
     <radio-group class="radio-group" name="lib">
       <view class="borderBottomSolid" wx:for="{{addressList}}" bindtap="eveChooseAddress" data-id="{{item.user_address_id}}" wx:key="unique">
         <view class="flexSpecial">
-          <radio value="{{item.user_address_id}}" checked="{{item.is_default==1}}" color="#E60012" />
+          <radio value="{{item.user_address_id}}" checked="{{item.is_default==1}}" color="#E60012" style="transform:scale(0.7);"/>
           <view class="receiverView">
             <view>{{item.user_address_map_addr + item.user_address_address}}</view>
             <view class="fontSmallGray">{{item.user_address_name}} {{item.user_address_phone}}</view>
