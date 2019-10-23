@@ -20,7 +20,7 @@
   <view class="board">
     <view class="board-state" bindtap="FUN_SHOW">
       {{ d.dis_type==1 ? ((d.order_status_info.order_status == 0 && d.remaining_pay_minute
-      < 0) ? '订单已取消' : (d.order_status_info.order_status==2 && d.order_status_info.dis_status==2 && d.dis_tag !='ZPS' && d.dis_get_time ) ? '骑手已接单' : takeOutState[d.order_status_info.order_status])
+      < 0) ? '订单已取消' : (d.order_status_info.takeout_status == 3 && d.dis_tag !='ZPS' && d.dis_get_time ) ? '骑手已接单' : takeOutState[d.order_status_info.order_status])
         :((d.order_status_info.order_status==0 && d.remaining_pay_minute< 0) ? '订单已取消': pickUpState[d.order_status_info.order_status] )}} <!-- {{status[d.status]}} -->
         <image mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
     </view>

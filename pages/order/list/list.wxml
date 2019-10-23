@@ -20,7 +20,7 @@
           </view>
         </view>
         <view class="out-item-state" style="color:{{(item.order_status == 0 && item.remaining_pay_minute > 0)? '#E60012' : ''}}">
-         {{(item.order_status == 0 && item.remaining_pay_minute < 0)? '订单已取消' : (item.order_status == 2 && item.dis_status == 2 && item.dis_tag != 'ZPS' && item.dis_get_time) ? '骑手已接单' : takeOutState[item.order_status]}}
+         {{(item.order_status == 0 && item.remaining_pay_minute < 0)? '订单已取消' : (item.order_status == 2 && item.dis_status == 3 && item.dis_tag != 'ZPS' && item.dis_get_time) ? '骑手已接单' : takeOutState[item.order_status]}}
         </view>
       </view>
       <view class="out-body">
