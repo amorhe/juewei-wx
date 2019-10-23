@@ -65,7 +65,7 @@ searchView {
   width: 100vw;
   left: 0;
   bottom: 0;
-  background: #fff;
+  background: transparent;
   max-height: 50vh;
   overflow-y: scroll
 }
@@ -158,14 +158,15 @@ searchView {
 }
 
 .shopWrap {
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 2rpx 10rpx 0 rgba(153, 153, 153, 0.2);
   border-radius: 10rpx;
   padding: 24rpx 24rpx 16rpx;
   display: flex;
   align-items: flex-start;
   position: relative;
-  margin: 16rpx 32rpx
+  margin: 16rpx 32rpx;
+  box-sizing: border-box;
 }
 
 .tapCoverView {
