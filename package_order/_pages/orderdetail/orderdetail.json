@@ -1,8 +1,0 @@
-{
-  "defaultTitle": "订单详情",
-  "backgroundColor": "#f5f5f5",
-   "allowsBounceVertical": "NO",
-  "usingComponents": {
-    "popup": "mini-antui/es/popup/index"
-  }
-}
