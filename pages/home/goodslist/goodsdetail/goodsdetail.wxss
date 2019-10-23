@@ -2,6 +2,7 @@
 .goodsImage {
   width: 750rpx;
   height: 592rpx;
+  display: block
 }
 
 .addShopcart {
@@ -21,10 +22,11 @@
   width: 100vw;
   height: 16rpx;
   background: #eee;
-  border-radius: 20rpx
 }
 .goodsintro {
   padding: 24rpx 32rpx;
+  border-radius: 0 0 20rpx 20rpx;
+  background: #fff
 }
 .percentView {
   width:686rpx;
@@ -147,6 +149,7 @@
   justify-content: space-between;
   background: white;
   padding: 26rpx;
+  border-radius: 20rpx 20rpx 0 0
 }
 
 .menu {

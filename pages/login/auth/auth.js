@@ -147,15 +147,15 @@ Page({
         }
       }
 
-      let count = wxGet('count') || 0;
-      if (count === 0) {
+      let count = wxGet('count') || 1;
+      if (count === 1) {
         wxSet('time', new Date().toLocaleDateString())
       }
       if (count >= 5 && !this.data.modalOpened) {
         wx.hideLoading();
         this.setData({
           modalOpened: true,
-          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + wxGet('_sid') + '&s=' + (new Date()).getTime()
         });
         return
       }
@@ -180,7 +180,7 @@ Page({
         });
       } else {
         this.setData({
-          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + this.data._sid + '&s=' + (new Date()).getTime()
+          imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + wxGet('_sid') + '&s=' + (new Date()).getTime()
         });
         wx.hideLoading();
         wx.showToast({

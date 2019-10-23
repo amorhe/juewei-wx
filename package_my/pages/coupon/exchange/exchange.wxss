@@ -12,12 +12,14 @@
   width:670rpx;
   height:94rpx;
   border-radius:47rpx;
-  border:1rpx solid #999;
+  border:2rpx solid #999;
   overflow: hidden;
   padding: 0 50rpx;
   box-sizing: border-box;
   font-size: 34rpx;
   margin-bottom: 80rpx;
+  position: relative;
+  z-index: 100
 }
 .colorGray {
   color: #999;

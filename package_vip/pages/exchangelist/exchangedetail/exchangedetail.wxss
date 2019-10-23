@@ -121,7 +121,7 @@ page {
 }
 
 .detail-item {
-    padding: 20rpx 0;
+    padding: 24rpx 0;
     border-bottom: 1px dashed #eee;
 }
 
@@ -248,7 +248,7 @@ page {
 }
 
 .ul .li {
-    padding: 20rpx 0;
+    padding: 24rpx 0;
     border-bottom: 1rpx dashed #eee
 }
 

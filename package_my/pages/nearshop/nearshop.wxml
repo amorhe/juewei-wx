@@ -37,7 +37,7 @@
 </view>
 
 <view wx:if="{{isSearch}}">
-  <view class="shopLi" wx:for="{{shopList}}" wx:key="unique" style="margin-bottom:0;box-shadow:none;padding:0">
+  <view class="shopLi" wx:for="{{shopList}}" wx:key="unique" style="margin-bottom:0;box-shadow:none;padding:24rpx 32rpx">
     <view>
       <view class="flexNormal">
         <view class="shopTxt">

@@ -35,7 +35,7 @@ page {
   height: 236rpx;
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-around
 }
 
 .flexC {
@@ -243,12 +243,6 @@ page {
   text-align: right;
 }
 
-.code-wrap {
-  width: 580rpx;
-  padding: 10rpx 0 56rpx;
-  border-radius: 10rpx;
-  overflow: hidden;
-}
 
 .code-phone {
   font-size: 52rpx;
@@ -322,7 +316,7 @@ page {
   top: 0;
   width: 580rpx;
   height: 650rpx;
-  padding: 10rpx 0 56rpx;
+  /* padding: 10rpx 0 56rpx; */
   border-radius: 10rpx;
   text-align: center;
   background: white;

@@ -19,17 +19,19 @@
 }
 .quan {
   width: 287rpx;
-  height: 220rpx;
+  height: 264rpx;
   position: absolute;
   z-index: 0;
   left: 0;
   top: 0
 }
-.couponLi>view:nth-child(1),.couponLi>view:nth-child(3),.couponLi>view:nth-child(4) {
+.content_v {
+  height: 236rpx;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-around
 }
+
 .couponNumber {
   color: #FFE100
 }
@@ -55,7 +57,7 @@
   line-height: 64rpx;
   color: #E60012
 }
-.couponLi>view:nth-child(2) {
+.flexC {
   display: flex;
   align-items: center;
   justify-content: space-between
@@ -83,9 +85,7 @@
   height: 24rpx;
   margin-left: 8rpx;
 }
-.couponLi>view:nth-child(3) {
-  /* height: 64rpx; */
-}
+
 .qr {
   width: 40rpx;
   height: 40rpx;

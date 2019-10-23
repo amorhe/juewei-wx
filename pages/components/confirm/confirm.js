@@ -69,6 +69,9 @@ Component({
       if (this.properties.isType == "noShop") {
         isType = 'noShop'
       }
+      if (this.properties.isType == "useCoupon"){
+        isType = 'useCoupon'
+      }
       modalObj = {
         modalShow: false,
         mask: false,
@@ -87,6 +90,9 @@ Component({
       }
       if (this.properties.isType == "noShop") {
         isType = 'noShop'
+      }
+      if (this.properties.isType == "useCoupon") {
+        isType = 'useCoupon'
       }
       const modalObj = {
         modalShow: false,

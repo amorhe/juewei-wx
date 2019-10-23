@@ -154,7 +154,7 @@ Page({
             bgColor: "#ffffff",
             padding: 8,
             anchorX:-36,
-            anchorY:-72
+            anchorY:-68
           }
         }
       ]
