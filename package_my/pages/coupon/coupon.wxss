@@ -21,6 +21,7 @@ page {
   position: relative;
   overflow: hidden;
   transition: all 0.3s;
+  border-color: transparent
 }
 
 .quan {
@@ -81,6 +82,8 @@ page {
   border-radius: 50%;
   background: #f5f5f5;
   margin-left: -48rpx;
+  position: relative;
+  z-index: 10
 }
 
 .whiteCircleRight {
@@ -88,7 +91,9 @@ page {
   height: 32rpx;
   border-radius: 50%;
   background: #f5f5f5;
-  margin-right: -36rpx;
+  margin-right: -38rpx;
+  position: relative;
+  z-index: 10
 }
 
 .dashLine {

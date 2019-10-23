@@ -62,13 +62,9 @@
   bottom: 0;
   background: #fff;
   overflow-y: scroll;
-  padding: 40rpx 32rpx;
-  background: #fff;
-  box-sizing: border-box
 }
 .shopLi {
-  background: #fff;
-  padding:20rpx;
+  padding:60rpx 52rpx;
   box-shadow: 0 2rpx 10rpx 0 rgba(153, 153, 153, 0.2);
   border-radius:10rpx;
   display: flex;
@@ -82,7 +78,8 @@
   margin-right: 16rpx;
 }
 .wqe {
-  margin-bottom: 10rpx
+  margin-bottom: 10rpx;
+  width: 100%
 }
 .shopTxt {
   display: flex;
@@ -100,14 +97,13 @@
   margin-right: 16rpx;
   width:140rpx;
   height:64rpx;
-  border-radius:32rpx;
+  border-radius:64rpx;
   text-align: center;
   line-height: 64rpx;
   font-size: 26rpx;
 }
 .self_btn{
   color: #fff;
-  /* background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%); */
   background: #E60012;
   border: 1px solid #E60012;
   width:140rpx;
@@ -125,7 +121,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 662rpx;
   height: 100rpx;
   z-index: 1000;
   background: transparent;

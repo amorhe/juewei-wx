@@ -31,3 +31,4 @@
   </view>
 </view>
 <view class="modalCode" wx:if="{{modalOpened}}" bindtap="onModalClose"></view>
+<i-toast id="toast" />

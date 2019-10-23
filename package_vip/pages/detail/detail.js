@@ -300,7 +300,7 @@ Page({
    */
   async getMorePoint() {
     this.onModalClose();
-    wx.switchTab({
+    wx.reLaunch({
       url: '/pages/home/goodslist/goodslist'
     });
   },

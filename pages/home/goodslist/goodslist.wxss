@@ -420,11 +420,12 @@ page {
 .goodsImage1 {
   width: 100%;
   height: 426rpx;
+  display: block
 }
 
 .goodsBox {
   border-radius: 10px;
-  box-shadow: 0 2rpx 10rpx 2rpx rgba(153, 153, 153, 0.2);
+  box-shadow: 0 2rpx 10rpx 0 rgba(153, 153, 153, 0.2);
   margin-bottom: 30rpx;
 }
 
@@ -543,7 +544,7 @@ page {
 }
 
 .marginB {
-  margin-bottom: 15rpx;
+  margin-bottom: 5rpx;
 }
 
 .goodsSoldNum {
@@ -682,12 +683,13 @@ page {
   left: 91rpx;
   top: -33rpx;
   z-index: 20;
-  padding: 5rpx 10rpx;
+  width: 36rpx;
+  height: 36rpx;
   background: linear-gradient(135deg, rgba(253, 235, 113, 1) 0%, rgba(248, 216, 0, 1) 100%);
   color: #fff;
   border-radius: 50%;
   text-align: center;
-  line-height: 29rpx;
+  line-height: 36rpx;
   font-size: 20rpx;
 }
 

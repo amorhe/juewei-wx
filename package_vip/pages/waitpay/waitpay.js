@@ -1,10 +1,21 @@
 // package_vip/pages/waitpay/waitpay.js
-import { imageUrl, imageUrl2, wxGet } from '../../../pages/common/js/baseUrl'
-import { ajax } from '../../../pages/common/js/li-ajax'
+import {
+  imageUrl,
+  imageUrl2,
+  wxGet
+} from '../../../pages/common/js/baseUrl'
+import {
+  ajax
+} from '../../../pages/common/js/li-ajax'
 import Request from "../../../pages/common/js/li-ajax";
-import { getRegion, log } from "../../../pages/common/js/utils";
+import {
+  getRegion,
+  log
+} from "../../../pages/common/js/utils";
 import getDistance from '../../../pages/common/js/getdistance'
-import { redirectTo } from "../../../pages/common/js/router";
+import {
+  redirectTo
+} from "../../../pages/common/js/router";
 
 let region = [];
 
@@ -60,8 +71,20 @@ Page({
    */
   async onLoad(e) {
     console.log(e);
-    let { order_sn, shop_id, shop_name, user_address_map_addr, user_address_id, user_address_name, user_address_phone, province, city, district, user_address_detail_address, user_address_address }
-      = e;
+    let {
+      order_sn,
+      shop_id,
+      shop_name,
+      user_address_map_addr,
+      user_address_id,
+      user_address_name,
+      user_address_phone,
+      province,
+      city,
+      district,
+      user_address_detail_address,
+      user_address_address
+    } = e;
     this.setData({
       shop_id,
       shop_name: shop_name === 'null' ? "" : shop_name,
@@ -71,7 +94,9 @@ Page({
       user_address_phone,
       user_address_detail_address,
       user_address_address,
-      province, city, district,
+      province,
+      city,
+      district,
       user_address_id
     });
     region = await getRegion();
@@ -82,7 +107,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
@@ -90,46 +115,51 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    const { order_sn } = this.data;
+    const {
+      order_sn
+    } = this.data;
     await this.getOrderInfo(order_sn)
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     clearInterval(this.data.a);
-    this.setData({ a: -1 })
+    this.setData({
+      a: -1
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     clearInterval(this.data.a);
-    this.setData({ a: -1 });
-    this.setData = () => {
-    }
+    this.setData({
+      a: -1
+    });
+    this.setData = () => {}
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
@@ -137,7 +167,9 @@ Page({
    * @function 添加地址
    */
   toAddAddress() {
-    const { order_sn } = this.data;
+    const {
+      order_sn
+    } = this.data;
     wx.navigateTo({
       url: '/package_my/pages/myaddress/myaddress?order_sn=' + order_sn
     });
@@ -147,15 +179,33 @@ Page({
    * @function 获取公众号支付前订单详情
    */
   async getOrderInfo(order_sn) {
-    let { showSelectAddress, a } = this.data;
     let {
-      code, data: {
-        order_sn: _order_sn, limit_pay_minute, limit_pay_second, province, city, user_address_id, district, ...rest
+      showSelectAddress,
+      a
+    } = this.data;
+    let {
+      code,
+      data: {
+        order_sn: _order_sn,
+        limit_pay_minute,
+        limit_pay_second,
+        province,
+        city,
+        user_address_id,
+        district,
+        ...rest
       }
-    } = await Request.reqOrderInfo({ order_sn });
+    } = await Request.reqOrderInfo({
+      order_sn
+    });
     if (code === 100) {
       this.setData({
-        d: { _order_sn, limit_pay_minute, limit_pay_second, ...rest },
+        d: {
+          _order_sn,
+          limit_pay_minute,
+          limit_pay_second,
+          ...rest
+        },
         province: province || this.data.province,
         city: city || this.data.city,
         district: district || this.data.district,
@@ -170,8 +220,13 @@ Page({
    */
 
   eventReduceTime() {
-    let { d } = this.data;
-    let { limit_pay_second, limit_pay_minute } = d || {};
+    let {
+      d
+    } = this.data;
+    let {
+      limit_pay_second,
+      limit_pay_minute
+    } = d || {};
     --limit_pay_second;
     if (limit_pay_minute === 0 && limit_pay_second == 0) {
       return wx.navigateBack({
@@ -198,7 +253,13 @@ Page({
    */
   getAddressList() {
     let [curProvince, curCity, curCountry] = this.data.defaultAddress;
-    let provinceList = region.map(({ addrid, name }) => ({ addrid, name }));
+    let provinceList = region.map(({
+      addrid,
+      name
+    }) => ({
+      addrid,
+      name
+    }));
     let cityList = region[curProvince].sub;
     let countryList = cityList[curCity].sub;
 
@@ -247,7 +308,9 @@ Page({
    * @function 展示地址选择列表
    */
   showSelectAddress() {
-    this.setData({ selectAddress: true })
+    this.setData({
+      selectAddress: true
+    })
   },
 
   /**
@@ -255,16 +318,24 @@ Page({
    */
   hideSelectAddress() {
     this.changeAddress();
-    this.setData({ selectAddress: false })
+    this.setData({
+      selectAddress: false
+    })
   },
 
   /**
    * @function input表单收集数据
    */
   handelChange(e) {
-    let { key } = e.currentTarget.dataset;
-    let { value } = e.detail;
-    this.setData({ [key]: value })
+    let {
+      key
+    } = e.currentTarget.dataset;
+    let {
+      value
+    } = e.detail;
+    this.setData({
+      [key]: value
+    })
   },
 
   /**
@@ -272,9 +343,15 @@ Page({
    */
 
   search(e) {
-    const { _shopList } = this.data;
-    const { value } = e.detail;
-    let shopList = _shopList.filter(({ shop_name }) => shop_name.includes(value));
+    const {
+      _shopList
+    } = this.data;
+    const {
+      value
+    } = e.detail;
+    let shopList = _shopList.filter(({
+      shop_name
+    }) => shop_name.includes(value));
     this.setData({
       shopList
     })
@@ -283,8 +360,10 @@ Page({
    * @function 获取当前的商店列表，排序并展示
    */
   async doSelectShop() {
-    let { address } = this.data;
-    if (!address) {
+    let {
+      address
+    } = this.data;
+    if (address.length == 2) {
       return wx.showToast({
         icon: "none",
         title: '请先选择领取城市'
@@ -296,13 +375,19 @@ Page({
     let district = (region[curProvince].sub[curCity].sub[curCountry] && region[curProvince].sub[curCity].sub[curCountry].addrid) || 0;
     let parentid = province + ',' + city + ',' + district;
     log(parentid);
-    let res = await Request.reqGameShop({ parentid });
+    let res = await Request.reqGameShop({
+      parentid
+    });
     let lat = wxGet('lat');
     let lng = wxGet('lng');
     console.log(lat, lng);
     if (res.CODE == 'A100') {
       let shopList = res.DATA
-        .map(({ shop_gd_latitude, shop_gd_longitude, ...rest }) => {
+        .map(({
+          shop_gd_latitude,
+          shop_gd_longitude,
+          ...rest
+        }) => {
           let distance = getDistance(lng, lat, shop_gd_longitude, shop_gd_latitude).toFixed(0);
           return {
             _distance: distance,
@@ -323,7 +408,10 @@ Page({
    * @function 选择商店并返回
    */
   sureSelectShop(e) {
-    let { shop_id, shop_name } = e.currentTarget.dataset;
+    let {
+      shop_id,
+      shop_name
+    } = e.currentTarget.dataset;
 
     this.setData({
       shop_id,
@@ -337,7 +425,18 @@ Page({
    * @function 确认订单
    */
   async confirmOrder() {
-    let { d, order_sn, user_address_id, province, city, district, user_address_phone, shop_id, shop_name, user_address_name } = this.data;
+    let {
+      d,
+      order_sn,
+      user_address_id,
+      province,
+      city,
+      district,
+      user_address_phone,
+      shop_id,
+      shop_name,
+      user_address_name
+    } = this.data;
 
     // 如果商品是实物并且发货方式到店领取
 
@@ -346,11 +445,16 @@ Page({
         order_sn,
         user_address_name,
         user_address_phone,
-        province, city, district,
+        province,
+        city,
+        district,
         shop_id,
         shop_name,
       };
-      let { code, msg } = await Request.reqConfirmOrder(params);
+      let {
+        code,
+        msg
+      } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
           icon: "none",
@@ -368,9 +472,14 @@ Page({
         user_address_name,
         user_address_phone,
         user_address_id,
-        province, city, district,
+        province,
+        city,
+        district,
       };
-      let { code, msg } = await Request.reqConfirmOrder(params);
+      let {
+        code,
+        msg
+      } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
         wx.showToast({
           icon: "none",
@@ -387,15 +496,30 @@ Page({
    * @function 支付订单
    */
   async pay() {
-    let { order_sn } = this.data;
-    return await Request.reqPay({ order_no: order_sn })
+    let {
+      order_sn
+    } = this.data;
+    return await Request.reqPay({
+      order_no: order_sn
+    })
   },
 
   /**
    * @function 马上支付
    */
   async payNow() {
-    let { d, order_sn, user_address_id, province, city, district, user_address_phone, shop_id, shop_name, user_address_name } = this.data;
+    let {
+      d,
+      order_sn,
+      user_address_id,
+      province,
+      city,
+      district,
+      user_address_phone,
+      shop_id,
+      shop_name,
+      user_address_name
+    } = this.data;
 
     if (d.receive_type == 1) {
       if (!order_sn ||

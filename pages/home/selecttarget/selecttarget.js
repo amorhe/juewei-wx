@@ -284,6 +284,7 @@ Page({
         })
       },
       fail() {
+        wx.hideLoading();
         that.setData({
           isSuccess: false
         })

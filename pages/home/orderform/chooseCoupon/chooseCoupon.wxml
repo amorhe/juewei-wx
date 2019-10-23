@@ -15,10 +15,12 @@
         <image data-index="{{index}}" data-code="{{item.code}}" wx:if="{{!couponChoosed['e' + index]}}" class="select" mode="scaleToFill" src="{{imageUrl}}select3.png" />
         <image wx:if="{{couponChoosed['e' + index]}}" class="select" mode="scaleToFill" src="{{imageUrl}}select4.png" />
       </view>
-      <view>
-        <view class="dashLine"></view>
-      </view>
       <view class="flexC">
+        <view class="whiteCircleLeft"></view>
+        <view class="dashLine"></view>
+        <view class="whiteCircleRight"></view>
+      </view>
+      <view class="flexC" style="height:64rpx;padding-bottom:8rpx">
         <view data-index="{{index}}" catchtap="toggleRule" style="position:relative;z-index:1;display:flex;align-item:center">
           <text class="colorWhite fontTwentyTwo">更多使用规则</text>
           <image class="arrow_down_icon" src="{{imageUrl}}arrow_down2.png" style="transform:rotate({{item.toggleRule?0:-180}}deg);transition:all .3s" />

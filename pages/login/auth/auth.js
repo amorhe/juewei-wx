@@ -3,6 +3,7 @@ import { decryptPhone, loginByQuick, sendCode, WX_LOGIN } from '../../common/js/
 import { upformId } from '../../common/js/time'
 import { navigateTo } from '../../common/js/router.js'
 import { reLaunch } from "../../common/js/router";
+const { $Toast } = require('../../../iview-weapp/base/index');
 
 const app = getApp();
 Page({
@@ -125,10 +126,9 @@ Page({
     const { getCode, phone, img_code } = this.data;
     if (/^1\d{10}$/.test(this.data.phone)) {
     } else {
-      wx.showToast({
-        icon: 'none',
-        title: '请输入有效手机号',
-      });
+      $Toast({
+        content:'请输入有效手机号'
+      })
       return
     }
     wx.showLoading({
@@ -151,7 +151,7 @@ Page({
       if (count === 1) {
         wxSet('time', new Date().toLocaleDateString())
       }
-      if (count >= 5 && !this.data.modalOpened) {
+      if (count > 5 && !this.data.modalOpened) {
         wx.hideLoading();
         this.setData({
           modalOpened: true,
@@ -172,9 +172,9 @@ Page({
           img_code: ''
         });
         wx.hideLoading();
-        wx.showToast({
-          title: '短信发送成功'
-        });
+        $Toast({
+          content: '短信发送成功'
+        })
         navigateTo({
           url: '/pages/login/verifycode/verifycode?phone=' + data.phone
         });
@@ -183,9 +183,8 @@ Page({
           imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + wxGet('_sid') + '&s=' + (new Date()).getTime()
         });
         wx.hideLoading();
-        wx.showToast({
-          icon: 'none',
-          title: res.msg,
+        $Toast({
+          content: res.msg
         })
       }
     }
@@ -200,9 +199,8 @@ Page({
   async getPhoneNumber(e) {
     console.log(e);
     if(e.detail.errMsg.indexOf('fail')!=-1){
-      wx.showToast({
-        title: '您点击了拒绝授权，将无法登录，请允许授权！',
-        icon:'none'
+      $Toast({
+        content: '您点击了拒绝授权，将无法登录，请允许授权！'
       })
       return
     }
@@ -218,7 +216,9 @@ Page({
         wxSet('user_id', res.data.user_id);
         reLaunch({ url: '/pages/my/index/index' })
       } else {
-        wx.showToast({ icon:"none",title: res.msg })
+        $Toast({
+          content: res.msg
+        })
       }
     }
   },

@@ -220,7 +220,7 @@ Page({
       if (count == 1) {
         wxSet('time', new Date().toLocaleDateString())
       }
-      if (count >= 5 && !this.data.modalOpened) {
+      if (count > 5 && !this.data.modalOpened) {
         wx.hideLoading();
         this.setData({
           modalOpened: true,

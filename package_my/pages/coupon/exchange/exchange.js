@@ -5,6 +5,7 @@ import {
   imageUrl,
   wxGet
 } from '../../../../pages/common/js/baseUrl'
+const { $Toast } = require('../../../../iview-weapp/base/index');
 Page({
 
   /**
@@ -81,21 +82,20 @@ Page({
       code
     } = this.data
     if (!code) {
-      return wx.showToast({
-        icon:"none",
-        title: '请输入兑换码'
-      });
+      return $Toast({
+        content:'请输入兑换码'
+      })
     }
     exchangeCoupon(_sid, code).then((res) => {
       if (res.CODE == 'A100') {
-        wx.showToast({
-          title: '兑换成功'
-        });
+        $Toast({
+          content: '兑换成功',
+          type:'success'
+        })
       } else {
-        wx.showToast({
-          icon:"none",
-          title: res.MESSAGE
-        });
+        $Toast({
+          content: res.MESSAGE
+        })
       }
     })
   }

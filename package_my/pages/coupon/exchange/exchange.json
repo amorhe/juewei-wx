@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText":"兑换优惠券",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-toast": "../../../../iview-weapp/toast/index"
+  }
 }

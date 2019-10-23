@@ -77,16 +77,16 @@
   width: 104rpx;
   margin-top: 32rpx;
 }
-/* .menuList>navigator>view,.menuList>view>view {
-  display: flex;
-  flex-direction: column;
-} */
+
 .menuList>navigator>view,.menuList>view>view {
   width: 104rpx;
   font-size: 26rpx;
   display: flex;
   flex-direction: column;
   align-items: center
+}
+.menuList>navigator>view>view,.menuList>view>view>view {
+  text-align: center
 }
 .menuList image {
   width: 94rpx;

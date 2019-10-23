@@ -42,11 +42,13 @@
   font-size: 32rpx;
   border: none;
   background: #fff;
+  line-height: 100rpx
 }
 
 .modalBtn>button:nth-child(1) {
   color: #999;
   border-right: 1px #ddd solid;
+  border-radius: 0
 }
 
 .modalBtn>button:nth-child(2) {

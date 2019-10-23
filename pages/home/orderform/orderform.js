@@ -74,7 +74,9 @@ Page({
     newArr: [], // 变更商品列表
     addressList: [],
     trueprice: 0, //真实的总价价格
-    send_price: 0
+    send_price: 0,
+    price_no_count: false,
+    goodsOrder:{}
   },
 
   /**
@@ -100,19 +102,21 @@ Page({
             goods_price: goodsList[key].goods_price,
             goods_quantity: goodsList[key].goods_order_limit,
             goods_code: goodsList[key].goods_code,
-            goods_format: goodsList[key].goods_format
+            goods_format: goodsList[key].goods_format,
+            goods_order_limit: goodsList[key].goods_order_limit
           }, {
-              goods_price: goodsList[key].goods_original_price,
-              goods_quantity: goodsList[key].num - goodsList[key].goods_order_limit,
-              goods_code: goodsList[key].goods_activity_code,
-              goods_format: goodsList[key].goods_format
-            });
+            goods_price: goodsList[key].goods_original_price,
+            goods_quantity: goodsList[key].num - goodsList[key].goods_order_limit,
+            goods_code: goodsList[key].goods_activity_code,
+            goods_format: goodsList[key].goods_format,
+          });
         } else {
           goodlist.push({
             goods_price: goodsList[key].goods_price,
             goods_quantity: goodsList[key].num,
             goods_code: goodsList[key].goods_code,
-            goods_format: goodsList[key].goods_format
+            goods_format: goodsList[key].goods_format,
+            goods_order_limit: goodsList[key].goods_order_limit
           });
         }
       } else {
@@ -152,9 +156,9 @@ Page({
             fontSize: 11,
             borderRadius: 30,
             bgColor: "#ffffff",
-            padding: 8,
-            anchorX:-36,
-            anchorY:-68
+            padding: 5,
+            anchorX: -36,
+            anchorY: -60
           }
         }
       ]
@@ -207,7 +211,6 @@ Page({
         addressList: []
       })
     }
-
     let gifts = [];
     if (this.data.gifts[this.data.gift_id]) {
       gifts.push(this.data.gifts[this.data.gift_id]);
@@ -320,6 +323,22 @@ Page({
               item.goods_price = _item.goodsPrice;
             }
             obj1[`${item.goods_code}_${item.goods_format}`] = item; //多
+          } else if (_item.type == 3) {
+            // 商品库存不足
+            if (`${_item.goodsCode}${_item.goodsFormat}` == `${item.goods_code}${item.goods_format}`) {
+              if (_item.goods_stock > item.goods_order_limit) {
+                if (item.goods_order_limit) {
+                  item.goods_quantity = item.goods_order_limit;
+                } else {
+                  item.goods_quantity = _item.goods_stock - item.goods_order_limit
+                }
+              } else {
+                item.goods_quantity = _item.goods_stock
+              }
+            }
+            goodlist[`${_item.goodsCode}_${_item.goodsFormat}`].num = _item.goods_stock;
+            goodlist[`${_item.goodsCode}_${_item.goodsFormat}`].sumnum = _item.goods_stock;
+            obj1[`${item.goods_code}_${item.goods_format}`] = item;
           } else {
             // 商品下架
             if (`${_item.goodsCode}${_item.goodsFormat}` != `${item.goods_code}${item.goods_format}`) {
@@ -347,14 +366,13 @@ Page({
         })
         return;
       }
-    }else{
+    } else {
       newShopcart = goodlist;
     }
-    
     for (let ott in newShopcart) {
       newGoodsArr.push(newShopcart[ott])
     }
-    wxSet('goodsList', newShopcart);
+    wxSet('goodsList', goodlist);
     this.setData({
       goodsList: newGoodsArr
     })
@@ -363,9 +381,6 @@ Page({
       wx.navigateBack({
         delta: 1
       });
-      // redirectTo({
-      //   url:'/pages/home/goodslist/goodslist'
-      // })
       return;
     }
     // 继续结算
@@ -541,6 +556,18 @@ Page({
           isType: 'orderConfirm',
           content: res.msg + '，系统已经更新,是否确认结算',
           newArr: res.data
+        })
+      }else if(res.code == 'A123'){
+        wx.showModal({
+          content: res.msg,
+          showCancel:false,
+          confirmText:'重新选择',
+          confirmColor:'#E60012',
+          success(conf){
+            wx.navigateBack({
+              delta: 1
+            })
+          }
         })
       } else {
         this.setData({

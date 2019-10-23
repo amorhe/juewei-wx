@@ -1,5 +1,5 @@
 <view class="addressView" style="background:#f5f5f5">
-  <view wx:if="{{addressList.length>0}}" style="background:#fff">
+  <view wx:if="{{addressList.length>0}}" style="background:#fff;border-radius: 0 0 20rpx 20rpx">
     <radio-group class="radio-group" name="lib">
       <view class="borderBottomSolid" wx:for="{{addressList}}" bindtap="eveChooseAddress" data-id="{{item.user_address_id}}" wx:key="unique">
         <view class="flexSpecial">
@@ -13,7 +13,7 @@
       </view>
     </radio-group>
   </view>
-  <view class="noUseView" wx:if="{{ addressListNoUse.length>0 }}" style="background:#fff">
+  <view class="noUseView" wx:if="{{ addressListNoUse.length>0 }}" style="background:#fff;border-radius:20rpx">
     <view class="viewTitle">以下地址超出配送范围</view>
     <view class="borderBottomSolid addressUl colorNine" wx:for="{{addressListNoUse}}" bindtap="eveChooseNewAddress" data-lng="{{item.lng}}" data-lat="{{item.lat}}" data-address="{{item.user_address_map_addr + item.user_address_address}}" wx:key="unique">
       <view class="flexSpecial">

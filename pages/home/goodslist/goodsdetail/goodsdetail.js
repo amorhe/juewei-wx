@@ -75,15 +75,15 @@ Page({
       shop_id = wxGet('shop_id') || {};
     for (let value of goods) {
       // 折扣套餐爆款
-      if (value.goods_discount_user_limit || value.goods_discount_id){
+      if (value.goods_discount_user_limit || value.goods_discount_id) {
         if (value.goods_format[0].goods_activity_code == e.goods_code) {
           goodsInfo = value;
         }
-      }else{
+      } else {
         if (value.goods_channel + value.goods_type + value.company_goods_id == e.goods_code) {
-          goodsInfo = value; 
+          goodsInfo = value;
         }
-      }  
+      }
     }
     for (let keys in goodlist) {
       if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
@@ -223,7 +223,7 @@ Page({
   },
   // 商品评价
   funGetCommentList(goods_code, pagenum, pagesize) {
-    commentList(goods_code, pagenum, pagesize, 0).then((res) => {
+    commentList(goods_code, pagenum, pagesize, 0, 'all', '').then((res) => {
       this.setData({
         commentArr: res
       })
@@ -231,7 +231,7 @@ Page({
   },
   // 配送评价
   funGetDispatchCommentList(shop_id, pagenum, pagesize) {
-    DispatchCommentList(shop_id, pagenum, pagesize, 0).then((res) => {
+    DispatchCommentList(shop_id, pagenum, pagesize, 0, 'all', '').then((res) => {
       this.setData({
         dispatchArr: res
       })
@@ -348,7 +348,7 @@ Page({
     // 购物车活动提示
     this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
     let data = {
-      detail:{
+      detail: {
         goodlist,
         shopcartAll,
         priceAll,
