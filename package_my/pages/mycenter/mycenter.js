@@ -381,20 +381,25 @@ Page({
 
     })
   },
-
-  changeSex() {
-    const that = this
-    wx.showActionSheet({
-      itemList: ['女', '男'],
-      success(res) {
-        console.log(res.tapIndex)
-        that.genderFN(res.tapIndex)
-      },
-      fail(res) {
-        console.log(res.errMsg)
-      }
-
+  chooseSex(e) {
+    this.genderFN(e.currentTarget.dataset.sex);
+    this.setData({
+      showTop: false
     })
-  }
+  },
+  // changeSex() {
+  //   const that = this
+  //   wx.showActionSheet({
+  //     itemList: ['女', '男'],
+  //     success(res) {
+  //       console.log(res.tapIndex)
+  //       that.genderFN(res.tapIndex)
+  //     },
+  //     fail(res) {
+  //       console.log(res.errMsg)
+  //     }
+
+  //   })
+  // }
 
 });

@@ -9,11 +9,11 @@
       <view class="Itemlabel">昵称</view>
       <view class="ItimInfo">{{userinfo.nick_name||'绝味会员'}}</view>
     </view>
-    <view class="listItem" bindtap="changeSex">
+    <view class="listItem" bindtap="onTopBtnTap">
       <view class="Itemlabel">性别</view>
       <view class="ItimInfo">
         <!-- <picker range="{{sex_array}}" bindchange="genderFN"> -->
-          <view>{{userinfo.sex==0?'男':'女'}}</view>
+        <view>{{userinfo.sex==0?'男':'女'}}</view>
         <!-- </picker> -->
       </view>
       <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
@@ -70,4 +70,11 @@
       </picker-view-column>
     </picker-view>
   </view>
+</view>
+
+<view class="pop-wrap" wx:if="{{showTop}}" bindtap="onPopupClose"></view>
+<view class="sex_pop" wx:if="{{showTop}}">
+  <view class="sex_view" style="border-bottom:1rpx rgba(0,0,0,.1) solid" bindtap="chooseSex" data-sex="1">男</view>
+  <view class="sex_view" style="border-bottom:12rpx rgb(245,245,245) solid" bindtap="chooseSex" data-sex="0">女</view>
+  <view class="sex_view" bindtap="onPopupClose">取消</view>
 </view>

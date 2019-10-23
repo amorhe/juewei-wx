@@ -97,7 +97,7 @@
 /* 选择地址 */
 
 .pop-wrap {
-  z-index: 999;
+  z-index: 100;
   position: absolute;
   top: 0;
   left: 0;
@@ -140,6 +140,14 @@
   padding: 20rpx 40rpx;
   border-radius: 20rpx 20rpx 0 0;
 }
+.sex_pop {
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  background: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  z-index: 101
+}
 
 .pick {
   height: 380rpx;
@@ -171,4 +179,9 @@
 
 .line.right {
   right: 30rpx;
+}
+.sex_view {
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
 }
