@@ -220,7 +220,7 @@ Page({
       if (dis_type == 1) {
         // //显示状态和时间的语句
         // 1） 待支付，时间：data.order_ctime      //创建时间
-        // 2） 待取餐，时间：data.pay_time         //支付时间
+        // 2） 等待接单，时间：data.pay_time         //支付时间
         // 3） 门店已接单，时：data.push_time         //门店接单时间
         // 4） 配送已接单，时间：data.dis_get_time     //物流接单时间
         // 5） 骑手配送中，时间：data.dis_take_time    //配送员取货时间
@@ -291,12 +291,12 @@ Page({
       if (dis_type == 2) {
         // //显示状态和时间的语句
         // 1） 待支付，时间：data.order_ctime      //创建时间
-        // 2） 待取餐，时间：data.pay_time         //支付时间
+        // 2） 等待接单，时间：data.pay_time         //支付时间
         // 6） 订单已完成，时间：data.dis_finish_time  //送达时间
         // 7） 订单已取消，时间：data.cancel_time      //取消时间
         timeArr = [
           { state: '等待支付', time: order_ctime },
-          { state: '待取餐', time: pay_time },
+          { state: '等待接单', time: pay_time },
           { state: '商家已接单', time: push_time },
           { state: '配送已接单', time: dis_get_time },
           { state: '骑手配送中', time: dis_take_time },
