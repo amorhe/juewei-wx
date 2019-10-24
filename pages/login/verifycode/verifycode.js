@@ -1,6 +1,7 @@
 import { baseUrl, imageUrl, wxGet, wxSet } from '../../common/js/baseUrl'
 import { loginByPhone, sendCode } from '../../common/js/login'
 import { navigateTo } from '../../common/js/router.js'
+const { $Toast } = require('../../../iview-weapp/base/index');
 
 let timeCount;
 var app = getApp();
@@ -143,10 +144,9 @@ Page({
       })
     } else {
       // 其他
-      wx.showToast({
-        icon: 'none',
-        title: res.msg
-      });
+      $Toast({
+        content: res.msg
+      })
     }
 
   },
@@ -245,11 +245,9 @@ Page({
         that.setData({
           imgUrl: this.data.baseUrl + '/juewei-api/user/captcha?_sid=' + _sid + '&s=' + (new Date()).getTime()
         });
-        wx.showToast({
-          icon: 'none',
-          duration: 2000,
-          title: code.msg
-        });
+        $Toast({
+          content: code.msg
+        })
       }
     }
   },

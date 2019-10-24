@@ -1,5 +1,6 @@
 {
   "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
     "tab-bar": "/pages/components/tab-bar/tab-bar"
   }

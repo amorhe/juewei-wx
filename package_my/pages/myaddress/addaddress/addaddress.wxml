@@ -80,3 +80,5 @@
     </picker-view>
   </view>
 </view>
+
+<i-toast id="toast"/>

@@ -96,7 +96,6 @@
 .navigate_btn{
   color: #999;
   border:1px solid rgba(153,153,153,1);
-  margin-right: 16rpx;
   width:140rpx;
   height:64rpx;
   border-radius:64rpx;
@@ -114,6 +113,7 @@
   text-align: center;
   line-height: 64rpx;
   font-size: 26rpx;
+  margin-left: 16rpx;
 }
 .paddingLeft {
   padding-left: 48rpx;

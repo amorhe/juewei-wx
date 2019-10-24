@@ -13,6 +13,7 @@ import {
 import {
   startAddShopAnimation
 } from '../../../common/js/AddShopCar.js'
+const { $Toast } = require('../../../../iview-weapp/base/index');
 var app = getApp();
 Page({
 

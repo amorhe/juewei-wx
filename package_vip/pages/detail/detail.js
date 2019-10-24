@@ -300,7 +300,7 @@ Page({
    */
   async getMorePoint() {
     this.onModalClose();
-    wx.reLaunch({
+    wx.redirectTo({
       url: '/pages/home/goodslist/goodslist'
     });
   },

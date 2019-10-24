@@ -83,7 +83,7 @@
   </view>
   <view class="grayView"></view>
   <!-- 简介、详情 -->
-  <view class="borderFont" style="background:#fff">
+  <view class="borderFont" style="background:#fff;border-radius:20rpx">
     <view class="menus">
       <view data-cur="{{index}}" bindtap="eveChangeMenu" class="menu {{activeTab === index ? 'active':''}}" wx:for="{{tabs}}" wx:key="unique">
         {{item.title}}
@@ -210,3 +210,5 @@
   <goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" bindAnimate="funAnimate"
   />
 </view>
+
+<i-toast id="toast" />

@@ -20,6 +20,7 @@ import {
 } from '../../../../pages/common/js/map'
 let region = []
 var app = getApp()
+const { $Toast } = require('../../../../iview-weapp/base/index');
 // 引入百度地图微信小程序
 var bmap = require('../../../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
@@ -364,42 +365,32 @@ Page({
   Addaddress() {
     var that = this
     if (this.data.name === '') {
-      wx.showToast({
-        icon: 'none',
-        title: '请输入联系人',
-        duration: 1000
-      });
+      $Toast({
+        content: '请输入联系人'
+      })
       return
     }
     if (/[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im.test(this.data.name)) {
-      wx.showToast({
-        icon: 'none',
-        title: '联系人包含非法字符',
-        duration: 1000
-      });
+      $Toast({
+        content: '联系人包含非法字符'
+      })
       return
     }
     if (/^1\d{10}$/.test(this.data.phone)) {} else if (this.data.phone === '') {
-      wx.showToast({
-        icon: 'none',
-        title: '请填写电话',
-        duration: 1000
-      });
+      $Toast({
+        content: '请填写电话'
+      })
       return
     } else {
-      wx.showToast({
-        icon: 'none',
-        title: '请输入正确手机号',
-        duration: 1000
-      });
+      $Toast({
+        content: '请输入正确手机号'
+      })
       return
     }
     if (this.data.addressdetail.replace(/\s+/g, "") == '') {
-      wx.showToast({
-        icon: 'none',
-        title: '请输入门牌号',
-        duration: 1000
-      });
+      $Toast({
+        content: '请输入门牌号'
+      })
       return
     }
     if (this.data.clickadd) {
@@ -435,20 +426,16 @@ Page({
             url: '/package_my/pages/myaddress/myaddress'
           });
         } else {
-          wx.showToast({
-            icon: 'none',
-            title: res.msg,
-            duration: 1000
-          });
+          $Toast({
+            content: res.msg
+          })
         }
       })
     } else {
       if (this.data.shop_id == '') {
-        wx.showToast({
-          icon: 'none',
-          title: '当前地址周边无可配送门店',
-          duration: 1000
-        });
+        $Toast({
+          content: '当前地址周边无可配送门店'
+        })
         return
       }
       // 添加
@@ -483,11 +470,9 @@ Page({
             });
           }
         } else {
-          wx.showToast({
-            icon: 'none',
-            title: res.msg,
-            duration: 1000
-          });
+          $Toast({
+            content: res.msg
+          })
         }
       })
     }
@@ -522,10 +507,9 @@ Page({
           url: '/package_my/pages/myaddress/myaddress'
         });
       } else {
-        wx.showToast({
-          icon: 'none',
-          title: res.msg
-        });
+        $Toast({
+          content: res.msg
+        })
       }
     })
   },

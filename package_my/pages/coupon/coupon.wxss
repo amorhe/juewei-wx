@@ -105,6 +105,7 @@ page {
   width: 24rpx;
   height: 24rpx;
   margin-left: 8rpx;
+  margin-top: 4rpx
 }
 
 

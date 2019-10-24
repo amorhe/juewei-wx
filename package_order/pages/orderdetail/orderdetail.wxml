@@ -289,7 +289,7 @@
           <view>{{d.order_ctime}}</view>
         </view>
       </view>
-      <view class="item">
+      <view class="item" wx:if="{{d.message!=''}}">
         <view class="label">
           订单备注
         </view>

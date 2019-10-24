@@ -427,6 +427,8 @@ page {
   border-radius: 10px;
   box-shadow: 0 2rpx 10rpx 0 rgba(153, 153, 153, 0.2);
   margin-bottom: 30rpx;
+  position: relative;
+  z-index: 10
 }
 
 .discountImg {
