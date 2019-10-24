@@ -10,6 +10,9 @@ import {
   commentList,
   DispatchCommentList
 } from '../../../common/js/home'
+import {
+  startAddShopAnimation
+} from '../../../common/js/AddShopCar.js'
 var app = getApp();
 Page({
 
@@ -57,6 +60,8 @@ Page({
     freeMoney: 0,
     goodsInfo: {}, // 商品数据
     repurse_price: 0,
+    freeId: '',
+    type: 1
   },
 
   /**
@@ -112,7 +117,9 @@ Page({
       shopcartAll,
       shopcartNum,
       freeMoney: app.globalData.freeMoney || 0,
-      repurse_price
+      repurse_price,
+      freeId: app.globalData.freeId,
+      type: app.globalData.type
     })
     // 购物车活动提示
     this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
@@ -254,7 +261,8 @@ Page({
       shopcartNum: 0,
       priceAll: 0,
     })
-    wxSet('goodsList', {})
+    wxSet('goodsList', {});
+    this.funShopcartPrompt(app.globalData.fullActivity, 0, 0)
   },
   // sku商品
   funCart(data) {
@@ -266,13 +274,30 @@ Page({
       priceFree: data.detail.priceFree || 0,
       repurse_price: data.detail.repurse_price || 0
     })
+    // 购物车活动提示
+    this.funShopcartPrompt(app.globalData.fullActivity, data.detail.priceFree || 0, data.detail.repurse_price || 0);
   },
   // 监听购物车数据变更
   funChangeShopcart(data) {
     this.funCart(data)
   },
+  // 购物车小球动画
+  funAnimate(e) {
+    let finger = {};
+    finger['x'] = e.detail.touches[0].clientX / wx.getSystemInfoSync().windowWidth * 750;
+    finger['y'] = e.detail.touches[0].clientY / wx.getSystemInfoSync().windowWidth * 750;
+    startAddShopAnimation([{
+      x: 80,
+      y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 100
+    }, finger], this);
+  },
   // 加入购物车
   addshopcart(e) {
+    let events = {
+      detail: e
+    }
+    this.funAnimate(events);
+
     let goods_car = {};
     let goods_code = e.currentTarget.dataset.goods_code;
     let goods_format = e.currentTarget.dataset.goods_format;
@@ -345,9 +370,8 @@ Page({
       shopcartAll.push(goodlist[keys]);
       shopcartNum += goodlist[keys].num
     }
-    // 购物车活动提示
-    this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    let data = {
+    
+    let datas = {
       detail: {
         goodlist,
         shopcartAll,
@@ -357,7 +381,7 @@ Page({
         repurse_price
       }
     };
-    this.funChangeShopcart(data)
+    this.funChangeShopcart(datas)
     this.setData({
       shopcartList: goodlist,
       shopcartAll,
@@ -402,9 +426,7 @@ Page({
       shopcartAll = this.data.shopcartAll.filter(item => `${item.goods_code}_${format}` != `${code}_${format}`)
       delete(goodlist[`${code}_${format}`]);
     }
-    // 购物车活动提示
-    this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price);
-    let data = {
+    let datas = {
       detail: {
         goodlist,
         shopcartAll,
@@ -414,7 +436,7 @@ Page({
         repurse_price
       }
     };
-    this.funChangeShopcart(data)
+    this.funChangeShopcart(datas)
     this.setData({
       shopcartList: goodlist,
       shopcartAll,

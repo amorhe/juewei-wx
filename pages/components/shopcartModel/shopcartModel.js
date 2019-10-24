@@ -14,6 +14,9 @@ import {
 import {
   getCurUrl
 } from '../../common/js/utils.js'
+import {
+  startAddShopAnimation
+} from '../../common/js/AddShopCar.js'
 let log = console.log
 var app = getApp();
 Component({
@@ -29,7 +32,9 @@ Component({
     activityText: String,
     shopcartNum: Number,
     priceAll: Number,
-    type: Number
+    type: Number,
+    freeId: String,
+    freeText: String
   },
 
   /**
@@ -55,7 +60,7 @@ Component({
     isOpen: '',
     priceAll: 0,
     h: 0,
-    curUrl:false
+    curUrl: false,
   },
   observers: {
     '**': function() {
@@ -69,14 +74,16 @@ Component({
   /**
    * 组件的方法列表
    */
-  ready() {
+  attached() {
+    console.log(this.properties)
     this.setData({
       activityText: this.properties.activityText,
       shopcartAll: this.properties.shopcartAll,
       shopcartNum: this.properties.shopcartNum,
       priceAll: this.properties.priceAll,
       isOpen: app.globalData.isOpen,
-      type: this.properties.type
+      type: this.properties.type,
+      freeText: this.properties.freeText
     })
     this.funGetSendPrice();
     let isPhone = app.globalData.isIphoneX;
@@ -89,12 +96,12 @@ Component({
       if (isPhone) {
         this.setData({
           h: '246rpx',
-          curUrl:true
+          curUrl: true
         })
       } else {
         this.setData({
           h: '198rpx',
-          curUrl:true
+          curUrl: true
         })
       }
     }
@@ -103,7 +110,8 @@ Component({
         h: '98rpx'
       })
     }
-    if (app.globalData.freeId) {
+    console.log(this.properties.freeId)
+    if (this.properties.freeId) {
       this.setData({
         freeId: true
       })
@@ -199,6 +207,8 @@ Component({
       }
     },
     eveAddshopcart(e) {
+      // 购物车小球动画
+      this.triggerEvent('Animate', e);
       let goodlist = wxGet('goodsList') || {};
       let goods_code = e.currentTarget.dataset.goods_code;
       let goods_format = e.currentTarget.dataset.goods_format

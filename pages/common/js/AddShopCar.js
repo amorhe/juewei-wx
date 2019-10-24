@@ -1,4 +1,5 @@
-function bezier(potsTemp) {
+
+function bezier (potsTemp) {
   var pot;
   var lines;
   var ret = [];
@@ -16,7 +17,7 @@ function bezier(potsTemp) {
 
   if (potsTemp[1]['x'] > potsTemp[0]['x']) {
     topPoint['x'] = (potsTemp[1]['x'] - potsTemp[0]['x']) / 2 + potsTemp[0]['x'];
-  } else { //
+  } else {//
     topPoint['x'] = (potsTemp[0]['x'] - potsTemp[1]['x']) / 2 + potsTemp[1]['x'];
     needReverse = true
   }
@@ -63,8 +64,8 @@ function bezier(potsTemp) {
   function pointLine(points, rate) {
     var pointA, pointB, pointDistance, xDistance, yDistance, tan, radian, tmpPointDistance;
     var ret = [];
-    pointA = points[0]; //点击
-    pointB = points[1]; //中间
+    pointA = points[0];//点击
+    pointB = points[1];//中间
     xDistance = pointB.x - pointA.x;
     yDistance = pointB.y - pointA.y;
     pointDistance = Math.pow(Math.pow(xDistance, 2) + Math.pow(yDistance, 2), 1 / 2);
@@ -82,7 +83,7 @@ function bezier(potsTemp) {
   };
 }
 
-export const startAddShopAnimation = (potsTemp, nowThis) => {
+function startAddShopAnimation(potsTemp, nowThis) {
 
   nowThis.setData({
     display_good_box: true
@@ -92,13 +93,13 @@ export const startAddShopAnimation = (potsTemp, nowThis) => {
   var linePos = bezier(potsTemp)
   var bezier_points = linePos['bezier_points'];
   let index = bezier_points.length
-  var timeInt = setInterval(function() {
+  var timeInt = setInterval(function () {
     index--
     var context = wx.createContext()
     context.fillStyle = "#FF0000";
     let x = bezier_points[index]['x'] / 750 * wx.getSystemInfoSync().windowWidth;
     let y = bezier_points[index]['y'] / 750 * wx.getSystemInfoSync().windowWidth;
-    context.arc(x, y, 10, 0, Math.PI * 2, true);
+    context.arc(x, y, 5, 0, Math.PI * 2, true);
     context.fill()
     wx.drawCanvas({
       canvasId: "myCanvas",
@@ -107,7 +108,7 @@ export const startAddShopAnimation = (potsTemp, nowThis) => {
 
     if (index <= 0) {
       clearInterval(timeInt)
-      context.clearRect(x - 10, y - 10, 100, 100);
+      context.clearRect(x - 5, y - 5, 100, 100);
       wx.drawCanvas({
         canvasId: "myCanvas",
         actions: context.getActions()
@@ -151,6 +152,6 @@ export const startAddShopAnimation = (potsTemp, nowThis) => {
 
 
 
-// module.exports = {
-//   startAddShopAnimation: startAddShopAnimation
-// }
+module.exports = {
+  startAddShopAnimation: startAddShopAnimation
+}

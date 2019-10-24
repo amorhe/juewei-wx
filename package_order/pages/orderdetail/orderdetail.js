@@ -637,7 +637,11 @@ Page({
         url: '/pages/position/position'
       });
     }
-
-
+  },
+  // 拨打电话
+  makePhoneCall(e){
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.number
+    })
   }
 });

@@ -1,9 +1,9 @@
 <wxs module="m1">
-    var numberToFix = function(value) {
-      return value.toFixed(2)
-    }
-    module.exports.numberToFix = numberToFix;
-  </wxs>
+  var numberToFix = function(value) {
+    return value.toFixed(2)
+  }
+  module.exports.numberToFix = numberToFix;
+</wxs>
 <view style="background:#eee">
   <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type!='PKG'}}" src="{{goodsInfo.goods_img_detail[0]}}" />
   <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type=='PKG'}}" src="{{img_url + goodsInfo.goods_img[0]}}" />
@@ -199,10 +199,14 @@
       </view>
     </view>
   </view>
+  <!-- 小红点 -->
+    <canvas style="display:{{display_good_box ? 'block' : 'none'}}; position:fixed; width: 100vw; height: 100vh; left:0rpx; top:0rpx;z-index:5000" canvas-id="myCanvas" />
   <view style="height:100rpx;background:transparent"></view>
   <!-- 购物车 -->
-  <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart"
-    class="e1" />
+  <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" type="{{type}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" freeId="{{freeId}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart"
+    bindAnimate="funAnimate" class="e1" />
+
   <!-- 加入购物车选择商品规格 -->
-  <goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" />
+  <goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" bindAnimate="funAnimate"
+  />
 </view>

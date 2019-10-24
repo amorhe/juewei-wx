@@ -144,6 +144,7 @@ Page({
     togoodsType: 1, //点击跳转
     totalH: 0,
     bottomTabbar: 98,
+    freeId: ''
   },
 
   /**
@@ -177,7 +178,7 @@ Page({
   onReady: function() {
     wx.createSelectorQuery().select(".e1").boundingClientRect((rect) => {
       this.setData({
-        shopcart_top: rect.top - 100
+        shopcart_top: rect.top
       })
     }).exec()
     //获取节点距离顶部的距离
@@ -229,8 +230,6 @@ Page({
       } else {
         shopArray = wxGet('self')
       }
-
-      // console.log(shopArray)
       const status = cur_dateTime(shopArray[0].start_time, shopArray[0].end_time);
       this.setData({
         isOpen: status,
@@ -329,54 +328,6 @@ Page({
         resolve()
       }, sec)
     });
-  },
-  // 创建动画
-  createAnimation(ballX, ballY) {
-    let that = this,
-      bottomX = 45,
-      bottomY = that.data.shopcart_top,
-      animationX = that.flyX(bottomX, ballX), // 创建小球水平动画
-      animationY = that.flyY(bottomY, ballY); // 创建小球垂直动画
-    that.setData({
-      showBall: true,
-      ballX,
-      ballY
-    })
-    that.setDelayTime(100).then(() => {
-      // 100ms延时,  确保小球已经显示
-      that.setData({
-        animationX: animationX.export(),
-        animationY: animationY.export()
-      })
-      // 500ms延时, 即小球的抛物线时长
-      return that.setDelayTime(500);
-    }).then(() => {
-      that.setData({
-        showBall: true,
-        animationX: that.flyX(0, 0, 0).export(),
-        animationY: that.flyY(0, 0, 0).export(),
-        ballX: 0,
-        ballY: 0
-      })
-    })
-  },
-  // 水平动画
-  flyX(bottomX, ballX, duration) {
-    let animation = wx.createAnimation({
-      duration: duration || 500,
-      timingFunction: 'linear',
-    })
-    animation.translateX(-(ballX - bottomX)).step();
-    return animation;
-  },
-  // 垂直动画
-  flyY(bottomY, ballY, duration) {
-    let animation = wx.createAnimation({
-      duration: duration || 500,
-      timingFunction: 'ease-in',
-    })
-    animation.translateY(bottomY - ballY).step();
-    return animation;
   },
   // 关闭提醒
   eveCloseOpen() {
@@ -639,7 +590,8 @@ Page({
       if (this.data.activityList && this.data.activityList.FREE) {
         app.globalData.freeId = this.data.activityList.FREE.id;
         this.setData({
-          freeMoney: this.data.activityList.FREE.money
+          freeMoney: this.data.activityList.FREE.money,
+          freeId: this.data.activityList.FREE.id
         })
         app.globalData.freeMoney = this.data.activityList.FREE.money
       } else {
@@ -726,7 +678,6 @@ Page({
               repurse_price = 0, // 换购活动提示价
               snum = 0,
               goodsList = wxGet('goodsList');
-            console.log(goodsList)
             if (goodsList == undefined) {
               shopcartAll = [];
               shopcartNum = 0;
@@ -843,13 +794,6 @@ Page({
   },
   // 监听商品列表滚动
   bindscroll(e) {
-    // if (e.detail.scrollTop <= 0) {
-    //   // 滚动到最顶部
-    //   this.setData({
-    //     isTab: true
-    //   })
-    // }
-
     //用于判断左侧显示的位置 
     if (e.detail.scrollTop > 0) {
       let retArr = [...goodsret];
@@ -883,11 +827,22 @@ Page({
       }
     })
   },
+  // 购物车小球动画
+  funAnimate(e){
+    let finger = {};
+    finger['x'] = e.detail.touches[0].clientX / wx.getSystemInfoSync().windowWidth * 750;
+    finger['y'] = e.detail.touches[0].clientY / wx.getSystemInfoSync().windowWidth * 750;
+    startAddShopAnimation([{ x: 80, y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 200 }, finger], this);
+  },
   // 加入购物车
   eveAddshopcart(e) {
+    let events = {
+      detail:e
+    }
+    this.funAnimate(events);
+    
     let goods_car = {};
     let goods_code = e.currentTarget.dataset.goods_code;
-    // let goods_format = e.currentTarget.dataset.goods_format;
     let goods_format = e.currentTarget.dataset.goods_format;
     let goodlist = wxGet('goodsList') || {};
     if (goodlist[`${goods_code}_${goods_format}`]) {
@@ -967,21 +922,18 @@ Page({
       priceFree,
       repurse_price
     })
+    let datas = {
+      detail: {
+        goodlist,
+        shopcartAll,
+        priceAll,
+        shopcartNum,
+        priceFree,
+        repurse_price
+      }
+    }
+    this.funChangeShopcart(datas)
     wxSet('goodsList', goodlist)
-    // console.log(e)
-    // 购物车小球动画
-    // let ballX = e.touches[0].clientX,
-    //   ballY = e.touches[0].clientY;
-    // console.log(this.data.shopcart_top)
-    // console.log(e.touches[0].clientY)
-    // this.createAnimation(ballX, ballY);
-    var finger = {};
-    finger['x'] = e.touches[0].clientX / wx.getSystemInfoSync().windowWidth * 750;
-    finger['y'] = e.touches[0].clientY / wx.getSystemInfoSync().windowWidth * 750;
-    startAddShopAnimation([{
-      x: 45,
-      y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 45
-    }, finger], this)
   },
   eveReduceshopcart(e) {
     let code = e.currentTarget.dataset.goods_code;
@@ -1027,6 +979,17 @@ Page({
       priceFree,
       repurse_price
     })
+    let datas = {
+      detail:{
+        goodlist,
+        shopcartAll,
+        priceAll,
+        shopcartNum,
+        priceFree,
+        repurse_price
+      }
+    }
+    this.funChangeShopcart(datas)
     wxSet('goodsList', goodlist)
   },
   // sku商品
@@ -1154,6 +1117,7 @@ Page({
       priceAll: 0,
     })
     wxSet('goodsList', {})
+    this.funShopcartPrompt(this.data.fullActivity, 0, 0)
   },
   //  活动跳转链接
   imageLink(e) {

@@ -4,6 +4,9 @@ import {
   wxGet,
   wxSet
 } from '../../common/js/baseUrl'
+import {
+  startAddShopAnimation
+} from '../../common/js/AddShopCar.js'
 Component({
   // 组件样式隔离
   options: {
@@ -71,14 +74,15 @@ Component({
         size: e.currentTarget.dataset.size,
         price: this.data.goodsItem.goods_format[e.currentTarget.dataset.size].goods_price / 100,
         sizeText: this.data.goodsItem.goods_format[e.currentTarget.dataset.size].type,
-        goodsList:wxGet('goodsList')
+        goodsList: wxGet('goodsList')
       })
     },
     eveAddshopcart(e) {
-      // console.log(e)
       if (this.data.size == 999) {
         return
       }
+      // 购物车小球动画
+      this.triggerEvent('Animate', e);
       let goods_car = {};
       let goods_code = e.currentTarget.dataset.goods_code;
       let goods_format = e.currentTarget.dataset.goods_format;
@@ -147,7 +151,7 @@ Component({
           if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${e.currentTarget.dataset.goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
             wx.showToast({
               title: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`,
-              icon:'none'
+              icon: 'none'
             });
             priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
             console.log(priceAll)
@@ -174,7 +178,6 @@ Component({
         shopcartAll
       })
       this.bindCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
-      // console.log(priceAll, shopcartNum)
       wxSet('goodsList', goodlist)
     },
     bindCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
@@ -246,5 +249,5 @@ Component({
     touchstart() {
 
     }
-  }, 
+  },
 })
