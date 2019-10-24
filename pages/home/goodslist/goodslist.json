@@ -5,6 +5,6 @@
     "shopcart-model": "../../components/shopcartModel/shopcartModel",
     "goods-modal": "../../components/goodsModal/goodsModal",
     "tab-bar": "/pages/components/tab-bar/tab-bar",
-    "i-toast": "../../../../iview-weapp/toast/index"
+    "i-toast": "../../../iview-weapp/toast/index"
   }
 }

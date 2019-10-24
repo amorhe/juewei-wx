@@ -2,6 +2,7 @@
   "navigationBarTitleText":"绝味鸭脖",
   "usingComponents": {
     "shopcart-model": "../../../components/shopcartModel/shopcartModel",
-    "goods-modal": "../../../components/goodsModal/goodsModal"
+    "goods-modal": "../../../components/goodsModal/goodsModal",
+    "i-toast": "../../../../iview-weapp/toast/index"
   }
 }
