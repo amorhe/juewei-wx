@@ -2,5 +2,7 @@
   "navigationBarTitleText": "兑换详情",
   "navigationBarTextStyle": "white",
   "navigationStyle": "custom",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-toast": "../../../../iview-weapp/toast/index"
+  }
 }

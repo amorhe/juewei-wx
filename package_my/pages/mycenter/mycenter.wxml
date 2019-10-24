@@ -78,3 +78,4 @@
   <view class="sex_view" style="border-bottom:12rpx rgb(245,245,245) solid" bindtap="chooseSex" data-sex="0">女</view>
   <view class="sex_view" bindtap="onPopupClose">取消</view>
 </view>
+<i-toast id="toast" />

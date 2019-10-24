@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText":"填写备注",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-toast": "../../../../iview-weapp/toast/index"
+  }
 }

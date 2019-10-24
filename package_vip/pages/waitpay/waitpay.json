@@ -1,5 +1,7 @@
 {
   "backgroundColor": "#F5F5F5",
-  "usingComponents": {},
+  "usingComponents": {
+    "i-toast":"../../../iview-weapp/toast/index"
+  },
   "navigationBarTitleText": "等待支付"
 }

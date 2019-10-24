@@ -3,6 +3,7 @@ import { imageUrl, imageUrl2, baseUrl, wxGet } from '../../../pages/common/js/ba
 import { log, handleCopy, guide, contact, liTo, parseData, MODAL } from '../../../pages/common/js/utils'
 import Request from "../../../pages/common/js/li-ajax";
 import { navigateTo, reLaunch } from "../../../pages/common/js/router";
+const { $Toast } = require('../../../iview-weapp/base/index');
 
 const app = getApp();
 Page({
@@ -177,7 +178,7 @@ Page({
       return this.closeModel()
     }
 
-    return wx.showToast({
+    return $Toast({
       content: res.msg,
     });
   },

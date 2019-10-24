@@ -21,7 +21,9 @@ import {
 import {
   add_lng_lat
 } from "../../../pages/common/js/home";
-
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 const app = getApp();
 
 Page({
@@ -483,10 +485,9 @@ Page({
 
   showCancel() {
     if (this.data.order_channel == 1) {
-      wx.showToast({
-        icon: "none",
-        title: '订单不支持跨平台操作，请去相应平台取消订单！'
-      });
+      $Toast({
+        content:'订单不支持跨平台操作，请去相应平台取消订单！'
+      })
       return
     }
     this.setData({
@@ -537,11 +538,9 @@ Page({
       });
     } else {
       this.closeModel();
-      wx.showToast({
-        icon: "none",
-        title: res.msg,
-        duration: 2000,
-      });
+      $Toast({
+        content: res.msg
+      })
     }
 
   },

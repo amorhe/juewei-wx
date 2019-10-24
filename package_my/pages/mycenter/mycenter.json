@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText":"基本信息",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-toast": "../../../iview-weapp/toast/index"
+  }
 }

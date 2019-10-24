@@ -4,6 +4,9 @@ import { isloginFn, log, MODAL, parseData } from '../../../pages/common/js/utils
 import { imageUrl2, wxGet } from '../../../pages/common/js/baseUrl'
 import { upformId } from '../../../pages/common/js/time'
 import Request from "../../../pages/common/js/li-ajax";
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 
 Page({
 
@@ -117,7 +120,7 @@ Page({
       return data
     }
     if (code !== 100) {
-      wx.showToast({ title: msg });
+      $Toast({ content: msg });
       return {}
     }
   },
@@ -203,7 +206,7 @@ Page({
           that.setData({
             isClick: true
           });
-          return wx.showToast({ icon: "none", title: res.msg });
+          return $Toast({ content: res.msg });
         }
         return
       }

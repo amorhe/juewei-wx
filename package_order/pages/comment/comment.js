@@ -1,8 +1,17 @@
 // package_order/pages/comment/comment.js
 
-import { baseUrl, imageUrl, imageUrl2 } from '../../../pages/common/js/baseUrl'
+import {
+  baseUrl,
+  imageUrl,
+  imageUrl2
+} from '../../../pages/common/js/baseUrl'
 import Request from "../../../pages/common/js/li-ajax";
-import { log } from "../../../pages/common/js/utils";
+import {
+  log
+} from "../../../pages/common/js/utils";
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 
 Page({
   /**
@@ -33,8 +42,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (e) {
-    const { order_no } = e;
+  onLoad: async function(e) {
+    const {
+      order_no
+    } = e;
     await this.getCommentTag();
     await this.getOrderDetail(order_no);
     this.setData({
@@ -45,49 +56,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
@@ -95,8 +106,12 @@ Page({
    * @function 展开产品
    */
   openList(e) {
-    const { d } = this.data;
-    const { i } = e.currentTarget.dataset;
+    const {
+      d
+    } = this.data;
+    const {
+      i
+    } = e.currentTarget.dataset;
     d.goods_list[i].open = true;
     this.setData({
       d
@@ -121,8 +136,12 @@ Page({
    * @function 获取订单详情
    */
   async getOrderDetail(order_no) {
-    const { com } = this.data;
-    let res = await Request.orderDetail({ order_no });
+    const {
+      com
+    } = this.data;
+    let res = await Request.orderDetail({
+      order_no
+    });
     if (res.code) {
       return
     }
@@ -145,7 +164,9 @@ Page({
     goods_list[0].open = true;
     res.data.goods_list = goods_list;
     if (res.code === 0) {
-      this.setData({ d: res.data })
+      this.setData({
+        d: res.data
+      })
     }
   },
 
@@ -154,8 +175,13 @@ Page({
    * @function 修改商店评分
    */
   changeShopStar(e) {
-    const { index } = e.currentTarget.dataset;
-    let { shopStars, com } = this.data;
+    const {
+      index
+    } = e.currentTarget.dataset;
+    let {
+      shopStars,
+      com
+    } = this.data;
     let stars = index + 1;
     // 修改星星
     shopStars.fill(true, 0, stars);
@@ -189,10 +215,21 @@ Page({
    * @function 修改菜品评分
    */
   changeGoodsComment(e) {
-    let { d, com } = this.data;
-    let { goods_list } = d;
-    const { index, i } = e.currentTarget.dataset;
-    let { goodStar, level } = goods_list[i].goods_comment;
+    let {
+      d,
+      com
+    } = this.data;
+    let {
+      goods_list
+    } = d;
+    const {
+      index,
+      i
+    } = e.currentTarget.dataset;
+    let {
+      goodStar,
+      level
+    } = goods_list[i].goods_comment;
     let stars = index + 1;
     /* 修改星星 */
     goodStar.fill(true, 0, stars);
@@ -227,8 +264,13 @@ Page({
    * @function 修改商店标签
    */
   selectShopTag(e) {
-    let { currentShopSelect } = this.data;
-    const { item, index } = e.currentTarget.dataset;
+    let {
+      currentShopSelect
+    } = this.data;
+    const {
+      item,
+      index
+    } = e.currentTarget.dataset;
     console.log(index);
 
     if (currentShopSelect.includes(item)) {
@@ -249,10 +291,20 @@ Page({
    */
   selectGoodTag(e) {
 
-    let { d } = this.data;
-    let { goods_list } = d;
-    const { item, i,index } = e.currentTarget.dataset;
-    let { tags } = goods_list[i].goods_comment;
+    let {
+      d
+    } = this.data;
+    let {
+      goods_list
+    } = d;
+    const {
+      item,
+      i,
+      index
+    } = e.currentTarget.dataset;
+    let {
+      tags
+    } = goods_list[i].goods_comment;
 
     // fixMe: index 问题
     if (tags.includes(item)) {
@@ -276,7 +328,9 @@ Page({
    * @function 上传图片
    */
   upLoad(e) {
-    const { i } = e.currentTarget.dataset;
+    const {
+      i
+    } = e.currentTarget.dataset;
     wx.chooseImage({
       sourceType: ['camera', 'album'],
       count: 1,
@@ -292,13 +346,21 @@ Page({
           filePath: res.tempFilePaths[0],
           success: (result) => {
             wx.hideLoading();
-            let { d } = this.data;
-            let { goods_list } = d;
-            let { pics } = goods_list[i].goods_comment;
+            let {
+              d
+            } = this.data;
+            let {
+              goods_list
+            } = d;
+            let {
+              pics
+            } = goods_list[i].goods_comment;
 
             let r = JSON.parse(result.data);
             if (r.code != 0) {
-              return wx.showToast({ icon:"none",title: r.msg })
+              return $Toast({
+                content: r.msg
+              })
             }
             // let p = /\"path\"\:\"(\S*)\"\}\,/
             // log(result.data.match(p))
@@ -311,19 +373,17 @@ Page({
           },
           fail: (error) => {
             wx.hideLoading();
-            wx.showToast({
-              title: '图片上传失败',
-              icon:"none"
-            });
+            $Toast({
+              content: '图片上传失败'
+            })
           }
         });
       },
       fail: (err) => {
         log(err);
-        wx.showToast({
-          icon:"none",
-          title: 'fail',
-        });
+        $Toast({
+          content: 'fail'
+        })
       }
     })
   },
@@ -333,10 +393,19 @@ Page({
    */
 
   delDisPic(e) {
-    const { i, pic_index } = e.currentTarget.dataset;
-    let { d } = this.data;
-    let { goods_list } = d;
-    let { pics } = goods_list[i].goods_comment;
+    const {
+      i,
+      pic_index
+    } = e.currentTarget.dataset;
+    let {
+      d
+    } = this.data;
+    let {
+      goods_list
+    } = d;
+    let {
+      pics
+    } = goods_list[i].goods_comment;
 
     // d.goods_list[i].goods_comment.pics =
 
@@ -352,7 +421,9 @@ Page({
    */
 
   getDisContent(e) {
-    const { value } = e.detail;
+    const {
+      value
+    } = e.detail;
     this.setData({
       dis_content: value
     })
@@ -362,9 +433,15 @@ Page({
    * @function 获取上坪评价详情
    */
   getGoodContent(e) {
-    const { i } = e.currentTarget.dataset;
-    const { d } = this.data;
-    const { value } = e.detail;
+    const {
+      i
+    } = e.currentTarget.dataset;
+    const {
+      d
+    } = this.data;
+    const {
+      value
+    } = e.detail;
 
     d.goods_list[i].goods_comment.content = value;
     this.setData({
@@ -377,16 +454,23 @@ Page({
    */
 
   async doCommemt() {
-    const { order_no, dis_level, currentShopSelect, dis_content, d } = this.data;
-    let goods_comment = d.goods_list.map(({ goods_code, goods_comment }) => (
-      {
-        goods_code,
-        level: goods_comment.level,
-        tag: goods_comment.tags.join(','),
-        img: goods_comment.pics.join(','),
-        content: goods_comment.content
-      }
-    ));
+    const {
+      order_no,
+      dis_level,
+      currentShopSelect,
+      dis_content,
+      d
+    } = this.data;
+    let goods_comment = d.goods_list.map(({
+      goods_code,
+      goods_comment
+    }) => ({
+      goods_code,
+      level: goods_comment.level,
+      tag: goods_comment.tags.join(','),
+      img: goods_comment.pics.join(','),
+      content: goods_comment.content
+    }));
     log(goods_comment);
     let data = {
       order_no,

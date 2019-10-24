@@ -12,6 +12,9 @@ import {
   navigateTo
 } from '../../../../pages/common/js/router.js'
 let timeCount;
+const {
+  $Toast
+} = require('../../../../iview-weapp/base/index');
 Page({
 
   /**
@@ -152,10 +155,8 @@ Page({
             url: "/package_my/pages/mycenter/newphone/newphone?sid=" + that.data._sid
           });
         } else {
-          wx.showToast({
-            icon: 'none',
-            title: res.msg,
-            duration: 2000
+          $Toast({
+            content: res.msg
           });
         }
       })
@@ -166,10 +167,8 @@ Page({
             delta: 4
           })
         } else {
-          wx.showToast({
-            icon: 'none',
-            title: res.msg,
-            duration: 2000
+          $Toast({
+            content: res.msg
           });
         }
       })

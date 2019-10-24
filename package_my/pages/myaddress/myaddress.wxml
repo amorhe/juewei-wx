@@ -1,5 +1,5 @@
 <view class="addressList">
-  <image class='nullImg' wx:if="{{ list.length==0 }}" src="{{ imageUrl }}bg_address.png"/>
+  <image class='nullImg' wx:if="{{ list.length==0 }}" src="{{ imageUrl }}bg_address.png" />
   <view class="listItme" wx:for="{{ list }}" bindtap="back" data-i="{{index}}" wx:key="unique">
     <view class="tiemleft">
       <view class="lefttop">
@@ -14,12 +14,13 @@
       </view>
     </view>
     <view class="tiemright" catchtap="toUrl" data-item="{{ item }}">
-      <image class='editicon' src="{{imageUrl}}edit.png"/>
+      <image class='editicon' src="{{imageUrl}}edit.png" />
     </view>
   </view>
 </view>
 <view class="bottomView" bindtap="addressFn" wx:if="{{list.length<=10}}">
-  <image class='addIcon' src="{{imageUrl}}add.png"/>
+  <image class='addIcon' src="{{imageUrl}}add.png" />
   <text>新增收货地址</text>
 </view>
 <view style="height:60rpx"></view>
+<i-toast id="toast" />

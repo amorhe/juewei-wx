@@ -4,6 +4,9 @@ import Request from "./li-ajax";
 import { wxGet } from "./baseUrl";
 import { navigateTo, redirectTo } from "./router";
 
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 export const log = console.log;
 
 /**

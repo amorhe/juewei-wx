@@ -16,6 +16,7 @@ import getDistance from '../../../pages/common/js/getdistance'
 import {
   redirectTo
 } from "../../../pages/common/js/router";
+const { $Toast } = require('../../../iview-weapp/base/index');
 
 let region = [];
 
@@ -364,10 +365,9 @@ Page({
       address
     } = this.data;
     if (address.length == 2) {
-      return wx.showToast({
-        icon: "none",
-        title: '请先选择领取城市'
-      });
+      return $Toast({
+        content: '请先选择领取城市'
+      })
     }
     let [curProvince, curCity, curCountry] = this.data.defaultAddress;
     let province = region[curProvince].addrid;
@@ -456,10 +456,9 @@ Page({
         msg
       } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
-        wx.showToast({
-          icon: "none",
-          title: msg
-        });
+        $Toast({
+          content:msg
+        })
       }
       return code === 100
     }
@@ -481,10 +480,9 @@ Page({
         msg
       } = await Request.reqConfirmOrder(params);
       if (code !== 100) {
-        wx.showToast({
-          icon: "none",
-          title: msg
-        });
+        $Toast({
+          content: msg
+        })
       }
       return code === 100
     }

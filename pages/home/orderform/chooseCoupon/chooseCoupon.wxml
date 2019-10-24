@@ -43,3 +43,5 @@
   <image class='nullImg' src="{{ imageUrl }}bg_coupon.png" />
   <text>暂无优惠券</text>
 </view>
+
+<i-toast id="toast" />

@@ -20,7 +20,9 @@ import {
   redirectTo,
   reLaunch
 } from '../../../pages/common/js/router.js'
-
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 var app = getApp();
 let region = [];
 Page({
@@ -342,11 +344,9 @@ Page({
           url: "/pages/my/index/index"
         })
       } else {
-        wx.showToast({
-          icon: 'none',
-          title: res.msg,
-          duration: 2000
-        });
+        $Toast({
+          content:res.msg
+        })
       }
     });
     this.setData({
@@ -387,19 +387,5 @@ Page({
       showTop: false
     })
   },
-  // changeSex() {
-  //   const that = this
-  //   wx.showActionSheet({
-  //     itemList: ['女', '男'],
-  //     success(res) {
-  //       console.log(res.tapIndex)
-  //       that.genderFN(res.tapIndex)
-  //     },
-  //     fail(res) {
-  //       console.log(res.errMsg)
-  //     }
-
-  //   })
-  // }
 
 });

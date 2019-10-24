@@ -1,6 +1,11 @@
 // package_vip/pages/exchangelist/exchangedetail/exchangedetail.js
 
-import { baseUrl, imageUrl, imageUrl2, wxGet } from '../../../../pages/common/js/baseUrl'
+import {
+  baseUrl,
+  imageUrl,
+  imageUrl2,
+  wxGet
+} from '../../../../pages/common/js/baseUrl'
 import {
   event_getNavHeight,
   guide,
@@ -11,7 +16,14 @@ import {
   contact
 } from '../../../../pages/common/js/utils'
 import Request from "../../../../pages/common/js/li-ajax";
-import { navigateBack, navigateTo, reLaunch } from "../../../../pages/common/js/router";
+import {
+  navigateBack,
+  navigateTo,
+  reLaunch
+} from "../../../../pages/common/js/router";
+const {
+  $Toast
+} = require('../../../../iview-weapp/base/index');
 
 const app = getApp();
 
@@ -31,10 +43,18 @@ Page({
 
     time: '',
 
-    cancelReasonList: [
-      { reason: '下错单/临时不想要了', value: true },
-      { reason: '信息填写错误，重新下单', value: false },
-      { reason: '其他', value: false },
+    cancelReasonList: [{
+        reason: '下错单/临时不想要了',
+        value: true
+      },
+      {
+        reason: '信息填写错误，重新下单',
+        value: false
+      },
+      {
+        reason: '其他',
+        value: false
+      },
     ],
 
   },
@@ -42,76 +62,88 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (e) {
-    const { id } = e;
+  onLoad: async function(e) {
+    const {
+      id
+    } = e;
     let navHeight = await event_getNavHeight();
     this.setData({
       navHeight,
       id
-    }, async () => {
+    }, async() => {
       await this.getOrderDetail(id);
       this.eventReduceTime()
-    }
-  )
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: async function () {
-  },
+  onShow: async function() {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   /**
    * @function 获取订单详情
    */
   async getOrderDetail(id) {
-    let res = await Request.reqOrderDetail({ id });
-    parseData({ bindName: '_exchange_intro', html: res.data.exchange_intro, target: this });
-    parseData({ bindName: '_intro', html: res.data.intro, target: this });
+    let res = await Request.reqOrderDetail({
+      id
+    });
+    parseData({
+      bindName: '_exchange_intro',
+      html: res.data.exchange_intro,
+      target: this
+    });
+    parseData({
+      bindName: '_intro',
+      html: res.data.intro,
+      target: this
+    });
 
     if (res.code === 100) {
-      let { start_time = '', end_time = '', get_start_time = '', get_end_time = '', ...rest } = res.data;
+      let {
+        start_time = '', end_time = '', get_start_time = '', get_end_time = '', ...rest
+      } = res.data;
       this.setData({
         detail: {
           start_time: start_time.split(' ')[0],
@@ -130,8 +162,14 @@ Page({
    */
 
   eventReduceTime() {
-    let { detail } = this.data;
-    let { remaining_pay_minute, remaining_pay_second, ...item } = detail || {
+    let {
+      detail
+    } = this.data;
+    let {
+      remaining_pay_minute,
+      remaining_pay_second,
+      ...item
+    } = detail || {
       remaining_pay_minute: -1,
       remaining_pay_second: -1
     };
@@ -144,7 +182,10 @@ Page({
       remaining_pay_second = 59
     }
     this.setData({
-      detail: { ...item, remaining_pay_second, remaining_pay_minute },
+      detail: { ...item,
+        remaining_pay_second,
+        remaining_pay_minute
+      },
     });
     setTimeout(() => {
       this.eventReduceTime();
@@ -156,12 +197,16 @@ Page({
    */
 
   async doCancelOrder() {
-    const { order_sn } = this.data.detail;
-    let res = await Request.reqCancelOrder({ order_sn });
+    const {
+      order_sn
+    } = this.data.detail;
+    let res = await Request.reqCancelOrder({
+      order_sn
+    });
     if (res.code === 100) {
       app.globalData.refresh = true;
-      wx.showToast({
-        title: '取消成功',
+      $Toast({
+        content: '取消成功',
       });
 
       setTimeout(() => {
@@ -177,7 +222,12 @@ Page({
    * @function 创建订单
    */
   async createOrder() {
-    let { goods_id, exchange_type, order_point, order_amount } = this.data.detail;
+    let {
+      goods_id,
+      exchange_type,
+      order_point,
+      order_amount
+    } = this.data.detail;
 
     let params = {
       'goods[goods_id]': goods_id,
@@ -186,12 +236,18 @@ Page({
       'goods[amount]': order_amount * 100,
       'pay_type': 8
     };
-    let { code, data, msg } = await Request.reqCreateOrder(params);
+    let {
+      code,
+      data,
+      msg
+    } = await Request.reqCreateOrder(params);
     if (code === 100) {
       return data
     }
     if (code !== 100) {
-      wx.alert({ title: msg });
+      wx.alert({
+        title: msg
+      });
       return {}
     }
   },
@@ -201,8 +257,13 @@ Page({
    */
 
   async confirmOrder(order_sn) {
-    let params = { order_sn };
-    let { code, data } = await Request.reqConfirmOrder(params);
+    let params = {
+      order_sn
+    };
+    let {
+      code,
+      data
+    } = await Request.reqConfirmOrder(params);
     return code === 100
   },
 
@@ -211,8 +272,16 @@ Page({
    */
   async pay(order_no) {
     log(order_no);
-    let { code, data } = await Request.reqPay({ order_no });
-    return { code, data }
+    let {
+      code,
+      data
+    } = await Request.reqPay({
+      order_no
+    });
+    return {
+      code,
+      data
+    }
   },
 
   /**
@@ -220,24 +289,39 @@ Page({
    */
 
   async payNow() {
-    let { order_sn, id, shop_id, shop_name, order_amount, receive_type, user_address_phone, user_address_name, province, city, district, user_address_id, user_address_address, user_address_detail_address } = this.data.detail;
+    let {
+      order_sn,
+      id,
+      shop_id,
+      shop_name,
+      order_amount,
+      receive_type,
+      user_address_phone,
+      user_address_name,
+      province,
+      city,
+      district,
+      user_address_id,
+      user_address_address,
+      user_address_detail_address
+    } = this.data.detail;
     // 校验订单 地址信息
     // receive_type 发货方式 0 无需发货 1 到店领取 2公司邮寄
     console.log(receive_type, user_address_phone, this.data.detail);
     if (receive_type == 2 || receive_type == 1) {
       return wx.navigateTo({
-        url: '/package_vip/pages/waitpay/waitpay?'
-          + 'order_sn=' + order_sn
-          + '&shop_id=' + shop_id
-          + '&shop_name=' + shop_name
-          + '&user_address_name=' + user_address_name
-          + '&user_address_phone=' + user_address_phone
-          + '&user_address_address=' + user_address_address
-          + '&user_address_id=' + user_address_id
-          + '&user_address_detail_address=' + user_address_detail_address
-          + '&province=' + (province || '')
-          + '&city=' + (city || '')
-          + '&district=' + (district || '')
+        url: '/package_vip/pages/waitpay/waitpay?' +
+          'order_sn=' + order_sn +
+          '&shop_id=' + shop_id +
+          '&shop_name=' + shop_name +
+          '&user_address_name=' + user_address_name +
+          '&user_address_phone=' + user_address_phone +
+          '&user_address_address=' + user_address_address +
+          '&user_address_id=' + user_address_id +
+          '&user_address_detail_address=' + user_address_detail_address +
+          '&province=' + (province || '') +
+          '&city=' + (city || '') +
+          '&district=' + (district || '')
       });
     }
     // 虚拟商品无需发货
@@ -265,7 +349,9 @@ Page({
             }
           });
         } else {
-          return wx.showToast({ icon: "none", title: res.msg });
+          return $Toast({
+            content: res.msg,
+          });
         }
         return
       }
@@ -295,7 +381,9 @@ Page({
    * @function 使用优惠卷
    */
   async toUse() {
-    const { way } = this.data.detail;
+    const {
+      way
+    } = this.data.detail;
     // way:用途 1:外卖专享 2:门店专享 3:全场通用
     switch (way - 0) {
       case 1:
@@ -310,7 +398,9 @@ Page({
         });
         break;
       case 2:
-        let { code } = this.data.detail;
+        let {
+          code
+        } = this.data.detail;
         let _sid = wxGet('_sid');
         let codeImg = baseUrl + '/juewei-api/coupon/getQRcode?' + '_sid=' + _sid + '&code=' + code;
         log(codeImg);
@@ -366,8 +456,8 @@ Page({
       return this.closeModel()
     }
 
-    return wx.showToast({
-      title: res.msg,
+    return $Toast({
+      content: res.msg,
     });
   },
 

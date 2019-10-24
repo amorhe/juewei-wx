@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText":"评价",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-toast":"../../../iview-weapp/toast/index"
+  }
 }

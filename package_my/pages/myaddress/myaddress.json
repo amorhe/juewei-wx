@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText":"地址",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-toast": "../../../iview-weapp/toast/index"
+  }
 }

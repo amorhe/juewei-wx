@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText":"兑换详情",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-toast": "../../../../iview-weapp/toast/index"
+  }
 }

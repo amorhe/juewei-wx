@@ -6,3 +6,4 @@
   </view>
   <button size="default" hover-class="none" class="{{remarks.length>0?'confirmRemarks hasWrite':'confirmRemarks noWrite'}}" bindtap="eveRemarksBtn">确认</button>
 </view>
+<i-toast id='toast' />

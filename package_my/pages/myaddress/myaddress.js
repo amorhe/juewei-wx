@@ -9,6 +9,9 @@ import {
   redirectTo,
   navigateTo
 } from '../../../pages/common/js/router.js'
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 var app = getApp()
 Page({
 
@@ -139,9 +142,8 @@ Page({
           list: res.data
         })
       } else {
-        wx.showToast({
-          title: res.msg,
-          icon: 'none'
+        $Toast({
+          content: res.msg
         });
       }
     })

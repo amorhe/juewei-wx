@@ -8,6 +8,9 @@ import {
 import {
   parseData
 } from '../../../../pages/common/js/utils'
+const {
+  $Toast
+} = require('../../../../iview-weapp/base/index');
 Page({
 
   /**
@@ -97,10 +100,26 @@ Page({
   }) {
     exchangedetail(_sid, gift_code_id, gift_id, order_id).then(async(res) => {
       if (res.CODE == 'A100') {
-        parseData({ bindName: '_store', html: res.DATA.gift_application_store, target: this });
-        parseData({ bindName: '_desciption', html: res.DATA.gift_desciption, target: this });
-        parseData({ bindName: '_process', html: res.DATA.gift_exchange_process, target: this });
-        parseData({ bindName: '_telephone', html: res.DATA.gift_service_telephone, target: this });
+        parseData({
+          bindName: '_store',
+          html: res.DATA.gift_application_store,
+          target: this
+        });
+        parseData({
+          bindName: '_desciption',
+          html: res.DATA.gift_desciption,
+          target: this
+        });
+        parseData({
+          bindName: '_process',
+          html: res.DATA.gift_exchange_process,
+          target: this
+        });
+        parseData({
+          bindName: '_telephone',
+          html: res.DATA.gift_service_telephone,
+          target: this
+        });
         res.DATA.order_ctime = res.DATA.order_ctime.split(' ')[0];
         res.DATA.gift_use_time = res.DATA.gift_use_time.split(' ')[0];
         this.setData({
@@ -114,8 +133,8 @@ Page({
     wx.setClipboardData({
       data: e.currentTarget.dataset.code,
       success() {
-        wx.showToast({
-          icon: 'success',
+        $Toast({
+          type: 'success',
           content: '操作成功'
         });
       }

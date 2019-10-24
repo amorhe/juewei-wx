@@ -17,6 +17,7 @@ import {
   log,
   ajax
 } from '../../../common/js/li-ajax'
+const { $Toast } = require('../../../../iview-weapp/base/index');
 var app = getApp();
 Page({
 
@@ -172,9 +173,8 @@ Page({
       return this.closeModel()
     }
 
-    return wx.showToast({
-      icon:"none",
-      title: res.msg,
+    return $Toast({
+      content: res.msg,
     });
   },
 

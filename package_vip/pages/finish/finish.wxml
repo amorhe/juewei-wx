@@ -223,3 +223,4 @@
 </view>
 </view>
 
+<i-toast id='toast' />

@@ -56,3 +56,5 @@
 </view>
 
 <view style="height:150rpx"></view>
+
+<i-toast id="toast" />

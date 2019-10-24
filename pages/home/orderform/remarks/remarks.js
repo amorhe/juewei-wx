@@ -1,4 +1,5 @@
 var app = getApp();
+const { $Toast } = require('../../../../iview-weapp/base/index');
 Page({
 
   /**
