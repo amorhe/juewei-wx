@@ -44,7 +44,12 @@ Component({
     shopcartAll: [],
     goodsList: {}
   },
-  attached() {
+  observers: {
+    '**': function() {
+
+    }
+  },
+  ready() {
     this.setData({
       maskView: this.properties.maskView,
       goodsModal: this.properties.goodsModal,

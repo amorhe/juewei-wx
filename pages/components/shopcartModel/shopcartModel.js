@@ -67,12 +67,14 @@ Component({
     curUrl: false,
   },
   observers: {
-
+    '**': function() {
+     
+    }
   },
   /**
    * 组件的方法列表
    */
-  attached() {
+  ready() {
     this.setData({
       activityText: this.properties.activityText,
       shopcartAll: this.properties.shopcartAll,
@@ -107,15 +109,15 @@ Component({
         h: '98rpx'
       })
     }
-    if (this.properties.freeId.length!=0) { 
-      this.setData({
-        freeShow: true
-      })
-    } else {
-      this.setData({
-        freeShow: false
-      })
-    }
+    // if (this.properties.freeId.length != 0) {
+    //   this.setData({
+    //     freeShow: true
+    //   })
+    // } else {
+    //   this.setData({
+    //     freeShow: false
+    //   })
+    // }
   },
 
   methods: {

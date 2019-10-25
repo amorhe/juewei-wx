@@ -597,8 +597,8 @@ Page({
         })
         app.globalData.freeMoney = this.data.activityList.FREE.money
       } else {
-        app.globalData.freeId = null;
-        app.globalData.freeMoney = null;
+        app.globalData.freeId = '';
+        app.globalData.freeMoney = '';
       }
       obj1 = {
         "key": "折扣",
@@ -1073,9 +1073,6 @@ Page({
   funShopcartPrompt(oldArr, priceFree, repurse_price) {
     let activityText = '',
       freeText = '';
-    if (oldArr == []) {
-      return
-    }
     for (let v of oldArr) {
       if (oldArr.findIndex(v => v > repurse_price) != -1) {
         if (oldArr.findIndex(v => v > repurse_price) == 0) {
@@ -1098,7 +1095,7 @@ Page({
         freeText = `已满${this.data.freeMoney / 100}元 免配送费`
       }
     }
-    console.log(activityText)
+    console.log(freeText)
     this.setData({
       activityText,
       freeText
