@@ -1095,7 +1095,7 @@ Page({
         freeText = `已满${this.data.freeMoney / 100}元 免配送费`
       }
     }
-    console.log(freeText)
+    // console.log(freeText)
     this.setData({
       activityText,
       freeText
