@@ -107,7 +107,6 @@ Component({
         h: '98rpx'
       })
     }
-    console.log(this.properties.freeId.length)
     if (this.properties.freeId.length!=0) { 
       this.setData({
         freeShow: true
