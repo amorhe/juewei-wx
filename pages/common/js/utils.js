@@ -63,11 +63,11 @@ export const handleCopy = e => {
   wx.setClipboardData({
     data: text,
     success() {
-      wx.showToast({
-        mask: true,
-        icon: 'success',
-        title: '操作成功'
-      });
+      // wx.showToast({
+      //   mask: true,
+      //   icon: 'success',
+      //   title: '操作成功'
+      // });
     }
   });
 };
