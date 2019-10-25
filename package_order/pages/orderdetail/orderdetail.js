@@ -355,10 +355,8 @@ Page({
             res.data.order_status_info.takeout_status = 0
             break;
         }
-
         let takeout_status = res.data.order_status_info.takeout_status; //变量
-
-        let curTimeArr = orderStatus[curState].timeArr;
+        let curTimeArr = orderStatus[takeout_status].timeArr;
         // 自配送 没有骑手已接单
         if (curState < 5 && curState > 2) {
           dis_tag != 'ZPS' ? curTimeArr : (curTimeArr.splice(curTimeArr.findIndex(item => item == 4), 1));
@@ -367,6 +365,7 @@ Page({
         (curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
         curState === 3 && dis_take_time != '0000-00-00 00:00:00' ? curTimeArr.push(5) : curTimeArr;
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
+        console.log(curOrderState);
 
       }
 
@@ -375,15 +374,15 @@ Page({
         // //显示状态和时间的语句
         // 1） 等待支付，时间：data.order_ctime      //创建时间
         // 2） 等待接单，时间：data.pay_time         //支付时间
-        // 3)  商家已接单,时间：data.get_time        //门店接单时间
-        // 4)  等待取餐 ，时间：data.get_time        //等待取餐和商家已接单是一个时间
+        // 3)  商家已接单,时间：data.push_time        //门店接单时间
+        // 4)  等待取餐 ，时间：data.push_time        //等待取餐和商家已接单是一个时间
         // 5） 订单已完成，时间：data.dis_finish_time  //送达时间
         // 6） 订单已取消，时间：data.cancel_time      //取消时间
         timeArr = [
           { state: '等待支付', time: order_ctime },
           { state: '等待接单', time: pay_time },
-          { state: '商家已接单', time: get_time },
-          { state: '等待取餐', time: get_time },
+          { state: '商家已接单', time: push_time },
+          { state: '等待取餐', time: push_time },
           { state: '订单已完成', time: dis_finish_time },
           { state: '订单已取消', time: cancel_time },
         ];
