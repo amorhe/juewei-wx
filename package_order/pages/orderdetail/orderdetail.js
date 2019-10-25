@@ -424,9 +424,8 @@ Page({
 
         let curState = res.data.order_status_info.order_status;
         let curTimeArr = orderStatus[curState].timeArr;
-
+        res.data.order_status_info.takeout_status = curState;
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
-
       }
 
       this.setData({
