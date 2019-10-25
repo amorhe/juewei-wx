@@ -34,7 +34,8 @@ Component({
     priceAll: Number,
     type: Number,
     freeId: String,
-    freeText: String
+    freeText: String,
+    isOpen:Number
   },
 
   /**
@@ -63,25 +64,18 @@ Component({
     curUrl: false,
   },
   observers: {
-    '**': function() {
-      // var pages = getCurrentPages();
-      // this.setData({
-      //   type: pages[0].data.type
-      // })
-
-    }
+    
   },
   /**
    * 组件的方法列表
    */
   attached() {
-    console.log(this.properties)
     this.setData({
       activityText: this.properties.activityText,
       shopcartAll: this.properties.shopcartAll,
       shopcartNum: this.properties.shopcartNum,
       priceAll: this.properties.priceAll,
-      isOpen: app.globalData.isOpen,
+      isOpen: this.properties.isOpen,
       type: this.properties.type,
       freeText: this.properties.freeText
     })

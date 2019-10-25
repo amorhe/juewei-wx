@@ -302,7 +302,6 @@ Page({
    * @function 赚积分
    */
   async getMorePoint() {
-    this.onModalClose();
     wx.redirectTo({
       url: '/pages/home/goodslist/goodslist'
     });

@@ -199,6 +199,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
     // 定位地址
     this.setData({
       firstAddress: app.globalData.address,

@@ -296,10 +296,10 @@
     <view style="width:750rpx;height:200rpx;"></view>
     <!-- 购物车 -->
     <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" type="{{type}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" bindClearshopcart="funClearshopcart" activityText="{{activityText}}" freeText="{{freeText}}" freeId="{{freeId}}"
-      bindChangeShopcart="funChangeShopcart" class="e1" bindOpenShopcar="funOpenShopcar" style="bottom:{{bottomTabbar}}rpx" bindAnimate="funAnimate"/>
+      isOpen="{{isOpen}}" bindChangeShopcart="funChangeShopcart" class="e1" bindOpenShopcar="funOpenShopcar" style="bottom:{{bottomTabbar}}rpx" bindAnimate="funAnimate" />
     <!-- 加入购物车选择商品规格 -->
-    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" bindAnimate="funAnimate"
-    />
+    <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"
+      bindAnimate="funAnimate" />
   </view>
 </view>
 
