@@ -102,7 +102,7 @@ page {
 .pagesinfo {
   width: 750rpx;
   height:63vh;
-  padding-right: 36rpx;
+  /* padding-right: 36rpx; */
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -415,12 +415,14 @@ page {
   line-height: 60rpx;
   font-size: 24rpx;
   font-weight: 600;
+  padding-left: 16rpx;
 }
 
 .goodsImage1 {
   width: 100%;
   height: 426rpx;
-  display: block
+  display: block;
+  border: 20rpx 20rpx 0 0;
 }
 
 .goodsBox {
@@ -428,7 +430,10 @@ page {
   box-shadow: 0 2rpx 10rpx 0 rgba(153, 153, 153, 0.2);
   margin-bottom: 30rpx;
   position: relative;
-  z-index: 10
+  z-index: 10;
+  width: 530rpx;
+  left: 16rpx;
+  overflow: hidden;
 }
 
 .discountImg {
@@ -602,6 +607,7 @@ page {
   display: flex;
   align-items: flex-end;
   margin-bottom: 24rpx;
+  padding-left: 16rpx
 }
 
 .goods_ss_img {

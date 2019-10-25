@@ -168,7 +168,7 @@
     <view class="pages_scroll pagesinfo" style="height:{{totalH}}rpx">
       <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
         <view class="goodsUl">
-          <view bindtap="eveChooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique">
+          <view bindtap="eveChooseGoodsType" data-type="{{index+1}}" wx:for="{{shopGoodsAll}}" wx:key="unique" style="{{goodsType == index + 1?'background:#fff':'background:#F8F8F8'}}">
             <image wx:if="{{goodsType != index + 1}}" src="{{imageUrl}}m_{{goodsClass[item.key]}}_1.png" />
             <image wx:if="{{goodsType == index + 1 && item.key!='解辣神器'}}" src="{{imageUrl}}m_{{goodsClass[item.key]}}_2.png" />
             <image wx:if="{{goodsType == index + 1 && item.key=='解辣神器'}}" src="{{imageUrl}}m_13_3.png" />
@@ -177,7 +177,7 @@
         </view>
         <view style="height:60rpx;width:100%"></view>
       </scroll-view>
-      <scroll-view scroll-y="true" style="width:530rpx;max-height:100vh;" scroll-into-view="s{{togoodsType}}" scroll-with-animation="true" scroll-animation-duration="30" class="scrolllist" bindscroll="bindscroll" bindtouchend="bindtouchend">
+      <scroll-view scroll-y="true" style="width:582rpx;max-height:100vh;" scroll-into-view="s{{togoodsType}}" scroll-with-animation="true" scroll-animation-duration="30" class="scrolllist" bindscroll="bindscroll" bindtouchend="bindtouchend">
         <view id="s{{index + 1}}" wx:for="{{shopGoodsAll}}" wx:if="{{item.last.length>0}}" class="sc_right_item" wx:key="unique">
           <view class="goodsTypeEv">{{item.key}}</view>
           <!-- 折扣套餐爆款 -->

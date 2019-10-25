@@ -122,7 +122,7 @@ page {
 
 .detail-item {
     padding: 24rpx 0;
-    /* border-bottom: 1px dashed #eee; */
+    border-bottom: 1px dashed #eee;
 }
 
 .coast-bottom {
