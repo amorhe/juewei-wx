@@ -220,6 +220,10 @@ Page({
           content: res.msg
         })
       }
+    }else{
+      $Toast({
+        content: '微信快捷登录失败'
+      })
     }
   },
   // 页面跳转
