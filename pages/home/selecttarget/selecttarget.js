@@ -23,6 +23,7 @@ import {
   navigateTo,
   reLaunch
 } from '../../common/js/router.js'
+const { $Toast } = require('../../../iview-weapp/base/index');
 var app = getApp();
 // 引入百度地图微信小程序
 var bmap = require('../../../utils/libs/bmap-wx.js');
@@ -171,10 +172,6 @@ Page({
     let that = this;
     //附近地址列表
     let url = 'https://api.map.baidu.com/geocoding/v3/?address=' + encodeURI(this.data.city + ',' + value) +'&output=json&ak='+ ak
-    // wx.showToast({
-    //   title: url,
-    //   duration: 8000
-    // })
     wx.request({
       url,
       success: (res) => {
@@ -258,8 +255,8 @@ Page({
         BMap.regeocoding({
           success(data) {
             res = data.originalData.result;
-            wx.showToast({
-              title: '定位成功！'
+            $Toast({
+              content: '定位成功！'
             })
             that.setData({
               city: res.addressComponent.city,
@@ -295,8 +292,8 @@ Page({
   eveSwitchAddress(e) {
     //手动定位没有地址
     if (e.currentTarget.dataset.type == '1' && !this.data.isSuccess && e.currentTarget.dataset.address == '') {
-      wx.showToast({
-        title: '定位失败，请选择其他收货地址！'
+      $Toast({
+        content: '定位失败，请选择其他收货地址！'
       });
       this.setData({
         nearAddress: []

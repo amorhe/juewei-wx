@@ -118,3 +118,5 @@
 </view>
 
 <tab-bar cur="{{ 2 }}"></tab-bar>
+
+<i-toast id="toast" />

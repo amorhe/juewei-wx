@@ -23,6 +23,9 @@ import {
 } from "../../../pages/common/js/router";
 
 const app = getApp();
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 Page({
 
   /**
@@ -257,9 +260,8 @@ Page({
       return this.closeModel()
     }
 
-    return wx.showToast({
-      icon: "none",
-      title: res.msg,
+    return $Toast({
+      content: res.msg,
     });
   },
 

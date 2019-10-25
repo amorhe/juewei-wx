@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "modal":"../../../iview-weapp/modal/index"
+    "modal": "../../../iview-weapp/modal/index",
+    "i-toast": "../../../iview-weapp/toast/index"
   }
 }

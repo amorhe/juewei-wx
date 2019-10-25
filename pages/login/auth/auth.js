@@ -113,9 +113,8 @@ Page({
   },
   getImgcodeFn() {
     if (this.data.img_code === '') {
-      wx.showToast({
-        icon: 'none',
-        title: '图片验证码不可为空'
+      $Toast({
+        content: '图片验证码不可为空'
       });
       return
     }

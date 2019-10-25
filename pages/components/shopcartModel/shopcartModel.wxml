@@ -64,3 +64,4 @@
 <view wx:if="{{mask1 && shopcartAll.length>0}}" class="mask" bindtap="eveHiddenShopcart" catchtouchmove="touchstart"></view>
 
 <tab-bar cur="{{ 0 }}" wx:if="{{curUrl}}"></tab-bar>
+<i-toast id="toast" />

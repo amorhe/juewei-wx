@@ -4,6 +4,7 @@
     "modal": "../../../iview-weapp/modal/index",
     "i-tabs": "../../../iview-weapp/tabs/index",
     "i-tab": "../../../iview-weapp/tab/index",
-    "confirm": "../../../pages/components/confirm/confirm"
+    "confirm": "../../../pages/components/confirm/confirm",
+    "i-toast": "../../../iview-weapp/toast/index"
   }
 }

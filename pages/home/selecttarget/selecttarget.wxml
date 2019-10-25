@@ -73,3 +73,5 @@
   <view class="fontss">请尝试只输入小区、写字楼或学校名，
 详细地址（如门牌号）可稍后输入哦。</view>
 </view>
+
+<i-toast id="toast" />

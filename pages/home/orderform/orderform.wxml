@@ -241,5 +241,6 @@
     </form>
   </view>
 </view>
+<i-toast id="toast" />
 <!-- 各种订单商品状态 -->
 <confirm content="{{content}}" confirmButtonText="重新选择" cancelButtonText="继续结算" mask="{{mask}}" modalShow="{{modalShow}}" bindCounterPlusOne="bindCounterPlusOne" isType="orderConfirm" />

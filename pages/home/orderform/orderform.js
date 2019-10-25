@@ -26,6 +26,7 @@ import {
   redirectTo,
   reLaunch
 } from '../../common/js/router.js'
+const { $Toast } = require('../../../iview-weapp/base/index');
 var app = getApp();
 Page({
 
@@ -615,9 +616,8 @@ Page({
     let address_id = app.globalData.address_id;
     if (app.globalData.type == 1) {
       if (!address_id) {
-        wx.showToast({
-          icon: "none",
-          title: '请选择收货地址'
+        $Toast({
+          content: '请选择收货地址'
         })
         return
       }
@@ -713,9 +713,8 @@ Page({
           }
         })
       } else {
-        wx.showToast({
-          icon: "none",
-          title: res.msg,
+        $Toast({
+          content: res.msg,
         })
         this.setData({
           isClick: true,

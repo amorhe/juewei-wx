@@ -5,6 +5,7 @@
   "navigationBarBackgroundColor": "#f23124",
   "navigationBarTextStyle": "white",
   "usingComponents": {
-    "confirm":"../../components/confirm/confirm"
+    "confirm":"../../components/confirm/confirm",
+    "i-toast": "../../../iview-weapp/toast/index"
   }
 }

@@ -3,7 +3,7 @@ import { imageUrl } from '../../common/js/baseUrl'
 import { contact, guide, isloginFn, log, MODAL } from '../../common/js/utils'
 import Request from '../../common/js/li-ajax'
 import { navigateTo, reLaunch } from "../../common/js/router";
-
+const { $Toast } = require('../../../iview-weapp/base/index');
 const app = getApp();
 Page({
 
@@ -93,8 +93,8 @@ Page({
     // 校验用户是否登录
     // 校验是否 需要刷新
     if (app.globalData.refresh == true) {
-      wx.showToast({
-        title: '取消成功'
+      $Toast({
+        content: '取消成功'
       });
       app.globalData.refresh = false
     }

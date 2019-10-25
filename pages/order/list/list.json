@@ -1,7 +1,8 @@
 {
   "usingComponents": {
-    "tab-bar": "/pages/components/tab-bar/tab-bar"
+    "tab-bar": "/pages/components/tab-bar/tab-bar",
+    "i-toast": "../../../iview-weapp/toast/index"
   },
   "enablePullDownRefresh": true,
-  "navigationBarTitleText":"订单"
+  "navigationBarTitleText": "订单"
 }

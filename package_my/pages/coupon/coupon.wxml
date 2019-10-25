@@ -112,4 +112,5 @@
         </view> -->
   </view>
 </view>
+<i-toast id="toast" />
 <confirm content="{{content}}" confirmButtonText="{{confirmButtonText}}" cancelButtonText="{{cancelButtonText}}" modalShow="{{modalShow}}" mask="{{mask}}" bindCounterPlusOne="bindCounterPlusOne" isType="useCoupon" />

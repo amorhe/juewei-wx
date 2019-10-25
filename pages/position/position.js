@@ -31,6 +31,7 @@ var bmap = require('../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
   ak: ak_wx
 });
+const { $Toast } = require('../../iview-weapp/base/index');
 Page({
 
   /**
@@ -233,9 +234,8 @@ Page({
                 this.funGetSelf(conf.data.contents)
               } else {
                 // 提示切换地址
-                wx.showToast({
-                  icon: "none",
-                  title: "当前定位地址无可浏览的门店，请切换地址！",
+                $Toast({
+                  content: "当前定位地址无可浏览的门店，请切换地址！",
                   success: (res) => {
                     redirectTo({
                       url: '/pages/home/selecttarget/selecttarget?type=true'

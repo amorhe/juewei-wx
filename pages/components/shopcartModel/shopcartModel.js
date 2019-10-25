@@ -17,6 +17,9 @@ import {
 import {
   startAddShopAnimation
 } from '../../common/js/AddShopCar.js'
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 let log = console.log
 var app = getApp();
 Component({
@@ -35,7 +38,7 @@ Component({
     type: Number,
     freeId: String,
     freeText: String,
-    isOpen:Number
+    isOpen: Number
   },
 
   /**
@@ -64,7 +67,7 @@ Component({
     curUrl: false,
   },
   observers: {
-    
+
   },
   /**
    * 组件的方法列表
@@ -214,8 +217,8 @@ Component({
         repurse_price = 0;
       for (let keys in goodlist) {
         if (e.currentTarget.dataset.goods_discount && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
-          wx.showToast({
-            title: `折扣商品限购${goodlist[keys].goods_order_limit}份，超过${goodlist[keys].goods_order_limit}份恢复原价`
+          $Toast({
+            content: `折扣商品限购${goodlist[keys].goods_order_limit}份，超过${goodlist[keys].goods_order_limit}份恢复原价`
           });
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         } else {

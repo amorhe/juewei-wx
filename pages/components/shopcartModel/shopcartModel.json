@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "tab-bar": "../components/tab-bar/tab-bar"
+    "tab-bar": "../components/tab-bar/tab-bar",
+    "i-toast": "../../../iview-weapp/toast/index"
   }
 }
