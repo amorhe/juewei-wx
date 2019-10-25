@@ -59,7 +59,7 @@ Component({
     cancelButtonText: '',
     type: '',
     btnClick: true,
-    freeId: false, // 是否有包邮活动
+    freeShow: false, // 是否有包邮活动
     isTake: false,
     isOpen: '',
     priceAll: 0,
@@ -107,14 +107,14 @@ Component({
         h: '98rpx'
       })
     }
-    console.log(this.properties.freeId)
-    if (this.properties.freeId) {
+    console.log(this.properties.freeId.length)
+    if (this.properties.freeId.length!=0) { 
       this.setData({
-        freeId: true
+        freeShow: true
       })
     } else {
       this.setData({
-        freeId: false
+        freeShow: false
       })
     }
   },

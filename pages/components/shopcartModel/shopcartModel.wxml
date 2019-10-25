@@ -10,8 +10,8 @@
         <text>{{priceAll/100}}</text>
       </view>
       <view wx:if="{{type==1}}">
-        <view wx:if="{{!freeId}}">另需配送费{{dispatch_price}}元</view>
-        <view wx:if="{{freeId}}">{{freeText}}</view>
+        <view wx:if="{{!freeShow}}">另需配送费{{dispatch_price}}元</view>
+        <view wx:if="{{freeShow}}">{{freeText}}</view>
       </view>
     </view>
     <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
