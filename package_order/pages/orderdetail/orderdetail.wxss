@@ -209,7 +209,9 @@ view.pay {
 }
 
 .reduce .value {
-  color: #E60012
+  color: #E60012;
+  display: flex;
+  align-items: center
 }
 
 .total {

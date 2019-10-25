@@ -1,17 +1,20 @@
 <!--package_order/pages/orderdetail/orderdetail.wxml-->
 
 <wxs module="m2">
-    var slice = function(value, start, end) {
-        return value.slice(start, end)
-    }
+  var slice = function(value, start, end) {
+    return value.slice(start, end)
+  }
 
-    var substr = function(value,start,end){
+  var substr = function(value, start, end) {
 
-        return value.substring(start, start + end)
-    }
-    module.exports.slice = slice;
-    module.exports.substr = substr;
-
+    return value.substring(start, start + end)
+  }
+  var indexOf = function(value,target){
+    return value.indexOf(target)
+  }
+  module.exports.slice = slice;
+  module.exports.substr = substr;
+  module.exports.indexOf = indexOf;
 </wxs>
 
 <view style="padding-bottom:60rpx">
@@ -20,8 +23,8 @@
   <view class="board">
     <view class="board-state" bindtap="FUN_SHOW">
       {{ d.dis_type==1 ? ((d.order_status_info.order_status == 0 && d.remaining_pay_minute
-      < 0) ? '订单已取消' : (d.order_status_info.takeout_status == 3 && d.dis_tag !='ZPS' && d.dis_get_time ) ? '骑手已接单' : takeOutState[d.order_status_info.order_status])
-        :((d.order_status_info.order_status==0 && d.remaining_pay_minute< 0) ? '订单已取消': pickUpState[d.order_status_info.order_status] )}} <!-- {{status[d.status]}} -->
+      < 0) ? '订单已取消' : (d.order_status_info.takeout_status==3 && d.dis_tag !='ZPS' && d.dis_get_time ) ? '骑手已接单' : takeOutState[d.order_status_info.order_status]) :((d.order_status_info.order_status==0 && d.remaining_pay_minute< 0) ? '订单已取消': pickUpState[d.order_status_info.order_status]
+        )}} <!-- {{status[d.status]}} -->
         <image mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
     </view>
     <view class="board-time" wx:if="{{d.order_status_info.order_status == 0 && d.remaining_pay_minute > -1}}">
@@ -98,16 +101,14 @@
       <view>{{d.shop_name}}</view>
       <image mode="scaleToFill" src="{{imageUrl}}telephone.png" data-phone_number="{{d.shop_tel + ''}}" bindtap="contact" />
     </view>
-      <view class="good-list">
+    <view class="good-list">
       <view wx:for="{{d.goods_list}}" wx:key="{{ index }}">
 
-          <view class="good-item" wx:if="{{(item.goods_code!=='' && m2.substr(item.goods_code,2,3)!=='JJG') || (item.is_gifts===1 && (item.gift_type==3 || item.gift_type==4))}}">
+        <view class="good-item" wx:if="{{(item.goods_code!=='' && m2.substr(item.goods_code,2,3)!=='JJG') || (item.is_gifts===1 && (item.gift_type==3 || item.gift_type==4))}}">
           <image mode="scaleToFill" wx:if="{{m2.substr(item.goods_code,2,3)!=='PKG' && item.is_gifts!==1}}" src="{{item.goods_img}}" />
           <image mode="scaleToFill" wx:if="{{m2.substr(item.goods_code,2,3)==='PKG' && item.is_gifts!==1}}" src="{{ img_url + item.goods_img }}" />
-          <image mode="scaleToFill" wx:if="{{m2.substr(item.goods_code,2,3)!=='PKG' && item.is_gifts===1 && item.goods_code.indexOf('JJG')>-1 && (item.gift_type==3 || item.gift_type==4) }}" src="{{item.goods_img ? item.goods_img : imageUrl + 'gift.jpg'}}" />
-            <image mode="scaleToFill"
-                   wx:if="{{m2.substr(item.goods_code,2,3)!=='PKG' && item.is_gifts===1 && item.goods_code.indexOf('JJG')===-1 && (item.gift_type==3 || item.gift_type==4) }}"
-                   src="{{item.goods_img ? item.goods_img : imageUrl + 'present_bg.png'}}"></image>
+          <image mode="scaleToFill" wx:if="{{m2.substr(item.goods_code,2,3)!=='PKG' && item.is_gifts===1 && m2.indexOf(item.goods_code,'JJG')>-1 && (item.gift_type==3 || item.gift_type==4) }}" src="{{item.goods_img ? item.goods_img : imageUrl + 'gift.jpg'}}" />
+          <image mode="scaleToFill" wx:if="{{m2.substr(item.goods_code,2,3)!=='PKG' && item.is_gifts===1 && m2.indexOf(item.goods_code,'JJG')===-1}}" src="{{item.goods_img ? item.goods_img : imageUrl + 'present_bg.png'}}"></image>
           <view class="body">
             <view class="name">
               <view class="top">
@@ -130,8 +131,8 @@
           <view class="num">×{{item.goods_quantity}}</view>
           <view class="price">
             <view class="del" wx:if="{{item.goods_price!=item.goods_original_price}}">
-                            ￥{{(item.goods_original_price * item.goods_quantity / 100)}}
-                        </view>
+              ￥{{(item.goods_original_price * item.goods_quantity / 100)}}
+            </view>
             <view>￥{{(item.goods_price * item.goods_quantity /100)}}</view>
           </view>
         </view>
@@ -174,10 +175,10 @@
               <image wx:else mode="scaleToFill" src="{{imageUrl}}present.png" /> {{item.goods_name}}
             </view>
             <view class="value">
-              <text class="del" wx:if="{{item.goods_price!=item.goods_original_price}}">
+              <view class="del" wx:if="{{item.goods_price!=item.goods_original_price}}">
                                 ￥{{(item.goods_original_price * item.goods_quantity / 100)}}
-                            </text>
-              <text>￥{{(item.goods_price * item.goods_quantity /100)}}</text>
+                            </view>
+              <view>￥{{(item.goods_price * item.goods_quantity /100)}}</view>
             </view>
           </view>
         </view>
