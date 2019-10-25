@@ -110,17 +110,11 @@
           <image mode="scaleToFill" wx:if="{{m2.substr(item.goods_code,2,3)!=='PKG' && item.is_gifts===1 && m2.indexOf(item.goods_code,'JJG')===-1}}" src="{{item.goods_img ? item.goods_img : imageUrl + 'present_bg.png'}}"></image>
           <view class="body">
             <view class="name">
-              <view class="top">
-                <view class="image" wx:if="{{m2.substr(item.goods_code,2,3)==='DIS' || m2.substr(item.goods_code,2,3)==='PKG'}}">
-                  折
-                </view>
-                <view class="image" wx:if="{{item.is_gifts===1 && m2.substr(item.goods_code,2,3)==='JJG'}}">
-                  换
-                </view>
-                <view class="image" wx:if="{{item.is_gifts===1 && m2.substr(item.goods_code,2,3)!=='JJG'}}">
-                  赠
-                </view>
-                <view>{{item.goods_name}}
+                 <view class="top">
+                  <image class="image" wx:if="{{m2.substr(item.goods_code,2,3)==='DIS' || m2.substr(item.goods_code,2,3)==='PKG'}}" src="{{imageUrl}}discount2.png" width="100%" height="100%"/>
+                  <image class="image" wx:if="{{item.is_gifts===1 && m2.substr(item.goods_code,2,3)==='JJG'}}" src="{{imageUrl}}repurchase.png" width="100%" height="100%"/>
+                  <image class="image"  wx:if="{{item.is_gifts===1 && m2.substr(item.goods_code,2,3)!=='JJG'}}" src="{{imageUrl}}present.png" width="100%" height="100%"/>
+                  <view>{{item.goods_name}}
                   <text wx:if="{{item.remark}}">（{{item.remark}}）</text>
                 </view>
               </view>
