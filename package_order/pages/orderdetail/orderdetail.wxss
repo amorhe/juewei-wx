@@ -162,16 +162,12 @@ view.pay {
 }
 
 .name .image {
-  width: 28rpx;
-  height: 28rpx;
-  background: linear-gradient(135deg, rgba(251, 83, 50, 1) 0%, rgba(230, 0, 18, 1) 100%);
-  border-radius: 4rpx;
-  font-size: 22rpx;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 1);
+  width: 35rpx;
+  height: 35rpx;
   text-align: center;
-  line-height: 28rpx;
+  line-height: 35rpx;
   margin-right: 5rpx;
+  border: 0;
 }
 
 .post {
