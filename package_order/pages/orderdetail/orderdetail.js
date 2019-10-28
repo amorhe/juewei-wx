@@ -321,7 +321,7 @@ Page({
             res.data.order_status_info.takeout_status = 1 // 订单已提交
             break;
           case 2:
-            if (parseInt(curDisState)>3){
+            if (parseInt(curDisState) > 3){
               res.data.order_status_info.takeout_status = 2  //商家已接单
             }else{
               res.data.order_status_info.takeout_status = 3  // 骑手已接单
@@ -331,7 +331,7 @@ Page({
             res.data.order_status_info.takeout_status = 4 // 骑手正在送货
             break;
           case 4:
-            res.data.order_status_info.takeout_status = 5
+            res.data.order_status_info.takeout_status = 5 //订单已完成
             break;
           case 5:
             res.data.order_status_info.takeout_status = 6
@@ -357,16 +357,17 @@ Page({
         }
         let takeout_status = res.data.order_status_info.takeout_status; //变量
         let curTimeArr = orderStatus[takeout_status].timeArr;
+  
         // 自配送 没有骑手已接单
-        if (curState < 5 && curState > 2) {
+        if (takeout_status < 6 && takeout_status > 2) {
+          // 骑手已接单 骑手正在送货 订单已完成 去掉骑手已接单
           dis_tag != 'ZPS' ? curTimeArr : (curTimeArr.splice(curTimeArr.findIndex(item => item == 4), 1));
         };
-
-        (curState == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
-        curState === 3 && dis_take_time != '0000-00-00 00:00:00' ? curTimeArr.push(5) : curTimeArr;
         curOrderState = curTimeArr.map(item => timeArr[item - 1])
         console.log(curOrderState);
-
+        //这两句话已经不用了，原因是已经不需要判断状态了，上面的状态已经判断好了
+        // (takeout_status == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
+        // (takeout_status == 4 && dis_take_time != '0000-00-00 00:00:00') ? curTimeArr.push(5) : curTimeArr;
       }
 
       // 门店自取
