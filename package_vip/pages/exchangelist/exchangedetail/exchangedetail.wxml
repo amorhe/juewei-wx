@@ -109,7 +109,10 @@
         </view>
       </view>
       <view class="code" wx:if="{{detail.gift_code}}">
-        <view class="code-title">兑换码：{{detail.gift_code}}</view>
+        <view class="code-title redeemCode_hr">
+          <text style="font-weight:600">兑换码：</text>
+          <text>{{detail.gift_code}}</text>
+        </view>
         <view class="code-button" data-text="{{detail.gift_code}}" bindtap="handleCopy">复制</view>
       </view>
       <view class="ul">

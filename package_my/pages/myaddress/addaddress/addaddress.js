@@ -434,7 +434,7 @@ Page({
     } else {
       if (this.data.shop_id == '') {
         $Toast({
-          content: '当前地址周边无可配送门店'
+          content: '请选择地址'
         })
         return
       }

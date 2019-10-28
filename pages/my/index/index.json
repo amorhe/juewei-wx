@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我的",
   "usingComponents": {
-    "tab-bar": "/pages/components/tab-bar/tab-bar"
+    "tab-bar": "/pages/components/tab-bar/tab-bar",
+    "i-toast": "../../../iview-weapp/toast/index"
   }
 }

@@ -45,7 +45,8 @@ Page({
     goodsList: [],
 
     fixTop: '',//区域离顶部的高度
-
+    isFixedTop:false,
+    navbarInitTop: 0
   },
 
 
@@ -60,7 +61,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    wx.createSelectorQuery().select('.sroll-view-wrap ').boundingClientRect().exec((rect) => {
+      if (rect[0] != null) {
+        var navbarInitTop = parseInt(rect[0].top);
+        this.setData({
+          navbarInitTop: navbarInitTop * 3
+        });
+      }
+    });
   },
 
   /**
@@ -136,8 +144,19 @@ Page({
   onShareAppMessage: function () {
 
   },
-
-
+  onPageScroll: function (e) {
+    var that = this;
+    var scrollTop = parseInt(e.scrollTop); //滚动条距离顶部高度
+    //判断'滚动条'滚动的距离 和 '元素在初始时'距顶部的距离进行判断
+    var isSatisfy = scrollTop >= (that.data.navbarInitTop + 30) ? true : false;
+    //为了防止不停的setData, 这儿做了一个等式判断。 只有处于吸顶的临界值才会不相等
+    if (that.data.isFixedTop === isSatisfy) {
+      return false;
+    }
+    that.setData({
+      isFixedTop: isSatisfy
+    });
+  },
   /**
    * @function 获取轮播
    */

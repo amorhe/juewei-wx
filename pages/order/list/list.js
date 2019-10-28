@@ -1,9 +1,22 @@
 // pages/order/list/list.js
-import { imageUrl } from '../../common/js/baseUrl'
-import { contact, guide, isloginFn, log, MODAL } from '../../common/js/utils'
+import {
+  imageUrl
+} from '../../common/js/baseUrl'
+import {
+  contact,
+  guide,
+  isloginFn,
+  log,
+  MODAL
+} from '../../common/js/utils'
 import Request from '../../common/js/li-ajax'
-import { navigateTo, reLaunch } from "../../common/js/router";
-const { $Toast } = require('../../../iview-weapp/base/index');
+import {
+  navigateTo,
+  reLaunch
+} from "../../common/js/router";
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 const app = getApp();
 Page({
 
@@ -15,8 +28,7 @@ Page({
     _sid: '',
     loginOpened: false,
     refreshFinish: false,
-    menuList: [
-      {
+    menuList: [{
         key: '官方外卖订单',
         value: '',
         page: 1,
@@ -75,21 +87,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.eventReduceTime()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: async function () {
+  onShow: async function() {
     // 校验用户是否登录
     // 校验是否 需要刷新
     if (app.globalData.refresh == true) {
@@ -108,51 +120,57 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     this.onModalClose();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    let { menuList, cur } = this.data;
-    this.setData({ menuList });
-    this.setData = () => {
-    }
+  onUnload: function() {
+    let {
+      menuList,
+      cur
+    } = this.data;
+    this.setData({
+      menuList
+    });
+    this.setData = () => {}
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: async function () {
+  onPullDownRefresh: async function() {
     this.refresh()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     this.getOrderList()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
   // 刷新
   async refresh() {
-    const { menuList, refreshFinish } = this.data;
+    const {
+      menuList,
+      refreshFinish
+    } = this.data;
     if (refreshFinish) {
       return
     }
 
     // 重置数据
-    let _menuList = [
-      {
+    let _menuList = [{
         key: '官方外卖订单',
         value: '',
         page: 1,
@@ -180,7 +198,7 @@ Page({
       this.setData({
         menuList: _menuList,
         refreshFinish: true,
-      }, async () => {
+      }, async() => {
         await this.getOrderList();
         wx.stopPullDownRefresh()
       })
@@ -189,8 +207,12 @@ Page({
   },
 
   makePhoneCall(e) {
-    const { dis_tel } = e.currentTarget.dataset;
-    wx.makePhoneCall({ number: dis_tel });
+    const {
+      dis_tel
+    } = e.currentTarget.dataset;
+    wx.makePhoneCall({
+      phoneNumber: dis_tel
+    });
   },
 
 
@@ -199,11 +221,12 @@ Page({
    */
   onModalClose() {
     // 清空所有计时器
-    const { menuList } = this.data;
+    const {
+      menuList
+    } = this.data;
     this.setData({
       loginOpened: false,
-      menuList: [
-        {
+      menuList: [{
           key: '官方外卖订单',
           value: '',
           page: 1,
@@ -233,12 +256,16 @@ Page({
    */
 
   async changeMenu(e) {
-    const { cur } = e.currentTarget.dataset;
+    const {
+      cur
+    } = e.currentTarget.dataset;
     if (this.data.cur === cur) {
       return
     }
     setTimeout(() => {
-      this.setData({ cur }, () => {
+      this.setData({
+        cur
+      }, () => {
         setTimeout(() => {
           this.refresh();
           app.globalData.refresh_state = cur
@@ -253,15 +280,32 @@ Page({
    */
   async getOrderList() {
 
-    let { menuList, cur } = this.data;
-    let { page, dis_type, list, loading } = menuList[cur];
+    let {
+      menuList,
+      cur
+    } = this.data;
+    let {
+      page,
+      dis_type,
+      list,
+      loading
+    } = menuList[cur];
     if (loading) {
       return
     }
     menuList[cur].page++;
-    let { data, code } = await Request.orderList({ page_size: 20, page, dis_type });
+    let {
+      data,
+      code
+    } = await Request.orderList({
+      page_size: 20,
+      page,
+      dis_type
+    });
     menuList[loading] = true;
-    this.setData({ loading: true }, () => {
+    this.setData({
+      loading: true
+    }, () => {
       if (code === 0) {
         list = [...list, ...data];
         menuList[cur].finish = true;
@@ -288,12 +332,23 @@ Page({
    */
 
   eventReduceTime() {
-    let { menuList, cur } = this.data;
-    let { list, loading } = menuList[cur];
+    let {
+      menuList,
+      cur
+    } = this.data;
+    let {
+      list,
+      loading
+    } = menuList[cur];
     if (loading) {
       return
     }
-    list = list.map(({ remaining_pay_minute, remaining_pay_second,order_status, ...item }) => {
+    list = list.map(({
+      remaining_pay_minute,
+      remaining_pay_second,
+      order_status,
+      ...item
+    }) => {
       remaining_pay_second--;
       if (remaining_pay_second < 0 && remaining_pay_minute === 0 && order_status === 0) {
         order_status = 6
@@ -329,7 +384,10 @@ Page({
    */
 
   FUN_buyAgain() {
-    const { menuList, cur } = this.data;
+    const {
+      menuList,
+      cur
+    } = this.data;
 
     app.globalData.type = menuList[cur].dis_type;
     log(app.globalData.type);

@@ -68,7 +68,7 @@
         <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" bindtap="navigateTo"/>
       </scroll-view>
     </view>
-    <view class="sroll-view-wrap" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 8}}px">
+    <view class="sroll-view-wrap {{isFixedTop?'fixed':''}}" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 8}}px;">
       <scroll-view scroll-x class="x" style="margin:0 32rpx" id="affix">
         <view bindtap="FUN_listChange" data-cur="{{index}}" wx:key="{{index}}" wx:for='{{list}}' wx:key="{{ index }}" class="{{index === cur? 'active':''}}">{{item.cate_name}}</view>
       </scroll-view>

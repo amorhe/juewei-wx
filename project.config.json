@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 27,
+			"current": 28,
 			"list": [
 				{
 					"id": -1,
@@ -246,6 +246,13 @@
 					"id": -1,
 					"name": "package_my/pages/coupon/couponRecord/couponRecord",
 					"pathName": "package_my/pages/coupon/couponRecord/couponRecord",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "积分",
+					"pathName": "package_vip/pages/pointlist/pointlist",
 					"scene": null
 				}
 			]

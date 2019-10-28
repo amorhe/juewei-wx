@@ -3,5 +3,6 @@
     "i-modal": "../../../iview-weapp/modal/index"
   },
   "navigationStyle": "custom",
-  "navigationBarTitleText":"积分"
+  "navigationBarTitleText":"积分",
+  "navigationBarTextStyle": "white"
 }

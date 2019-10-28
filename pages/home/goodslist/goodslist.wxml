@@ -1,4 +1,4 @@
-<view style="position:relative">
+ <view style="position:relative">
   <!-- 定位 -->
   <view wx:if="{{!isSelf}}" class="goodsPosition" style="{{shopcarShow?'z-index:0':'z-index:1000'}}">
     <navigator url="/pages/home/selecttarget/selecttarget?type=1" class="positionLeft" hover-class="none">

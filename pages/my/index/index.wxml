@@ -82,3 +82,5 @@
     <image class="customerService" mode="scaleToFill" src="{{imageUrl}}service.png"/>
 </navigator>
 <tab-bar cur="{{ 3 }}"></tab-bar>
+
+<i-toast id="toast" />

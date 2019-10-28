@@ -43,9 +43,11 @@
 
 .pointlistTop {
   z-index: 999;
-  position: sticky;
+  position: fixed;
   padding: 32rpx;
   color: #fff;
+  width: 100%;
+  box-sizing: border-box
 }
 
 .arrow-2{
@@ -65,6 +67,7 @@
   font-size: 34rpx;
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
+  width:100%
 }
 
 .pittopItema .n {

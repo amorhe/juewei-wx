@@ -1,5 +1,5 @@
-<import src="/utils/wxParse/wxParse.wxml"/>
-<template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+<import src="/utils/wxParse/wxParse.wxml" />
+<template is="wxParse" data="{{wxParseData:content.nodes}}" />
 <view class="activity_box">
   <view class="activity_wrap">
     <view class="goodsView borderBottom">
@@ -14,8 +14,8 @@
       <!-- <view class="contactBtn" catchtap="contact">联系客服</view> -->
     </view>
     <view class="redeemCodeDetail borderBottom">
-      <view>
-        <text>兑换码:</text>
+      <view class="redeemCode_hr">
+        <text style="font-weight:600">兑换码: </text>
         <text>{{exchangeObj.gift_code}}</text>
       </view>
       <view class="copyScore" bindtap="eveHandleCopy" data-code="{{exchangeObj.gift_code}}">复制</view>
@@ -31,19 +31,19 @@
       </view>
       <view>
         <view class="typeFont">使用范围</view>
-         <template is="wxParse" data="{{wxParseData:_store.nodes}}"/>
+        <template is="wxParse" data="{{wxParseData:_store.nodes}}" />
       </view>
       <view>
         <view class="typeFont">兑换说明</view>
-        <template is="wxParse" data="{{wxParseData:_process.nodes}}"/>
+        <template is="wxParse" data="{{wxParseData:_process.nodes}}" />
       </view>
       <view>
         <view class="typeFont">商品详情</view>
-        <template is="wxParse" data="{{wxParseData:_desciption.nodes}}"/>
+        <template is="wxParse" data="{{wxParseData:_desciption.nodes}}" />
       </view>
       <view>
         <view class="typeFont">客服电话</view>
-        <template is="wxParse" data="{{wxParseData:_telephone.nodes}}"/>
+        <template is="wxParse" data="{{wxParseData:_telephone.nodes}}" />
       </view>
     </view>
     <view class="orderInfos">

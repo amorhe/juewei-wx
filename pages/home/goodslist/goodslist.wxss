@@ -210,14 +210,17 @@ page {
   width: 686rpx;
   height: 260rpx;
   margin-left: 32rpx;
+}
+.homeSwiper>swiper {
   border-radius: 20rpx;
-  overflow: hidden
+  overflow: hidden;
+  height: 260rpx;
+  display: block
 }
 
 .homeSwiper image {
   width: 100%;
   height: 260rpx;
-  /* border-radius: 20rpx; */
 }
 
 .goodsMessage {

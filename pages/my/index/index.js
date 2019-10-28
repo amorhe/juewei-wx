@@ -9,7 +9,7 @@ import {
 import {
   navigateTo
 } from '../../common/js/router.js'
-
+const { $Toast } = require('../../../iview-weapp/base/index');
 const app = getApp();
 Page({
 
@@ -104,7 +104,6 @@ Page({
 
 
     if (this.data.showNo) {
-      console.log(1);
       return navigateTo({
         url: '/package_my/pages/mycenter/mycenter'
       })
@@ -149,6 +148,10 @@ Page({
       }
       return navigateTo({
         url: '/package_my/pages/mycenter/mycenter?img=' + userInfo.head_img + '&name=' + userInfo.nick_name
+      })
+    }else{
+      $Toast({
+        content: '拒绝授权将无法登陆，请允许授权!'
       })
     }
   },

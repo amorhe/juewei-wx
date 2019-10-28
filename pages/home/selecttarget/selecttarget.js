@@ -283,7 +283,8 @@ Page({
       fail() {
         wx.hideLoading();
         that.setData({
-          isSuccess: false
+          isSuccess: false,
+          nearAddress:[]
         })
       }
     })

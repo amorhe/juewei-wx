@@ -142,6 +142,7 @@ page {
 .li>.li-pic>image {
   width: 333rpx;
   height: 333rpx;
+  display: block
 }
 
 .li>.li-pic>.pic-sm {
@@ -227,12 +228,20 @@ page {
 }
 
 .sroll-view-wrap {
-  /* background: white; */
   max-width: 100vw;
   overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+.fixed {
+  background: white;
   position: sticky;
+  top: 80rpx;
   z-index: 99;
-  left: 0;
 }
 
 .no-good {

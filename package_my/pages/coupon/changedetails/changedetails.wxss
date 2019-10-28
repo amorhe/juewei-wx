@@ -55,12 +55,18 @@
   height: 96rpx;
   line-height: 96rpx;
   font-size: 36rpx;
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+.redeemCode_hr {
+  width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
 .redeemCodeDetail>view>text {
   margin-right: 32rpx;
 }

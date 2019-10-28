@@ -4,7 +4,7 @@
     <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">积分</text>
 </view>
 
-<view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
+<view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + (userPoint.freeze_point?200: 180)}}rpx"></view>
 <view class="body_bg" style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + (userPoint.freeze_point?200: 180)}}rpx"></view>
 <view class="pointlistTop" style="top:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + 74}}rpx" catchtap="hideToast">
   <view class="pittopItema">

@@ -53,7 +53,13 @@ page {
     width: 100vw;
     height: 428rpx;
 }
-
+.redeemCode_hr {
+  width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
 
 .bg {
     z-index: 1;
@@ -230,9 +236,11 @@ page {
     align-items: center;
     padding: 20rpx 0;
     font-size: 36rpx;
-    font-weight: 600;
     color: rgba(51, 51, 51, 1);
     border-bottom: 2rpx dashed #eee
+}
+.code>view>text {
+  margin-right: 32rpx;
 }
 
 .code-button {
