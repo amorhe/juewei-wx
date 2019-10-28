@@ -1,7 +1,6 @@
 // 测试环境
 export const baseUrl = 'https://test-wap.juewei.com/api';
 export const baseUrl1 = 'https://test-saas.juewei.com';
-
 // 图片测试cdn
 export const imageUrl = 'https://test-cdn-wap.juewei.com/m/wx-mini/image/';
 export const imageUrl2 = 'https://imgcdnjwd.juewei.com';
@@ -17,10 +16,11 @@ export const ak_wx = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 
 
 
-//预发布环境
+// //预发布环境
 // export const baseUrl = 'https://proving-wap.juewei.com/api';
+// export const baseUrl1 = 'https://saas.juewei.com';
 // // 图片测试cdn
-// export const imageUrl = 'https://proving-cdn-wap.juewei.com/m/wx-mini/image/';
+// export const imageUrl = 'https://cdn-wap.juewei.com/m/wx-mini/image/';
 // export const imageUrl2 = 'https://imgcdnjwd.juewei.com';
 // export const imageUrl3 = 'https://images.juewei.com';
 // //jsonUrl
@@ -32,8 +32,10 @@ export const ak_wx = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 // export const ak_wx = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 
 
+
 // // 生产环境
 // export const baseUrl = 'https://wap.juewei.com/api';
+// export const baseUrl1 = 'https://saas.juewei.com';
 // // 图片测试cdn
 // export const imageUrl = 'https://cdn-wap.juewei.com/m/wx-mini/image/';
 // export const imageUrl2 = 'https://imgcdnjwd.juewei.com';

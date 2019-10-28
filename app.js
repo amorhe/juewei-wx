@@ -10,6 +10,12 @@ import {
 
 App({
   onLaunch: function (options) {
+    // //清除所有缓存
+    // try {
+    //   wx.clearStorageSync()
+    // } catch (e) {
+    //   // Do something when catch error
+    // }
     // options.scene == 1035 &&  这里不判断场景，原因是会有很多场景
     if (options && options.query && options.query.go && options.query.go != '') {
       this.globalData.gopages = options.query.go;

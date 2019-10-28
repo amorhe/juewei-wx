@@ -252,7 +252,7 @@ Page({
       app.globalData.activityList.PKG = [];
     }
     let user_id = 1;
-    if (wxGet('userInfo').user_id) {
+    if (wxGet('userInfo') && wxGet('userInfo').user_id) {
       user_id = wxGet('userInfo').user_id;
       // 优惠券
       this.funGetcouponsExpire(wxGet('_sid'));
@@ -1132,7 +1132,7 @@ Page({
   },
   // 会员卡，卡券
   navigate(e) {
-    if (wxGet('user_id') == null && wxGet('userInfo').user_id == null) {
+    if (wxGet('user_id') == null && wxGet('userInfo') &&  wxGet('userInfo').user_id == null) {
       navigateTo({
         url: '/pages/login/auth/auth'
       });
