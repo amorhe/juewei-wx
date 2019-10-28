@@ -112,7 +112,7 @@
         <view class="code-title">兑换码：{{detail.gift_code}}</view>
         <view class="code-button" data-text="{{detail.gift_code}}" bindtap="handleCopy">复制</view>
       </view>
-      <view class="ul" style="border-bottom:1rpx #eee dashed">
+      <view class="ul">
         <view class="li" wx:if="{{detail.conpon_valid_type == 2 }}">
           <view class="title">
             活动时间

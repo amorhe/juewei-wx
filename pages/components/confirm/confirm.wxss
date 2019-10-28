@@ -48,7 +48,7 @@
 .modalBtn>button:nth-child(1) {
   color: #999;
   border-right: 1px #ddd solid;
-  border-radius: 0
+  /* border-radius: 0 */
 }
 
 .modalBtn>button:nth-child(2) {

@@ -24,7 +24,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.3",
+	"libVersion": "2.9.0",
 	"appid": "wx088d6a494c5827ed",
 	"projectname": "juewei-wx",
 	"debugOptions": {

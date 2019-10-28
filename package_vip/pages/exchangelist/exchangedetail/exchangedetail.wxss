@@ -122,7 +122,7 @@ page {
 
 .detail-item {
     padding: 24rpx 0;
-    border-bottom: 1px dashed #eee;
+    /* border-bottom: 1px dashed #eee; */
 }
 
 .coast-bottom {
@@ -232,7 +232,7 @@ page {
     font-size: 36rpx;
     font-weight: 600;
     color: rgba(51, 51, 51, 1);
-    border-bottom: 1rpx dashed #eee
+    border-bottom: 2rpx dashed #eee
 }
 
 .code-button {
