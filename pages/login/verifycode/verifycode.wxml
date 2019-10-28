@@ -7,7 +7,7 @@
     <view class="inputInfo {{ value[1]?value[2]?'':'inputFocus':''  }}">{{ value[2] }}</view>
     <view class="inputInfo {{ value[2]?value[3]?'':'inputFocus':''  }}">{{ value[3] }}</view>
   </view>
-  <input class="inputClass" focus="{{focus}}" cursor="{{ cursor }}" bindfocus="onFocus" maxlength="{{4}}" type="number" bindinput="inputValue" />
+  <input class="inputClass" focus="{{focus}}" cursor="{{ cursor }}" bindfocus="onFocus" maxlength="{{4}}" type="number" bindinput="inputValue" focus />
   <view class="errorTitel" wx:if="{{false}}">
     验证码输入错误，请重新输入
   </view>
@@ -25,7 +25,7 @@
     <view class="headers">请输入图形验证码</view>
     <view class="modelBody">
       <view class="modelInput">
-        <input placeholder="请按右图输入" value="{{img_code}}" maxlength="4" bindinput="getcodeImg" />
+        <input placeholder="请按右图输入" value="{{img_code}}" maxlength="4" bindinput="getcodeImg"/>
       </view>
       <view class="imgCode">
         <image class="imgCodeIcon" src="{{ imgUrl }}" />
