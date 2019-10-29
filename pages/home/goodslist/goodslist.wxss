@@ -603,6 +603,7 @@ page {
   right: 0;
   top: -8rpx;
   font-size: 20rpx;
+  color: #E60012
 }
 
 .goodsContent {
@@ -697,7 +698,7 @@ page {
   width: 36rpx;
   height: 36rpx;
   background: linear-gradient(135deg, rgba(253, 235, 113, 1) 0%, rgba(248, 216, 0, 1) 100%);
-  color: #fff;
+  color: #E60012;
   border-radius: 50%;
   text-align: center;
   line-height: 36rpx;
