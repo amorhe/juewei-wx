@@ -576,7 +576,7 @@ Page({
           modalShow: true,
           showShopcar: false,
           isType: 'orderConfirm',
-          content: res.msg + '系统已经更新,是否确认结算',
+          content: res.msg,
           newArr: []
         })
       }

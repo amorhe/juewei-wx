@@ -29,8 +29,10 @@ export const login = rest => wx.login({
     if (r.code === 0) {
       console.log('将_sid存到内存中', r.data._sid);
       wxSet('_sid', r.data._sid);
-      if (r.data.user_id) {
+      if (r.data.user_id) {//有用户id
         wxSet('userInfo', { ...rest, ...r.data });
+      }else{//没有
+        console.log('没有用户详细信息');
       }
     }
   }
@@ -42,7 +44,6 @@ export const login = rest => wx.login({
 export const WX_LOGIN = rest => {
   wx.checkSession({
     success() {
-      console.log('//session_key 未过期，并且在本生命周期一直有效');
       const { user_id, _sid } = wxGet('userInfo') || { user_id: '' };
       wxSet('_sid',_sid);
       if (!user_id) {

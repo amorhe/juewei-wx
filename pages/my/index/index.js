@@ -19,7 +19,7 @@ Page({
   data: {
     imageUrl,
     avatarImg: '',
-    _sid: '',
+    _sid: wxGet('_sid') || '',
     userInfo: {},
     isLogin: false,
     showNo: false, //显示次数
@@ -43,18 +43,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const {
-      user_id,
-      nick_name,
-      head_img
-    } = wxGet('userInfo');
-    const showNo = wxGet('showNo');
-    this.setData({
-      user_id,
-      nick_name,
-      head_img,
-      showNo
-    })
+    let userInfo = wxGet('userInfo');
+    if (userInfo && userInfo.user_id){//有用户信息
+       this.setData({
+         user_id: userInfo.user_id,
+         nick_name: userInfo.nick_name,
+         head_img: userInfo.head_img,
+         showNo: true
+       })
+    }else{//没有用户信息
+      this.setData({
+        showNo: false //这里写死
+      })
+    }
+    console.log(this.data.showNo);
   },
 
   /**
@@ -95,22 +97,17 @@ Page({
   // 判断是否去登录
   isloginFn() {
     const userInfo = wxGet('userInfo');
-    if (!userInfo.user_id) {
-     return  navigateTo({
+    if (userInfo && userInfo.user_id){ //有用户信息，进入到个人中心修改个人信息
+      // wxSet('showNo', true);
+      navigateTo({
+        url: '/package_my/pages/mycenter/mycenter'
+      })
+    }else{//没有用户信息，自动登录已经成功了，但是没有userid需要后端登录一次才可以
+      // wxSet('showNo', false);
+      navigateTo({
         url: '/pages/login/auth/auth'
       });
     }
-    wxSet('showNo', true);
-
-
-    if (this.data.showNo) {
-      return navigateTo({
-        url: '/package_my/pages/mycenter/mycenter'
-      })
-    }
-    this.setData({
-      showNo: true
-    });
   },
   // 跳转页面
   toUrl(e) {
@@ -132,26 +129,21 @@ Page({
       userInfo,
       ...rest
     } = e.detail;
-    console.log(e);
-
-
+    let that=this;
     if (errMsg === 'getUserInfo:ok') {
-      const {
-        user_id
-      } = wxGet('userInfo') || {
-        user_id: ''
-      };
+      const { user_id } = wxGet('userInfo') || { user_id: '' };
       if (!user_id) {
         wxSet('rest', rest);
         wxSet('userInfo', userInfo);
         return
+      }else{
+        return navigateTo({
+          url: '/package_my/pages/mycenter/mycenter?img=' + (userInfo.avatarUrl || userInfo.head_img) + '&name=' + (userInfo.nickName || userInfo.nick_name)
+        })
       }
-      return navigateTo({
-        url: '/package_my/pages/mycenter/mycenter?img=' + userInfo.head_img + '&name=' + userInfo.nick_name
-      })
     }else{
-      $Toast({
-        content: '拒绝授权将无法登陆，请允许授权!'
+      return navigateTo({
+        url: '/package_my/pages/mycenter/mycenter?img=&name='
       })
     }
   },

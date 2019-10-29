@@ -1132,15 +1132,18 @@ Page({
   },
   // 会员卡，卡券
   navigate(e) {
-    if (wxGet('user_id') == null && wxGet('userInfo') &&  wxGet('userInfo').user_id == null) {
+    let userid = wxGet('user_id');
+    let userInfo = wxGet('userInfo');
+    //判断更加严谨
+    if (userid && userid != '' && userInfo && userInfo.user_id!='') {
+      navigateTo({
+        url: e.currentTarget.dataset.url
+      });
+    }else{
       navigateTo({
         url: '/pages/login/auth/auth'
       });
-      return
     }
-    navigateTo({
-      url: e.currentTarget.dataset.url
-    });
   },
   onSubmit(e) {
     upformId(e.detail.formId);

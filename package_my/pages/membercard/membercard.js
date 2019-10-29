@@ -22,10 +22,12 @@ Page({
    */
   onLoad: function(options) {
     this.funGetQRcode();
-    const phone = wxGet('userInfo').phone;
-    this.setData({
-      phone
-    })
+    let userInfo=wxGet('userInfo');
+    if (userInfo && userInfo.user_id && userInfo.phone){
+      this.setData({
+        phone: userInfo.phone
+      })
+    }
   },
 
   /**
