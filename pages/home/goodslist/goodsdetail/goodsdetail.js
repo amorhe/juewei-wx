@@ -13,7 +13,9 @@ import {
 import {
   startAddShopAnimation
 } from '../../../common/js/AddShopCar.js'
-const { $Toast } = require('../../../../iview-weapp/base/index');
+const {
+  $Toast
+} = require('../../../../iview-weapp/base/index');
 var app = getApp();
 Page({
 
@@ -42,10 +44,14 @@ Page({
     imageUrl3,
     img_url,
     // 评论
-    commentArr: [],
+    commentArr: {
+      data: []
+    },
     key: '',
     index: '',
-    dispatchArr: [],
+    dispatchArr: {
+      data: []
+    },
     maskView: false,
     goodsItem: {},
     shopcartList: {}, // 购物车缓存数据
@@ -168,10 +174,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    this.data.pagenum++;
-    const shop_id = wxGet('shop_id') || '';
-    this.funGetCommentList(this.data.goodsInfo.goods_code, this.data.pagenum, this.data.pagesize);
-    this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
+    
   },
 
   /**
@@ -179,6 +182,15 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  funGetMoreComment(){
+    this.data.pagenum++;
+    this.funGetCommentList(this.data.goodsInfo.goods_code, this.data.pagenum, this.data.pagesize);
+  },
+  funGetMoreDispatch(){
+    this.data.pagenum++;
+    const shop_id = wxGet('shop_id') || '';
+    this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
   },
   // 购物车活动提示
   funShopcartPrompt(oldArr, priceFree, repurse_price) {
@@ -197,7 +209,7 @@ Page({
         activityText = `已购满${oldArr[oldArr.length - 1] / 100}元,去结算获取优惠!`
       }
     }
-    if (this.data.freeMoney>0){
+    if (this.data.freeMoney > 0) {
       if (priceFree == 0) {
         freeText = `满${this.data.freeMoney / 100}元 免配送费`
       } else if (priceFree < this.data.freeMoney) {
@@ -231,9 +243,14 @@ Page({
       pagenum: 1
     });
   },
-  // 商品评价
+  // 商品口味评价
   funGetCommentList(goods_code, pagenum, pagesize) {
     commentList(goods_code, pagenum, pagesize, 0, 'all', '').then((res) => {
+      let commentArr = this.data.commentArr.data;
+      if (res.data.length > 0) {
+        let newcommentArr = commentArr.concat(res.data);
+        res.data = newcommentArr
+      }
       this.setData({
         commentArr: res
       })
@@ -242,6 +259,11 @@ Page({
   // 配送评价
   funGetDispatchCommentList(shop_id, pagenum, pagesize) {
     DispatchCommentList(shop_id, pagenum, pagesize, 0, 'all', '').then((res) => {
+      let dispatchArr = this.data.dispatchArr.data;
+      if (res.data.length > 0) {
+        let newdispatchArr = dispatchArr.concat(res.data);
+        res.data = newdispatchArr
+      }
       this.setData({
         dispatchArr: res
       })
@@ -372,7 +394,7 @@ Page({
       shopcartAll.push(goodlist[keys]);
       shopcartNum += goodlist[keys].num
     }
-    
+
     let datas = {
       detail: {
         goodlist,

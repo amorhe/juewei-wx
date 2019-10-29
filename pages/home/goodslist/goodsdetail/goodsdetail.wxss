@@ -71,11 +71,10 @@
   color: #E60012
 }
 .commontList {
-  /* display: flex;
-  flex-direction: column; */
   padding-left: 32rpx;
-  overflow-y: scroll;
-  height: 40vh
+  height: 40vh;
+  width: 100vw;
+  box-sizing: border-box
 }
 .commontList>view {
   padding: 24rpx 0 24rpx 0;
@@ -149,7 +148,8 @@
   justify-content: space-between;
   background: white;
   padding: 26rpx;
-  border-radius: 20rpx 20rpx 0 0
+  border-radius: 20rpx 20rpx 0 0;
+  z-index: 1000;
 }
 
 .menu {

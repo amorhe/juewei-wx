@@ -117,8 +117,8 @@
         <text class="tagNoActive" wx:for="{{commentArr.show_tags}}" wx:key="unique">{{item.tag_name}}（{{item.num}}）</text>
       </view>
       <!-- 评论列表 -->
-      <view class="commontList" wx:if="{{commentArr.data.length> 0}}">
-        <view wx:for="{{commentArr.data}}" wx:key="unique">
+      <scroll-view class="commontList" scroll-y wx:if="{{commentArr.data.length> 0}}" lower-threshold="50" bindscrolltolower="funGetMoreComment">
+        <view wx:for="{{commentArr.data}}" wx:key="unique" style="display:flex">
           <image class="commontAvatar" mode="scaleToFill" src="{{item.head_img}}" />
           <view>
             <view class="commontUser">
@@ -145,7 +145,7 @@
             <view class="fontSmallGray">购买时间：{{item.order_ctime}}</view>
           </view>
         </view>
-      </view>
+      </scroll-view>
       <view class="nullBox" style="height:635rpx" wx:if="{{commentArr.data.length== 0}}">
         <image class='nullImg' src="{{ imageUrl }}bg_nocomment.png" />
         <text>暂无商品口味评价</text>
@@ -164,8 +164,8 @@
         <text class="tagNoActive" wx:for="{{dispatchArr.show_tags}}" wx:if="{{dispatchArr.show_tags.length>0}}" wx:key="unique">{{item.tag_name}}（{{item.num}}）</text>
       </view>
       <!-- 评论列表 -->
-      <view wx:if="{{dispatchArr.data.length> 0}}" class="commontList">
-        <view wx:for="{{dispatchArr.data}}" wx:key="unique">
+      <scroll-view wx:if="{{dispatchArr.data.length> 0}}" class="commontList" lower-threshold="50" bindscrolltolower="funGetMoreDispatch" scroll-y>
+        <view wx:for="{{dispatchArr.data}}" wx:key="unique" style="display:flex">
           <image class="commontAvatar" mode="scaleToFill" src="{{item.head_img}}" />
           <view>
             <view class="commontUser">
@@ -192,7 +192,7 @@
             <view class="fontSmallGray">购买时间：{{item.takeout_order_comment_utime}}</view>
           </view>
         </view>
-      </view>
+      </scroll-view>
       <view class="nullBox" style="height:635rpx" wx:if="{{dispatchArr.data.length== 0}}">
         <image class='nullImg' src="{{ imageUrl }}bg_nocomment.png" />
         <text>暂无配送服务评价</text>
@@ -200,11 +200,11 @@
     </view>
   </view>
   <!-- 小红点 -->
-    <canvas style="display:{{display_good_box ? 'block' : 'none'}}; position:fixed; width: 100vw; height: 100vh; left:0rpx; top:0rpx;z-index:5000" canvas-id="myCanvas" />
+  <canvas style="display:{{display_good_box ? 'block' : 'none'}}; position:fixed; width: 100vw; height: 100vh; left:0rpx; top:0rpx;z-index:5000" canvas-id="myCanvas" />
   <view style="height:100rpx;background:transparent"></view>
   <!-- 购物车 -->
-  <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" type="{{type}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" freeId="{{freeId}}" bindClearshopcart="funClearshopcart" bindChangeShopcart="funChangeShopcart"
-    bindAnimate="funAnimate" class="e1" />
+  <shopcart-model shopcartAll="{{shopcartAll}}" shopcartNum="{{shopcartNum}}" type="{{type}}" shopcartList="{{shopcartList}}" priceAll="{{priceAll}}" activityText="{{activityText}}" freeText="{{freeText}}" freeId="{{freeId}}" bindClearshopcart="funClearshopcart"
+    bindChangeShopcart="funChangeShopcart" bindAnimate="funAnimate" class="e1" />
 
   <!-- 加入购物车选择商品规格 -->
   <goods-modal maskView="{{maskView}}" goodsKey="{{goodsKey}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsItem="{{goodsItem}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}" bindAnimate="funAnimate"
