@@ -59,7 +59,7 @@ Page({
 
     pickUpState: [
       '等待支付',
-      '等待接单',
+      '等待接单', //自提不需要这个状态
       '商家已接单',
       '等待取餐',
       '订单已完成',
@@ -381,7 +381,7 @@ Page({
         // 6） 订单已取消，时间：data.cancel_time      //取消时间
         timeArr = [
           { state: '等待支付', time: order_ctime },
-          { state: '等待接单', time: pay_time },
+          { state: '等待接单', time: pay_time },  //自提不需要这个状态
           { state: '商家已接单', time: push_time },
           { state: '等待取餐', time: push_time },
           { state: '订单已完成', time: dis_finish_time },
@@ -411,16 +411,16 @@ Page({
 
         let orderStatus = [
           { state: '等待支付', timeArr: [1] },//等待支付
-          { state: '支付成功/等待接单', timeArr: [1, 2] }, // 等待接单
-          { state: '商家接单/商家已确认', timeArr: [1, 2, 3] }, // 商家已接单 order_status==2
-          { state: '正在配送/配送中/等待取餐', timeArr: [1, 2, 3, 4] },     // 等待取餐 order_status==3
-          { state: '确认收货/已送到/完成', timeArr: [1, 2, 3, 4, 5] }, //订单完成
+          { state: '支付成功/等待接单', timeArr: [1] }, // 等待接单
+          { state: '商家接单/商家已确认', timeArr: [1, 3] }, // 商家已接单 order_status==2
+          { state: '正在配送/配送中/等待取餐', timeArr: [1, 3, 4] },     // 等待取餐 order_status==3
+          { state: '确认收货/已送到/完成', timeArr: [1, 3, 4, 5] }, //订单完成
           { state: '用户取消', timeArr: [1, 6] },
           { state: '自动取消', timeArr: [1, 6] },
-          { state: '后台客服退单', timeArr: [1, 2, 6] },
-          { state: '后台审核退单成功', timeArr: [1, 2, 6] },
-          { state: '达达主动发起取消订单', timeArr: [1, 2, 6] },
-          { state: '店pos取消', timeArr: [1, 2, 6] },
+          { state: '后台客服退单', timeArr: [1, 6] },
+          { state: '后台审核退单成功', timeArr: [1, 6] },
+          { state: '达达主动发起取消订单', timeArr: [1, 6] },
+          { state: '店pos取消', timeArr: [1, 6] },
         ];
 
         let curState = res.data.order_status_info.order_status;

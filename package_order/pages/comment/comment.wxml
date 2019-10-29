@@ -4,7 +4,7 @@
     <view style="height:1rpx"></view>
     <view class="shop">
         <view class="title">
-            {{d.dis_type==1?'配送服务评价':'门店评价服务'}}
+            {{d.dis_type==1?'配送服务评价':'门店服务评价'}}
         </view>
         <view class="stars">
             <image mode="scaleToFill" class="star" src="{{imageUrl}}stars_big{{item?2:1}}.png" data-index="{{index}}" bindtap="changeShopStar" wx:for="{{shopStars}}" wx:key="{{ index }}"/>
