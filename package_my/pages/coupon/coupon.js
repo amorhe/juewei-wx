@@ -200,30 +200,31 @@ Page({
    * @function 使用优惠卷
    */
   async toUse(e) {
-    // const {
-    //   way
-    // } = e.currentTarget.dataset;
-    // // way:用途 1:外卖专享 2:门店专享 3:全场通用
-    // switch (way - 0) {
-    //   case 1:
-    //   case 3:
-    //     MODAL({
-    //       title: '',
-    //       content: '限时优惠，立即使用',
-    //       cancelText: '自提',
-    //       cancel: this.toTakeOut,
-    //       confirmText: '外卖',
-    //       confirm: this.toTakeIn
-    //     });
-    //     break;
-    //   case 2:
-    //     this.showCode(e);
-    //     break
-    // }
-    this.setData({
-      modalShow: true,
-      mask: true
-    })
+    const {
+      way
+    } = e.currentTarget.dataset;
+    // way:用途 1:外卖专享 2:门店专享 3:全场通用
+    switch (way - 0) {
+      case 1:
+      case 3:
+        // MODAL({
+        //   title: '',
+        //   content: '限时优惠，立即使用',
+        //   cancelText: '自提',
+        //   cancel: this.toTakeOut,
+        //   confirmText: '外卖',
+        //   confirm: this.toTakeIn
+        // });
+        this.setData({
+          modalShow: true,
+          mask: true
+        })
+        break;
+      case 2:
+        this.showCode(e);
+        break
+    }
+    
   },
 
 
