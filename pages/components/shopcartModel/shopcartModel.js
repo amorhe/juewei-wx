@@ -109,15 +109,6 @@ Component({
         h: '98rpx'
       })
     }
-    // if (this.properties.freeId.length != 0) {
-    //   this.setData({
-    //     freeShow: true
-    //   })
-    // } else {
-    //   this.setData({
-    //     freeShow: false
-    //   })
-    // }
   },
 
   methods: {
