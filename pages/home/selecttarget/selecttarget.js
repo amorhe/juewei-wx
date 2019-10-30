@@ -474,13 +474,14 @@ Page({
   // 新增地址
   eveAddAddressTap() {
     // 判断 是否登录
-    if (!wxGet('userInfo') || wxGet('userInfo').user_id == undefined ) {
-      navigateTo({
-        url: '/pages/login/auth/auth'
-      });
-    } else {
+    let userInfo=wxGet('userInfo');
+    if (userInfo && userInfo.user_id && userInfo.user_id!=''){
       navigateTo({
         url: "/package_my/pages/myaddress/addaddress/addaddress"
+      });
+    }else{
+      navigateTo({
+        url: '/pages/login/auth/auth'
       });
     }
   },
