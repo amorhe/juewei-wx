@@ -106,7 +106,7 @@ export const navigateTo = ({
    }
  
    //判断是h5链接还是内部链接
-   if (url.indexOf('https://') < 4 && url.indexOf('https://') >-1) {
+  if (url.indexOf('https://') < 4 && url.indexOf('https://') >-1) {
      return wx.redirectTo({
        url: '/pages/webview/webview?url=' + url
      });

@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    type:1, //1修改全局地址，2不修改全局地址
     cities: [],
     imageUrl,
     inputAddress:"",
@@ -21,7 +22,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    //获取外部传过来的值
+    if (options && options.type && options.type>1){
+      this.setData({
+        type: options.type
+      })
+    }
+    
   },
 
   /**
@@ -104,10 +111,19 @@ Page({
     })
   },
   eveChoosecity(e){
-    app.globalData.city = e.currentTarget.dataset.name + '市';
-    app.globalData.chooseBool = true;
-    wx.navigateBack({
-      delta:1
-    })
+    if(this.data.type==2){
+      app.globalData.city2 = e.currentTarget.dataset.name + '市';
+      app.globalData.chooseBool = true;
+      wx.navigateBack({
+        delta: 1
+      })
+    }else{
+      app.globalData.city = e.currentTarget.dataset.name + '市';
+      app.globalData.chooseBool = true;
+      wx.navigateBack({
+        delta: 1
+      })
+    }
+    
   } 
 })

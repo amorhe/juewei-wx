@@ -53,7 +53,8 @@
           </view>
         </view>
         <view class="listLeft" wx:if="{{item.is_gifts}}">
-          <image class="ordergoodsImage" mode="scaleToFill" wx:if="{{item.gift_img && item.gift_img != ''}}" src="{{item.gift_img}}" />
+          <image class="ordergoodsImage" mode="scaleToFill" wx:if="{{item.gift_img && item.gift_img != ''}}"
+           src="{{item.gift_img.indexOf('http')>-1?item.gift_img:imageUrl2+item.gift_img}}" />
           <image class="ordergoodsImage" mode="scaleToFill" wx:if="{{!item.gift_img || item.gift_img == ''}}" src="{{imageUrl}}present_bg.png" />
           <view>
             <view>
@@ -161,7 +162,7 @@
             <view class="flexNormal">
               <view class="repurseBottom fontSmallGray">
                 <view>
-                  <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?item.cash/100:item.cash/100+item.point + '积分'}}</text>
+                  <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?'¥'+item.cash/100 : '¥'+item.cash/100 +' + '+ item.point +'积分'}}</text>
                   <text class="purseGoodsOld">￥{{item.gift_price/100}}</text>
                 </view>
               </view>
@@ -188,7 +189,7 @@
         <view class="flexNormal">
           <view class="repurseBottom fontSmallGray">
             <view>
-              <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?item.cash/100:item.cash/100+item.point + '积分'}}</text>
+              <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?'¥'+item.cash/100 : '¥'+item.cash/100 +' + '+ item.point +'积分'}}</text>
               <text class="purseGoodsOld">￥{{item.gift_price/100}}</text>
             </view>
           </view>

@@ -49,7 +49,7 @@
             <view>卡券</view>
           </view>
         </view>
-        <navigator url="/package_my/pages/nearshop/nearshop" hover-class="none">
+        <navigator url="/package_my/pages/nearshop/nearshop?re=1" hover-class="none">
           <view>
             <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button>
             <image src="{{imageUrl}}home_nearshop.png" />
@@ -149,7 +149,7 @@
   </view>
   <view class="shopUp" wx:if="{{isSelf}}">
     <image class="shopLogo" src="{{imageUrl}}shopbg.png" />
-    <navigator url="/package_my/pages/nearshop/nearshop" class="shopBoxs">
+    <navigator url="/package_my/pages/nearshop/nearshop?re=2" class="shopBoxs">
       <view>
         <image class="ImageFourty" mode="scaleToFill" src="{{imageUrl}}position.png" />
         <view class="shop_info">

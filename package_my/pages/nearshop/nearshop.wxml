@@ -1,20 +1,16 @@
 <view class="searchView">
-  <view style="{{(inputAddress.length>0 || isOnfoucs)?'width: 598rpx;':'width: 694rpx;'}}">
+  <view>
     <view class="positionAddress" bindtap="eveChoosecityTap">
       <text>{{city}}</text>
       <image src="{{imageUrl}}arrow_down1.png" />
     </view>
     <view class="searchBox">
-      <view>
-        <image class="searchIcon" src="{{imageUrl}}search.png" />
-        <input confirm-type="search" value="{{inputAddress}}" bindinput="funInputword" placeholder="地址名称" placeholder-class="colorGray" bindfocus="funOnfocus" bindblur="funOutfocus" adjust-position="false"/>
-      </view>
-      <image wx:if="{{inputAddress!=''}}" class="arrow" mode="scaleToFill" bindtap="closeFN" src="{{imageUrl}}close3.png" />
+      <image class="searchIcon" src="{{imageUrl}}search.png" />
+      <input type="search" value="{{inputAddress}}" bindinput="funInputword" placeholder="地址名称" placeholder-class="colorGray" />
     </view>
   </view>
-  <text wx:if="{{inputAddress!='' || isOnfoucs}}" bindtap="closeFN">取消</text>
 </view>
-<view class="mapView" wx:if="{{searchResult.length > 0 || inputAddress==''}}">
+<view class="mapView" wx:if="{{!isSearch}}">
   <map id="map" style="width:100%;height:100%" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markersArray}}" scale="12" />
   <cover-view class="shopBox" style="max-height: {{height}}rpx">
     <cover-view class="shopLi" wx:for="{{shopList}}" wx:key="unique">
@@ -39,10 +35,9 @@
     </cover-view>
   </cover-view>
 </view>
-<!-- 搜索列表 -->
-<view class="mask_vciew" style="{{isOnfoucs?'':'display:none'}}"></view>
-<view wx:if="{{searchResult.length>0 && inputAddress!=''}}">
-  <view class="shopLi" wx:for="{{shopList}}" wx:key="unique" style="margin-bottom:0;box-shadow:none;padding:24rpx 32rpx">
+
+<view wx:if="{{isSearch}}">
+  <view class="shopLi" wx:if="{{shopList.length>0}}" wx:for="{{shopList}}" wx:key="unique" style="margin-bottom:0;box-shadow:none;padding:24rpx 32rpx">
     <view>
       <view class="flexNormal">
         <view class="shopTxt">
@@ -60,11 +55,10 @@
         class="self_btn" style="background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%);">去自提</view>
     </view>
   </view>
-</view>
-
-<view wx:if="{{noResult}}" class="noResult">
-  <image class="position_icon" mode="scaleToFill" src="{{imageUrl}}noshop.png" />
-  <view style="margin:32rpx 0 10rpx">找不到地址</view>
-  <view class="fontss">请尝试只输入小区、写字楼或学校名， 详细地址（如门牌号）可稍后输入哦。
+  <view wx:if="{{shopList.length==0}}" class="noResult">
+      <image class="position_icon" mode="scaleToFill" src="{{imageUrl}}noshop.png" />
+      <view style="margin:32rpx 0 10rpx">附近无可用门店</view>
+      <view class="fontss">请尝试只输入小区、写字楼或学校名， 详细地址（如门牌号）可稍后输入哦。
+      </view>
   </view>
 </view>

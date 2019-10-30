@@ -47,7 +47,6 @@ var app = getApp();
 let tim = null,
   goodsret = [];
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -201,18 +200,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
     // 定位地址
     this.setData({
       type: app.globalData.type,
       shopTakeOut: {},
-      firstAddress: app.globalData.address,
+      firstAddress: (this.data.isSelf?app.globalData.address1 : app.globalData.address)
     })
     wx.showLoading({
       title: '加载中...'
     });
     // 初始化默认外卖
     let shopArray = [];
-    if (app.globalData.shopIng && !app.globalData.switchClick) {
+    if (!this.data.isSelf && app.globalData.shopIng && !app.globalData.switchClick) {
       if (wxGet('shop_id') != app.globalData.shop_id) {
         const status = cur_dateTime(app.globalData.shopIng.start_time, app.globalData.shopIng.end_time);
         this.setData({
@@ -226,6 +226,21 @@ Page({
       this.setData({
         jingxuan: app.globalData.shopIng.jingxuan || false,
         shopTakeOut: app.globalData.shopIng
+      })
+    } else if (this.data.isSelf && app.globalData.shopIng1 && !app.globalData.switchClick) {
+      if (wxGet('shop_id') != app.globalData.shop_id) {
+        const status = cur_dateTime(app.globalData.shopIng1.start_time, app.globalData.shopIng1.end_time);
+        this.setData({
+          isOpen: status,
+          shopTakeOut: app.globalData.shopIng1
+        })
+        wxSet('shop_id', app.globalData.shopIng1.shop_id)
+        app.globalData.isOpen = status;
+        app.globalData.shopTakeOut = this.data.shopTakeOut;
+      }
+      this.setData({
+        jingxuan: app.globalData.shopIng1.jingxuan || false,
+        shopTakeOut: app.globalData.shopIng1
       })
     } else if (!app.globalData.shopIng && !app.globalData.switchClick) {
       if (app.globalData.type == 1) {
@@ -248,7 +263,6 @@ Page({
       })
     }
     app.globalData.switchClick = null;
-    app.globalData.city = app.globalData.shopTakeOut.city
     if (app.globalData.activityList) {
       app.globalData.activityList.DIS = [];
       app.globalData.activityList.PKG = [];
@@ -266,7 +280,7 @@ Page({
     }
     this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
-    this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id, app.globalData.type) //营销活动
+    this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id,    app.globalData.type, user_id, app.globalData.type) //营销活动
     wxSet('vip_address', app.globalData.shopTakeOut);
     this.funGotopage();
   },
@@ -898,22 +912,24 @@ Page({
       repurse_price = 0;
     for (let keys in goodlist) {
       if (e.currentTarget.dataset.goods_discount) {
-        if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
+        if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           $Toast({
             content: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`
-          }) 
-        } 
-      } 
-      if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+          })
+        }
+      }
+      if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit!=null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         if (keys.indexOf('PKG') == -1) {
           priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         }
-      } else {
+      } else if (goodlist[keys].goods_price && goodlist[keys].num){
         priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+      } else {
+
       }
       // 计算可换购商品价格
-      if (goodlist[keys].huangou) {
+      if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
         repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
       }
       shopcartAll.push(goodlist[keys]);
@@ -940,6 +956,7 @@ Page({
     this.funChangeShopcart(datas)
     wxSet('goodsList', goodlist)
   },
+  //减少购物车
   eveReduceshopcart(e) {
     let code = e.currentTarget.dataset.goods_code;
     let format = e.currentTarget.dataset.goods_format;
@@ -953,13 +970,15 @@ Page({
     goodlist[`${code}_${format}`].num -= 1;
     goodlist[`${code}_${format}`].sumnum -= 1;
     for (let keys in goodlist) {
-      if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+      if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         if (keys.indexOf('PKG') == -1) {
           priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         }
-      } else {
+      } else if (goodlist[keys].goods_price && goodlist[keys].num) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+      }else{
+
       }
       // 计算包邮商品价格
       if (!goodlist[keys].goods_discount) {

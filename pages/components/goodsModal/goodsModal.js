@@ -156,19 +156,21 @@ Component({
         repurse_price = 0;
       for (let keys in goodlist) {
         if (e.currentTarget.dataset.goods_discount) {
-          if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
+          if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
             $Toast({
               content: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`
             })
           }
         }
-        if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+        if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           if (keys.indexOf('PKG') == -1) {
             priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           }
-        } else {
+        } else if (goodlist[keys].goods_price && goodlist[keys].num) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+        } else {
+
         }
 
         // 计算可换购商品价格
@@ -217,20 +219,22 @@ Component({
         repurse_price = 0,
         newGoodlist = {};
       for (let keys in goodlist) {
-        if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+        if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           if (keys.indexOf('PKG') == -1) {
             priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           }
-        } else {
+        } else if (goodlist[keys].goods_price && goodlist[keys].num){
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+        } else {
+          //不做处理
         }
         // 计算包邮商品价格
-        if (!goodlist[keys].goods_discount) {
+        if (!goodlist[keys].goods_discount && goodlist[keys].goods_price && goodlist[keys].num) {
           priceFree += goodlist[keys].goods_price * goodlist[keys].num;
         }
         // 计算可换购商品价格
-        if (goodlist[keys].huangou) {
+        if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
           repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
         }
         if (goodlist[keys].num > 0) {

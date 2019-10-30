@@ -119,7 +119,7 @@
       <!-- 评论列表 -->
       <scroll-view class="commontList" scroll-y wx:if="{{commentArr.data.length> 0}}" lower-threshold="50" bindscrolltolower="funGetMoreComment">
         <view wx:for="{{commentArr.data}}" wx:key="unique" style="display:flex">
-          <image class="commontAvatar" mode="scaleToFill" src="{{item.head_img}}" />
+          <image class="commontAvatar" mode="scaleToFill" src="{{item.head_img?item.head_img:imageUrl+'default_head1.png'}}" />
           <view>
             <view class="commontUser">
               <view>
@@ -166,7 +166,7 @@
       <!-- 评论列表 -->
       <scroll-view wx:if="{{dispatchArr.data.length> 0}}" class="commontList" lower-threshold="50" bindscrolltolower="funGetMoreDispatch" scroll-y>
         <view wx:for="{{dispatchArr.data}}" wx:key="unique" style="display:flex">
-          <image class="commontAvatar" mode="scaleToFill" src="{{item.head_img}}" />
+          <image class="commontAvatar" mode="scaleToFill" src="{{item.head_img?item.head_img:imageUrl+'default_head1.png'}}" />
           <view>
             <view class="commontUser">
               <view>
