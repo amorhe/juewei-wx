@@ -214,16 +214,20 @@ Page({
       }
     }
     if (this.data.freeMoney > 0) {
+      app.globalData.freetf = false; //orderconform中是否传送freeid
       if (priceFree == 0) {
         freeText = `满${this.data.freeMoney / 100}元 免配送费`
       } else if (priceFree < this.data.freeMoney) {
         freeText = `还差${(this.data.freeMoney / 100 - priceFree / 100).toFixed(2)}元 免配送费`
       } else {
         freeText = `已满${this.data.freeMoney / 100}元 免配送费`
+        //加入变量说明可以免配送
+        app.globalData.freetf = true;
       }
-    }
-    if (this.data.freeMoney == 0) {
+    }else if(this.data.freeMoney == 0) {
       freeText = '免配送费'
+      //加入变量说明可以免配送
+      app.globalData.freetf = true;
     }
     this.setData({
       activityText,
