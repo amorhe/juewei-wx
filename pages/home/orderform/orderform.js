@@ -451,7 +451,7 @@ Page({
     if (app.globalData.notUse) {
       notUse = app.globalData.notUse
     }
-    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, this.data.repurseList, notUse, app.globalData.freeId, wxGet('_sid'), 2).then((res) => {
+    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, this.data.repurseList, notUse, (app.globalData.freetf?app.globalData.freeId:''), wxGet('_sid'), 2).then((res) => {
       // console.log(res)
       let goodsList = wxGet('goodsList');
       if (res.code == 0) {
@@ -649,7 +649,7 @@ Page({
     if (this.data.orderInfo.use_coupons[0] != undefined) {
       use_coupons = this.data.orderInfo.use_coupons[0]
     }
-    createOrder(app.globalData.type, shop_id, goods, shop_id, 8, remark, '微信小程序', address_id, lng, lat, type, str_gift, use_coupons, notUse, app.globalData.freeId, wxGet('_sid'), 2).then((res) => {
+    createOrder(app.globalData.type, shop_id, goods, shop_id, 8, remark, '微信小程序', address_id, lng, lat, type, str_gift, use_coupons, notUse, (app.globalData.freetf ? app.globalData.freeId : ''), wxGet('_sid'), 2).then((res) => {
       if (res.code == 0) {
         if (app.globalData.type == 2 && this.data.orderInfo.real_price == 0) {
           this.setData({
