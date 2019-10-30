@@ -1126,9 +1126,15 @@ Page({
   },
   // banner图跳转链接
   linkUrl(e) {
-    navigateTo({
-      url: e.currentTarget.dataset.link
-    });
+    if ((e.currentTarget.dataset.link).indexOf('https://')>-1){
+      navigateTo({
+        url: '/pages/webview/webview?url='+ e.currentTarget.dataset.link
+      });
+    }else{
+      navigateTo({
+        url: e.currentTarget.dataset.link
+      });
+    }
   },
   // 会员卡，卡券
   navigate(e) {
