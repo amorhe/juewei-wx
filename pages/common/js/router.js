@@ -82,37 +82,43 @@ export const redirectTo = ({
  * @return {Function}
  */
 export const navigateTo = ({
- url,
- query,
- currentTarget,
- success = () => {},
- fail = () => {},
- complete = () => {}
-}) => {
-  // 如果在行内调用
-  if (currentTarget) {
-    url  = url || currentTarget.dataset.url;
-    query = query || currentTarget.dataset.query;
-  }
-
-  // 方法调用
-  if (query) {
-    console.log(query);
-    url = url + '?';
-    Object.entries(query).forEach(([key, value]) => {
-      url += `${ key }=${ value }&`
-    });
-    url = url.slice(0, -1);
-  }
-  console.log('navigateToUrl',url);
-  return wx.navigateTo({
-    url,
-    success,
-    fail,
-    complete,
-  })
+  url,
+  query,
+  currentTarget,
+  success = () => {},
+  fail = () => {},
+  complete = () => {}
+ }) => {
+   // 如果在行内调用
+   if (currentTarget) {
+     url  = url || currentTarget.dataset.url;
+     query = query || currentTarget.dataset.query;
+   }
+  
+   // 方法调用
+   if (query) {
+     console.log(query);
+     url = url + '?';
+     Object.entries(query).forEach(([key, value]) => {
+       url += `${ key }=${ value }&`
+     });
+     url = url.slice(0, -1);
+   }
+ 
+   //判断是h5链接还是内部链接
+   if (url.indexOf('https://') > -1) {
+     return wx.redirectTo({
+       url: '/pages/webview/webview?url=' + url
+     });
+   } else {
+     return wx.navigateTo({
+       url,
+       success,
+       fail,
+       complete,
+     })
+   }
 };
-
 export  const navigateBack = () =>{
   wx.navigateBack()
 };
