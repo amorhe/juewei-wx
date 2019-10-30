@@ -223,10 +223,6 @@ Component({
         } else {
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
         }
-        // // 包邮商品价格
-        // if (!goodlist[keys].goods_discount) {
-        //   priceFree += goodlist[keys].goods_price * goodlist[keys].num;
-        // }
         // 计算可换购商品价格
         if (goodlist[keys].huangou) {
           repurse_price += goodlist[keys].goods_price * goodlist[keys].num;

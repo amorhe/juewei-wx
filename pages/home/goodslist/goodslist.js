@@ -98,7 +98,7 @@ Page({
     type: 1, // 默认外卖
     shopGoods: [], // 门店商品
     fullActivity: '',
-    freeMoney: '',
+    freeMoney: -1,
     jingxuan: true,
     btnClick: true,
     activityList: [],

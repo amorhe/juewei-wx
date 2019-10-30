@@ -64,7 +64,7 @@ Page({
     pagenum: 1,
     pagesize: 10,
     freeText: '',
-    freeMoney: 0,
+    freeMoney: -1,
     goodsInfo: {}, // 商品数据
     repurse_price: 0,
     freeId: '',
@@ -127,7 +127,7 @@ Page({
       priceAll,
       shopcartAll,
       shopcartNum,
-      freeMoney: app.globalData.freeMoney || 0,
+      freeMoney: app.globalData.freeMoney || -1,
       repurse_price,
       freeId: app.globalData.freeId,
       type: app.globalData.type
