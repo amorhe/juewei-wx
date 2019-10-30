@@ -1090,8 +1090,8 @@ Page({
       }
     }
     if (this.data.freeMoney > 0) {
+      app.globalData.freetf = false; //orderconform中是否传送freeid
       if (priceFree == 0) {
-        app.globalData.freetf = false; //orderconform中是否传送freeid
         freeText = `满${this.data.freeMoney / 100}元 免配送费`
       } else if (priceFree < this.data.freeMoney) {
         freeText = `还差${(this.data.freeMoney / 100 - priceFree / 100).toFixed(2)}元 免配送费`
@@ -1100,10 +1100,12 @@ Page({
         //加入变量说明可以免配送
         app.globalData.freetf = true;
       }
-    }
-    if (this.data.freeMoney == 0){
+    }else if(this.data.freeMoney == 0){
+      //加入变量说明可以免配送
+      app.globalData.freetf = true;
       freeText = '免配送费'
     }
+
     this.setData({
       activityText,
       freeText
@@ -1134,7 +1136,7 @@ Page({
   },
   // banner图跳转链接
   linkUrl(e) {
-    if ((e.currentTarget.dataset.link).indexOf('https://')>-1){
+    if ((e.currentTarget.dataset.link).indexOf('https://') > -1 && (e.currentTarget.dataset.link).indexOf('https://')<4 ){
       redirectTo({
         url: '/pages/webview/webview?url='+ e.currentTarget.dataset.link
       });
