@@ -383,7 +383,7 @@ Page({
       nick_name: nickName
     };
     UpdateAliUserInfo(data).then(res => {
-
+       //这里不必成功与否
     })
   },
   chooseSex(e) {
