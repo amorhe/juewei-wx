@@ -33,7 +33,8 @@
     <image src="{{imageUrl}}deleteIcon.png" />
     <text>清空购物车</text>
   </view>
-  <view class="shopcartWrap">
+  <scroll-view class="shopcartWrap" scroll-y="true">
+    <view>
     <view class="goodsLi" wx:for="{{shopcartAll}}" wx:key="unique">
       <view class="goodsNameI">
         <view>
@@ -56,7 +57,8 @@
         </view>
       </view>
     </view>
-  </view>
+    </view>
+  </scroll-view>
   <view>
     <view class="nullView"></view>
   </view>

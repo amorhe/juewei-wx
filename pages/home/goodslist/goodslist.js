@@ -1135,7 +1135,7 @@ Page({
   },
   // banner图跳转链接
   linkUrl(e) {
-    if ((e.currentTarget.dataset.link).indexOf('https://')>-1){
+    if ((e.currentTarget.dataset.link).indexOf('https://') > -1 && (e.currentTarget.dataset.link).indexOf('https://')<4 ){
       redirectTo({
         url: '/pages/webview/webview?url='+ e.currentTarget.dataset.link
       });
