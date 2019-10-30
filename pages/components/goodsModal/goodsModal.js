@@ -156,22 +156,19 @@ Component({
         repurse_price = 0;
       for (let keys in goodlist) {
         if (e.currentTarget.dataset.goods_discount) {
-          if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${e.currentTarget.dataset.goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
+          if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
             $Toast({
-              content: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`,
-              icon: 'none'
-            });
-            priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-            console.log(priceAll)
-            if (e.currentTarget.dataset.key == '折扣') {
-              priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-            }
-          } else {
-            priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+              content: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`
+            })
+          }
+        }
+        if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+          priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+          if (keys.indexOf('PKG') == -1) {
+            priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           }
         } else {
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
-          priceFree += goodlist[keys].goods_price * goodlist[keys].num;
         }
 
         // 计算可换购商品价格

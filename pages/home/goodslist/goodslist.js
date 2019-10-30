@@ -900,19 +900,17 @@ Page({
         if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           $Toast({
             content: `折扣商品限购${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}，超过${e.currentTarget.dataset.goods_order_limit}${e.currentTarget.dataset.goods_unit}恢复原价`
-          })
-          priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-          if (e.currentTarget.dataset.key == '折扣') {
-            priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-          }
-        } else {
-          priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+          }) 
+        } 
+      } 
+      if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+        priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+        if (keys.indexOf('PKG') == -1) {
+          priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         }
       } else {
-        priceFree += goodlist[keys].goods_price * goodlist[keys].num;
-        priceAll += goodlist[keys].goods_price * goodlist[keys].num
+        priceAll += goodlist[keys].goods_price * goodlist[keys].num;
       }
-
       // 计算可换购商品价格
       if (goodlist[keys].huangou) {
         repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
@@ -1099,9 +1097,9 @@ Page({
         freeText = `已满${this.data.freeMoney / 100}元 免配送费`
       }
     }
-    // if (this.data.freeMoney == 0){
-    //   freeText = '免配送费'
-    // }
+    if (this.data.freeMoney == 0){
+      freeText = '免配送费'
+    }
     this.setData({
       activityText,
       freeText
