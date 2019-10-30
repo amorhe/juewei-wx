@@ -2,7 +2,7 @@
 import { imageUrl, imageUrl2 } from '../../../pages/common/js/baseUrl'
 import { log } from "../../../pages/common/js/utils";
 import Request from "../../../pages/common/js/li-ajax";
-import {navigateTo} from "../../../pages/common/js/router";
+import { navigateTo, reLaunch} from "../../../pages/common/js/router";
 
 const app = getApp();
 
@@ -177,7 +177,7 @@ Page({
    */
 
   switchTo() {
-    wx.switchTab({
+   reLaunch({
       url: '/pages/vip/index/index', // 跳转的 tabBar 页面的路径（需在 app.json 的 tabBar 字段定义的页面）。注意：路径后不能带参数
     });
   },

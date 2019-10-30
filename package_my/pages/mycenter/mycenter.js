@@ -20,6 +20,9 @@ import {
   redirectTo,
   reLaunch
 } from '../../../pages/common/js/router.js'
+import {
+  getNowFormatDate
+} from '../../../pages/common/js/time.js'
 const {
   $Toast
 } = require('../../../iview-weapp/base/index');
@@ -53,7 +56,8 @@ Page({
     city_i: 0,
     region_i: 0,
     defaultAddress: [0, 0, 0],
-    sex_array: ['女', '男']
+    sex_array: ['女', '男'],
+    nowDate:''
   },
 
   /**
@@ -63,6 +67,9 @@ Page({
     if (e.img && e.name) {
       this.getInfo(e.img, e.name)
     }
+    this.setData({
+      nowDate: getNowFormatDate()
+    })
   },
 
   /**
@@ -190,24 +197,22 @@ Page({
     })
   },
   // 生日选择器
-  Taptime() {
-    var that = this
-    wx.datePicker({
-      currentDate: '',
-      startDate: '1950-1-1',
-      endDate: '',
-      success: (res) => {
-        var birthday = res.date
-        UpdateUserInfo({
-          birthday: birthday,
-          _sid: wxGet('_sid')
-        }).then(res => {
-          that.setData({
-            'userinfo.birthday': birthday
-          })
+  Taptime(e) {
+    var that = this;
+    UpdateUserInfo({
+      birthday: e.detail.value,
+      _sid: wxGet('_sid')
+    }).then(res => {
+      if(res.code == 0){
+        that.setData({
+          'userinfo.birthday': e.detail.value
         })
-      },
-    });
+      }else{
+        $Toast({
+          content: res.msg
+        })
+      }
+    })
   },
 
   getAddressList() {
@@ -345,7 +350,7 @@ Page({
         })
       } else {
         $Toast({
-          content:res.msg
+          content: res.msg
         })
       }
     });

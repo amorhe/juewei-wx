@@ -217,7 +217,8 @@ Component({
         priceAll = 0,
         shopcartNum = 0,
         priceFree = 0,
-        repurse_price = 0;
+        repurse_price = 0,
+        newGoodlist = {};
       for (let keys in goodlist) {
         if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
@@ -235,24 +236,18 @@ Component({
         if (goodlist[keys].huangou) {
           repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
         }
-        shopcartAll.push(goodlist[keys]);
-        shopcartNum += goodlist[keys].num
-      }
-      // 删除
-      if (goodlist[`${code}_${format}`].num == 0) {
-        shopcartAll = this.data.shopcartAll.filter(item => `${item.goods_code}_${item.goods_format}` != `${code}_${format}`)
-        delete(goodlist[`${code}_${format}`]);
-      } else {
-        for (let keys in goodlist) {
-          shopcartAll.push(goodlist[keys])
+        if (goodlist[keys].num > 0) {
+          newGoodlist[keys] = goodlist[keys];
+          shopcartAll.push(goodlist[keys]);
+          shopcartNum += goodlist[keys].num;
         }
       }
-      this.bindCart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
+      this.bindCart(newGoodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
       this.setData({
-        goodsList: goodlist,
+        goodsList: newGoodlist,
         shopcartAll
       })
-      wxSet('goodsList', goodlist)
+      wxSet('goodsList', newGoodlist)
     },
     touchstart() {
 

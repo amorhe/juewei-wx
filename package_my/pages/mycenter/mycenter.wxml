@@ -20,10 +20,17 @@
     </view>
     <view class="listItem">
       <view class="Itemlabel">生日</view>
-      <view class="ItimInfo" wx:if="{{ userinfo.birthday=='0000-00-00' }}" bindtap="Taptime">请输入生日信息，保存后不可修改
+      <!-- <view class="ItimInfo" wx:if="{{ userinfo.birthday=='0000-00-00' }}" bindtap="Taptime">请输入生日信息，保存后不可修改
       </view>
-      <view class="ItimInfo" wx:else>{{ userinfo.birthday }}</view>
-      <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
+      <view class="ItimInfo" wx:else>{{ userinfo.birthday }}</view> -->
+      <view class="flexSpecial">
+        <picker mode="date" value="{{userinfo.birthday}}" end="{{nowDate}}" bindchange="Taptime">
+          <view class="picker">
+            {{userinfo.birthday}}
+          </view>
+        </picker>
+        <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
+      </view>
     </view>
     <view class="listItem" bindtap="showSelectAddress">
       <view class="Itemlabel">城市</view>

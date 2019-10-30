@@ -68,7 +68,7 @@ Component({
   },
   observers: {
     '**': function() {
-     
+
     }
   },
   /**
@@ -238,14 +238,18 @@ Component({
       let code = e.currentTarget.dataset.goods_code;
       let format = e.currentTarget.dataset.goods_format
       let goodlist = wxGet('goodsList') || {};
-
       goodlist[`${code}_${format}`].num -= 1;
       // 删除
       let shopcartAll = [],
         priceAll = 0,
         shopcartNum = 0,
         priceFree = 0,
-        repurse_price = 0;
+        repurse_price = 0,
+        newGoodlist = {};
+      let arr = this.data.shopcartAll.filter(item => item.goods_code == code)
+      for (let item of arr) {
+        goodlist[`${item.goods_code}_${item.goods_format}`].sumnum -= 1;
+      }
       for (let keys in goodlist) {
         if (goodlist[keys].goods_order_limit && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
@@ -259,26 +263,16 @@ Component({
         if (goodlist[keys].huangou) {
           repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
         }
-        shopcartAll.push(goodlist[keys]);
-        shopcartNum += goodlist[keys].num
-      }
-      let arr = this.data.shopcartAll.filter(item => item.goods_code == code)
-      for (let item of arr) {
-        goodlist[`${item.goods_code}_${item.goods_format}`].sumnum -= 1;
-      }
-      if (goodlist[`${code}_${format}`].num == 0) {
-        shopcartAll = this.data.shopcartAll.filter(item => `${item.goods_code}_${item.goods_format}` != `${code}_${format}`)
-        delete(goodlist[`${code}_${format}`]);
-      } else {
-        shopcartAll = [];
-        for (let keys in goodlist) {
-          shopcartAll.push(goodlist[keys])
+        if (goodlist[keys].num > 0) {
+          newGoodlist[keys] = goodlist[keys];
+          shopcartAll.push(goodlist[keys]);
+          shopcartNum += goodlist[keys].num
         }
       }
-      this.funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
-      wxSet('goodsList', goodlist)
+      this.funChangeshopcart(newGoodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price);
+      wxSet('goodsList', newGoodlist)
       // 购物车全部为空
-      if (Object.keys(goodlist).length == 0) {
+      if (Object.keys(newGoodlist).length == 0) {
         this.setData({
           showShopcar: false,
           mask1: false

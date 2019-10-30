@@ -40,7 +40,9 @@ import {
 import {
   event_getNavHeight
 } from '../../common/js/utils.js'
-const { $Toast } = require('../../../iview-weapp/base/index');
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 var app = getApp();
 let tim = null,
   goodsret = [];
@@ -199,12 +201,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
     // 定位地址
     this.setData({
-      firstAddress: app.globalData.address,
       type: app.globalData.type,
-      shopTakeOut: {}
+      shopTakeOut: {},
+      firstAddress: app.globalData.address
     })
     wx.showLoading({
       title: '加载中...'
@@ -257,6 +258,7 @@ Page({
       // 优惠券
       this.funGetcouponsExpire(wxGet('_sid'));
     } else {
+      // 设置scroll-view高度
       this.setData({
         totalH: wx.getSystemInfoSync().windowHeight * (750 / wx.getSystemInfoSync().windowWidth) - 408
       })
@@ -830,19 +832,22 @@ Page({
     })
   },
   // 购物车小球动画
-  funAnimate(e){
+  funAnimate(e) {
     let finger = {};
     finger['x'] = e.detail.touches[0].clientX / wx.getSystemInfoSync().windowWidth * 750;
     finger['y'] = e.detail.touches[0].clientY / wx.getSystemInfoSync().windowWidth * 750;
-    startAddShopAnimation([{ x: 80, y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 200 }, finger], this);
+    startAddShopAnimation([{
+      x: 80,
+      y: 750 * wx.getSystemInfoSync().windowHeight / wx.getSystemInfoSync().windowWidth - 200
+    }, finger], this);
   },
   // 加入购物车
   eveAddshopcart(e) {
     let events = {
-      detail:e
+      detail: e
     }
     this.funAnimate(events);
-    
+
     let goods_car = {};
     let goods_code = e.currentTarget.dataset.goods_code;
     let goods_format = e.currentTarget.dataset.goods_format;
@@ -944,7 +949,8 @@ Page({
       priceAll = 0,
       shopcartNum = 0,
       priceFree = 0,
-      repurse_price = 0;
+      repurse_price = 0,
+      newGoodlist = {};
     goodlist[`${code}_${format}`].num -= 1;
     goodlist[`${code}_${format}`].sumnum -= 1;
     for (let keys in goodlist) {
@@ -964,16 +970,14 @@ Page({
       if (goodlist[keys].huangou) {
         repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
       }
-      shopcartAll.push(goodlist[keys]);
-      shopcartNum += goodlist[keys].num
-    }
-    // 删除
-    if (goodlist[`${code}_${format}`].num == 0) {
-      shopcartAll = this.data.shopcartAll.filter(item => `${item.goods_code}_${format}` != `${code}_${format}`)
-      delete(goodlist[`${code}_${format}`]);
+      if (goodlist[keys].num > 0) {
+        newGoodlist[keys] = goodlist[keys];
+        shopcartAll.push(goodlist[keys]);
+        shopcartNum += goodlist[keys].num;
+      }
     }
     this.setData({
-      shopcartList: goodlist,
+      shopcartList: newGoodlist,
       shopcartAll,
       priceAll,
       shopcartNum,
@@ -981,8 +985,8 @@ Page({
       repurse_price
     })
     let datas = {
-      detail:{
-        goodlist,
+      detail: {
+        goodlist: newGoodlist,
         shopcartAll,
         priceAll,
         shopcartNum,
@@ -991,7 +995,7 @@ Page({
       }
     }
     this.funChangeShopcart(datas)
-    wxSet('goodsList', goodlist)
+    wxSet('goodsList', newGoodlist)
   },
   // sku商品
   funCart(data) {
@@ -1095,7 +1099,9 @@ Page({
         freeText = `已满${this.data.freeMoney / 100}元 免配送费`
       }
     }
-    // console.log(freeText)
+    // if (this.data.freeMoney == 0){
+    //   freeText = '免配送费'
+    // }
     this.setData({
       activityText,
       freeText
@@ -1132,7 +1138,7 @@ Page({
   },
   // 会员卡，卡券
   navigate(e) {
-    if (wxGet('user_id') == null && wxGet('userInfo') &&  wxGet('userInfo').user_id == null) {
+    if (wxGet('user_id') == null && wxGet('userInfo') && wxGet('userInfo').user_id == null) {
       navigateTo({
         url: '/pages/login/auth/auth'
       });

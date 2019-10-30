@@ -336,6 +336,7 @@ Page({
     //额外添加两个
     app.globalData.city = e.currentTarget.dataset.info.city;
     app.globalData.province = e.currentTarget.dataset.info.province;
+    app.globalData.position.district = e.currentTarget.dataset.info.area;
     let address = '';
     if (e.currentTarget.dataset.type == 1) {
       address = e.currentTarget.dataset.address;
@@ -353,6 +354,8 @@ Page({
     wxSet('lat', position[1]);
     wxSet('lng', position[0]);
     app.globalData.position = e.currentTarget.dataset.info;
+    app.globalData.city = e.currentTarget.dataset.info.city;
+    app.globalData.province = e.currentTarget.dataset.info.province;
     app.globalData.position.cityAdcode = '';
     app.globalData.position.districtAdcode = '';
     app.globalData.shopIng = null;
@@ -471,7 +474,7 @@ Page({
   // 新增地址
   eveAddAddressTap() {
     // 判断 是否登录
-    if (wxGet('userInfo').user_id == undefined ) {
+    if (!wxGet('userInfo') || wxGet('userInfo').user_id == undefined ) {
       navigateTo({
         url: '/pages/login/auth/auth'
       });

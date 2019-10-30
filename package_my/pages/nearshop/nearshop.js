@@ -67,6 +67,9 @@ Page({
     this.setData({
       city: app.globalData.city
     })
+    if (app.globalData.chooseBool) {
+      this.searchShop('', true)
+    } 
   },
 
   /**
@@ -104,29 +107,34 @@ Page({
 
   },
   funInputword(e) {
-    this.searchShop(e.detail.value)
+    this.searchShop(e.detail.value,true)
   },
   // 输入地址搜索门店
-  searchShop(value) {
+  searchShop(value, bol) {
     let that = this;
+    let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
+    url = encodeURI(url);
+    wx.request({
+      url,
+      success: (res) => {
+        if (res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
+          let lng = res.data.result.location.lng;
+          let lat = res.data.result.location.lat;
+          this.setData({
+            longitude: lng,
+            latitude: lat
+          })
+          wxSet('lng', lng);
+          wxSet('lat', lat)
+          that.nearShop(lng, lat);
+        }
+      },
+    });
     //附近地址列表
-    if (value != '') {
-      let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
-      url = encodeURI(url);
-      wx.request({
-        url,
-        success: (res) => {
-          if (res.data.result.level != "UNKNOWN" && res.data.result.level != this.data.level) {
-            let lng = res.data.result.location.lng;
-            let lat = res.data.result.location.lat;
-            let location = `${lng},${lat}`;
-            that.nearShop(lng, lat);
-            that.setData({
-              isSearch: true
-            })
-          }
-        },
-      });
+    if (bol && value != '') {
+      that.setData({
+        isSearch: true
+      })
     } else {
       that.setData({
         isSearch: false
@@ -174,6 +182,8 @@ Page({
             markersArray: arr,
             shopList: conf
           })
+          app.globalData.shopIng = conf[0];
+          app.globalData.address = conf[0].address
         })
       },
     });
@@ -210,7 +220,6 @@ Page({
   },
   // 导航
   goLocation(e) {
-    console.log(e)
     wx.openLocation({
       latitude: Number(e.currentTarget.dataset.latitude),
       longitude: Number(e.currentTarget.dataset.longitude),
@@ -221,10 +230,6 @@ Page({
   goSelf(e) {
     app.globalData.shopIng = e.currentTarget.dataset.info;
     app.globalData.type = 2;
-    // app.globalData.isSelf = true;
-    // wx.navigateBack({
-    //   delta: 1
-    // });
     wx.reLaunch({
       url: '/pages/home/goodslist/goodslist?isSelf=true'
     })

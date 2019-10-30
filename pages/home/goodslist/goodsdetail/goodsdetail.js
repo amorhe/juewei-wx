@@ -75,6 +75,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(e) {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 0
+    })
     let isPhone = app.globalData.isIphoneX;
     let goods = app.globalData.goodsArr,
       goodlist = wxGet('goodsList') || {},
@@ -174,7 +178,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    
+
   },
 
   /**
@@ -183,11 +187,11 @@ Page({
   onShareAppMessage: function() {
 
   },
-  funGetMoreComment(){
+  funGetMoreComment() {
     this.data.pagenum++;
     this.funGetCommentList(this.data.goodsInfo.goods_code, this.data.pagenum, this.data.pagesize);
   },
-  funGetMoreDispatch(){
+  funGetMoreDispatch() {
     this.data.pagenum++;
     const shop_id = wxGet('shop_id') || '';
     this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
@@ -422,7 +426,8 @@ Page({
       priceAll = 0,
       shopcartNum = 0,
       priceFree = 0,
-      repurse_price = 0;
+      repurse_price = 0,
+      newGoodlist = {};
     goodlist[`${code}_${format}`].num -= 1;
     goodlist[`${code}_${format}`].sumnum -= 1;
     for (let keys in goodlist) {
@@ -442,17 +447,15 @@ Page({
       if (goodlist[keys].huangou) {
         repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
       }
-      shopcartAll.push(goodlist[keys]);
-      shopcartNum += goodlist[keys].num
-    }
-    // 删除
-    if (goodlist[`${code}_${format}`].num == 0) {
-      shopcartAll = this.data.shopcartAll.filter(item => `${item.goods_code}_${format}` != `${code}_${format}`)
-      delete(goodlist[`${code}_${format}`]);
+      if (goodlist[keys].num > 0) {
+        newGoodlist[keys] = goodlist[keys]
+        shopcartAll.push(goodlist[keys]);
+        shopcartNum += goodlist[keys].num
+      }
     }
     let datas = {
       detail: {
-        goodlist,
+        goodlist: newGoodlist,
         shopcartAll,
         priceAll,
         shopcartNum,
@@ -462,11 +465,11 @@ Page({
     };
     this.funChangeShopcart(datas)
     this.setData({
-      shopcartList: goodlist,
+      shopcartList: newGoodlist,
       shopcartAll,
       priceAll,
       shopcartNum
     })
-    wxSet('goodsList', goodlist)
+    wxSet('goodsList', newGoodlist)
   },
 })
