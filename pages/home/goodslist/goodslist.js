@@ -1099,10 +1099,12 @@ Page({
         //加入变量说明可以免配送
         app.globalData.freetf = true;
       }
-    }
-    if (this.data.freeMoney == 0){
+    }else if(this.data.freeMoney == 0){
+      //加入变量说明可以免配送
+      app.globalData.freetf = true;
       freeText = '免配送费'
     }
+
     this.setData({
       activityText,
       freeText

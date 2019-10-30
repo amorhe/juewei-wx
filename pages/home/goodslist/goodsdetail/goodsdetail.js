@@ -135,7 +135,7 @@ Page({
     // 购物车活动提示
     this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
     // 评论
-    this.funGetCommentList(goodsInfo.goods_code, this.data.pagenum, this.data.pagesize);
+    this.funGetCommentList(e.goods_code, this.data.pagenum, this.data.pagesize);
     this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
   },
 
