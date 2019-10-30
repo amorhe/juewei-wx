@@ -205,7 +205,7 @@ Page({
     this.setData({
       type: app.globalData.type,
       shopTakeOut: {},
-      firstAddress: app.globalData.address
+      firstAddress: app.globalData.address,
     })
     wx.showLoading({
       title: '加载中...'
@@ -248,6 +248,7 @@ Page({
       })
     }
     app.globalData.switchClick = null;
+    app.globalData.city = app.globalData.shopTakeOut.city
     if (app.globalData.activityList) {
       app.globalData.activityList.DIS = [];
       app.globalData.activityList.PKG = [];

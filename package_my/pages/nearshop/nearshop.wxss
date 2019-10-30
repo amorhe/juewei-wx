@@ -1,13 +1,10 @@
 .searchView {
   padding: 18rpx 32rpx;
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  background: #fff
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .searchView>view {
-  width: 686rpx;
   height: 64rpx;
   background: #EEE;
   border-radius: 32rpx;
@@ -15,6 +12,16 @@
   align-items: center;
   overflow: hidden
 }
+.mask_vciew {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  left: 0;
+  top: 106rpx;
+  z-index: 10
+}
+
 .positionAddress {
   display: flex;
   align-items: center;
@@ -35,18 +42,16 @@
   height: 40rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 20rpx 0 16rpx;
   flex: 1
 }
 .searchIcon {
   width: 24rpx;
   height: 24rpx;
-  margin-left: 16rpx;
+  margin-right: 20rpx
 }
-.searchBox>input {
-  width: 432rpx;
-  margin-left: 8rpx;
-  background: #EEE
-}
+
 .colorGray {
   color: #ccc
 }
@@ -127,4 +132,44 @@
   height: 100rpx;
   z-index: 1000;
   background: transparent;
+}
+
+.noResult {
+  position: fixed;
+  left: 0;
+  top: 100rpx;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  z-index: 10;
+  text-align: center;
+  padding-top: 213rpx;
+  box-sizing: border-box
+}
+.position_icon {
+  width: 320rpx;
+  height: 320rpx;
+}
+
+.fontss {
+  font-size: 24rpx;
+  color: #999;
+  width: 408rpx;
+  margin: 0 auto
+}
+
+.searchBox>view {
+  display: flex;
+  align-items: center;
+  flex: 1
+}
+.searchBox>view>input {
+  margin-left: 8rpx;
+  background: #eee;
+}
+.arrow {
+  width: 32rpx;
+  height: 32rpx;
+  position: relative;
+  z-index: 100
 }
