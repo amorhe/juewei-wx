@@ -205,7 +205,7 @@ Page({
     this.setData({
       type: app.globalData.type,
       shopTakeOut: {},
-      firstAddress: (this.data.isSelf?app.globalData.address1 : app.globalData.address)
+      firstAddress: (this.data.isSelf ? app.globalData.address1 : app.globalData.address)
     })
     wx.showLoading({
       title: '加载中...'
@@ -280,7 +280,7 @@ Page({
     }
     this.funGetBannerList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id); //banner
     this.funGetShowpositionList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id);
-    this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id,    app.globalData.type, user_id, app.globalData.type) //营销活动
+    this.funGetActivityList(this.data.shopTakeOut.city_id, this.data.shopTakeOut.district_id, this.data.shopTakeOut.company_sale_id, app.globalData.type, user_id, app.globalData.type) //营销活动
     wxSet('vip_address', app.globalData.shopTakeOut);
     this.funGotopage();
   },
@@ -911,6 +911,9 @@ Page({
       priceFree = 0,
       repurse_price = 0;
     for (let keys in goodlist) {
+      if (!goodlist[keys].goods_price) {
+        continue
+      }
       if (e.currentTarget.dataset.goods_discount) {
         if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           $Toast({
@@ -918,12 +921,12 @@ Page({
           })
         }
       }
-      if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit!=null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+      if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         if (keys.indexOf('PKG') == -1) {
           priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         }
-      } else if (goodlist[keys].goods_price && goodlist[keys].num){
+      } else if (goodlist[keys].goods_price && goodlist[keys].num) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].num;
       } else {
 
@@ -970,6 +973,9 @@ Page({
     goodlist[`${code}_${format}`].num -= 1;
     goodlist[`${code}_${format}`].sumnum -= 1;
     for (let keys in goodlist) {
+      if (!goodlist[keys].goods_price) {
+        continue
+      }
       if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         if (keys.indexOf('PKG') == -1) {
@@ -977,7 +983,7 @@ Page({
         }
       } else if (goodlist[keys].goods_price && goodlist[keys].num) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].num;
-      }else{
+      } else {
 
       }
       // 计算包邮商品价格
@@ -1119,7 +1125,7 @@ Page({
         //加入变量说明可以免配送
         app.globalData.freetf = true;
       }
-    }else if(this.data.freeMoney == 0){
+    } else if (this.data.freeMoney == 0) {
       //加入变量说明可以免配送
       app.globalData.freetf = true;
       freeText = '免配送费'
@@ -1155,11 +1161,11 @@ Page({
   },
   // banner图跳转链接
   linkUrl(e) {
-    if ((e.currentTarget.dataset.link).indexOf('https://') > -1 && (e.currentTarget.dataset.link).indexOf('https://')<4 ){
+    if ((e.currentTarget.dataset.link).indexOf('https://') > -1 && (e.currentTarget.dataset.link).indexOf('https://') < 4) {
       redirectTo({
-        url: '/pages/webview/webview?url='+ e.currentTarget.dataset.link
+        url: '/pages/webview/webview?url=' + e.currentTarget.dataset.link
       });
-    }else{
+    } else {
       navigateTo({
         url: e.currentTarget.dataset.link
       });
@@ -1170,11 +1176,11 @@ Page({
     let userid = wxGet('user_id');
     let userInfo = wxGet('userInfo');
     //判断更加严谨
-    if (userid && userid != '' && userInfo && userInfo.user_id!='') {
+    if (userid && userid != '' && userInfo && userInfo.user_id != '') {
       navigateTo({
         url: e.currentTarget.dataset.url
       });
-    }else{
+    } else {
       navigateTo({
         url: '/pages/login/auth/auth'
       });

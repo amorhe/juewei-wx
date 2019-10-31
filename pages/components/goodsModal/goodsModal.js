@@ -155,6 +155,9 @@ Component({
         priceFree = 0,
         repurse_price = 0;
       for (let keys in goodlist) {
+        if (!goodlist[keys].goods_price) {
+          continue
+        }
         if (e.currentTarget.dataset.goods_discount) {
           if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
             $Toast({
@@ -219,12 +222,15 @@ Component({
         repurse_price = 0,
         newGoodlist = {};
       for (let keys in goodlist) {
+        if (!goodlist[keys].goods_price) {
+          continue
+        }
         if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           if (keys.indexOf('PKG') == -1) {
             priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           }
-        } else if (goodlist[keys].goods_price && goodlist[keys].num){
+        } else if (goodlist[keys].goods_price && goodlist[keys].num) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
         } else {
           //不做处理
