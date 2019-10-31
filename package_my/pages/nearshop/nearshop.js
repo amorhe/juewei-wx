@@ -70,11 +70,11 @@ Page({
     this.setData({
       city: app.globalData.city2 || app.globalData.city
     })
-    this.searchShop('', true);
-    // if (app.globalData.chooseBool) {
-    //   this.searchShop('', true)
-    //   app.globalData.chooseBool=false;
-    // }
+    // this.searchShop('', true);
+    if (app.globalData.chooseBool) {
+      this.searchShop('', true)
+      app.globalData.chooseBool=false;
+    }
   },
 
   /**
@@ -129,8 +129,9 @@ Page({
             longitude: lng,
             latitude: lat
           })
-          wxSet('lng', lng);
-          wxSet('lat', lat)
+          //这个不能改当前的定位
+          // wxSet('lng', lng);
+          // wxSet('lat', lat)
           that.nearShop(lng, lat);
         }
       },
