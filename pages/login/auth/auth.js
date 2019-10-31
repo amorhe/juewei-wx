@@ -213,7 +213,11 @@ Page({
       if (res.code === 0) {
         wxSet('userInfo', { ...rest, ...res.data });
         wxSet('user_id', res.data.user_id);
-        reLaunch({ url: '/pages/my/index/index' })
+         //快捷登录 后退到前一个页面
+         wx.navigateBack({
+          delta: 1
+        })
+        // reLaunch({ url: '/pages/my/index/index' })
       } else {
         $Toast({
           content: res.msg
