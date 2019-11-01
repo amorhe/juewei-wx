@@ -33,7 +33,7 @@ export const ak_wx = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 
 
 
-// // 生产环境
+// 生产环境
 // export const baseUrl = 'https://wap.juewei.com/api';
 // export const baseUrl1 = 'https://saas.juewei.com';
 // // 图片测试cdn
@@ -53,7 +53,7 @@ export const ak_wx = 'Xp8lScY0eQ50WN9dSyCmC3x058fU98O7';
 // 判断是否测试环境
 const isTestUrl = baseUrl.includes('test');
 // 套餐图片路径
-export const img_url = isTestUrl?imageUrl2:imageUrl3;
+export const img_url = isTestUrl ? imageUrl2 : imageUrl3;
 
 // 异步获取缓存
 export const wxGet = (key) => {

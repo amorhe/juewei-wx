@@ -1,3 +1,9 @@
+<wxs module="m1">
+  var includes = function(value) {
+    return value.indexOf('imgcdnjwd.juewei.com') != -1
+  }
+  module.exports.includes = includes;
+</wxs>
 <view class="orderContainer">
   <!-- 外卖 -->
   <view class="addressView" wx:if="{{orderType==1}}">
@@ -151,9 +157,9 @@
     </view>
     <!-- 换购商品有多个 -->
     <scroll-view class="repurseView" scroll-x wx:if="{{repurseList.length>1}}">
-      <view style="width:{{581*repurseList.length}}rpx">
+      <view style="width:{{581*repurseList.length}}rpx;display:flex;align-items:center">
         <view class="repurseGoodsInfo" wx:for="{{repurseList}}" wx:key="unique">
-          <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{item.gift_img_url}}" />
+          <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:img_url + item.gift_img_url}}" />
           <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
           <view>
             <view>
@@ -180,7 +186,7 @@
     </scroll-view>
     <!-- 换购商品只有一个 -->
     <view class="repurseGoodsInfo" wx:for="{{repurseList}}" style="width:654rpx" wx:if="{{repurseList.length==1}}" wx:key="unique">
-      <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{item.gift_img_url}}" />
+      <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:img_url + item.gift_img_url}}" />
       <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
       <view>
         <view>

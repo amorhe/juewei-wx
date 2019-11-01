@@ -68,75 +68,17 @@ Page({
     goodsInfo: {}, // 商品数据
     repurse_price: 0,
     freeId: '',
-    type: 1
+    type: 1,
+    goods_code: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(e) {
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 0
-    })
-    let isPhone = app.globalData.isIphoneX;
-    let goods = app.globalData.goodsArr,
-      goodlist = wxGet('goodsList') || {},
-      goodsInfo = {},
-      priceAll = 0,
-      shopcartAll = [],
-      shopcartNum = 0,
-      priceFree = 0,
-      repurse_price = 0,
-      shop_id = wxGet('shop_id') || {};
-    for (let value of goods) {
-      // 折扣套餐爆款
-      if (value.goods_discount_user_limit || value.goods_discount_id) {
-        if (value.goods_format[0].goods_activity_code == e.goods_code) {
-          goodsInfo = value;
-        }
-      } else {
-        if (value.goods_channel + value.goods_type + value.company_goods_id == e.goods_code) {
-          goodsInfo = value;
-        }
-      }
-    }
-    for (let keys in goodlist) {
-      if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
-        priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-        if (keys.indexOf('PKG') == -1) {
-          priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-        }
-      } else {
-        priceAll += goodlist[keys].goods_price * goodlist[keys].num;
-      }
-      // 计算包邮商品价格
-      if (!goodlist[keys].goods_discount) {
-        priceFree += goodlist[keys].goods_price * goodlist[keys].num;
-      }
-      // 计算可换购商品价格
-      if (goodlist[keys].huangou) {
-        repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
-      }
-      shopcartAll.push(goodlist[keys]);
-      shopcartNum += goodlist[keys].num
-    }
     this.setData({
-      goodsInfo,
-      shopcartList: goodlist,
-      priceAll,
-      shopcartAll,
-      shopcartNum,
-      freeMoney: app.globalData.freeMoney || -1,
-      repurse_price,
-      freeId: app.globalData.freeId,
-      type: app.globalData.type
+      goods_code : e.goods_code
     })
-    // 购物车活动提示
-    this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
-    // 评论
-    this.funGetCommentList(e.goods_code, this.data.pagenum, this.data.pagesize);
-    this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
   },
 
   /**
@@ -157,6 +99,68 @@ Page({
       scrollTop: 0,
       duration: 0
     })
+    let isPhone = app.globalData.isIphoneX;
+    let goods = app.globalData.goodsArr,
+      goodlist = wxGet('goodsList') || {},
+      goodsInfo = {},
+      priceAll = 0,
+      shopcartAll = [],
+      shopcartNum = 0,
+      priceFree = 0,
+      repurse_price = 0,
+      shop_id = wxGet('shop_id') || {};
+    for (let value of goods) {
+      // 折扣套餐爆款
+      if (value.goods_discount_user_limit || value.goods_discount_id) {
+        if (value.goods_format[0].goods_activity_code == this.data.goods_code) {
+          goodsInfo = value;
+        }
+      } else {
+        if (value.goods_channel + value.goods_type + value.company_goods_id == this.data.goods_code) {
+          goodsInfo = value;
+        }
+      }
+    }
+    for (let keys in goodlist) {
+      if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+        priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+        if (keys.indexOf('PKG') == -1) {
+          priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+        }
+      } else {
+        priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+      }
+      // 计算包邮商品价格
+      if (!goodlist[keys].goods_discount) {
+        priceFree += goodlist[keys].goods_price * goodlist[keys].num;
+      }
+      // 计算可换购商品价格
+      if (app.globalData.repurseGoods.length > 0) {
+        if (goodlist[keys].huangou) {
+          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+      } else {
+        repurse_price = priceAll
+      }
+      shopcartAll.push(goodlist[keys]);
+      shopcartNum += goodlist[keys].num
+    }
+    this.setData({
+      goodsInfo,
+      shopcartList: goodlist,
+      priceAll,
+      shopcartAll,
+      shopcartNum,
+      freeMoney: app.globalData.freeMoney || -1,
+      repurse_price,
+      freeId: app.globalData.freeId,
+      type: app.globalData.type
+    })
+    // 购物车活动提示
+    this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
+    // 评论
+    this.funGetCommentList(this.data.goods_code, this.data.pagenum, this.data.pagesize);
+    this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
   },
 
   /**
@@ -230,7 +234,7 @@ Page({
         //加入变量说明可以免配送
         app.globalData.freetf = true;
       }
-    }else if(this.data.freeMoney == 0) {
+    } else if (this.data.freeMoney == 0) {
       freeText = '免配送费'
       //加入变量说明可以免配送
       app.globalData.freetf = true;
@@ -403,14 +407,18 @@ Page({
         if (keys.indexOf('PKG') == -1) {
           priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         }
-      } else if (goodlist[keys].goods_price && goodlist[keys].num){
+      } else if (goodlist[keys].goods_price && goodlist[keys].num) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].num;
-      }else{
+      } else {
 
       }
       // 计算可换购商品价格
-      if (goodlist[keys].huangou) {
-        repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+      if (app.globalData.repurseGoods.length > 0) {
+        if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
+          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+      } else {
+        repurse_price = priceAll
       }
       shopcartAll.push(goodlist[keys]);
       shopcartNum += goodlist[keys].num
@@ -456,7 +464,7 @@ Page({
         if (keys.indexOf('PKG') == -1) {
           priceFree += (parseInt(goodlist[keys].num) - parseInt(goodlist[keys].goods_order_limit)) * parseInt(goodlist[keys].goods_original_price);
         }
-      } else if (goodlist[keys].goods_price && goodlist[keys].num){
+      } else if (goodlist[keys].goods_price && goodlist[keys].num) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].num;
       } else {
 
@@ -466,8 +474,12 @@ Page({
         priceFree += goodlist[keys].goods_price * goodlist[keys].num;
       }
       // 计算可换购商品价格
-      if (goodlist[keys].huangou) {
-        repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+      if (app.globalData.repurseGoods.length > 0) {
+        if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
+          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+      } else {
+        repurse_price = priceAll
       }
       if (goodlist[keys].num > 0) {
         newGoodlist[keys] = goodlist[keys]

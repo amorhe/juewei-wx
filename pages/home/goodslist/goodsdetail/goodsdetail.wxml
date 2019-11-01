@@ -108,8 +108,8 @@
       <view class="goodsintro">
         <!-- 好评率 -->
         <view class="percentView">
-          <view wx:if="{{commentArr.statistics}}" style="width:{{686 * (commentArr.statistics.good-0) / (commentArr.statistics.all-0)}}rpx">好评率{{m1.numberToFix((commentArr.statistics.good-0) / (commentArr.statistics.all-0) * 100)}}%</view>
-          <view style="background:transparent;width:100%;color:#FFE100" wx:if="{{!commentArr.statistics}}">好评率0%</view>
+          <view wx:if="{{commentArr.statistics && commentArr.statistics.good>0}}" style="width:{{686 * (commentArr.statistics.good-0) / (commentArr.statistics.all-0)}}rpx">好评率{{m1.numberToFix((commentArr.statistics.good-0) / (commentArr.statistics.all-0) * 100)}}%</view>
+          <view style="background:transparent;width:100%;color:#FFE100" wx:if="{{!commentArr.statistics || commentArr.statistics.good==0}}">好评率0%</view>
         </view>
       </view>
       <view class="tagView" wx:if="{{commentArr.show_tags.length>0}}">
@@ -155,8 +155,8 @@
       <view class="goodsintro">
         <!-- 好评率 -->
         <view class="percentView">
-          <view wx:if="{{dispatchArr.statistics}}" style="width:{{686 * (dispatchArr.statistics.good-0) / (dispatchArr.statistics.all-0)}}rpx">好评率{{m1.numberToFix((dispatchArr.statistics.good-0) / (dispatchArr.statistics.all-0) * 100)}}%</view>
-          <view style="background:transparent;width:100%;color:#FFE100" wx:if="{{!dispatchArr.statistics}}">好评率0%</view>
+          <view wx:if="{{dispatchArr.statistics && dispatchArr.statistics.good > 0}}" style="width:{{686 * (dispatchArr.statistics.good-0) / (dispatchArr.statistics.all-0)}}rpx">好评率{{m1.numberToFix((dispatchArr.statistics.good-0) / (dispatchArr.statistics.all-0) * 100)}}%</view>
+          <view style="background:transparent;width:100%;color:#FFE100" wx:if="{{!dispatchArr.statistics || dispatchArr.statistics.good ==0}}">好评率0%</view>
         </view>
       </view>
       <view class="tagView" wx:if="{{dispatchArr.show_tags.length>0}}">

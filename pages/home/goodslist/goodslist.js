@@ -770,8 +770,12 @@ Page({
                 if (!shopcartObj[val].goods_discount) {
                   priceFree += shopcartObj[val].goods_price * shopcartObj[val].num;
                 }
-                if (shopcartObj[val].huangou) {
-                  repurse_price += shopcartObj[val].goods_price * shopcartObj[val].num;
+                if (app.globalData.repurseGoods > 0) {
+                  if (shopcartObj[val].huangou) {
+                    repurse_price += shopcartObj[val].goods_price * shopcartObj[val].num;
+                  }
+                } else {
+                  repurse_price = priceAll
                 }
                 shopcartAll.push(shopcartObj[val]);
                 shopcartNum += shopcartObj[val].num;
@@ -932,8 +936,12 @@ Page({
 
       }
       // 计算可换购商品价格
-      if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
-        repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+      if (app.globalData.repurseGoods.length > 0) {
+        if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
+          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+      } else {
+        repurse_price = priceAll
       }
       shopcartAll.push(goodlist[keys]);
       shopcartNum += goodlist[keys].num
@@ -991,8 +999,12 @@ Page({
         priceFree += goodlist[keys].goods_price * goodlist[keys].num;
       }
       // 计算可换购商品价格
-      if (goodlist[keys].huangou) {
-        repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+      if (app.globalData.repurseGoods.length > 0) {
+        if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
+          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        }
+      } else {
+        repurse_price = priceAll
       }
       if (goodlist[keys].num > 0) {
         newGoodlist[keys] = goodlist[keys];

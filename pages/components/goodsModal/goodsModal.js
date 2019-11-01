@@ -10,6 +10,7 @@ import {
 const {
   $Toast
 } = require('../../../iview-weapp/base/index');
+var app = getApp();
 Component({
   // 组件样式隔离
   options: {
@@ -177,8 +178,12 @@ Component({
         }
 
         // 计算可换购商品价格
-        if (goodlist[keys].huangou) {
-          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        if (app.globalData.repurseGoods.length > 0) {
+          if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
+            repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+          }
+        } else {
+          repurse_price = priceAll
         }
         shopcartAll.push(goodlist[keys]);
         shopcartNum += goodlist[keys].num
@@ -240,8 +245,12 @@ Component({
           priceFree += goodlist[keys].goods_price * goodlist[keys].num;
         }
         // 计算可换购商品价格
-        if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
-          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+        if (app.globalData.repurseGoods.length > 0) {
+          if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
+            repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+          }
+        } else {
+          repurse_price = priceAll
         }
         if (goodlist[keys].num > 0) {
           newGoodlist[keys] = goodlist[keys];
