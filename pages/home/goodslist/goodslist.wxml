@@ -184,7 +184,7 @@
           <view class="goodsBox" wx:for="{{item.last}}" wx:key="unique" wx:for-index="i" wx:for-item="v" catchtap="eveGoodsdetailContent" data-freeMoney="{{freeMoney}}" data-goods_code="{{v.goods_format[0].goods_activity_code || (v.goods_channel + v.goods_type + v.company_goods_id)}}"
             data-goods_id="{{v.goods_id}}" data-shop_id="{{v}}" data-key="{{item.key}}" wx:if="{{item.key=='套餐'||item.key=='爆款'||item.key=='折扣'}}">
             <view class="discountImg">
-              <image wx:if="{{item.key=='折扣'}}" class="discountPng" src="{{imageUrl}}discount_img.png" />
+              <image wx:if="{{item.key=='折扣' || item.key=='套餐'}}" class="discountPng" src="{{imageUrl}}discount_img.png" />
               <image wx:if="{{item.huangou==1}}" class="discountPng" mode="scaleToFill" src="{{imageUrl}}markup_icon.png" />
               <image wx:if="{{item.key=='套餐'}}" class="goodsImage1" src="{{img_url + v.goods_img[0]}}" />
               <image wx:if="{{item.key!='套餐'}}" class="goodsImage1" src="{{v.goods_img[0]}}" />
