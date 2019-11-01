@@ -413,7 +413,7 @@ Component({
             priceFree += shopcartObj[val].goods_price * shopcartObj[val].num;
           }
           if (app.globalData.repurseGoods.length > 0) {
-            if (shopcartObj[val].huangou) {
+            if (shopcartObj[val].huangou && shopcartObj[val].goods_price && shopcartObj[val].num) {
               repurse_price += shopcartObj[val].goods_price * shopcartObj[val].num;
             }
           } else {
