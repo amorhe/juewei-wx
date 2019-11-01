@@ -77,7 +77,7 @@ Page({
    */
   onLoad: function(e) {
     this.setData({
-      goods_code : e.goods_code
+      goods_code: e.goods_code
     })
   },
 
@@ -100,15 +100,28 @@ Page({
       duration: 0
     })
     let isPhone = app.globalData.isIphoneX;
-    let goods = app.globalData.goodsArr,
-      goodlist = wxGet('goodsList') || {},
+    let
+      num = 0, // 购物车总数量
+      shopcartAll = [], // 购物车数组
+      priceAll = 0, // 总价
+      shopcartNum = 0, // 购物车总数量
+      priceFree = 0, // 满多少包邮
+      shopcartObj = {}, //商品列表 
+      repurse_price = 0, // 换购活动提示价
+      snum = 0,
       goodsInfo = {},
-      priceAll = 0,
-      shopcartAll = [],
-      shopcartNum = 0,
-      priceFree = 0,
-      repurse_price = 0,
-      shop_id = wxGet('shop_id') || {};
+      goods = app.globalData.goodsArr,
+      shop_id = wxGet('shop_id') || {},
+      DIS = app.globalData.DIS,
+      PKG = app.globalData.PKG,
+      goodsList = wxGet('goodsList');
+    if (goodsList == undefined) {
+      shopcartAll = [];
+      shopcartNum = 0;
+      priceFree = 0;
+      priceAll = 0;
+      repurse_price = 0
+    };
     for (let value of goods) {
       // 折扣套餐爆款
       if (value.goods_discount_user_limit || value.goods_discount_id) {
@@ -121,45 +134,166 @@ Page({
         }
       }
     }
-    for (let keys in goodlist) {
-      if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
-        priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-        if (keys.indexOf('PKG') == -1) {
-          priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-        }
-      } else if (goodlist[keys].goods_price && goodlist[keys].num) {
-        priceAll += goodlist[keys].goods_price * goodlist[keys].num;
-      }else {
-        
-      }
-      // 计算包邮商品价格
-      if (!goodlist[keys].goods_discount) {
-        priceFree += goodlist[keys].goods_price * goodlist[keys].num;
-      }
-      // 计算可换购商品价格
-      if (app.globalData.repurseGoods.length > 0) {
-        if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
-          repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+    // 判断购物车商品是否在当前门店里
+    for (let val in goodsList) {
+      if (goodsList[val].goods_discount) {
+        if (DIS != null || PKG != null) {
+          // 折扣
+          if (goodsList[val].goods_code.indexOf('PKG') == -1 && DIS != null) {
+            for (let ott of DIS) {
+              for (let fn of ott.goods_format) {
+                if (val == `${fn.goods_activity_code}_${fn.type}`) {
+                  shopcartObj[val] = goodsList[val];
+                  // 判断购物车商品价格更新
+                  if (goodsList[val].goods_price != fn.goods_price) {
+                    snum += shopcartObj[val].num;
+                    shopcartObj[val].goods_price = fn.goods_price
+                  }
+                }
+              }
+            }
+          } else {
+            // 套餐
+            if (PKG != null) {
+              for (let ott of PKG) {
+                for (let fn of ott.goods_format) {
+                  if (val == `${fn.goods_activity_code}_${fn.type != undefined ? fn.type : ''}`) {
+                    shopcartObj[val] = goodsList[val];
+                    // 判断购物车商品价格更新
+                    if (goodsList[val].goods_price != fn.goods_price) {
+                      snum += shopcartObj[val].num;
+                      shopcartObj[val].goods_price = fn.goods_price
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       } else {
-        repurse_price = priceAll
+        // 普通不带折扣的
+        if (app.globalData.goodsCommon) {
+          for (let value of app.globalData.goodsCommon) {
+            for (let fn of value.goods_format) {
+              // 在门店
+              if (val == `${value.goods_channel}${value.goods_type}${value.company_goods_id}_${fn.type}`) {
+                shopcartObj[val] = goodsList[val];
+                // 判断购物车商品价格更新
+                if (goodsList[val].goods_price != fn.goods_price) {
+                  snum += shopcartObj[val].num;
+                  shopcartObj[val].goods_price = fn.goods_price
+                }
+              }
+            }
+          }
+        }
       }
-      shopcartAll.push(goodlist[keys]);
-      shopcartNum += goodlist[keys].num
+      num += goodsList[val].num;
+      // 计算购物车是否在门店内后筛选剩余商品价格
+      if (shopcartObj[val]) { //判断商品是否存在
+        if (shopcartObj[val].goods_discount && shopcartObj[val].num > shopcartObj[val].goods_order_limit) {
+          priceAll += shopcartObj[val].goods_price * shopcartObj[val].goods_order_limit + (shopcartObj[val].num - goodsList[val].goods_order_limit) * shopcartObj[val].goods_original_price;
+          priceFree += (shopcartObj[val].num - shopcartObj[val].goods_order_limit) * shopcartObj[val].goods_original_price;
+        } else if (shopcartObj[val].goods_price && shopcartObj[val].num) {
+          priceAll += shopcartObj[val].goods_price * shopcartObj[val].num;
+        } else {
+
+        }
+        if (!shopcartObj[val].goods_discount) {
+          priceFree += shopcartObj[val].goods_price * shopcartObj[val].num;
+        }
+        if (app.globalData.repurseGoods > 0) {
+          if (shopcartObj[val].huangou && shopcartObj[val].goods_price && shopcartObj[val].num) {
+            repurse_price += shopcartObj[val].goods_price * shopcartObj[val].num;
+          }
+        } else {
+          repurse_price = priceAll
+        }
+        shopcartAll.push(shopcartObj[val]);
+        shopcartNum += shopcartObj[val].num;
+      }
+    }
+    // 购物车活动提示
+    if (!wxGet('goodsList')) {
+      let data = {}
+      this.funChangeShopcart(data);
+    } else {
+      this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
     }
     this.setData({
-      goodsInfo,
-      shopcartList: goodlist,
+      shopcartList: shopcartObj,
       priceAll,
       shopcartAll,
       shopcartNum,
+      priceFree,
+      repurse_price,
+      goodsInfo,
       freeMoney: app.globalData.freeMoney || -1,
       repurse_price,
       freeId: app.globalData.freeId,
       type: app.globalData.type
     })
+    wxSet('goodsList', shopcartObj);
+    // let goods = app.globalData.goodsArr,
+    //   goodlist = wxGet('goodsList') || {},
+    //   goodsInfo = {},
+    //   priceAll = 0,
+    //   shopcartAll = [],
+    //   shopcartNum = 0,
+    //   priceFree = 0,
+    //   repurse_price = 0,
+    //   shop_id = wxGet('shop_id') || {};
+    // for (let value of goods) {
+    //   // 折扣套餐爆款
+    //   if (value.goods_discount_user_limit || value.goods_discount_id) {
+    //     if (value.goods_format[0].goods_activity_code == this.data.goods_code) {
+    //       goodsInfo = value;
+    //     }
+    //   } else {
+    //     if (value.goods_channel + value.goods_type + value.company_goods_id == this.data.goods_code) {
+    //       goodsInfo = value;
+    //     }
+    //   }
+    // }
+    // for (let keys in goodlist) {
+    //   if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
+    //     priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+    //     if (keys.indexOf('PKG') == -1) {
+    //       priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+    //     }
+    //   } else if (goodlist[keys].goods_price && goodlist[keys].num) {
+    //     priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+    //   }else {
+
+    //   }
+    //   // 计算包邮商品价格
+    //   if (!goodlist[keys].goods_discount) {
+    //     priceFree += goodlist[keys].goods_price * goodlist[keys].num;
+    //   }
+    //   // 计算可换购商品价格
+    //   if (app.globalData.repurseGoods.length > 0) {
+    //     if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
+    //       repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
+    //     }
+    //   } else {
+    //     repurse_price = priceAll
+    //   }
+    //   shopcartAll.push(goodlist[keys]);
+    //   shopcartNum += goodlist[keys].num
+    // }
+    // this.setData({
+    //   goodsInfo,
+    //   shopcartList: goodlist,
+    //   priceAll,
+    //   shopcartAll,
+    //   shopcartNum,
+    //   freeMoney: app.globalData.freeMoney || -1,
+    //   repurse_price,
+    //   freeId: app.globalData.freeId,
+    //   type: app.globalData.type
+    // })
     // 购物车活动提示
-    this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
+    // this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
     // 评论
     this.funGetCommentList(this.data.goods_code, this.data.pagenum, this.data.pagesize);
     this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
