@@ -764,8 +764,10 @@ Page({
                 if (shopcartObj[val].goods_discount && shopcartObj[val].num > shopcartObj[val].goods_order_limit) {
                   priceAll += shopcartObj[val].goods_price * shopcartObj[val].goods_order_limit + (shopcartObj[val].num - goodsList[val].goods_order_limit) * shopcartObj[val].goods_original_price;
                   priceFree += (shopcartObj[val].num - shopcartObj[val].goods_order_limit) * shopcartObj[val].goods_original_price;
-                } else {
+                } else if (shopcartObj[val].goods_price && shopcartObj[val].num) {
                   priceAll += shopcartObj[val].goods_price * shopcartObj[val].num;
+                }else{
+                  
                 }
                 if (!shopcartObj[val].goods_discount) {
                   priceFree += shopcartObj[val].goods_price * shopcartObj[val].num;

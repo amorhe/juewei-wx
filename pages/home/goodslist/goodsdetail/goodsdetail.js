@@ -127,8 +127,10 @@ Page({
         if (keys.indexOf('PKG') == -1) {
           priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
         }
-      } else {
+      } else if (goodlist[keys].goods_price && goodlist[keys].num) {
         priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+      }else {
+        
       }
       // 计算包邮商品价格
       if (!goodlist[keys].goods_discount) {

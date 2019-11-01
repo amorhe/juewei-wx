@@ -223,8 +223,10 @@ Component({
           if (keys.indexOf('PKG') == -1) {
             priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           }
-        } else {
+        } else if (goodlist[keys].goods_price && goodlist[keys].num) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+        }else{
+
         }
         // 计算可换购商品价格
         if (app.globalData.repurseGoods.length > 0) {
@@ -266,8 +268,10 @@ Component({
         }
         if (goodlist[keys].goods_order_limit && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-        } else {
+        } else if (goodlist[keys].goods_price && goodlist[keys].num) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
+        }else{
+          
         }
         if (!goodlist[keys].goods_discount) {
           priceFree += goodlist[keys].goods_price * goodlist[keys].num;
