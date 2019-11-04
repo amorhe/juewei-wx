@@ -175,11 +175,11 @@
             </view>
           </view>
           <view class="goodsNumber flexRow" wx:if="{{gifts[item.id].num}}">
-            <image src="{{imageUrl}}goods_reduce.png" bindtap="eveReduceBtnTap" />
+            <image src="{{imageUrl}}goods_reduce.png" bindtap="reduceBtnTap" />
             <text>{{gifts[item.id].num}}</text>
             <image mode="scaleToFill" src="{{imageUrl}}goods_add2.png" />
           </view>
-          <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
+          <button class="repurseBtn" hover-class="none" bindtap="addRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
             wx:if="{{!gifts[item.id].num}}">换购</button>
         </view>
       </view>
@@ -206,8 +206,7 @@
         <text>{{gifts[item.id].num}}</text>
         <image mode="scaleToFill" src="{{imageUrl}}goods_add2.png" />
       </view>
-      <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
-        wx:if="{{!gifts[item.id].num}}">换购</button>
+      <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}" wx:if="{{!gifts[item.id].num}}">换购</button>
     </view>
     <view class="repursePrice" wx:if="{{gifts[gift_id].num}}">
       <text class="fontTwentySix">小计</text>

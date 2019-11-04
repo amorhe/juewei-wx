@@ -10,7 +10,7 @@ import {
 
 App({
   onLaunch: function (options) {
-    // //清除所有缓存
+    // 清除所有缓存
     // try {
     //   wx.clearStorageSync()
     // } catch (e) {

@@ -37,7 +37,13 @@ Component({
     priceAll: Number,
     type: Number,
     freeId: String,
-    freeText: String,
+    freeText: {
+      type: String,
+      value:'',
+      observer: function (newData, oldData) {
+        this.funGetSendPrice();
+      }
+    },
     isOpen: Number
   },
 
@@ -209,7 +215,7 @@ Component({
         repurse_price = 0;
       for (let keys in goodlist) {
         if (!goodlist[keys].goods_price) {
-          continue
+          continue;
         }
         if (e.currentTarget.dataset.goods_discount) {
           if (goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
@@ -227,6 +233,10 @@ Component({
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
         }else{
 
+        }
+        //计算包邮价格
+        if (!goodlist[keys].goods_discount) {
+          priceFree += goodlist[keys].goods_price * goodlist[keys].num;
         }
         // 计算可换购商品价格
         if (app.globalData.repurseGoods.length > 0) {
@@ -264,15 +274,16 @@ Component({
       }
       for (let keys in goodlist) {
         if (!goodlist[keys].goods_price) {
-          continue
+          continue;
         }
         if (goodlist[keys].goods_order_limit && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
-        } else if (goodlist[keys].goods_price && goodlist[keys].num) {
+        } else if (goodlist[keys].goods_price && goodlist[keys].num){
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
-        }else{
-          
+        } else {
+
         }
+        //计算包邮价格
         if (!goodlist[keys].goods_discount) {
           priceFree += goodlist[keys].goods_price * goodlist[keys].num;
         }
@@ -416,6 +427,7 @@ Component({
           if (!shopcartObj[val].goods_discount) {
             priceFree += shopcartObj[val].goods_price * shopcartObj[val].num;
           }
+          //计算可换购价格
           if (app.globalData.repurseGoods.length > 0) {
             if (shopcartObj[val].huangou && shopcartObj[val].goods_price && shopcartObj[val].num) {
               repurse_price += shopcartObj[val].goods_price * shopcartObj[val].num;

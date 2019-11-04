@@ -70,7 +70,6 @@ Page({
     this.setData({
       city: app.globalData.city2 || app.globalData.city
     })
-    // this.searchShop('', true);
     if (app.globalData.chooseBool) {
       this.searchShop('', true)
       app.globalData.chooseBool=false;

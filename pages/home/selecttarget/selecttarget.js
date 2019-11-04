@@ -76,22 +76,33 @@ Page({
    */
   onShow: function() {
     const _sid = wxGet('_sid');
+    const lng = wxGet('lng');
+    const lat = wxGet('lat');
+    const location = `${lng},${lat}`;
+    let arr1 = [];
     //获取用户收货地址,一次性获取下来
     if (_sid) {
       addressList(_sid, 'normal', location).then((res) => {
-        let arr1 = [];
-        if (res.data.length > 0) {
-          arr1 = res.data.filter(item => item.user_address_is_dispatch == 1)
+        if(res.code==0){
+          if (res.data.length > 0) {
+            arr1 = res.data.filter(item => item.user_address_is_dispatch == 1)
+          }
+          this.setData({
+            canUseAddress: arr1
+          })
+        }else if(res.code==30106){//获取地址提示用户未登录
+          //删除以前的id
+          wx.removeStorageSync('user_id');
+        }else{
+
         }
-        this.setData({
-          canUseAddress: arr1
-        })
       });
+    }else{//没有sid
+      // wx.navigateTo({
+      //   url: '/pages/login/auth/auth'
+      // });
     }
     if (app.globalData.address) {
-      const lng = wxGet('lng');
-      const lat = wxGet('lat');
-      const location = `${lng},${lat}`;
       this.funGetAddressList(location, lat, lng);
     }
     if (app.globalData.chooseBool) {

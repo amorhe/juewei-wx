@@ -91,9 +91,9 @@
     </view>
     <view class="goodsintro" wx:if="{{activeTab==0}}">{{goodsInfo.goods_introduce}}</view>
     <view class="goodsImages" wx:if="{{activeTab==1}}">
-      <image mode="widthFix" style="width:100%" src="http://imgcdnjwd.juewei.com/img_intr/goods_intr_fwh.jpg" />
-      <image mode="widthFix" style="width:100%" src="{{goodsInfo.goods_img_intr[0]}}" />
-      <image mode="widthFix" style="width:100%" src="http://imgcdnjwd.juewei.com/img_intr/goods_intr_footer.jpg" />
+      <image mode="widthFix" style="width:100%" src="https://imgcdnjwd.juewei.com/img_intr/goods_intr_fwh.jpg" />
+      <image mode="widthFix" style="width:100%" src="{{goodsInfo.goods_img_intr[0] || 'https://images.juewei.com'+goodsInfo.goods_img_detail_origin[0]}}" />
+      <image mode="widthFix" style="width:100%" src="https://imgcdnjwd.juewei.com/img_intr/goods_intr_footer.jpg" />
     </view>
   </view>
   <!-- 口味、配送 -->

@@ -32,8 +32,11 @@ export const ajax = (url, data = {}, method = "POST", others) => {
           resolve(rest.data);
         } else if (rest.code == 30106 || rest.code == "A103" || rest.code == 101) {
           //nologin
+          //删除以前的id
+          wx.removeStorageSync('_sid'); //可以
+          wx.removeStorageSync('user_id');
           wx.navigateTo({
-            url: '/pages/login/auth/auth'
+            url: '/pages/login/auth/auth' //这里初始化会获取一个_sid
           });
         } else {
           //提示接口的信息，并且跳错误页

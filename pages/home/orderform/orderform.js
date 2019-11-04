@@ -482,7 +482,7 @@ Page({
         const gifts = app.globalData.gifts;
         let repurseTotalPrice = 0,
           arr_money = [];
-        // console.log(app.globalData.repurseGoods)
+        // console.log(gifts)
         if (app.globalData.repurseGoods) {
           if (Object.keys(gifts).length > 0) {
             for (let key in gifts) {
@@ -501,7 +501,6 @@ Page({
             });
             let k = arr_money.findIndex(item => item == res.data.activity_list[''].real_price);
             if (res.data.activity_list[''].real_price >= arr_money[k - 1]) {
-              console.log(gifts[arr_money[k - 1]])
               this.setData({
                 showRepurse: true,
                 repurseList: gifts[arr_money[k - 1]]

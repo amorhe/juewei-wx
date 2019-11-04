@@ -157,7 +157,7 @@ Component({
         repurse_price = 0;
       for (let keys in goodlist) {
         if (!goodlist[keys].goods_price) {
-          continue
+          continue;
         }
         if (e.currentTarget.dataset.goods_discount) {
           if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
@@ -176,7 +176,10 @@ Component({
         } else {
 
         }
-
+        // 计算包邮商品价格
+        if (!goodlist[keys].goods_discount) {
+          priceFree += goodlist[keys].goods_price * goodlist[keys].num;
+        }
         // 计算可换购商品价格
         if (app.globalData.repurseGoods.length > 0) {
           if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
@@ -228,20 +231,20 @@ Component({
         newGoodlist = {};
       for (let keys in goodlist) {
         if (!goodlist[keys].goods_price) {
-          continue
+          continue;
         }
         if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           if (keys.indexOf('PKG') == -1) {
             priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           }
-        } else if (goodlist[keys].goods_price && goodlist[keys].num) {
+        } else if (goodlist[keys].goods_price && goodlist[keys].num){
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
         } else {
           //不做处理
         }
         // 计算包邮商品价格
-        if (!goodlist[keys].goods_discount && goodlist[keys].goods_price && goodlist[keys].num) {
+        if (!goodlist[keys].goods_discount) {
           priceFree += goodlist[keys].goods_price * goodlist[keys].num;
         }
         // 计算可换购商品价格

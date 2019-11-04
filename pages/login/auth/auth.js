@@ -196,7 +196,7 @@ Page({
   },
   // 授权获取用户信息
   async getPhoneNumber(e) {
-    console.log(e);
+    console.log('getPhoneNumber==',e);
     if(e.detail.errMsg.indexOf('fail')!=-1){
       $Toast({
         content: '您点击了拒绝授权，将无法登录，请允许授权！'
@@ -213,11 +213,11 @@ Page({
       if (res.code === 0) {
         wxSet('userInfo', { ...rest, ...res.data });
         wxSet('user_id', res.data.user_id);
-         //快捷登录 后退到前一个页面
-         wx.navigateBack({
+        //快捷登录 后退到前一个页面
+        wx.navigateBack({
           delta: 1
         })
-        // reLaunch({ url: '/pages/my/index/index' })
+        //reLaunch({ url: '/pages/my/index/index' })
       } else {
         $Toast({
           content: res.msg
