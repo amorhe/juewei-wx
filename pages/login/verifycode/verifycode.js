@@ -13,7 +13,7 @@ Page({
   data: {
     imageUrl,
     baseUrl,
-    // focus: false,
+    focus: false,
     value: '',
     type: '1',
     phone: '',
@@ -74,7 +74,8 @@ Page({
     let timestamp = new Date().getTime();
     this.setData({
       timestamp,
-      countTime: this.data.countTime
+      countTime: this.data.countTime,
+      focus: false
     })
   },
 
@@ -86,6 +87,7 @@ Page({
     this.setData({
       isnew: false,
       countTime: 60,
+      focus: false
     });
     clearInterval(timeCount)
   },
@@ -110,24 +112,24 @@ Page({
   onShareAppMessage: function () {
 
   },
-  // bindFocus() {
-  //   console.log('11');
-  //   setTimeout(() => {
-  //     this.onFocus();
-  //   }, 100);
-  // },
-  // onFocus() {
-  //   this.setData({
-  //     focus: true,
-  //   });
-  // },
+  bindFocus() {
+    console.log('11');
+    setTimeout(() => {
+      this.onFocus();
+    }, 100);
+  },
+  onFocus() {
+    this.setData({
+      focus: true,
+    });
+  },
   async onBlur() {
     const { phone, value } = this.data;
     const {  ...rest } = wxGet('rest');
     const _sid = wxGet('_sid');
-    // this.setData({
-    //   focus: false,
-    // });
+    this.setData({
+      focus: false,
+    });
     const data = {
       phone,
       code: value,
@@ -166,7 +168,7 @@ Page({
       this.setData({
         countTime: time
       });
-      if (time == 0) {
+      if (time <= 0) {
         this.setData({
           isnew: false,
           countTime: 60

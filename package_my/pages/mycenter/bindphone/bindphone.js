@@ -60,7 +60,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    this.setData({
+      focus:false
+    })
   },
 
   /**
@@ -129,16 +131,16 @@ Page({
       this.onFocus();
     }, 100);
   },
-  onFocus() {
-    this.setData({
-      focus: true,
-    });
-  },
-  bindblur() {
-    this.setData({
-      focus: false,
-    });
-  },
+  // onFocus() {
+  //   this.setData({
+  //     focus: true,
+  //   });
+  // },
+  // bindblur() {
+  //   this.setData({
+  //     focus: false,
+  //   });
+  // },
   inputValue(e) {
     var value = e.detail.value
     this.setData({

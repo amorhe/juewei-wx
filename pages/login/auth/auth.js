@@ -1,9 +1,27 @@
-import { baseUrl, imageUrl, wxGet, wxSet } from '../../common/js/baseUrl'
-import { decryptPhone, loginByQuick, sendCode, WX_LOGIN } from '../../common/js/login'
-import { upformId } from '../../common/js/time'
-import { navigateTo } from '../../common/js/router.js'
-import { reLaunch } from "../../common/js/router";
-const { $Toast } = require('../../../iview-weapp/base/index');
+import {
+  baseUrl,
+  imageUrl,
+  wxGet,
+  wxSet
+} from '../../common/js/baseUrl'
+import {
+  decryptPhone,
+  loginByQuick,
+  sendCode,
+  WX_LOGIN
+} from '../../common/js/login'
+import {
+  upformId
+} from '../../common/js/time'
+import {
+  navigateTo
+} from '../../common/js/router.js'
+import {
+  reLaunch
+} from "../../common/js/router";
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 
 const app = getApp();
 Page({
@@ -24,56 +42,65 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    WX_LOGIN()
+  onShow: function() {
+    WX_LOGIN();
+    if (this.data.phone.length > 0) {
+      let obj = {
+        detail: {
+          value: this.data.phone
+        }
+      }
+      this.inputValue(obj)
+    }
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   openModal() {
@@ -122,11 +149,14 @@ Page({
   },
   // 获取短信验证码
   async getcodeFn() {
-    const { getCode, phone, img_code } = this.data;
-    if (/^1\d{10}$/.test(this.data.phone)) {
-    } else {
+    const {
+      getCode,
+      phone,
+      img_code
+    } = this.data;
+    if (/^1\d{10}$/.test(this.data.phone)) {} else {
       $Toast({
-        content:'请输入有效手机号'
+        content: '请输入有效手机号'
       })
       return
     }
@@ -196,22 +226,41 @@ Page({
   },
   // 授权获取用户信息
   async getPhoneNumber(e) {
-    console.log('getPhoneNumber==',e);
-    if(e.detail.errMsg.indexOf('fail')!=-1){
+    console.log('getPhoneNumber==', e);
+    if (e.detail.errMsg.indexOf('fail') != -1) {
       $Toast({
         content: '您点击了拒绝授权，将无法登录，请允许授权！'
       })
       return
     }
-    const { encryptedData, iv } = e.detail;
+    const {
+      encryptedData,
+      iv
+    } = e.detail;
     const _sid = wxGet('_sid');
     const rest = wxGet('rest');
-    let { code, data: { phone } } = await decryptPhone({ encryptedData, iv, _sid });
+    let {
+      code,
+      data: {
+        phone
+      }
+    } = await decryptPhone({
+      encryptedData,
+      iv,
+      _sid
+    });
     if (code === 0) {
-      let res = await loginByQuick({ _sid, ...rest, encryptedData, iv });
+      let res = await loginByQuick({
+        _sid,
+        ...rest,
+        encryptedData,
+        iv
+      });
       console.log('微信快捷登录登录成功', res);
       if (res.code === 0) {
-        wxSet('userInfo', { ...rest, ...res.data });
+        wxSet('userInfo', { ...rest,
+          ...res.data
+        });
         wxSet('user_id', res.data.user_id);
         //快捷登录 后退到前一个页面
         wx.navigateBack({
@@ -223,7 +272,7 @@ Page({
           content: res.msg
         })
       }
-    }else{
+    } else {
       $Toast({
         content: '微信快捷登录失败'
       })
@@ -231,7 +280,9 @@ Page({
   },
   // 页面跳转
   toUrl(e) {
-    const { url } = e.currentTarget.dataset;
+    const {
+      url
+    } = e.currentTarget.dataset;
     navigateTo({
       url: url
     });

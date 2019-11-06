@@ -7,7 +7,7 @@
     <view class="inputInfo {{ value[1]?value[2]?'':'inputFocus':''  }}">{{ value[2] }}</view>
     <view class="inputInfo {{ value[2]?value[3]?'':'inputFocus':''  }}">{{ value[3] }}</view>
   </view>
-  <input class="inputClass" focus="{{focus}}" bindfocus="onFocus" bindblur="bindblur" maxlength="4" type="number" bindinput="inputValue" />
+  <input class="inputClass" maxlength="4" type="number" bindinput="inputValue" />
   <view wx:if="{{isnew}}">
     <text class="timeClass">{{countTime}}秒</text>后重新获取验证码
   </view>
