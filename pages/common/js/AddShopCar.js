@@ -4,7 +4,7 @@ function bezier (potsTemp) {
   var lines;
   var ret = [];
   var points;
-  var amount = 50;
+  var amount = 25;
   var needReverse = false
   //topPoint 插入
   var topPoint = {};
@@ -117,37 +117,7 @@ function startAddShopAnimation(potsTemp, nowThis) {
         display_good_box: false
       })
     }
-  }, 1)
-
-
-
-  // var index = -1, that = nowThis;
-  // var linePos = this.bezier(potsTemp)
-  // var bezier_points = linePos['bezier_points'];
-
-  // var len = bezier_points.length;
-
-  // that.setData({
-  //   display_good_box: true,
-  //   bus_x: bezier_points[len-1]['x'],
-  //   bus_y: bezier_points[len-1]['y']
-  // })
-
-  // index = Number(len)
-  // clearInterval(nowThis.timer);
-  // nowThis.timer = setInterval(function () {
-  //   index--;
-  //   that.setData({
-  //     bus_x: bezier_points[index]['x'],
-  //     bus_y: bezier_points[index]['y']
-  //   })
-  //   if (Number(index) < 1) {
-  //     clearInterval(that.timer);
-  //     that.setData({
-  //       display_good_box: false
-  //     })
-  //   }
-  // }, 2);
+  }, 15)
 }
 
 

@@ -264,10 +264,12 @@ page {
   white-space: nowrap;
   display: flex;
   margin: 0.2rem 0px;
+  height: 130rpx;
+  overflow-x: auto;
 }
 
 .new_card {
-  display: flex;
+  display:inline-flex;
   justify-content: center;
   align-items: center;
   width: 310rpx;

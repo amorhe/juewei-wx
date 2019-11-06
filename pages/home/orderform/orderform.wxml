@@ -159,7 +159,7 @@
     <scroll-view class="repurseView" scroll-x wx:if="{{repurseList.length>1}}">
       <view style="width:{{581*repurseList.length}}rpx;display:flex;align-items:center">
         <view class="repurseGoodsInfo" wx:for="{{repurseList}}" wx:key="unique">
-          <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:img_url + item.gift_img_url}}" />
+          <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:imageUrl2 + item.gift_img_url}}" />
           <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
           <view>
             <view>
@@ -179,14 +179,14 @@
             <text>{{gifts[item.id].num}}</text>
             <image mode="scaleToFill" src="{{imageUrl}}goods_add2.png" />
           </view>
-          <button class="repurseBtn" hover-class="none" bindtap="addRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
+          <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
             wx:if="{{!gifts[item.id].num}}">换购</button>
         </view>
       </view>
     </scroll-view>
     <!-- 换购商品只有一个 -->
     <view class="repurseGoodsInfo" wx:for="{{repurseList}}" style="width:654rpx" wx:if="{{repurseList.length==1}}" wx:key="unique">
-      <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:img_url + item.gift_img_url}}" />
+      <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:imageUrl2 + item.gift_img_url}}" />
       <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
       <view>
         <view>

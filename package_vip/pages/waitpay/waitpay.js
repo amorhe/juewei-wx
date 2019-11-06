@@ -319,7 +319,10 @@ Page({
    */
   hideSelectAddress() {
     this.changeAddress();
+    //复位门店为空
+
     this.setData({
+      shop_name:'',
       selectAddress: false
     })
   },

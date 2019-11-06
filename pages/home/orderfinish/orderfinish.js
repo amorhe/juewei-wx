@@ -117,7 +117,6 @@ Page({
       order_no
     }})
     if (res.code == 0) {
-      // console.log(res)
       // 说明是新用户
       if (res.data.new_user == 1) {
         wxSet('new_user', 1);
@@ -152,8 +151,10 @@ Page({
         }
       })
 
-    }
+    }else{
+      //获取订单详情错误
 
+    }
   },
 
   confirmTap() {
@@ -175,7 +176,7 @@ Page({
     let res = ajax({url:'/mini/coupons/list', data:{
       get_type: 'new_user'
     }})
-    if (res.CODE === 'A100') {
+    if (res.CODE === 'A100' && res.DATA.new_user && res.DATA.new_user.length>0) {
       let new_user = res.DATA.new_user
         .map(({
           end_time,
@@ -186,6 +187,11 @@ Page({
         }))
       this.setData({
         new_user
+      })
+    }else{//没有获取到新用户礼包
+      this.setData({
+        newUserShow: false,
+        new_user: []
       })
     }
   },

@@ -2,7 +2,8 @@
 import { imageUrl, imageUrl2, wxGet } from '../../common/js/baseUrl'
 import Request from '../../common/js/li-ajax'
 import { event_getNavHeight, event_getUserPoint, isloginFn } from '../../common/js/utils'
-import { navigateTo } from "../../common/js/router";
+import { navigateTo, switchTab } from "../../common/js/router";
+ 
 
 const app = getApp();
 const my = wx;
@@ -222,7 +223,7 @@ Page({
    */
   async event_getCouponsList() {
     let res = await Request.reqCouponsList();
-    if (res.CODE === 'A100') {
+    if (res.CODE === 'A100' && res.DATA && res.DATA.new_user && res.DATA.new_user.length>0) {
       this.setData({
         new_user: res.DATA.new_user
       })
@@ -328,6 +329,13 @@ Page({
 
   navigateTo,
   isloginFn,
+  
+  /*新人专享礼包点击跳转商城首页*/
+  switchTo(){
+    switchTab({
+      url: '/pages/home/goodslist/goodslist'
+    })
+  }
 
   // onPageScroll:function(e){
   //   const {titleBarHeight,statusBarHeight} = this.data.navHeight;

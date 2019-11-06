@@ -1,22 +1,21 @@
 <view class="bindPhone">
   <view class="TitleName">输入验证码</view>
   <view>验证码已发送至 {{phone}}</view>
-  <view class="inputView" bindtap="bindFocus">
+  <view class="inputView">
     <view class="inputInfo {{ value[0]?'':'inputFocus' }}">{{ value[0] }}</view>
     <view class="inputInfo {{ value[0]?value[1]?'':'inputFocus':'' }}">{{ value[1] }}</view>
-    <view class="inputInfo {{ value[1]?value[2]?'':'inputFocus':''  }}">{{ value[2] }}</view>
-    <view class="inputInfo {{ value[2]?value[3]?'':'inputFocus':''  }}">{{ value[3] }}</view>
+    <view class="inputInfo {{ value[1]?value[2]?'':'inputFocus':'' }}">{{ value[2] }}</view>
+    <view class="inputInfo {{ value[2]?value[3]?'':'inputFocus':'' }}">{{ value[3] }}</view>
   </view>
-  <input class="inputClass" focus="{{focus}}" cursor="{{ cursor }}" bindfocus="onFocus" maxlength="{{4}}" type="number" bindinput="inputValue" focus />
+  <input bindinput="inputValue" class="inputClass" maxlength="4" type="number"/>
+  <!-- <input bindtap="bindFocus" class="inputClass" focus="{{focus}}" cursor="{{ cursor }}" bindfocus="onFocus" maxlength="{{4}}" type="number" bindinput="inputValue"  hold-keyboard="true" /> -->
   <view class="errorTitel" wx:if="{{false}}">
     验证码输入错误，请重新输入
   </view>
   <view wx:if="{{isnew}}">
     <text class="timeClass">{{countTime}}秒</text>后重新获取验证码
   </view>
-  <view class="top" wx:else bindtap="timeDate" data-is='1'>
-    重新获取验证码
-  </view>
+  <view class="top" wx:else bindtap="timeDate" data-is='1'>重新获取验证码</view>
 </view>
 
 <!-- 图片验证码弹框 -->
