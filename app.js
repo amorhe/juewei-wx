@@ -66,10 +66,12 @@ App({
     let that = this;
     wx.getSystemInfo({
       success: res => {
-        // console.log('手机信息res'+res.model)
         let modelmes = res.model;
-        if (modelmes.search('iPhone X') != -1) {
+        //判断iphone x以上的手机
+        if (modelmes.search('iPhone') > -1 && res.statusBarHeight>20){
           that.globalData.isIphoneX = true
+        }else{
+          that.globalData.isIphoneX = false
         }
       }
     })

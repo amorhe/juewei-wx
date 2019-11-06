@@ -47,7 +47,7 @@
       新人专享券包
     </view>
     <view class="flex-space-b two" wx:if="{{new_user.length}}">
-      <scroll-view scroll-x="{{true}}" class="new">
+      <scroll-view scroll-x="true" class="new">
         <view class="new_card" style="background-image:url({{imageUrl}}coupon_bg2.png)" wx:for="{{new_user}}" wx:key="{{ index }}">
           <view class="new-left">
             <text class="new-num">{{item.money/100}}</text>

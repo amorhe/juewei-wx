@@ -9,8 +9,8 @@
 <!-- 百元 礼包券 -->
 <view wx:if="{{newUserShow}}" style="background:rgba(0,0,0,.5);width:100vw;height:100vh;position:absolute;left:0;top:0" bindtap="eveClose">
   <view class="wrap posscc" style="background-image:url({{imageUrl}}redBg.png)">
-    <view class="ul" catchTap="">
-      <view class="li" style="background-image:url({{imageUrl}}couponBg.png)" wx:for="{{new_user}}" catchTap="eveToTakeIn" wx:key="unique">
+    <view class="ul">
+      <view class="li" style="background-image:url({{imageUrl}}couponBg.png)" wx:for="{{new_user}}" bindtap="eveToTakeIn" wx:key="unique">
         <view class="left">
           <view>
             <text class="num">{{item.money/100}}</text>
@@ -22,9 +22,7 @@
           <view class="type">外卖专享</view>
           <view class="time">{{item.end_time}}到期</view>
         </view>
-        <view class="li-btn">
-          立即使用
-        </view>
+        <view class="li-btn">立即使用</view>
       </view>
     </view>
   </view>

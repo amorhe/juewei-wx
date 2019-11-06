@@ -13,7 +13,7 @@ Page({
   data: {
     imageUrl,
     baseUrl,
-    focus: false,
+    // focus: false,
     value: '',
     type: '1',
     phone: '',
@@ -22,7 +22,7 @@ Page({
     img_code: '',
     modalOpened: false,
     getCode: true,
-    cursor: 0,
+    // cursor: 0,
     timestamp: 0, //当前时间戳
   },
 
@@ -33,7 +33,8 @@ Page({
     const _sid = wxGet('_sid');
     this.setData({
       phone: e.phone,
-      _sid
+      _sid,
+      isnew: true
     });
     this.timeDate()
   },
@@ -52,14 +53,14 @@ Page({
     if (this.data.timestamp !== 0) {
       let timestampNew = new Date().getTime();
       let counts = parseInt((timestampNew - this.data.timestamp) / 1000);
-      console.log(counts);
       if (counts > 0) {
         this.setData({
+          isnew: true,
           countTime: this.data.countTime - counts
         })
       } else {
         this.setData({
-          isnew: true,
+          isnew: false,
           countTime: 60,
         })
       }
@@ -109,23 +110,24 @@ Page({
   onShareAppMessage: function () {
 
   },
-  bindFocus() {
-    setTimeout(() => {
-      this.onFocus();
-    }, 100);
-  },
-  onFocus() {
-    this.setData({
-      focus: true,
-    });
-  },
+  // bindFocus() {
+  //   console.log('11');
+  //   setTimeout(() => {
+  //     this.onFocus();
+  //   }, 100);
+  // },
+  // onFocus() {
+  //   this.setData({
+  //     focus: true,
+  //   });
+  // },
   async onBlur() {
     const { phone, value } = this.data;
     const {  ...rest } = wxGet('rest');
     const _sid = wxGet('_sid');
-    this.setData({
-      focus: false,
-    });
+    // this.setData({
+    //   focus: false,
+    // });
     const data = {
       phone,
       code: value,
@@ -175,10 +177,10 @@ Page({
   },
   inputValue(e) {
     var value = e.detail.value;
-    var cursor = value.length + 1;
+    // var cursor = value.length + 1;
     this.setData({
-      value: value,
-      cursor: cursor
+      value: value
+      // cursor: cursor
     });
     if (value.length == 4) {
       this.onBlur()

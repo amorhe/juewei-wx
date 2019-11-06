@@ -38,7 +38,7 @@
       <view class="o-button" bindtap="payNow">立即支付</view>
     </view>
     <view class="detail">
-      <view class="body detail-item">
+      <view class="body detail-item" style="border-bottom: 2rpx dashed #eee;">
         <image mode="scaleToFill" src="{{imageUrl2 + detail.goods_pic}}" class="good-img" />
         <view class="body-right">
           <view class="good-title">
@@ -115,7 +115,7 @@
         </view>
         <view class="code-button" data-text="{{detail.gift_code}}" bindtap="handleCopy">复制</view>
       </view>
-      <view class="ul">
+      <view class="ul" style="border-bottom:2rpx dashed #eee;">
         <view class="li" wx:if="{{detail.conpon_valid_type == 2 }}">
           <view class="title">
             活动时间
@@ -167,7 +167,7 @@
           </view>
         </view>
       </view>
-      <view class="address detail-item" wx:if="{{detail.receive_type == 2}}">
+      <view class="address detail-item" wx:if="{{detail.receive_type == 2}}" style="border-bottom: 2rpx dashed #eee;">
         <view class="address-header">
           {{detail.user_address_name}} {{detail.user_address_phone}}
         </view>

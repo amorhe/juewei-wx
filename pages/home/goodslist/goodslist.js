@@ -146,7 +146,8 @@ Page({
     togoodsType: 1, //点击跳转
     totalH: 0,
     bottomTabbar: 98,
-    freeId: ''
+    freeId: '',
+    isiphonex: app.globalData.isIphoneX || false //判断是否是iphonex以上的全面屏
   },
 
   /**
@@ -775,7 +776,7 @@ Page({
                   priceFree += shopcartObj[val].goods_price * shopcartObj[val].num;
                 }
                 //计算可换购价格
-                if (app.globalData.repurseGoods > 0) {
+                if (app.globalData.repurseGoods && app.globalData.repurseGoods.length > 0) {
                   if (shopcartObj[val].huangou && shopcartObj[val].goods_price && shopcartObj[val].num) {
                     repurse_price += shopcartObj[val].goods_price * shopcartObj[val].num;
                   }
@@ -948,7 +949,7 @@ Page({
         priceFree += goodlist[keys].goods_price * goodlist[keys].num;
       }
       // 计算可换购商品价格
-      if (app.globalData.repurseGoods.length > 0) {
+      if (app.globalData.repurseGoods && app.globalData.repurseGoods.length > 0) {
         if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
           repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
         }
@@ -1013,7 +1014,7 @@ Page({
         priceFree += goodlist[keys].goods_price * goodlist[keys].num;
       }
       // 计算可换购商品价格
-      if (app.globalData.repurseGoods.length > 0) {
+      if (app.globalData.repurseGoods && app.globalData.repurseGoods.length > 0) {
         if (goodlist[keys].huangou && goodlist[keys].goods_price && goodlist[keys].num) {
           repurse_price += goodlist[keys].goods_price * goodlist[keys].num;
         }

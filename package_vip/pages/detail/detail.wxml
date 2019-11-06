@@ -19,20 +19,20 @@
             <view class="title">
                 {{detail.goods_name}}
             </view>
-            <view class="coast" wx:if="{{ detail.point == 0 && detail.amount == 0 }}">
+            <view class="coast" wx:if="{{detail.point && detail.point == 0 && detail.amount == 0 }}">
                 <text>免费领取</text>
             </view>
-            <view class="coast" wx:if="{{ detail.point !=0 && detail.amount != 0 }}">
+            <view class="coast" wx:if="{{detail.point && detail.point !=0 && detail.amount != 0 }}">
                 {{ detail.point}}
                 <text>积分</text>
                 + {{ detail.amount/100}}
                 <text>元</text>
             </view>
-            <view class="coast" wx:if="{{ detail.point !=0 && detail.amount == 0 }}">
+            <view class="coast" wx:if="{{detail.point && detail.point !=0 && detail.amount == 0 }}">
                 {{ detail.point}}
                 <text>积分</text>
             </view>
-            <view class="coast" wx:if="{{ detail.point ==0 && detail.amount != 0 }}">
+            <view class="coast" wx:if="{{detail.point && detail.point ==0 && detail.amount != 0 }}">
                 {{ detail.amount/100}}
                 <text>元</text>
             </view>
