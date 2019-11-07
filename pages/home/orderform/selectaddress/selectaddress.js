@@ -115,6 +115,7 @@ Page({
       modalShow: data.detail.modalShow
     })
   },
+  // 获取地址列表
   funGetAddress() {
     useraddress(wxGet('shop_id'), wxGet('_sid')).then((res) => {
       let addressList = [],
@@ -195,7 +196,7 @@ Page({
                 url: '/pages/home/goodslist/goodslist'
               })
             } else if (res.cancel) {
-              
+              // 不处理
             }
           }
         })

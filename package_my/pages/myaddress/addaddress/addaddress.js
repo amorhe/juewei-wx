@@ -73,7 +73,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    console.log(options)
     var _sid = wxGet('_sid');
     this.data._sid = _sid
     if (options.Id) {
@@ -343,7 +342,6 @@ Page({
     let regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im
     let regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
     let patrn = /[`…~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；……‘’，。￣、…＠＃％＾＆×＿＋｛｝｜＂＞＜]/im;
-    // let value = e.detail.value.trim().replace(regEn, '').replace(regCn, '').replace(patrn,'')
     let value = e.detail.value.trim()
     if (!s.test(value)) {
       return value = this.data[key]
@@ -358,9 +356,7 @@ Page({
     })
   },
   modalidShoFN() {
-    // this.setData({
-    //   modalidShow: false
-    // })
+    
   },
   Addaddress() {
     var that = this

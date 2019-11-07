@@ -11,7 +11,6 @@ page {
   z-index: 9999;
   position: fixed;
   top: 0;
-  /* width: 100vw; */
   font-size: 36rpx;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
@@ -40,7 +39,6 @@ page {
 }
 
 .vip {
-  /* background: linear-gradient(180deg, #FB5332 0,#FB5332 200rpx, rgba(255, 255, 255, 0) 300rpx); */
   min-height: 100vh;
 }
 

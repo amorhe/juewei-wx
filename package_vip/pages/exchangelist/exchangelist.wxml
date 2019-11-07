@@ -1,51 +1,51 @@
 <!--package_vip/pages/exchangelist/exchangelist.wxml-->
 <wxs module="m2">
-
-    var slice= function (value) {
+  var slice = function(value) {
     return value.split(' ')
-    }
-    module.exports.slice=slice;
+  }
+  module.exports.slice = slice;
 </wxs>
 <view wx:if="{{finish}}">
-    <!-- 兑换记录列表 -->
-    <view class="list">
-        <view class="item" wx:for="{{orderList}}" wx:key="{{ index }}" data-url="./exchangedetail/exchangedetail" data-query="{{ {id:item.id} }}" catchtap="navigateTo">
-            <view class="header">
-                <view class="time">{{m2.slice(item.order_ctime)[0]}}</view>
-                <view class="state">{{(item.status_name == '未支付'  && item.remaining_pay_minute < 0) ? '已关闭': item.status_name}}</view>
-            </view>
-            <view class="body">
-                <image mode="scaleToFill" src="{{imageUrl2 + item.goods_pic}}" class="good-img"/>
-                <view class="body-right">
-                    <view class="good-title">
-                        {{item.goods_name}}
-                    </view>
-                    <view class="cost" wx:if="{{ item.order_point == 0 && item.order_amount == 0 }}">
-                        免费领
-                    </view>
-                    <view class="cost" wx:if="{{ item.order_point !=0 && item.order_amount != 0 }}">
-                        {{ item.order_point}} 积分 + {{ item.order_amount}} 元
-                    </view>
-                    <view class="cost" wx:if="{{ item.order_point !=0 && item.order_amount == 0 }}">
-                        {{ item.order_point}} 积分
-                    </view>
-                    <view class="cost" wx:if="{{ item.order_point ==0 && item.order_amount != 0 }}">
-                        {{ item.order_amount}} 元
-                    </view>
-                </view>
-            </view>
-            <view class="footer-wrap" wx:if="{{item.status == 0}}">
-                <view class="footer" wx:if="{{item.remaining_pay_minute>-1}}" data-id="{{item.id}}" data-order_sn="{{item.order_sn}}" data-order_amount="{{item.order_amount}}">
-                    去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
-                </view>
-            </view>
+  <!-- 兑换记录列表 -->
+  <view class="list">
+    <view class="item" wx:for="{{orderList}}" wx:key="{{ index }}" data-url="./exchangedetail/exchangedetail" data-query="{{ {id:item.id} }}" catchtap="navigateTo">
+      <view class="header">
+        <view class="time">{{m2.slice(item.order_ctime)[0]}}</view>
+        <view class="state">{{(item.status_name == '未支付' && item.remaining_pay_minute
+          < 0) ? '已关闭': item.status_name}}</view>
         </view>
+        <view class="body">
+          <image mode="scaleToFill" src="{{imageUrl2 + item.goods_pic}}" class="good-img" />
+          <view class="body-right">
+            <view class="good-title">
+              {{item.goods_name}}
+            </view>
+            <view class="cost" wx:if="{{ item.order_point == 0 && item.order_amount == 0 }}">
+              免费领
+            </view>
+            <view class="cost" wx:if="{{ item.order_point !=0 && item.order_amount != 0 }}">
+              {{ item.order_point}} 积分 + {{ item.order_amount}} 元
+            </view>
+            <view class="cost" wx:if="{{ item.order_point !=0 && item.order_amount == 0 }}">
+              {{ item.order_point}} 积分
+            </view>
+            <view class="cost" wx:if="{{ item.order_point ==0 && item.order_amount != 0 }}">
+              {{ item.order_amount}} 元
+            </view>
+          </view>
+        </view>
+        <view class="footer-wrap" wx:if="{{item.status == 0}}">
+          <view class="footer" wx:if="{{item.remaining_pay_minute>-1}}" data-id="{{item.id}}" data-order_sn="{{item.order_sn}}" data-order_amount="{{item.order_amount}}">
+            去支付（还剩{{item.remaining_pay_minute}}分{{item.remaining_pay_second}}秒）
+          </view>
+        </view>
+      </view>
     </view>
-</view>
+  </view>
 
-<!-- 空状态 -->
-<view class="none" wx:if="{{ orderList.length === 0 && finish}}" catchtap="switchTo">
-    <image mode="scaleToFill" src="{{imageUrl}}bg_order.png"/>
+  <!-- 空状态 -->
+  <view class="none" wx:if="{{ orderList.length === 0 && finish}}" catchtap="switchTo">
+    <image mode="scaleToFill" src="{{imageUrl}}bg_order.png" />
     <view class="txt">暂无兑换记录</view>
     <view class="exchange-btn">去兑换</view>
-</view>
+  </view>

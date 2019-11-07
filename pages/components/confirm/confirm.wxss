@@ -1,5 +1,3 @@
-/* pages/components/confirm/confirm.wxss */
-
 .modalView {
   width: 560rpx;
   background: rgba(255, 255, 255, 1);

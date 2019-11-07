@@ -120,7 +120,6 @@ Page({
     priceFree: 0, // 购物车包邮商品价格
     freeText: '', // 购物车包邮提示内容
     isScorll: true,
-    // isTab: false,
     goodsClass: {
       "折扣": 1,
       "套餐": 2,
@@ -236,8 +235,8 @@ Page({
           shopTakeOut: app.globalData.shopIng1
         })
         wxSet('shop_id', app.globalData.shopIng1.shop_id)
-        app.globalData.isOpen = status;
-        app.globalData.shopTakeOut = this.data.shopTakeOut;
+        app.globalData.isOpen = status;    // 门店状态
+        app.globalData.shopTakeOut = this.data.shopTakeOut;   // 门店详情
       }
       this.setData({
         jingxuan: app.globalData.shopIng1.jingxuan || false,
@@ -245,9 +244,9 @@ Page({
       })
     } else if (!app.globalData.shopIng && !app.globalData.switchClick) {
       if (app.globalData.type == 1) {
-        shopArray = wxGet('takeout')
+        shopArray = wxGet('takeout');  // 外卖
       } else {
-        shopArray = wxGet('self')
+        shopArray = wxGet('self');    // 自提
       }
       const status = cur_dateTime(shopArray[0].start_time, shopArray[0].end_time);
       this.setData({
@@ -265,8 +264,8 @@ Page({
     }
     app.globalData.switchClick = null;
     if (app.globalData.activityList) {
-      app.globalData.activityList.DIS = [];
-      app.globalData.activityList.PKG = [];
+      app.globalData.activityList.DIS = [];   // 折扣
+      app.globalData.activityList.PKG = [];   // 套餐
     }
     let user_id = 1;
     if (wxGet('userInfo') && wxGet('userInfo').user_id) {
@@ -335,7 +334,6 @@ Page({
   },
   // 下拉刷新
   onPullDownRefresh: function() {
-    // Do something when pull down.
     wx.showLoading({
       title: '加载中...',
     })

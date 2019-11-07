@@ -122,7 +122,6 @@ searchView {
 
 .self_btn {
   color: #fff;
-  /* background:linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%); */
   background: #e60012;
   border: 1px solid #e60012;
   width: 140rpx;

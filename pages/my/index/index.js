@@ -56,7 +56,6 @@ Page({
         showNo: false //这里写死
       })
     }
-    console.log(this.data.showNo);
   },
 
   /**
@@ -98,12 +97,10 @@ Page({
   isloginFn() {
     const userInfo = wxGet('userInfo');
     if (userInfo && userInfo.user_id){ //有用户信息，进入到个人中心修改个人信息
-      // wxSet('showNo', true);
       navigateTo({
         url: '/package_my/pages/mycenter/mycenter'
       })
     }else{//没有用户信息，自动登录已经成功了，但是没有userid需要后端登录一次才可以
-      // wxSet('showNo', false);
       navigateTo({
         url: '/pages/login/auth/auth'
       });

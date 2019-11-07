@@ -9,18 +9,12 @@ import {
 } from "./pages/common/js/baseUrl";
 
 App({
-  onLaunch: function (options) {
-    // 清除所有缓存
-    // try {
-    //   wx.clearStorageSync()
-    // } catch (e) {
-    //   // Do something when catch error
-    // }
+  onLaunch: function(options) {
     // options.scene == 1035 &&  这里不判断场景，原因是会有很多场景
     if (options && options.query && options.query.go && options.query.go != '') {
       this.globalData.gopages = options.query.go;
-    }else{
-    	this.globalData.gopages ='';
+    } else {
+      this.globalData.gopages = '';
     }
     // 获取用户信息
     wx.getSetting({
@@ -45,13 +39,8 @@ App({
                 wxSet('userInfo', userInfo);
                 return console.log('user_id不存在，此时不需要授权', '获取到用户信息')
               }
-              WX_LOGIN({ ...rest
-              });
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              // if (this.userInfoReadyCallback) {
-              //   this.userInfoReadyCallback(res)
-              // }
+              WX_LOGIN({ ...rest });
+              // 分享
               this.funShare()
             }
           })
@@ -68,19 +57,19 @@ App({
       success: res => {
         let modelmes = res.model;
         //判断iphone x以上的手机
-        if (modelmes.search('iPhone') > -1 && res.statusBarHeight>20){
+        if (modelmes.search('iPhone') > -1 && res.statusBarHeight > 20) {
           that.globalData.isIphoneX = true
-        }else{
+        } else {
           that.globalData.isIphoneX = false
         }
       }
     })
   },
   //重写分享方法
-  funShare: function () {
+  funShare: function() {
     //监听路由切换
     //间接实现全局设置分享内容
-    wx.onAppRoute(function (res) {
+    wx.onAppRoute(function(res) {
       //获取加载的页面
       let pages = getCurrentPages(),
         //获取当前页面的对象
@@ -90,7 +79,7 @@ App({
         data = view.data;
         if (!data.isOverShare) {
           data.isOverShare = true;
-          view.onShareAppMessage = function () {
+          view.onShareAppMessage = function() {
             //分享配置
             return {
               title: '会员专享服务，便捷 实惠 放心',
@@ -120,13 +109,13 @@ App({
     gifts: null, //加购商品
     type: 1, // 默认外卖
     coupon_code: null, //优惠券
-    scrollTop: null,
-    province: null,
-    city: null,
-    chooseBool: false,
-    isSelf: false,
+    scrollTop: null,  // 当前页面滑动位置距离顶部
+    province: null,   // 省
+    city: null,      // 市
+    chooseBool: false,    // 是否选择过城市
+    isSelf: false,  // 自提
     refresh: false, // 当前页面是否需要刷新
     gopages: '', //跳转到相应文件
-    isIphoneX: false,
+    isIphoneX: false,  // 判断手机机型是否为iphoneX以上
   }
 });

@@ -12,17 +12,12 @@
     <view class="listItem" bindtap="onTopBtnTap">
       <view class="Itemlabel">性别</view>
       <view class="ItimInfo">
-        <!-- <picker range="{{sex_array}}" bindchange="genderFN"> -->
         <view>{{userinfo.sex==0?'男':'女'}}</view>
-        <!-- </picker> -->
       </view>
       <image mode="scaleToFill" class="arrow_right" src="{{imageUrl}}arrow_right1.png" />
     </view>
     <view class="listItem">
       <view class="Itemlabel">生日</view>
-      <!-- <view class="ItimInfo" wx:if="{{ userinfo.birthday=='0000-00-00' }}" bindtap="Taptime">请输入生日信息，保存后不可修改
-      </view>
-      <view class="ItimInfo" wx:else>{{ userinfo.birthday }}</view> -->
       <view class="flexSpecial">
         <picker mode="date" value="{{userinfo.birthday}}" end="{{nowDate}}" bindchange="Taptime">
           <view class="picker">

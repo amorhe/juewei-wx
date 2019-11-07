@@ -23,7 +23,7 @@
   <view class="board">
     <view class="board-state" bindtap="FUN_SHOW">
       {{ d.dis_type==1 ? ((d.order_status_info.takeout_status == 0 && d.remaining_pay_minute < 0) ? '订单已取消' : (d.order_status_info.takeout_status==3 && d.dis_tag !='ZPS' && d.dis_get_time ) ? '骑手已接单' : takeOutState[d.order_status_info.takeout_status]) :((d.order_status_info.takeout_status==0 && d.remaining_pay_minute< 0) ? '订单已取消': pickUpState[d.order_status_info.takeout_status]
-        )}} <!-- {{status[d.status]}} -->
+        )}}
         <image mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
     </view>
     <view class="board-time" wx:if="{{d.order_status_info.order_status == 0 && d.remaining_pay_minute > -1}}">
@@ -61,10 +61,6 @@
       <view class="cancel-order red" catchtap="FUN_toComment" data-order_no="{{d.order_no}}" wx:if="{{4==(d.order_status_info.order_status) && d.is_comment == 0}}">
         评价订单
       </view>
-      <!--<view class="cancel-order" data-order_no="{{d.order_no}}" wx:if="{{[4].includes(d.order_status_info.order_status) && d.is_comment == 1}}" catchtap="contact">
-                已评价</view> -->
-      <!--<view class="cancel-order red" wx:if="{{[4,7,8,9,10].includes(d.order_status_info.order_status)}}" catchtap="contact">
-                投诉</view> -->
       <view class="cancel-order red" wx:if="{{(2==(d.order_status_info.order_status) || 3==(d.order_status_info.order_status) )&& dis_type==2}}" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}"
         data-address="{{d.shop_address}}" catchtap="guide">
         导航
@@ -143,15 +139,6 @@
         </view>
       </view>
       <view class="reduce">
-        <!-- <view class="reduce-item">
-                    <view class="left">
-                        <image mode="scaleToFill" src="{{imageUrl}}reduce.png"/>
-                        活动满减
-                    </view>
-                    <view class="value">
-                        <text>-￥{{(d.activity_money / 100)}}</text>
-                    </view>
-                </view> -->
         <view class="reduce-item" wx:if="{{d.minus_money>0 || d.coupon_money>0}}">
           <view class="left">
             <image mode="scaleToFill" src="{{imageUrl}}coupon.png" /> 优惠券
@@ -245,7 +232,6 @@
             门店地址
           </view>
           <view class="value">
-            <!-- <view>{{d.province}} {{d.city}} {{d.district}}</view> -->
             <view>{{d.shop_address}}</view>
           </view>
         </view>

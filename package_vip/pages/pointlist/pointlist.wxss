@@ -37,8 +37,6 @@
 .bg {
   z-index: 1;
   position: relative;
-  /* background: linear-gradient(180deg, #F5402B 0, #F5402B 150rpx, rgba(255, 255, 255, 0) 380rpx); */
-  /* min-height: 100vh; */
 }
 
 .pointlistTop {

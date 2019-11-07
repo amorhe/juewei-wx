@@ -139,7 +139,6 @@ Page({
   funGetExchangeCode(_sid) {
     exchangeCode(_sid, 'use').then((res) => {
       if (res.CODE == "A100") {
-        console.log('exchangeCode');
         const {
           tabs
         } = this.data;
@@ -207,14 +206,6 @@ Page({
     switch (way - 0) {
       case 1:
       case 3:
-        // MODAL({
-        //   title: '',
-        //   content: '限时优惠，立即使用',
-        //   cancelText: '自提',
-        //   cancel: this.toTakeOut,
-        //   confirmText: '外卖',
-        //   confirm: this.toTakeIn
-        // });
         this.setData({
           modalShow: true,
           mask: true
@@ -256,7 +247,6 @@ Page({
 
   async wait() {
     let res = await Request.waiting();
-    console.log(res);
     if (res.code == 0) {
       return this.closeModel()
     }

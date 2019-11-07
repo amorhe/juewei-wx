@@ -131,16 +131,6 @@ Page({
       this.onFocus();
     }, 100);
   },
-  // onFocus() {
-  //   this.setData({
-  //     focus: true,
-  //   });
-  // },
-  // bindblur() {
-  //   this.setData({
-  //     focus: false,
-  //   });
-  // },
   inputValue(e) {
     var value = e.detail.value
     this.setData({

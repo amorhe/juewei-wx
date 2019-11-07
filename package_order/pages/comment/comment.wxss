@@ -114,7 +114,6 @@ textarea {
 .null {
   width: 98rpx;
   height: 98rpx;
-  /* border: 1rpx solid #eee; */
 }
 
 .bot {
