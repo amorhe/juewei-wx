@@ -133,10 +133,7 @@ Page({
     wx.setClipboardData({
       data: e.currentTarget.dataset.code,
       success() {
-        // $Toast({
-        //   type: 'success',
-        //   content: '操作成功'
-        // });
+        
       }
     });
   },

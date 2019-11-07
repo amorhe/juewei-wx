@@ -179,10 +179,8 @@ Page({
   },
   inputValue(e) {
     var value = e.detail.value;
-    // var cursor = value.length + 1;
     this.setData({
       value: value
-      // cursor: cursor
     });
     if (value.length == 4) {
       this.onBlur()

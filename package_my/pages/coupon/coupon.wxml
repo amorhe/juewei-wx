@@ -112,9 +112,6 @@
     <view class="code-phone">
       {{m3.slice3(phone,0,3)}} **** {{m3.slice3(phone,7,11)}}
     </view>
-    <!-- <view class="code-pay" catchtap="wait">
-          确认支付
-        </view> -->
   </view>
 </view>
 <i-toast id="toast" />

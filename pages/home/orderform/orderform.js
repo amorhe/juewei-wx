@@ -84,7 +84,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // 外卖默认地址
+    // 外卖
     if (app.globalData.type == 1) {
       this.funGetDefault();
     }
@@ -96,6 +96,7 @@ Page({
       obj5 = {},
       obj6 = {},
       goodlist = [];
+      // 购物车数据转换
     for (let key in goodsList) {
       if (goodsList[key].goods_discount) {
         if (goodsList[key].num > goodsList[key].goods_order_limit) {
@@ -127,16 +128,17 @@ Page({
       }
     }
     const self = app.globalData.shopTakeOut;
-    // console.log(goodlist)
     this.setData({
       goodsList: goodlist,
       shopObj: self
     })
+    // 自提
     if (app.globalData.type == 2) {
       const shop_id = wxGet('shop_id');
       const phone = wxGet('userInfo').phone;
       let ott = tx_decrypt(wxGet('lng'), wxGet('lat'));
       let location_s = tx_decrypt(self.location[0], self.location[1]);
+      // 地图标记
       let arr = [{
           longitude: ott.lng,
           latitude: ott.lat,
@@ -190,11 +192,13 @@ Page({
         remark: app.globalData.remarks
       })
     }
+    // 优惠券码
     if (app.globalData.coupon_code) {
       this.setData({
         coupon_code: app.globalData.coupon_code,
       })
     }
+    // 是否使用优惠券
     if (app.globalData.notUse == 1) {
       this.setData({
         notUse: true
@@ -204,6 +208,7 @@ Page({
         notUse: false
       })
     }
+    // 地址id
     if (app.globalData.address_id) {
       this.funGetAddress(app.globalData.address_id, wxGet('_sid'))
     } else {
@@ -452,7 +457,6 @@ Page({
       notUse = app.globalData.notUse
     }
     confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, this.data.repurseList, notUse, (app.globalData.freetf?app.globalData.freeId:''), wxGet('_sid'), 2).then((res) => {
-      // console.log(res)
       let goodsList = wxGet('goodsList');
       if (res.code == 0) {
         let goodsReal = [],
@@ -482,7 +486,6 @@ Page({
         const gifts = app.globalData.gifts;
         let repurseTotalPrice = 0,
           arr_money = [];
-        // console.log(gifts)
         if (app.globalData.repurseGoods) {
           if (Object.keys(gifts).length > 0) {
             for (let key in gifts) {
@@ -685,7 +688,6 @@ Page({
               signType: val.data.signType,
               paySign: val.data.paySign,
               success(conf) {
-                // console.log(conf)
                 add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
                   if (confs.CODE == 'A100') {
                     wx.removeStorageSync('goodsList');

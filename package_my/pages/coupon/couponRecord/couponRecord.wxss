@@ -40,7 +40,6 @@
 }
 .couponLi {
   width:686rpx;
-  /* height:264rpx; */
   background:#fff;
   border-radius: 10rpx;
   padding: 28rpx 24rpx 0 32rpx;
@@ -59,7 +58,6 @@
   font-weight: 600
 }
 .couponMiddle {
-  /* width: 154rpx; */
   display: flex;
   flex-direction: column;
   color: #ccc

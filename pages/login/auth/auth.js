@@ -266,7 +266,6 @@ Page({
         wx.navigateBack({
           delta: 1
         })
-        //reLaunch({ url: '/pages/my/index/index' })
       } else {
         $Toast({
           content: res.msg

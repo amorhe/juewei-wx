@@ -285,9 +285,6 @@ Page({
                 content: r.msg
               });
             }
-            // let p = /\"path\"\:\"(\S*)\"\}\,/
-            // log(result.data.match(p))
-            // pics = [...pics, result.data.match(p)[1]]
             pics = [...pics, r.data.path];
             d.goods_list[i].goods_comment.pics = pics;
             this.setData({
@@ -320,8 +317,6 @@ Page({
     let { d } = this.data;
     let { goods_list } = d;
     let { pics } = goods_list[i].goods_comment;
-
-    // d.goods_list[i].goods_comment.pics =
 
     pics.splice(pic_index, 1);
 

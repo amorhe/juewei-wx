@@ -188,14 +188,6 @@ Page({
         }
         // 按照goods_num做降序排列
         let shopArray = shopArr1.concat(shopArr2);
-        // shopArray.sort((a, b) => {
-        //   var value1 = a.goods_num,
-        //     value2 = b.goods_num;
-        //   if (value1 <= value2) {
-        //     return a.distance - b.distance;
-        //   }
-        //   return value2 - value1;
-        // });
         shopArray[0]['jingxuan'] = true; // 默认设置第一个为精选门店
         wxSet('takeout', shopArray); // 保存外卖门店到本地
         //存储app.golbalData
@@ -263,9 +255,6 @@ Page({
           shopArr2.push(res[i]);
         }
       }
-      // 根据距离最近排序
-      // shopArr1.sort(sortNum('distance'));
-      // shopArr2.sort(sortNum('distance'));
       const shopArray = shopArr1.concat(shopArr2);
       shopArray[0]['jingxuan'] = true; // 默认设置第一个为精选门店
       wxSet('self', shopArray); // 保存自提门店到本地

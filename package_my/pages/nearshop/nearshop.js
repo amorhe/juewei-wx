@@ -87,7 +87,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    // app.globalData.shopIng = null;
+   
   },
 
   /**
@@ -128,9 +128,6 @@ Page({
             longitude: lng,
             latitude: lat
           })
-          //这个不能改当前的定位
-          // wxSet('lng', lng);
-          // wxSet('lat', lat)
           that.nearShop(lng, lat);
         }
       },

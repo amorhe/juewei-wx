@@ -1,4 +1,3 @@
-// pages/components/goodsModal/goodsModal.js
 import {
   imageUrl,
   wxGet,

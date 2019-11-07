@@ -342,7 +342,7 @@ Component({
         return
       }
       // 未登录
-      if (wxGet('userInfo').user_id == undefined) {
+      if (wxGet('userInfo')==undefined || wxGet('userInfo').user_id == undefined) {
         navigateTo({
           url: '/pages/login/auth/auth'
         })

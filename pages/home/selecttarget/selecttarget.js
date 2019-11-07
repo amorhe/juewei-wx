@@ -98,9 +98,7 @@ Page({
         }
       });
     }else{//没有sid
-      // wx.navigateTo({
-      //   url: '/pages/login/auth/auth'
-      // });
+      
     }
     if (app.globalData.address) {
       this.funGetAddressList(location, lat, lng);
@@ -164,8 +162,6 @@ Page({
     }else{
       this.setData({
         inputAddress: e.detail.value 
-        // isOnfoucs: false,
-        // noResult: false
       })
       this.searchShop(e.detail.value);
     }
@@ -396,20 +392,11 @@ Page({
 
         // 按照goods_num做降序排列
         let shopArray = shopArr1.concat(shopArr2);
-        // shopArray.sort((a, b) => {
-        //   var value1 = a.goods_num,
-        //     value2 = b.goods_num;
-        //   if (value1 <= value2) {
-        //     return a.distance - b.distance;
-        //   }
-        //   return value2 - value1;
-        // });
         shopArray[0]['jingxuan'] = true;
         app.globalData.position.cityAdcode = shopArray[0].city_id
         app.globalData.position.districtAdcode = shopArray[0].district_id
         app.globalData.type = 1;
         wxSet('takeout', shopArray); // 保存外卖门店到本地
-        // that.funGetNearbyShop(lng, lat, address);
         if (str) {
           reLaunch({
             url: '/pages/home/goodslist/goodslist'
@@ -473,9 +460,6 @@ Page({
           shopArr2.push(res[i]);
         }
       }
-      // 根据距离最近排序
-      // shopArr1.sort(sortNum('distance'));
-      // shopArr2.sort(sortNum('distance'));
       const shopArray = shopArr1.concat(shopArr2);
       shopArray[0]['jingxuan'] = true;
       app.globalData.address = address;

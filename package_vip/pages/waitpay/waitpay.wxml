@@ -1,137 +1,134 @@
-<!--package_vip/pages/waitpay/waitpay.wxml-->
 <view>
-    <view wx:if="{{!selectShop}}">
-        <!-- 带支付页面 实物邮寄，实物门店，虚拟商品直接跳过到兑换成功页 -->
-        <!-- 等待支付 -->
-        <view class="wait-pay" wx:if="{{d.limit_pay_second && d.limit_pay_minute>-1}}">
-            <text class="wait-pay-title">支付剩余时间：</text>
-            <text class="wait-pay-time">{{d.limit_pay_minute}}分{{d.limit_pay_second}}秒</text>
-        </view>
-        <!-- 实物邮寄 -->
-        <view style="height:100vh;background:#f5f5f5">
-            <view class="address" wx:if="{{d.receive_type == 2 && !user_address_name}}" catchtap="toAddAddress">
-                <view class="address-title">请填写收货地址</view>
-                <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
-            </view>
-            <view class="address" wx:if="{{d.receive_type == 2 && user_address_name}}" catchtap="toAddAddress">
-                <view class="address-title">
-                    <view>{{user_address_name}} {{user_address_phone}}</view>
-                    <!--<view class="address-sm">{{province}}{{city}}{{district}}{{user_address_detail_address}}</view> -->
-                    <view class="address-sm">{{user_address_map_addr + user_address_address + user_address_detail_address}}</view>
-                </view>
-                <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
-            </view>
-            <!-- 实物门店 -->
-            <view class="store" wx:if="{{d.receive_type == 1}}">
-                <view class="list">
-                    <view class="item">领取人</view>
-                    <input placeholder="姓名" value="{{user_address_name}}" data-key="user_address_name" bindinput="handelChange" confirm-hold="{{false}}" onBlur="blur"/>
-                </view>
-                <view class="list">
-                    <view class="item">手机号</view>
-                    <input placeholder="请输入手机号" value="{{user_address_phone}}" maxlength="11" type="number" data-key="user_address_phone" bindinput="handelChange"/>
-                </view>
-                <view class="select-address list" catchtap="showSelectAddress">
-                    <view class="item">领取城市</view>
-                    <input placeholder="请选择领取城市" disabled="true" data-key="phone" value="{{address == '  ' ? '' : address}}" bindinput="handelChange"/>
-                    <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
-                </view>
-                <view class="select-address list" catchtap="doSelectShop">
-                    <view class="item">领取门店</view>
-                    <input placeholder="请选择领取门店" disabled="true" data-key="shop_name" value="{{shop_name}}" bindinput="handelChange"/>
-                    <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png"/>
-                </view>
-            </view>
-            <view class="p-good">
-                <view class="p-detail">
-                    <image class="p-img" mode="scaleToFill" src="{{imageUrl2 + d.goods_pic}}"/>
-                    <view class="p-right">
-                        <view class="p-title">
-                            {{d.goods_name}}
-                        </view>
-                        <view class="p-price">
-                            {{d.order_point == 0 ? '' : d.order_point + '积分'}}  {{d.exchange_type == 2 ? '+' : ''}}  {{d.order_amount == 0 ? '' : d.order_amount + '元'}}
-                            {{(d.order_point == 0 && d.order_amount == 0)? '免费领取':''}}
-                        </view>
-                    </view>
-                </view>
-                <view class="order">
-                    <view class="ordet-title">订单编号</view>
-                    <view class="order-num">{{d._order_sn}}</view>
-                </view>
-                <view class="total">
-                    <text class="total-title">合计</text>
-                    <text class="total-vip">{{d.order_point}}</text>
-                    <text class="total-j">积分</text>
-                    <text class="total-vip" wx:if="{{d.order_amount != 0}}">+{{d.order_amount}}</text>
-                    <text class="total-sm" wx:if="{{d.order_amount != 0}}">元</text>
-                    <text class="total-vip" wx:if="{{d.express_fee != 0}}">+{{d.express_fee}}</text>
-                    <text class="total-sm" wx:if="{{d.express_fee != 0}}">元运费</text>
-                </view>
-            </view>
-            <view wx:if="{{d.receive_type != 2}}" class="wait-pay-btn" catchtap="payNow" style="background:{{ (!user_address_name || !user_address_phone || !address || !shop_name) ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)'  : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
-                马上支付
-            </view>
-            <view wx:if="{{d.receive_type == 2}}" class="wait-pay-btn" catchtap="payNow" style="background:{{ !user_address_name  ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)' : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
-                马上支付
-            </view>
-        </view>
+  <view wx:if="{{!selectShop}}">
+    <!-- 带支付页面 实物邮寄，实物门店，虚拟商品直接跳过到兑换成功页 -->
+    <!-- 等待支付 -->
+    <view class="wait-pay" wx:if="{{d.limit_pay_second && d.limit_pay_minute>-1}}">
+      <text class="wait-pay-title">支付剩余时间：</text>
+      <text class="wait-pay-time">{{d.limit_pay_minute}}分{{d.limit_pay_second}}秒</text>
     </view>
-    <!-- 领取门店 -->
-    <view class="shop" wx:if="{{selectShop}}">
-        <view class="shop-search">
-            <image class="search-icon" mode="scaleToFill" src="{{imageUrl}}search.png"/>
-            <input placeholder="小区/写字楼/学校等" bindinput="search" />
+    <!-- 实物邮寄 -->
+    <view style="height:100vh;background:#f5f5f5">
+      <view class="address" wx:if="{{d.receive_type == 2 && !user_address_name}}" catchtap="toAddAddress">
+        <view class="address-title">请填写收货地址</view>
+        <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+      </view>
+      <view class="address" wx:if="{{d.receive_type == 2 && user_address_name}}" catchtap="toAddAddress">
+        <view class="address-title">
+          <view>{{user_address_name}} {{user_address_phone}}</view>
+          <view class="address-sm">{{user_address_map_addr + user_address_address + user_address_detail_address}}</view>
         </view>
-        <view class="shop-ul">
-            <view class="shop-item" wx:for="{{shopList}}" wx:key="{{ index }}" data-shop_name="{{item.shop_name}}" data-shop_id="{{item.shop_id}}" catchtap="sureSelectShop">
-                <image class="shop-position" mode="scaleToFill" src="{{imageUrl}}position.png" wx:if="{{index === 0}}"/>
-                <image class="shop-position" mode="scaleToFill" src="{{imageUrl}}order2.png" wx:if="{{index !==0 }}"/>
-                <view class="shop-detail">
-                    <view class="shop-detail-top">
-                        <view class="shop-title">
-                            {{item.shop_name}}
-                        </view>
-                        <view class="shop-distance">
-                            <text style="color:{{index === 0?'':'#999'}}">距离{{item.distance}}米</text>
-                            <image mode="scaleToFill" class="shop-position" src="{{imageUrl}}arrow_right3.png" wx:if="{{index === 0}}"/>
-                            <image mode="scaleToFill" class="shop-position" src="{{imageUrl}}arrow_right1.png" wx:if="{{index !== 0}}"/>
-                        </view>
-                    </view>
-                    <view class="shop-address">
-                        {{item.shop_address}}
-                    </view>
-                </view>
+        <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+      </view>
+      <!-- 实物门店 -->
+      <view class="store" wx:if="{{d.receive_type == 1}}">
+        <view class="list">
+          <view class="item">领取人</view>
+          <input placeholder="姓名" value="{{user_address_name}}" data-key="user_address_name" bindinput="handelChange" confirm-hold="{{false}}" onBlur="blur" />
+        </view>
+        <view class="list">
+          <view class="item">手机号</view>
+          <input placeholder="请输入手机号" value="{{user_address_phone}}" maxlength="11" type="number" data-key="user_address_phone" bindinput="handelChange" />
+        </view>
+        <view class="select-address list" catchtap="showSelectAddress">
+          <view class="item">领取城市</view>
+          <input placeholder="请选择领取城市" disabled="true" data-key="phone" value="{{address == '  ' ? '' : address}}" bindinput="handelChange" />
+          <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+        </view>
+        <view class="select-address list" catchtap="doSelectShop">
+          <view class="item">领取门店</view>
+          <input placeholder="请选择领取门店" disabled="true" data-key="shop_name" value="{{shop_name}}" bindinput="handelChange" />
+          <image class="arrow" mode="scaleToFill" src="{{imageUrl}}arrow_right1.png" />
+        </view>
+      </view>
+      <view class="p-good">
+        <view class="p-detail">
+          <image class="p-img" mode="scaleToFill" src="{{imageUrl2 + d.goods_pic}}" />
+          <view class="p-right">
+            <view class="p-title">
+              {{d.goods_name}}
             </view>
-        </view>
-    </view>
-    <!-- 选择地址 -->
-    <view class="pop-wrap" wx:if="{{selectAddress}}">
-        <view class="my-pop">
-            <view class="pop-top">
-                <text></text>
-                <text class="title">城市</text>
-                <text class="sure" catchtap="hideSelectAddress">确定</text>
+            <view class="p-price">
+              {{d.order_point == 0 ? '' : d.order_point + '积分'}} {{d.exchange_type == 2 ? '+' : ''}} {{d.order_amount == 0 ? '' : d.order_amount + '元'}} {{(d.order_point == 0 && d.order_amount == 0)? '免费领取':''}}
             </view>
-            <picker-view class="pick" value="{{defaultAddress}}" indicator-style="height: 40px;" bindchange="changeAddress">
-                <picker-view-column>
-                    <view class="selecter" wx:for="{{ provinceList }}" wx:key="{{ index }}">
-                        <view class="value">{{item.name}}</view>
-                    </view>
-                </picker-view-column>
-                <picker-view-column>
-                    <view class="selecter" wx:for="{{cityList}}"  wx:key="{{ index }}">
-                        <view class="value">{{item.name}}</view>
-                    </view>
-                </picker-view-column>
-                <picker-view-column>
-                    <view class="selecter" wx:for="{{countryList}}"  wx:key="{{ index }}">
-                        <view class="value">{{item.name}}</view>
-                    </view>
-                </picker-view-column>
-            </picker-view>
+          </view>
         </view>
+        <view class="order">
+          <view class="ordet-title">订单编号</view>
+          <view class="order-num">{{d._order_sn}}</view>
+        </view>
+        <view class="total">
+          <text class="total-title">合计</text>
+          <text class="total-vip">{{d.order_point}}</text>
+          <text class="total-j">积分</text>
+          <text class="total-vip" wx:if="{{d.order_amount != 0}}">+{{d.order_amount}}</text>
+          <text class="total-sm" wx:if="{{d.order_amount != 0}}">元</text>
+          <text class="total-vip" wx:if="{{d.express_fee != 0}}">+{{d.express_fee}}</text>
+          <text class="total-sm" wx:if="{{d.express_fee != 0}}">元运费</text>
+        </view>
+      </view>
+      <view wx:if="{{d.receive_type != 2}}" class="wait-pay-btn" catchtap="payNow" style="background:{{ (!user_address_name || !user_address_phone || !address || !shop_name) ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)'  : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
+        马上支付
+      </view>
+      <view wx:if="{{d.receive_type == 2}}" class="wait-pay-btn" catchtap="payNow" style="background:{{ !user_address_name  ? 'linear-gradient(135deg,rgba(251,83,50,.3) 0%,rgba(230,0,18,.3) 100%)' : 'linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)'}}">
+        马上支付
+      </view>
     </view>
+  </view>
+  <!-- 领取门店 -->
+  <view class="shop" wx:if="{{selectShop}}">
+    <view class="shop-search">
+      <image class="search-icon" mode="scaleToFill" src="{{imageUrl}}search.png" />
+      <input placeholder="小区/写字楼/学校等" bindinput="search" />
+    </view>
+    <view class="shop-ul">
+      <view class="shop-item" wx:for="{{shopList}}" wx:key="{{ index }}" data-shop_name="{{item.shop_name}}" data-shop_id="{{item.shop_id}}" catchtap="sureSelectShop">
+        <image class="shop-position" mode="scaleToFill" src="{{imageUrl}}position.png" wx:if="{{index === 0}}" />
+        <image class="shop-position" mode="scaleToFill" src="{{imageUrl}}order2.png" wx:if="{{index !==0 }}" />
+        <view class="shop-detail">
+          <view class="shop-detail-top">
+            <view class="shop-title">
+              {{item.shop_name}}
+            </view>
+            <view class="shop-distance">
+              <text style="color:{{index === 0?'':'#999'}}">距离{{item.distance}}米</text>
+              <image mode="scaleToFill" class="shop-position" src="{{imageUrl}}arrow_right3.png" wx:if="{{index === 0}}" />
+              <image mode="scaleToFill" class="shop-position" src="{{imageUrl}}arrow_right1.png" wx:if="{{index !== 0}}" />
+            </view>
+          </view>
+          <view class="shop-address">
+            {{item.shop_address}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 选择地址 -->
+  <view class="pop-wrap" wx:if="{{selectAddress}}">
+    <view class="my-pop">
+      <view class="pop-top">
+        <text></text>
+        <text class="title">城市</text>
+        <text class="sure" catchtap="hideSelectAddress">确定</text>
+      </view>
+      <picker-view class="pick" value="{{defaultAddress}}" indicator-style="height: 40px;" bindchange="changeAddress">
+        <picker-view-column>
+          <view class="selecter" wx:for="{{ provinceList }}" wx:key="{{ index }}">
+            <view class="value">{{item.name}}</view>
+          </view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="selecter" wx:for="{{cityList}}" wx:key="{{ index }}">
+            <view class="value">{{item.name}}</view>
+          </view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="selecter" wx:for="{{countryList}}" wx:key="{{ index }}">
+            <view class="value">{{item.name}}</view>
+          </view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
 </view>
 
 <i-toast id="toast" />

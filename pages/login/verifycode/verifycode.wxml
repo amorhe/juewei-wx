@@ -7,7 +7,6 @@
     <view class="inputInfo {{ value[1]?value[2]?'':'inputFocus':'' }}">{{ value[2] }}</view>
     <view class="inputInfo {{ value[2]?value[3]?'':'inputFocus':'' }}">{{ value[3] }}</view>
   </view>
-  <!-- <input bindinput="inputValue" class="inputClass" maxlength="4" type="number" hold-keyboard="true" focus="true"/> -->
   <input bindtap="bindFocus" class="inputClass" focus="{{focus}}" cursor="{{ cursor }}" bindfocus="onFocus" maxlength="{{4}}" type="number" bindinput="inputValue"  hold-keyboard="true" />
   <view class="errorTitel" wx:if="{{false}}">
     验证码输入错误，请重新输入
