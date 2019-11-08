@@ -143,7 +143,7 @@
       <view class="fontBold">超值换购</view>
       <view class="fontSmallGray marginLEight">只能换购一件商品</view>
     </view>
-    <!-- 换购商品有多个 -->
+    <!-- 换购商品有多个scroll-view -->
     <scroll-view class="repurseView" scroll-x wx:if="{{repurseList.length>1}}">
       <view style="width:{{581*repurseList.length}}rpx;display:flex;align-items:center">
         <view class="repurseGoodsInfo" wx:for="{{repurseList}}" wx:key="unique">
@@ -235,6 +235,7 @@
     </form>
   </view>
 </view>
+<!-- 提示弹框 -->
 <i-toast id="toast" />
 <!-- 各种订单商品状态 -->
 <confirm content="{{content}}" confirmButtonText="重新选择" cancelButtonText="继续结算" mask="{{mask}}" modalShow="{{modalShow}}" bindCounterPlusOne="bindCounterPlusOne" isType="orderConfirm" />

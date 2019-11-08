@@ -22,7 +22,6 @@ export const loginByPhone = data => ajax(loginPage.loginByPhone, data);
 export const login = rest => wx.login({
   success: async res => {
     const userInfo = JSON.stringify(wxGet('userInfo'));
-    console.log(userInfo);
     const { code } = res;
     console.log('发送 res.code 到后台换取 openId, sessionKey, unionId');
     let r = await loginByAuth({ code, userInfo, ...rest });
@@ -44,15 +43,10 @@ export const login = rest => wx.login({
 export const WX_LOGIN = rest => {
   wx.checkSession({
     success() {
-      const { user_id, _sid } = wxGet('userInfo') || { user_id: '' };
-      wxSet('_sid',_sid);
-      if (!user_id) {
-        console.log('//session_key 未过期，并且在本生命周期一直有效,但是本地没有用户数据');
-        login(rest)
-      }
+      // 每次进入调用自动登录接口
+      login(rest)
     },
     fail() {
-      console.log('session_key 已经失效，需要重新执行登录流程');
       // 登录
       login(rest)
     }

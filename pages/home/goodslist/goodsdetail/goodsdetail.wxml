@@ -5,7 +5,9 @@
   module.exports.numberToFix = numberToFix;
 </wxs>
 <view style="background:#eee">
+  <!-- 非套餐图片 -->
   <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type!='PKG'}}" src="{{goodsInfo.goods_img_detail[0]}}" />
+  <!-- 套餐图片 -->
   <image class="goodsImage" mode="scaleToFill" wx:if="{{goodsInfo.goods_type=='PKG'}}" src="{{img_url + goodsInfo.goods_img[0]}}" />
   <view class="goodsWrap borderFont">
     <view class="goodsTitle marginB">
@@ -187,7 +189,6 @@
             <view class="commontTag">
               <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}hands.png" />
               <view wx:for="{{item.tags}}" wx:for-item="_item" wx:key="unique">{{_item}}</view>
-              <!--<view>食材新鲜</view><view>包装精美</view> -->
             </view>
             <view class="fontSmallGray">购买时间：{{item.takeout_order_comment_utime}}</view>
           </view>

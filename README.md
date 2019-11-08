@@ -137,11 +137,3 @@
 ├─ iview-weapp 小程序应用自定三方组件，全局组件
 |
 └─ utils 小程序公共js库
-
-## 约定
-1. 事件用 `EVENT` 开头
-2. 自定义组件嵌套最多 ** 一层 **
-3. JSON 数据 onLoad 里面
-4. setTimeOut 取代 setInterval
-5. 全局变量在 APPID 里声明
-6. 注释完善一下

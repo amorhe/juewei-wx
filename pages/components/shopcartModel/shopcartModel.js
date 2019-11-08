@@ -72,11 +72,6 @@ Component({
     h: 0,
     curUrl: false,
   },
-  observers: {
-    '**': function() {
-
-    }
-  },
   /**
    * 组件的方法列表
    */
@@ -91,6 +86,7 @@ Component({
       freeText: this.properties.freeText
     })
     this.funGetSendPrice();
+     // iphone机型兼容
     let isPhone = app.globalData.isIphoneX;
     if (isPhone) {
       this.setData({
@@ -148,12 +144,10 @@ Component({
         confirmColor: "#E60012",
         success(res) {
           if (res.confirm) {
-            console.log('用户点击取消')
             that.setData({
               mask1: true
             })
           } else if (res.cancel) {
-            console.log('用户点击确定')
             that.setData({
               showShopcar: false
             })
@@ -201,6 +195,7 @@ Component({
         });
       }
     },
+    // 加
     eveAddshopcart(e) {
       // 购物车小球动画
       this.triggerEvent('Animate', e);
@@ -256,6 +251,7 @@ Component({
       this.funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
       wxSet('goodsList', goodlist)
     },
+    // 减
     eveReduceshopcart(e) {
       let code = e.currentTarget.dataset.goods_code;
       let format = e.currentTarget.dataset.goods_format
@@ -311,6 +307,7 @@ Component({
         })
       }
     },
+    // 监听购物车变化
     funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
       let data = {
         goodlist,
@@ -342,10 +339,15 @@ Component({
         return
       }
       // 未登录
-      if (wxGet('userInfo')==undefined || wxGet('userInfo').user_id == undefined) {
+      let userid = wxGet('user_id');
+      let userInfo = wxGet('userInfo');
+      //判断更加严谨
+      if (userid && userid != '' && userInfo && userInfo.user_id != '') {
+       
+      } else {
         navigateTo({
           url: '/pages/login/auth/auth'
-        })
+        });
         return
       }
       let goodsList = wxGet('goodsList');

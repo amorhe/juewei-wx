@@ -481,6 +481,7 @@ Page({
       if (!goodlist[keys].goods_price) {
         continue;
       }
+      // 折扣套餐商品
       if (e.currentTarget.dataset.goods_discount) {
         if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           $Toast({

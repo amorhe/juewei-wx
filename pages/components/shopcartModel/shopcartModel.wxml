@@ -1,3 +1,4 @@
+<!-- touchstart阻止遮罩下页面滑动 -->
 <view catchtouchmove="touchstart">
   <view class="fullReduce" wx:if="{{activityText!='' && !showShopcar}}">{{activityText}}</view>
   <view class="shopcart">
@@ -24,7 +25,7 @@
     </form>
   </view>
 </view>
-<!-- 购物车弹框 -->
+<!-- 购物车列表 -->
 <view wx:if="{{showShopcar && shopcartAll.length>0}}" class="shopcarContent" style="bottom:{{h}}" catchtouchmove="touchstart">
   <view class="fullReduce fontSmall" wx:if="{{activityText!=''}}">{{activityText}}</view>
   <view class="clearShopcar" bindtap="eveClearShopcart">

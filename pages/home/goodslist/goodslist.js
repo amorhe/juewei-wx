@@ -62,7 +62,7 @@ Page({
     autoplay: false,
     interval: 2000,
     circular: true,
-    imgUrls: [],
+    imgUrls: [],    //轮播图
     province_id: '', //省
     city_id: '', // 市
     region_id: '', //区
@@ -70,10 +70,6 @@ Page({
     isOpen: '', //门店是否营业
     shopTakeOut: {}, // 附近门店列表
     shopGoodsList: [], // 门店商品列表
-    typeList1: {
-      "折扣": "zk",
-      "套餐": "zhsm",
-    },
     typeList: {
       "爆款": "hot",
       "超辣": "kl",
@@ -685,7 +681,6 @@ Page({
           app.globalData.DIS = DIS;
           app.globalData.PKG = PKG;
           // 最终商品总数据
-          // console.log(goodsNew)
           this.setData({
             shopGoodsAll: goodsNew,
             shopGoods: arr
@@ -1076,6 +1071,7 @@ Page({
       scrollTop: this.data.navbarInitTop
     })
   },
+  // 关闭遮罩
   eveCloseModal(data) {
     this.setData({
       maskView: data.detail.maskView,
@@ -1092,6 +1088,7 @@ Page({
       goodsLast: e.currentTarget.dataset.index
     })
   },
+  // 显示购物车
   funOpenShopcar(data) {
     this.setData({
       shopcarShow: data.detail
@@ -1122,7 +1119,7 @@ Page({
       totalH: wx.getSystemInfoSync().windowHeight * (750 / wx.getSystemInfoSync().windowWidth) - 408
     })
   },
-  // 购物车活动提示
+  // 购物车上方活动提示
   funShopcartPrompt(oldArr, priceFree, repurse_price) {
     let activityText = '',
       freeText = '';
@@ -1213,7 +1210,4 @@ Page({
       });
     }
   },
-  onSubmit(e) {
-    upformId(e.detail.formId);
-  }
 })

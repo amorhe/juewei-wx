@@ -11,6 +11,7 @@
       <view class="{{type==2?'activeType':''}}" catchtap="eveChooseTypes" data-type='ziti'>自提</view>
     </view>
   </view>
+  <!-- 外卖 -->
   <view wx:if="{{!isSelf}}">
     <view class="closeIng" wx:if="{{!isClose && isOpen!= 1 && isOpen!=''}}">
       <view wx:if="{{isOpen == 2}}">您的定位地址门店未在营业时间 营业时间：{{shopTakeOut.start_time}}-{{shopTakeOut.end_time}}</view>
@@ -28,36 +29,32 @@
     </view>
     <image src="{{imageUrl}}advantage.png" class="goodsMessage" />
     <!-- 四个分类 -->
-    <form bindsubmit="onSubmit" bindreset="onReset" report-submit="true">
-      <view class="fourType">
-        <view bindtap="navigate" data-url="/package_my/pages/membercard/membercard">
-          <view>
-            <image src="{{imageUrl}}home_membercard.png" />
-            <view>会员卡</view>
-          </view>
+    <view class="fourType">
+      <view bindtap="navigate" data-url="/package_my/pages/membercard/membercard">
+        <view>
+          <image src="{{imageUrl}}home_membercard.png" />
+          <view>会员卡</view>
         </view>
-        <navigator url="/pages/vip/index/index" open-type="redirectTo" hover-class="none">
-          <view>
-            <image src="{{imageUrl}}home_vip.png" />
-            <view>会员专享</view>
-          </view>
-        </navigator>
-        <view bindtap="navigate" data-url="/package_my/pages/coupon/coupon">
-          <view>
-            <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button>
-            <image src="{{imageUrl}}home_coupon.png" />
-            <view>卡券</view>
-          </view>
-        </view>
-        <navigator url="/package_my/pages/nearshop/nearshop?re=1" hover-class="none">
-          <view>
-            <button style="position: absolute; opacity: 0;filter:Alpha(opacity=0);width:25%" formType="submit"></button>
-            <image src="{{imageUrl}}home_nearshop.png" />
-            <view>附近门店</view>
-          </view>
-        </navigator>
       </view>
-    </form>
+      <navigator url="/pages/vip/index/index" open-type="redirectTo" hover-class="none">
+        <view>
+          <image src="{{imageUrl}}home_vip.png" />
+          <view>会员专享</view>
+        </view>
+      </navigator>
+      <view bindtap="navigate" data-url="/package_my/pages/coupon/coupon">
+        <view>
+          <image src="{{imageUrl}}home_coupon.png" />
+          <view>卡券</view>
+        </view>
+      </view>
+      <navigator url="/package_my/pages/nearshop/nearshop?re=1" hover-class="none">
+        <view>
+          <image src="{{imageUrl}}home_nearshop.png" />
+          <view>附近门店</view>
+        </view>
+      </navigator>
+    </view>
     <!-- 活动展位 -->
     <view wx:for="{{showListObj}}" wx:key="unique">
       <!-- 类型1 -->
@@ -111,6 +108,7 @@
         </view>
       </view>
     </navigator>
+    <!-- 优惠券提示 -->
     <view class="closeIng" wx:if="{{isShow}}">
       <!-- 满减 -->
       <view wx:if="{{couponsExpire.full_money!=0 && couponsExpire.days!=0}}">
@@ -147,6 +145,7 @@
       <image src="{{imageUrl}}close2.png" bindtap="eveCloseCouponView" />
     </view>
   </view>
+  <!-- 去自提头部 -->
   <view class="shopUp" wx:if="{{isSelf}}">
     <image class="shopLogo" src="{{imageUrl}}shopbg.png" />
     <navigator url="/package_my/pages/nearshop/nearshop?re=2" class="shopBoxs">
@@ -164,6 +163,7 @@
       </view>
     </navigator>
   </view>
+  <!-- 商品列表 -->
   <view class="{{maskView?'content_other':'content_main'}}" style="{{isShow?'top:254rpx;':'top:208rpx;'}}">
     <view class="pages_scroll pagesinfo" style="height:{{totalH}}rpx;{{isiphonex?' padding-bottom:20px;':''}}">
       <scroll-view scroll-y="true" style="width:168rpx;max-height:100vh;background: #F8F8F8;" scroll-top="{{goodsType > 7 ? (goodsType - 6) * 55 : 0}}">
@@ -301,5 +301,6 @@
     <goods-modal maskView="{{maskView}}" goodsModal="{{goodsModal}}" bindCloseModal="eveCloseModal" goodsKey="{{goodsKey}}" goodsItem="{{goodsItem.last[goodsLast]}}" bindCart="funCart" priceAll="{{priceAll}}" shopcartNum="{{shopcartNum}}" goodsList="{{shopcartList}}"
       bindAnimate="funAnimate" />
   </view>
- </view>
+</view>
+<!-- 提示弹框 -->
 <i-toast id="toast" />
