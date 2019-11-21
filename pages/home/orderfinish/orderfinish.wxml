@@ -7,10 +7,10 @@
   <view class="adView"></view>
 </view>
 <!-- 百元 礼包券 -->
-<view wx:if="{{newUserShow}}" style="background:rgba(0,0,0,.5);width:100vw;height:100vh;position:absolute;left:0;top:0" bindtap="eveClose">
-  <view class="wrap posscc" style="background-image:url({{imageUrl}}redBg.png)">
-    <view class="ul">
-      <view class="li" style="background-image:url({{imageUrl}}couponBg.png)" wx:for="{{new_user}}" bindtap="eveToTakeIn" wx:key="unique">
+<view wx:if="{{newUserShow}}" style="background:rgba(0,0,0,.5);width:100vw;height:100vh;position:absolute;left:0;top:0" catchtap="eveClose">
+  <view class="wrap posscc" style="background-image:url({{imageUrl}}redBg.png)" catchtap="evenotap">
+    <view class="ul" catchtap="evenotap">
+      <view class="li" style="background-image:url({{imageUrl}}couponBg.png)" wx:for="{{new_user}}" catchtap="eveToTakeIn" wx:key="unique">
         <view class="left">
           <view>
             <text class="num">{{item.money/100}}</text>
@@ -25,6 +25,9 @@
         <view class="li-btn">立即使用</view>
       </view>
     </view>
+  </view>
+  <view class="wrap_close">
+    <image class="wrap_close_image" src="{{imageUrl}}close5.png" />
   </view>
 </view>
 <view wx:if="{{gifts}}" style="background:rgba(0,0,0,.5);width:100vw;height:100vh;position:absolute;left:0;top:0" bindtap="confirmTap">

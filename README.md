@@ -29,39 +29,20 @@
 
 ##文件结构说明
 ├─ pages    主包
-|   ├─ city    城市切换
 |   ├─ common    公共引用页面（越少越好）
 |   |     ├─ img     内部图片位置
 |   |     ├─ js      公共js文件夹
-|   |     |   ├─ AddShopCar.js  购物车小球方法
-|   |     |   ├─ address.js   地址部分接口  
-|   |     |   ├─ ajax.js   封装request
-|   |     |   ├─ baseUrl.js  公共url域名
-|   |     |   ├─ city.js   全国所有城市 
-|   |     |   ├─ getdistance.js  经纬度距离计算
-|   |     |   ├─ home.js  主要接口
-|   |     |   ├─ li-ajax.js 封装request   
-|   |     |   ├─ login.js 登录部分接口
-|   |     |   ├─ map.js 百度腾讯坐标转换
-|   |     |   ├─ my.js 个人中心接口
-|   |     |   ├─ order.js 订单部分接口
-|   |     |   ├─ router.js 导航切换封装
-|   |     |   ├─ time.js 时间日期转换
-|   |     |   ├─ utils.js 公共方法
-|   |     |   └─ vip.js  vip部分接口
-|   |     |    
+|   |     |   └─ baseUrl.js  公共url域名
 |   |     └─ style   公共css文件夹
 |   |          └─  common.acss  公共的css样式
 |   |              
 |   ├─ components  自定义组件库
-|   |     ├─ confirm  自定义弹窗组件
-|   |     ├─ goodsModal  商品选择规格弹窗自定义组件
-|   |     ├─ shopcartModel 购物车自定义组件
-|   |     └─ tab-bar 底部tabbar自定义组件
+|   |     ├─ confirm  提交组件
+|   |     ├─ goodsModal  商品列表自定义组件
+|   |     └─ shopcartModel 购物车自定义组件
 |   |
 |   ├─ home 商城文件夹
 |   |    ├─ goodslist  商城首页列表页(外卖和自提是一个)
-|   |    |       └─ goodsdetail 商品详情页面
 |   |    ├─ orderfinish 订单完成页(外卖和自提是一个)
 |   |    ├─ orderform  确认订单(外卖和自提是一个)
 |   |    ├─ selecttarget 手动选择定位地址
@@ -137,3 +118,11 @@
 ├─ iview-weapp 小程序应用自定三方组件，全局组件
 |
 └─ utils 小程序公共js库
+
+## 约定
+1. 事件用 `EVENT` 开头
+2. 自定义组件嵌套最多 ** 一层 **
+3. JSON 数据 onLoad 里面
+4. setTimeOut 取代 setInterval
+5. 全局变量在 APPID 里声明
+6. 注释完善一下

@@ -103,7 +103,7 @@ Page({
           item.isChecked = false
       })
       // 已选中的优惠券
-      if (app.globalData.coupon_code) {
+      if (app.globalData.coupon_code && app.globalData.coupon_code!='') {
         if (app.globalData.notUse == 0) {
           this.data.couponChoosed[`e${res.DATA.use.findIndex(item => item.code == app.globalData.coupon_code)}`] = app.globalData.coupon_code;
         }
@@ -126,17 +126,18 @@ Page({
     let couponChoosed = {};
     couponChoosed[`e${e.currentTarget.dataset.index}`] = e.currentTarget.dataset.coupon_code;
     if (this.data.couponChoosed[`e${e.currentTarget.dataset.index}`] == e.currentTarget.dataset.coupon_code) {
+      app.globalData.coupon_code = '';
       app.globalData.notUse = 1;
       this.setData({
         couponChoosed: {}
       })
     } else {
+      app.globalData.coupon_code = e.currentTarget.dataset.coupon_code;
       app.globalData.notUse = 0;
       this.setData({
         couponChoosed
       })
     }
-    app.globalData.coupon_code = e.currentTarget.dataset.coupon_code;
     wx.navigateBack({
       url: '/pages/home/orderform/orderform'
     });

@@ -106,14 +106,14 @@ Page({
 
   async funGetUserPoint() {
     let res = await Request.reqUserPoint();
-    console.log(res);
     if (res.CODE === 'A100') {
       this.setData({
         userPoint: res.DATA
       })
     } else {
+      //用户未登录状态就是暂无积分，没有积分，这块后端没有返回用户未登录code码。
       this.setData({
-        loginOpened: true
+        loginOpened: true //这个值无用在当前页的情况
       })
     }
   },
@@ -142,7 +142,17 @@ Page({
   hideToast() {
     this.setData({ toast: false })
   },
-
   navigateBack,
   navigateTo
 });
+
+// <!--未登录提示 -->
+// <i-modal visible="{{loginOpened}}" show-ok="{{ false }}" show-cancel="false">
+//   <view class="modalInfo">
+//   用户未登录
+//   </view>
+//   <view slot="footer" class="footerButton">
+//   <view class="modalButton confirm " onTap="onModalClose">取消</view>
+//   <view class="modalButton cancel " onTap="isloginFn">登录</view>
+//   </view>
+//   </i-modal>

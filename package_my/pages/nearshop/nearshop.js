@@ -36,7 +36,7 @@ Page({
     inputAddress: '',
     city: '',
     activeIndex: 0,
-    height: 448,
+    height: 50,
     isSearch: false
   },
   /**
@@ -44,7 +44,7 @@ Page({
    */
   onLoad(options) {
     if (options && options.re && options.re==1){
-      app.globalData.city2 = '';
+      app.globalData.choosecity2 = '';
     }
     this.nearShop(wxGet('lng'), wxGet('lat'));
     let ott = tx_decrypt(wxGet('lng'), wxGet('lat'))
@@ -52,7 +52,7 @@ Page({
       longitude: ott.lng,
       latitude: ott.lat,
       selfshop: false,
-      city: app.globalData.city2 || app.globalData.position.city || app.globalData.city
+      city: app.globalData.choosecity2 || app.globalData.position.city || app.globalData.city
     })
   },
 
@@ -68,7 +68,7 @@ Page({
    */
   onShow: function() {
     this.setData({
-      city: app.globalData.city2 || app.globalData.city
+      city: app.globalData.choosecity2 || app.globalData.city
     })
     if (app.globalData.chooseBool) {
       this.searchShop('', true)
@@ -87,7 +87,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-   
+    // app.globalData.shopIng = null;
   },
 
   /**
@@ -128,6 +128,9 @@ Page({
             longitude: lng,
             latitude: lat
           })
+          //这个不能改当前的定位
+          // wxSet('lng', lng);
+          // wxSet('lat', lat)
           that.nearShop(lng, lat);
         }
       },

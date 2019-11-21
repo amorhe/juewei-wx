@@ -84,14 +84,18 @@ Page({
   },
   funGetCouponsList(_sid) {
     couponsList(_sid, 'history').then((res) => {
-      res.DATA.used.forEach(item => {
-        item.start_time = formatTime(item.start_time, 'Y-M-D');
-        item.end_time = formatTime(item.end_time, 'Y-M-D');
-      })
-      this.setData({
-        couponList: res.DATA.used,
-        tabs: this.data.tabs
-      })
+      if (res.CODE == "A100"){
+          res.DATA.used.forEach(item => {
+            item.start_time = formatTime(item.start_time, 'Y-M-D');
+            item.end_time = formatTime(item.end_time, 'Y-M-D');
+          })
+          this.setData({
+            couponList: res.DATA.used,
+            tabs: this.data.tabs
+          })
+      }else{
+          //用户未登录状态
+      }
     })
   },
   /**

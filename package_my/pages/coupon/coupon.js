@@ -9,23 +9,12 @@ import {
   couponsList,
   exchangeCode
 } from '../../../pages/common/js/home'
-import {
-  formatTime
-} from '../../../pages/common/js/time'
-
+import { formatTime } from '../../../pages/common/js/time'
 import Request from "../../../pages/common/js/li-ajax";
-
-import {
-  MODAL
-} from "../../../pages/common/js/utils";
-import {
-  reLaunch
-} from "../../../pages/common/js/router";
-
+import { MODAL } from "../../../pages/common/js/utils";
+import { reLaunch } from "../../../pages/common/js/router";
+const { $Toast } = require('../../../iview-weapp/base/index');
 const app = getApp();
-const {
-  $Toast
-} = require('../../../iview-weapp/base/index');
 Page({
 
   /**
@@ -132,6 +121,9 @@ Page({
           couponList: res.DATA.use,
           tabs
         })
+      }else{
+        //未登录状态
+
       }
     })
   },
@@ -139,6 +131,7 @@ Page({
   funGetExchangeCode(_sid) {
     exchangeCode(_sid, 'use').then((res) => {
       if (res.CODE == "A100") {
+        console.log('exchangeCode');
         const {
           tabs
         } = this.data;
@@ -147,6 +140,9 @@ Page({
           exchangeList: res.DATA,
           tabs
         })
+      }else{
+        // 未登录状态
+        
       }
     })
   },
@@ -206,6 +202,14 @@ Page({
     switch (way - 0) {
       case 1:
       case 3:
+        // MODAL({
+        //   title: '',
+        //   content: '限时优惠，立即使用',
+        //   cancelText: '自提',
+        //   cancel: this.toTakeOut,
+        //   confirmText: '外卖',
+        //   confirm: this.toTakeIn
+        // });
         this.setData({
           modalShow: true,
           mask: true
@@ -247,6 +251,7 @@ Page({
 
   async wait() {
     let res = await Request.waiting();
+    console.log(res);
     if (res.code == 0) {
       return this.closeModel()
     }

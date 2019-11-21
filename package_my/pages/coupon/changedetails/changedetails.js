@@ -1,16 +1,7 @@
-import {
-  exchangedetail
-} from '../../../../pages/common/js/home'
-import {
-  imageUrl2,
-  wxGet
-} from '../../../../pages/common/js/baseUrl'
-import {
-  parseData
-} from '../../../../pages/common/js/utils'
-const {
-  $Toast
-} = require('../../../../iview-weapp/base/index');
+import { exchangedetail } from '../../../../pages/common/js/home'
+import { imageUrl2, wxGet} from '../../../../pages/common/js/baseUrl'
+import { parseData } from '../../../../pages/common/js/utils'
+const { $Toast } = require('../../../../iview-weapp/base/index');
 Page({
 
   /**
@@ -125,6 +116,9 @@ Page({
         this.setData({
           exchangeObj: res.DATA
         })
+      }else{
+        //未登录状态
+
       }
     })
   },
@@ -133,7 +127,10 @@ Page({
     wx.setClipboardData({
       data: e.currentTarget.dataset.code,
       success() {
-        
+        // $Toast({
+        //   type: 'success',
+        //   content: '操作成功'
+        // });
       }
     });
   },

@@ -1,75 +1,83 @@
 <wxs module="m1">
-  var numberToFix = function(value) {
+    var numberToFix= function (value) {
     return value.toFixed(2)
-  }
-  module.exports.numberToFix = numberToFix;
+    }
+    module.exports.numberToFix=numberToFix;
 </wxs>
-<import src="/utils/wxParse/wxParse.wxml" />
-<template is="wxParse" data="{{wxParseData:content.nodes}}" />
+<import src="/utils/wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:content.nodes}}"/>
 <view>
-  <view class="header">
-    <swiper class="swiper-wrap">
-      <block wx:for="{{detail.goods_pic}}" wx:key="{{ index }}">
-        <swiper-item>
-          <image class="img" mode="widthFix" src="{{imageUrl2 + item.goods_pic}}" />
-        </swiper-item>
-      </block>
-    </swiper>
-    <view class="header-wrap">
-      <view class="title">
-        {{detail.goods_name}}
-      </view>
-      <view class="coast" wx:if="{{detail.point && detail.point == 0 && detail.amount == 0 }}">
-        <text>免费领取</text>
-      </view>
-      <view class="coast" wx:if="{{detail.point && detail.point !=0 && detail.amount != 0 }}">
-        {{ detail.point}}
-        <text>积分</text> + {{ detail.amount/100}}
-        <text>元</text>
-      </view>
-      <view class="coast" wx:if="{{detail.point && detail.point !=0 && detail.amount == 0 }}">
-        {{ detail.point}}
-        <text>积分</text>
-      </view>
-      <view class="coast" wx:if="{{detail.point && detail.point ==0 && detail.amount != 0 }}">
-        {{ detail.amount/100}}
-        <text>元</text>
-      </view>
-      <view class="bottom" wx:if="{{detail.exchange_day_num!=0}}" style="width:{{((detail.exchange_day_num - detail.exchange_day_vaild_num)/detail.exchange_day_num) *100}}%;background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((detail.exchange_day_num - detail.exchange_day_vaild_num)/detail.total_num)*100 +'%, #fbfbfb '+ ((detail.exchange_day_num - detail.valid_num)/detail.total_num)*100 +'%)'}}"></view>
-      <view class="bottom" wx:if="{{detail.exchange_day_num!=0}}">
-        已抢{{(m1.numberToFix(detail.exchange_day_num-detail.exchange_day_vaild_num)*100/detail.exchange_day_num)}}%
-      </view>
-      <view class="bottom" wx:if="{{detail.exchange_day_num==0}}" style="width:{{((detail.total_num - detail.exchange_day_num)/detail.total_num) *100}}%;background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((detail.total_num - detail.valid_num)/detail.total_num)*100 +'%, #fbfbfb '+ ((detail.total_num - detail.valid_num)/detail.total_num)*100 +'%)'}}"></view>
-      <view class="bottom bottom-back" wx:if="{{detail.exchange_day_num==0}}">
-        已抢{{m1.numberToFix((detail.total_num-detail.valid_num)*100/detail.total_num)}}%
-      </view>
+    <view class="header">
+        <swiper class="swiper-wrap">
+            <block wx:for="{{detail.goods_pic}}" wx:key="{{ index }}">
+                <swiper-item>
+                    <image class="img" mode="widthFix" src="{{imageUrl2 + item.goods_pic}}"/>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class="header-wrap">
+            <view class="title">
+                {{detail.goods_name}}
+            </view>
+            <view class="coast" wx:if="{{detail.point && detail.point == 0 && detail.amount == 0 }}">
+                <text>免费领取</text>
+            </view>
+            <view class="coast" wx:if="{{detail.point && detail.point !=0 && detail.amount != 0 }}">
+                {{ detail.point}}
+                <text>积分</text>
+                + {{ detail.amount/100}}
+                <text>元</text>
+            </view>
+            <view class="coast" wx:if="{{detail.point && detail.point !=0 && detail.amount == 0 }}">
+                {{ detail.point}}
+                <text>积分</text>
+            </view>
+            <view class="coast" wx:if="{{detail.point && detail.point ==0 && detail.amount != 0 }}">
+                {{ detail.amount/100}}
+                <text>元</text>
+            </view>
+            <!--  exchange_day_num: "0" 每天兑换限额，当为0的时候系统是没有设置每天兑换限额的。
+                    exchange_day_vaild_num: 0  每天剩余兑换次数
+                    valid_num: "12"  总剩余库存
+                    是否显示已对完的图标是通过这三个值来确认的
+                    剩余库存为0 或者 （每天兑换限额不为零并且每天兑换剩余次数为0的时候） -->
+                        <view class="bottom" wx:if="{{detail.exchange_day_num!=0}}" style="width:{{((detail.exchange_day_num - detail.exchange_day_vaild_num)/detail.exchange_day_num) *100}}%;background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((detail.exchange_day_num - detail.exchange_day_vaild_num)/detail.total_num)*100 +'%, #fbfbfb '+ ((detail.exchange_day_num - detail.valid_num)/detail.total_num)*100 +'%)'}}"></view>
+                        <view class="bottom" wx:if="{{detail.exchange_day_num!=0}}">
+                            已抢{{(m1.numberToFix(detail.exchange_day_num-detail.exchange_day_vaild_num)*100/detail.exchange_day_num)}}%
+                        </view>
+                        <view class="bottom" wx:if="{{detail.exchange_day_num==0}}" style="width:{{((detail.total_num - detail.exchange_day_num)/detail.total_num) *100}}%;background:{{'linear-gradient(90deg, #FDE0E1 0, #FDE0E1 '+ ((detail.total_num - detail.valid_num)/detail.total_num)*100 +'%, #fbfbfb '+ ((detail.total_num - detail.valid_num)/detail.total_num)*100 +'%)'}}"></view>
+                        <view class="bottom bottom-back" wx:if="{{detail.exchange_day_num==0}}">
+                            已抢{{m1.numberToFix((detail.total_num-detail.valid_num)*100/detail.total_num)}}%
+                        </view>
+        </view>
     </view>
-  </view>
-  <view class="footer">
-    <view class="footer-title">
-      活动时间
+    <view class="footer">
+        <view class="footer-title">
+            活动时间
+        </view>
+        <view class="footet-containt">
+            {{detail.start_time}}至{{detail.end_time}}
+        </view>
+        <view class="footer-title" wx:if="{{detail.exchange_intro}}">
+            兑换说明
+        </view>
+        <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}"/>
+        <view class="footer-title" wx:if="{{detail.intro}}">
+            商品详情
+        </view>
+        <template is="wxParse" data="{{wxParseData:_intro.nodes}}"/>
+        <view class="footer-title">
+            兑换次数
+        </view>
+        <view class="footet-containt"> {{detail.exchange_limit_type==1?"每人每天":"活动期间"}}
+            {{detail.exchange_limit_num}}
+            次
+        </view>
     </view>
-    <view class="footet-containt">
-      {{detail.start_time}}至{{detail.end_time}}
-    </view>
-    <view class="footer-title" wx:if="{{detail.exchange_intro}}">
-      兑换说明
-    </view>
-    <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}" />
-    <view class="footer-title" wx:if="{{detail.intro}}">
-      商品详情
-    </view>
-    <template is="wxParse" data="{{wxParseData:_intro.nodes}}" />
-    <view class="footer-title">
-      兑换次数
-    </view>
-    <view class="footet-containt"> {{detail.exchange_limit_type==1?"每人每天":"活动期间"}} {{detail.exchange_limit_num}} 次
-    </view>
-  </view>
-  <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
-    <button class="btn" bindtap="FUN_showConfirm" formType="submit">立即兑换</button>
-  </form>
-  <view style="height:140rpx"></view>
+    <form onSubmit="onSubmit" onReset="onReset" report-submit="true">
+        <button class="btn" bindtap="FUN_showConfirm" formType="submit">立即兑换</button>
+    </form>
+    <view style="height:140rpx"></view>
 </view>
 
 <i-toast id="toast" />

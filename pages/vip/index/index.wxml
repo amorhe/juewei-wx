@@ -4,11 +4,11 @@
     }
     module.exports.numberToFix=numberToFix;
 </wxs>
-<view class="header-title-s" style="width: 100vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 10}}px;background: linear-gradient(135deg,rgba(251,83,50,1) 0%,rgba(230,0,18,1) 100%)">
+<view class="header-title-s" style="width: 100vw;height:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 10}}px;">
     <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px"> 会员专享 </text>
 </view>
-<view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
-<image style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px" mode="scaleToFill" class="title_bg" src="{{imageUrl}}title_bg.png"/>
+<view style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px"></view>
+<view class="title_bg" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px;background:url({{imageUrl}}body_bg.png) no-repeat;background-size:100%;) no-repeat"></view>
 <image mode="scaleToFill" class="body_bg" src="{{imageUrl}}body_bg.png"/>
 <view class="vip" bindtap="FUN_hideToast">
   <!-- 头部 -->
@@ -68,12 +68,12 @@
         <image wx:for="{{positionList}}" wx:key="{{index}}" wx:for-item="itemName" mode="scaleToFill" src="{{imageUrl2+ itemName.pic}}" data-url="{{itemName.url}}" bindtap="navigateTo"/>
       </scroll-view>
     </view>
-    <view class="sroll-view-wrap {{isFixedTop?'fixed':''}}" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight + 8}}px;">
+    <view class="sroll-view-wrap {{isFixedTop?'fixed':''}}" style="top:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px;background-color: #f5f5f5;">
       <scroll-view scroll-x class="x" style="margin:0 32rpx" id="affix">
         <view bindtap="FUN_listChange" data-cur="{{index}}" wx:key="{{index}}" wx:for='{{list}}' wx:key="{{ index }}" class="{{index === cur? 'active':''}}">{{item.cate_name}}</view>
       </scroll-view>
     </view>
-    <view class="ul" wx:if="{{finish}}">
+    <view class="ul" wx:if="{{finish}}" style="background-color: #f5f5f5;">
       <view class="li" wx:if="{{goodsList.length}}" wx:key="{{item.id}}" wx:for="{{goodsList}}" bindtap="FUN_toDetail" data-id="{{item.id}}" data-valid_num="{{item.valid_num}}" data-exchange_day_num="{{item.exchange_day_num}}" data-exchange_day_vaild_num="{{item.exchange_day_vaild_num}}">
         <view class="li-pic">
           <image mode="scaleToFill" src="{{imageUrl2 + item.goods_pic}}"/>

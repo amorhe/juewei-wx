@@ -11,6 +11,7 @@
         </view>
       </view>
       <navigator url="/package_my/pages/onlineservice/onlineservice" class="contactBtn">联系客服</navigator>
+      <!-- <view class="contactBtn" catchtap="contact">联系客服</view> -->
     </view>
     <view class="redeemCodeDetail borderBottom">
       <view class="redeemCode_hr">

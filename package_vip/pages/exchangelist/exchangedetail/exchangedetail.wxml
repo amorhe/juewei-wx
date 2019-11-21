@@ -7,6 +7,7 @@
   <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">兑换详情</text>
 </view>
 <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px"></view>
+<!-- <image style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight}}px" mode="scaleToFill" class="title_bg" src="{{imageUrl}}title_bg.png"/> -->
 <image mode="scaleToFill" class="body_bg" src="{{imageUrl}}body_bg.png" />
 <view class="bg" style="z-index:{{(open1||open2)? 0 : 1}};padding-bottom:60rpx">
   <!-- 兑换详记录情页 分为 官方兑换和 兑换码(非官方)兑换商品 -->
@@ -61,6 +62,7 @@
           </view>
         </view>
       </view>
+      <!--<view class="ul" wx:if="{{detail.receive_type == 2}}"><view class="li"><view class="title">{{detail.user_address_name}} {{detail.user_address_phone}}</view><view class="address-sm">北京市朝阳区某某某某某某某某某某某某某街</view></view></view> -->
       <view class="user-detail" wx:if="{{detail.receive_type == 1 && detail.user_address_name}}">
         <view class="user-list" wx:if="{{detail.user_address_name}}">
           <view class="user-left">
@@ -87,6 +89,8 @@
             <view class="code-button" data-shop_longitude="{{detail.shop_gd_longitude }}" data-shop_latitude="{{detail.shop_gd_latitude}}" data-shop_name="{{detail.shop_name}}" data-address="{{detail.address}}" bindtap="guide">导航</view>
           </view>
         </view>
+        <!--<view class="user-list" wx:if="{{detail.shop_name}}"><view class="user-left"></view><view class="user-right"><view class="user-address">
+           {{detail.province}} {{detail.city}} {{detail.district}} {{detail.address}}</view></view></view> -->
       </view>
       <view class="get-shop" wx:if="{{detail.code_img && detail.status == 1 && detail.get_code}}">
         <view class="get-shop-title">
@@ -209,7 +213,25 @@
       <view class="code-phone">
         {{m2.slice(detail.user_phone,0,3)}} **** {{m2.slice(detail.user_phone,7,11)}}
       </view>
+      <!-- <view class="code-pay" catchtap="wait">
+          确认支付
+        </view> -->
     </view>
   </view>
 
   <i-toast id="toast" />
+  <!--<popup wx:if="{{cancleShow}}" position="bottom">-->
+  <!--  <view style="width:750rpx; background: #fff;border-radius: 20rpx 20rpx 0 0;padding:0 0 20rpx 0" >-->
+  <!--    <view class="cancle-title">请选择取消原因</view>-->
+  <!--    <view class="cancel-list" wx:for="{{cancelReasonList}}" bindtap="selectReason" data-index="{{index}}">-->
+  <!--      <view class="cancle-left">-->
+  <!--        {{item.reason}}-->
+  <!--      </view>-->
+  <!--      <image  class="select" mode="scaleToFill" src="{{imageUrl}}select{{item.value?2:1}}.png"/>-->
+  <!--    </view>-->
+  <!--    <view class="cancel-buttons">-->
+  <!--      <view catchtap='closeModel'>暂不取消</view>-->
+  <!--      <view catchtap='doCancelOrder'>确认取消</view>-->
+  <!--    </view>-->
+  <!--  </view>-->
+  <!--</popup>-->

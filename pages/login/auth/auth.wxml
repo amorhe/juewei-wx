@@ -20,7 +20,7 @@
   <view class="headers">请输入图形验证码</view>
   <view class="modelBody">
     <view class="modelInput">
-      <input placeholder="请按右图输入" value="{{img_code}}" bindinput="getcodeImg" />
+      <input placeholder="请按右图输入" value="{{img_code}}" bindinput="getcodeImg" style="height: 70rpx;line-height:70rpx;" />
     </view>
     <view class="imgCode">
       <image class="imgCodeIcon" src="{{ imgUrl }}" bindtap="newImg" />

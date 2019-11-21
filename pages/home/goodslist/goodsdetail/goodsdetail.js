@@ -243,6 +243,8 @@ Page({
       type: app.globalData.type
     })
     wxSet('goodsList', shopcartObj);
+    // 购物车活动提示
+    // this.funShopcartPrompt(app.globalData.fullActivity, priceFree, repurse_price)
     // 评论
     this.funGetCommentList(this.data.goods_code, this.data.pagenum, this.data.pagesize);
     this.funGetDispatchCommentList(shop_id, this.data.pagenum, this.data.pagesize)
@@ -481,7 +483,6 @@ Page({
       if (!goodlist[keys].goods_price) {
         continue;
       }
-      // 折扣套餐商品
       if (e.currentTarget.dataset.goods_discount) {
         if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           $Toast({
@@ -534,7 +535,6 @@ Page({
     })
     wxSet('goodsList', goodlist)
   },
-  // 购物车减
   reduceshopcart(e) {
     let code = e.currentTarget.dataset.goods_code;
     let format = e.currentTarget.dataset.goods_format;

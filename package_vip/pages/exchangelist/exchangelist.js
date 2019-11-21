@@ -30,9 +30,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    await this.getOrderList(1)
+  
     this.eventReduceTime()
-
   },
 
   /**
@@ -46,7 +45,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.onPullDownRefresh()
+      // await this.getOrderList(1)
+    this.onPullDownRefresh() //这个方法含有getOrderList
   },
 
   /**
@@ -66,7 +66,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.reset()
+    this.resetpage()
 
   },
 
@@ -93,7 +93,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  reset() {
+  resetpage() {
     this.setData({
       finish: false,
 
@@ -107,8 +107,6 @@ Page({
       await this.getOrderList(1);
       wx.stopPullDownRefresh()
     })
-
-
   },
   /**
    * @function 获取更多订单信息
@@ -140,6 +138,9 @@ Page({
         finish: true,
         lastLage
       }, () => wx.hideLoading())
+    }else{
+      //用户未登录状态
+
     }
   },
 

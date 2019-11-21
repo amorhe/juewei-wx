@@ -1,6 +1,7 @@
+
 <view class="header-title-s" style="height:{{navHeight.titleBarHeight + navHeight.statusBarHeight}}px">
-  <image catchtap="navigateBack" style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 18}}px;left: 10px;padding: 10px" mode="scaleToFill" class="arrow-2" src="{{imageUrl}}arrow_right2.png" />
-  <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">积分</text>
+    <image catchtap="navigateBack" style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 18}}px;left: 10px;padding: 10px" mode="scaleToFill" class="arrow-2" src="{{imageUrl}}arrow_right2.png"/>
+    <text style="top:{{navHeight.statusBarHeight + navHeight.titleBarHeight/2 - 8}}px">积分</text>
 </view>
 
 <view style="height:{{navHeight.titleBarHeight+ navHeight.statusBarHeight + (userPoint.freeze_point?200: 180)}}rpx"></view>

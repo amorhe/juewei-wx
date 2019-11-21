@@ -183,6 +183,7 @@ input {
 
 .post-name {
   display: flex;
+  /* align-items: baseline; */
 }
 
 .post-name-left {
@@ -205,6 +206,7 @@ input {
   background: transparent;
   border-bottom: 1px solid #eee;
   margin: 0;
+  /* padding: 0 0 20rpx; */
 }
 
 .post-sex {

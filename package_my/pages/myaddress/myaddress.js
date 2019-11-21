@@ -97,11 +97,9 @@ Page({
     const province = list[i].province
     const city = list[i].city
     const district = list[i].district
-    console.log(district)
     const user_address_id = list[i].user_address_id
     const user_address_detail_address = list[i].user_address_detail_address
     const user_address_map_addr = list[i].user_address_map_addr
-    console.log(list)
     if (order_sn) {
       redirectTo({
         url: '/package_vip/pages/waitpay/waitpay?' +
@@ -135,12 +133,14 @@ Page({
       _sid: _sid,
       type: 'normal'
     }
-    console.log(data, 'data')
     addressList(data).then(res => {
       if (res.code == 0) {
         that.setData({
           list: res.data
         })
+      } else if (res.code == 30106 ){
+        //未登录状态
+
       } else {
         $Toast({
           content: res.msg

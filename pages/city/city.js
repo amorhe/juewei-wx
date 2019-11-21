@@ -1,6 +1,4 @@
-import {
-  cities
-} from '../common/js/city.js';
+import { cities } from '../common/js/city.js';
 import {
   imageUrl
 } from '../common/js/baseUrl.js'
@@ -35,25 +33,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    let storeCity = new Array(26);
-    const words = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-    words.forEach((item, index) => {
-      storeCity[index] = {
-        key: item,
-        list: []
-      }
-    })
-    cities.forEach((item) => {
-      let firstName = item.pinyin.substring(0, 1);
-      let index = words.indexOf(firstName);
-      storeCity[index].list.push({
-        name: item.name,
-        key: firstName
-      });
-    })
-    this.data.cities = storeCity;
     this.setData({
-      cities: this.data.cities
+      cities: cities
     })
   },
 
@@ -61,7 +42,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    app.globalData.chooseBool=false;
   },
 
   /**
@@ -112,18 +93,17 @@ Page({
   },
   eveChoosecity(e){
     if(this.data.type==2){
-      app.globalData.city2 = e.currentTarget.dataset.name + '市';
+      app.globalData.choosecity2 = e.currentTarget.dataset.name;
       app.globalData.chooseBool = true;
       wx.navigateBack({
         delta: 1
       })
     }else{
-      app.globalData.city = e.currentTarget.dataset.name + '市';
+      app.globalData.choosecity = e.currentTarget.dataset.name;
       app.globalData.chooseBool = true;
       wx.navigateBack({
         delta: 1
       })
     }
-    
   } 
 })

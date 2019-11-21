@@ -8,7 +8,7 @@ import {
   MODAL
 } from '../../../pages/common/js/utils'
 import {
-  UpdateAliUserInfo,
+  UpdatewxUserInfo,
   UpdateUserInfo
 } from '../../../pages/common/js/my'
 import {
@@ -39,7 +39,7 @@ Page({
     modalOpened: false,
     head_img: '', // 头像
     nick_name: '', // 名字
-    userinfo: '', // 用户信息
+    userinfo: {}, // 用户信息
     sex: 0,
     // 地址
     name: '',
@@ -128,58 +128,72 @@ Page({
 
     getuserInfo(_sid).then((res) => {
       var province_i = 0,
-        city_i = 0,
-        region_i = 0;
-      var province = region.filter((item, index) => {
-        if (item.addrid == res.data.province_id) {
-          province_i = index
-        }
-        return item.addrid == res.data.province_id
-      })[0];
-      if (province) {
-        var city = province.sub.filter((item, index) => {
-          if (item.addrid == res.data.city_id) {
-            city_i = index
+          city_i = 0,
+          region_i = 0;
+      if (res.code == 0){
+          var province = region.filter((item, index) => {
+            if (item.addrid == res.data.province_id) {
+              province_i = index
+            }
+            return item.addrid == res.data.province_id
+          })[0];
+          if (province) {
+            var city = province.sub.filter((item, index) => {
+              if (item.addrid == res.data.city_id) {
+                city_i = index
+              }
+              return item.addrid == res.data.city_id
+            })[0]
+            res.data.provinceName = province.name || '';
           }
-          return item.addrid == res.data.city_id
-        })[0]
-        res.data.provinceName = province.name || '';
-      }
-      if (city) {
-        var regions = city.sub.filter((item, index) => {
-          if (item.addrid == res.data.region_id) {
-            region_i = index
+          if (city) {
+            var regions = city.sub.filter((item, index) => {
+              if (item.addrid == res.data.region_id) {
+                region_i = index
+              }
+              return item.addrid == res.data.region_id
+            })[0]
+            res.data.cityName = city.name || '';
           }
-          return item.addrid == res.data.region_id
-        })[0]
-        res.data.cityName = city.name || '';
+          if (regions) {
+            res.data.regionName = regions.name || '';
+          }
+          that.setData({
+            userinfo: res.data,
+            province_i,
+            city_i,
+            region_i,
+            defaultAddress: [province_i, city_i, region_i]
+          }, () => {
+            that.getAddressList()
+          })
+      } else if (res.code ==30106){
+          //用户未登录状态
+
+      }else{
+          //其他状态
+          
       }
-      if (regions) {
-        res.data.regionName = regions.name || '';
-      }
-      that.setData({
-        userinfo: res.data,
-        province_i,
-        city_i,
-        region_i,
-        defaultAddress: [province_i, city_i, region_i]
-      }, () => {
-        that.getAddressList()
-      })
     })
   },
   // 选择性别
   genderFN(data) {
     const that = this;
     // var data = e.detail.value;
-    var sex = data == 1 ? 0 : 1;
+    var sex = data == 1 ? 1 : 2;
     UpdateUserInfo({
       sex,
       _sid: wxGet('_sid')
     }).then(res => {
-      that.setData({
-        'userinfo.sex': sex
-      })
+      if (res.code==0){
+        that.setData({
+          'userinfo.sex': res.data.sex
+        })
+      }else{
+        that.setData({
+          'userinfo.sex': sex==1?0:1
+        })
+      }
     })
   },
   // 保存用户信息
@@ -382,7 +396,7 @@ Page({
       head_img: avatar,
       nick_name: nickName
     };
-    UpdateAliUserInfo(data).then(res => {
+    UpdatewxUserInfo(data).then(res => {
        //这里不必成功与否
     })
   },

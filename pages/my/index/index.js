@@ -45,6 +45,7 @@ Page({
   onShow: function () {
     let userInfo = wxGet('userInfo');
     if (userInfo && userInfo.user_id){//有用户信息
+       
        this.setData({
          user_id: userInfo.user_id,
          nick_name: userInfo.nick_name,
@@ -53,6 +54,9 @@ Page({
        })
     }else{//没有用户信息
       this.setData({
+        user_id: '',
+        nick_name: '',
+        head_img: '',
         showNo: false //这里写死
       })
     }
@@ -95,21 +99,24 @@ Page({
 
   // 判断是否去登录
   isloginFn() {
-    const userInfo = wxGet('userInfo');
-    if (userInfo && userInfo.user_id){ //有用户信息，进入到个人中心修改个人信息
-      navigateTo({
-        url: '/package_my/pages/mycenter/mycenter'
-      })
-    }else{//没有用户信息，自动登录已经成功了，但是没有userid需要后端登录一次才可以
-      navigateTo({
-        url: '/pages/login/auth/auth'
-      });
-    }
+    //需要登录
+    navigateTo({
+      url: '/pages/login/auth/auth'
+    });
+    // const userInfo = wxGet('userInfo');
+    // console.log(userInfo)
+    // if (userInfo && userInfo.user_id){ //有用户信息，进入到个人中心修改个人信息
+    //   console.log('userInfo', userInfo);
+    //   navigateTo({
+    //     url: '/package_my/pages/mycenter/mycenter?img=' + (userInfo.avatarUrl || userInfo.head_img) + ' & name=' + (userInfo.nickName || userInfo.nick_name)
+    //   })
+    // }else{//没有用户信息，自动登录已经成功了，但是没有userid需要后端登录一次才可以
+    // }
   },
   // 跳转页面
   toUrl(e) {
     const userInfo = wxGet('userInfo');
-    if (userInfo.user_id) {
+    if (userInfo && userInfo.user_id) {
       var url = e.currentTarget.dataset.url;
       navigateTo({
         url

@@ -72,6 +72,11 @@ Component({
     h: 0,
     curUrl: false,
   },
+  observers: {
+    '**': function() {
+
+    }
+  },
   /**
    * 组件的方法列表
    */
@@ -86,7 +91,6 @@ Component({
       freeText: this.properties.freeText
     })
     this.funGetSendPrice();
-     // iphone机型兼容
     let isPhone = app.globalData.isIphoneX;
     if (isPhone) {
       this.setData({
@@ -144,10 +148,12 @@ Component({
         confirmColor: "#E60012",
         success(res) {
           if (res.confirm) {
+            console.log('用户点击取消')
             that.setData({
               mask1: true
             })
           } else if (res.cancel) {
+            console.log('用户点击确定')
             that.setData({
               showShopcar: false
             })
@@ -195,7 +201,6 @@ Component({
         });
       }
     },
-    // 加
     eveAddshopcart(e) {
       // 购物车小球动画
       this.triggerEvent('Animate', e);
@@ -221,6 +226,7 @@ Component({
         }
         if (goodlist[keys].goods_order_limit != null && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+          //套餐不算在内
           if (keys.indexOf('PKG') == -1) {
             priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
           }
@@ -251,7 +257,6 @@ Component({
       this.funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price)
       wxSet('goodsList', goodlist)
     },
-    // 减
     eveReduceshopcart(e) {
       let code = e.currentTarget.dataset.goods_code;
       let format = e.currentTarget.dataset.goods_format
@@ -274,6 +279,11 @@ Component({
         }
         if (goodlist[keys].goods_order_limit && goodlist[keys].num > goodlist[keys].goods_order_limit) {
           priceAll += goodlist[keys].goods_price * goodlist[keys].goods_order_limit + (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+          //套餐不算在内
+          if (keys.indexOf('PKG') == -1) {
+             priceFree += (goodlist[keys].num - goodlist[keys].goods_order_limit) * goodlist[keys].goods_original_price;
+          }
+
         } else if (goodlist[keys].goods_price && goodlist[keys].num){
           priceAll += goodlist[keys].goods_price * goodlist[keys].num;
         } else {
@@ -307,7 +317,6 @@ Component({
         })
       }
     },
-    // 监听购物车变化
     funChangeshopcart(goodlist, shopcartAll, priceAll, shopcartNum, priceFree, repurse_price) {
       let data = {
         goodlist,
@@ -339,15 +348,11 @@ Component({
         return
       }
       // 未登录
-      let userid = wxGet('user_id');
-      let userInfo = wxGet('userInfo');
-      //判断更加严谨
-      if (userid && userid != '' && userInfo && userInfo.user_id != '') {
-       
-      } else {
+      let userinfo = wxGet('userInfo') || '';
+      if (userinfo == '' || userinfo.user_id == undefined) {
         navigateTo({
           url: '/pages/login/auth/auth'
-        });
+        })
         return
       }
       let goodsList = wxGet('goodsList');
@@ -368,6 +373,10 @@ Component({
       if (goodsList == null) return;
       // 判断购物车商品是否在当前门店里
       for (let val in goodsList) {
+        //数据中有脏数组清除掉
+        if (!goodsList[val].goods_price) {
+          continue;
+        }
         if (goodsList[val].goods_discount) {
           // 折扣
           if (goodsList[val].goods_code.indexOf('PKG') == -1) {
@@ -423,8 +432,13 @@ Component({
         if (shopcartObj[val]) { //判断商品是否存在
           if (shopcartObj[val].goods_discount && shopcartObj[val].num > shopcartObj[val].goods_order_limit) {
             priceAll += shopcartObj[val].goods_price * shopcartObj[val].goods_order_limit + (shopcartObj[val].num - goodsList[val].goods_order_limit) * shopcartObj[val].goods_original_price;
-          } else {
+            if (val.indexOf('PKG') == -1) {
+              priceFree += (shopcartObj[val].num - shopcartObj[val].goods_order_limit) * shopcartObj[val].goods_original_price;
+            }
+          } else if (shopcartObj[val].goods_price && shopcartObj[val].num) {
             priceAll += shopcartObj[val].goods_price * shopcartObj[val].num;
+          }else{
+            //不做处理
           }
           if (!shopcartObj[val].goods_discount) {
             priceFree += shopcartObj[val].goods_price * shopcartObj[val].num;
@@ -488,6 +502,8 @@ Component({
           btnClick: true
         })
       }
+      app.globalData.coupon_code='';
+      app.globalData.notUse = 0;
       navigateTo({
         url: '/pages/home/orderform/orderform'
       })

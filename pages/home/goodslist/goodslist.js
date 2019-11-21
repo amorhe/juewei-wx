@@ -62,7 +62,7 @@ Page({
     autoplay: false,
     interval: 2000,
     circular: true,
-    imgUrls: [],    //轮播图
+    imgUrls: [],
     province_id: '', //省
     city_id: '', // 市
     region_id: '', //区
@@ -70,6 +70,10 @@ Page({
     isOpen: '', //门店是否营业
     shopTakeOut: {}, // 附近门店列表
     shopGoodsList: [], // 门店商品列表
+    typeList1: {
+      "折扣": "zk",
+      "套餐": "zhsm",
+    },
     typeList: {
       "爆款": "hot",
       "超辣": "kl",
@@ -116,6 +120,7 @@ Page({
     priceFree: 0, // 购物车包邮商品价格
     freeText: '', // 购物车包邮提示内容
     isScorll: true,
+    // isTab: false,
     goodsClass: {
       "折扣": 1,
       "套餐": 2,
@@ -231,8 +236,8 @@ Page({
           shopTakeOut: app.globalData.shopIng1
         })
         wxSet('shop_id', app.globalData.shopIng1.shop_id)
-        app.globalData.isOpen = status;    // 门店状态
-        app.globalData.shopTakeOut = this.data.shopTakeOut;   // 门店详情
+        app.globalData.isOpen = status;
+        app.globalData.shopTakeOut = this.data.shopTakeOut;
       }
       this.setData({
         jingxuan: app.globalData.shopIng1.jingxuan || false,
@@ -240,9 +245,9 @@ Page({
       })
     } else if (!app.globalData.shopIng && !app.globalData.switchClick) {
       if (app.globalData.type == 1) {
-        shopArray = wxGet('takeout');  // 外卖
+        shopArray = wxGet('takeout')
       } else {
-        shopArray = wxGet('self');    // 自提
+        shopArray = wxGet('self')
       }
       const status = cur_dateTime(shopArray[0].start_time, shopArray[0].end_time);
       this.setData({
@@ -260,8 +265,8 @@ Page({
     }
     app.globalData.switchClick = null;
     if (app.globalData.activityList) {
-      app.globalData.activityList.DIS = [];   // 折扣
-      app.globalData.activityList.PKG = [];   // 套餐
+      app.globalData.activityList.DIS = [];
+      app.globalData.activityList.PKG = [];
     }
     let user_id = 1;
     if (wxGet('userInfo') && wxGet('userInfo').user_id) {
@@ -330,6 +335,7 @@ Page({
   },
   // 下拉刷新
   onPullDownRefresh: function() {
+    // Do something when pull down.
     wx.showLoading({
       title: '加载中...',
     })
@@ -519,27 +525,38 @@ Page({
   // 门店营销活动(折扣和套餐)
   async funGetActivityList(city_id, district_id, company_id, buy_type, user_id, type) {
     let res = await activityList(city_id, district_id, company_id, buy_type, user_id, 2, type);
-    // 获取加价购商品
-    if ('MARKUP' in res.data && res.data.MARKUP != null) {
-      app.globalData.gifts = res.data.MARKUP.gifts;
-      // 获取活动金额
-      let newArr = Object.keys(res.data.MARKUP.gifts);
-      app.globalData.fullActivity = newArr;
-      this.setData({
-        fullActivity: newArr
-      })
-    } else {
+    if (res && res.data){//活动接口存在
+        // 获取加价购商品
+        if (res && res.data && res.data.MARKUP && res.data.MARKUP != null) {
+          app.globalData.gifts = res.data.MARKUP.gifts;
+          // 获取活动金额
+          let newArr = Object.keys(res.data.MARKUP.gifts);
+          app.globalData.fullActivity = newArr;
+          this.setData({
+            fullActivity: newArr
+          })
+        } else {
+          app.globalData.gifts = [];
+          app.globalData.fullActivity = [];
+          this.setData({
+            fullActivity: []
+          })
+        }
+        this.setData({
+          activityList: res.data
+        }, () => {
+          this.funGetCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
+        })
+    }else{//活动接口崩溃的时候，发生错误的情况，没有活动接口了
+      console.log('活动接口崩溃！');
       app.globalData.gifts = [];
       app.globalData.fullActivity = [];
       this.setData({
-        fullActivity: []
+        fullActivity: [],
+        activityList:{}
       })
-    }
-    this.setData({
-      activityList: res.data
-    }, () => {
       this.funGetCompanyGoodsList(this.data.shopTakeOut.company_sale_id); //获取公司所有商品(第一个为当前门店)
-    })
+    }
   },
   // 公司商品列表
   funGetCompanyGoodsList(company_id) {
@@ -681,6 +698,7 @@ Page({
           app.globalData.DIS = DIS;
           app.globalData.PKG = PKG;
           // 最终商品总数据
+          // console.log(goodsNew)
           this.setData({
             shopGoodsAll: goodsNew,
             shopGoods: arr
@@ -865,7 +883,6 @@ Page({
       detail: e
     }
     this.funAnimate(events);
-
     let goods_car = {};
     let goods_code = e.currentTarget.dataset.goods_code;
     let goods_format = e.currentTarget.dataset.goods_format;
@@ -875,7 +892,8 @@ Page({
       goodlist[`${goods_code}_${goods_format}`].sumnum += 1;
     } else {
       let oneGood = {};
-      if (e.currentTarget.dataset.goods_discount) {
+      
+      if (e.currentTarget.dataset.goods_discount) {//是商品折扣的
         oneGood = {
           "goods_name": e.currentTarget.dataset.goods_name,
           "taste_name": e.currentTarget.dataset.taste_name,
@@ -892,7 +910,7 @@ Page({
           "goods_img": e.currentTarget.dataset.goods_img,
           "sap_code": e.currentTarget.dataset.sap_code
         }
-      } else {
+      } else {//普通商品
         oneGood = {
           "goods_name": e.currentTarget.dataset.goods_name,
           "taste_name": e.currentTarget.dataset.taste_name,
@@ -915,9 +933,11 @@ Page({
       repurse_price = 0;
     for (let keys in goodlist) {
       //判断是否含有必要参数,如果不含有就直接终止本次循环
-      if (!goodlist[keys].goods_price){
+      if (!goodlist[keys].goods_price || goodlist[keys].goods_price==0){
         continue;
       }
+
+      //
       if (e.currentTarget.dataset.goods_discount) {
         if (goodlist[keys].goods_order_limit && goodlist[keys].goods_order_limit != null && goodlist[`${e.currentTarget.dataset.goods_code}_${goods_format}`].num > e.currentTarget.dataset.goods_order_limit) {
           $Toast({
@@ -1071,7 +1091,6 @@ Page({
       scrollTop: this.data.navbarInitTop
     })
   },
-  // 关闭遮罩
   eveCloseModal(data) {
     this.setData({
       maskView: data.detail.maskView,
@@ -1088,7 +1107,6 @@ Page({
       goodsLast: e.currentTarget.dataset.index
     })
   },
-  // 显示购物车
   funOpenShopcar(data) {
     this.setData({
       shopcarShow: data.detail
@@ -1119,7 +1137,7 @@ Page({
       totalH: wx.getSystemInfoSync().windowHeight * (750 / wx.getSystemInfoSync().windowWidth) - 408
     })
   },
-  // 购物车上方活动提示
+  // 购物车活动提示
   funShopcartPrompt(oldArr, priceFree, repurse_price) {
     let activityText = '',
       freeText = '';
@@ -1210,4 +1228,7 @@ Page({
       });
     }
   },
+  onSubmit(e) {
+    upformId(e.detail.formId);
+  }
 })

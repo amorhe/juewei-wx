@@ -61,7 +61,6 @@ Component({
     btuBottom:0
   },
   attached(){
-    // 判断是否为iphoneX以上机型
     let isPhone = app.globalData.isIphoneX;
     if (isPhone) {
       this.setData({

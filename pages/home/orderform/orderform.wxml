@@ -97,6 +97,18 @@
         </view>
       </view>
     </view>
+    <!-- <view class="track paddingBThirty borderBottomSolid">
+      <view>
+        <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}reduce.png" />
+        <text class="marginLSixteen">满减活动</text>
+      </view>
+      <view>
+        <view class="numberColor">
+          <text class="fontTwentyTwo">-￥</text>
+          <text>{{orderInfo.full_reduce_price/100 || 0}}</text>
+        </view>
+      </view>
+    </view> -->
     <view class="track paddingBThirty borderBottomSolid" bindtap="eveChooseCoupon" data-coupon="{{orderInfo.use_coupons[0]}}" data-money="{{orderInfo.qlt_price}}">
       <view>
         <image class="normalImage" mode="scaleToFill" src="{{imageUrl}}coupon.png" />
@@ -143,17 +155,17 @@
       <view class="fontBold">超值换购</view>
       <view class="fontSmallGray marginLEight">只能换购一件商品</view>
     </view>
-    <!-- 换购商品有多个scroll-view -->
+    <!-- 换购商品有多个 -->
     <scroll-view class="repurseView" scroll-x wx:if="{{repurseList.length>1}}">
       <view style="width:{{581*repurseList.length}}rpx;display:flex;align-items:center">
         <view class="repurseGoodsInfo" wx:for="{{repurseList}}" wx:key="unique">
           <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:imageUrl2 + item.gift_img_url}}" />
           <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
           <view>
-            <view>
+            <view style="line-height: 35rpx;height:85rpx;overflow: hidden;display: block;">
               <text>{{item.gift_name}}</text>
             </view>
-            <view class="flexNormal">
+            <view class="flexNormal" style="line-height: 20px;overflow: hidden;height: 20px;display: block;">
               <view class="repurseBottom fontSmallGray">
                 <view>
                   <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?'¥'+item.cash/100 : '¥'+item.cash/100 +' + '+ item.point +'积分'}}</text>
@@ -162,13 +174,13 @@
               </view>
             </view>
           </view>
-          <view class="goodsNumber flexRow" wx:if="{{gifts[item.id].num}}">
-            <image src="{{imageUrl}}goods_reduce.png" bindtap="reduceBtnTap" />
-            <text>{{gifts[item.id].num}}</text>
+          <!-- gifts[item.id].num -->
+          <view class="goodsNumber flexRow" wx:if="{{gifts.length>0 && gifts[0].id==item.id}}">
+            <image src="{{imageUrl}}goods_reduce.png" bindtap="eveReduceBtnTap" />
+            <text>{{gifts[0].num}}</text>
             <image mode="scaleToFill" src="{{imageUrl}}goods_add2.png" />
           </view>
-          <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}"
-            wx:if="{{!gifts[item.id].num}}">换购</button>
+          <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}" wx:if="{{gifts.length==0 || gifts[0].id!==item.id}}">换购</button>
         </view>
       </view>
     </scroll-view>
@@ -177,10 +189,10 @@
       <image class="repurseGoodsImage" mode="scaleToFill" wx:if="{{item.gift_img_url!=''}}" src="{{m1.includes(item.gift_img_url)?item.gift_img_url:imageUrl2 + item.gift_img_url}}" />
       <image class="repurseGoodsImage" mode="widthFix" wx:if="{{item.gift_img_url==''}}" src="{{imageUrl}}coupon_default.png" />
       <view>
-        <view>
+        <view style="line-height: 35rpx;height:85rpx;overflow: hidden;display: block;">
           <text>{{item.gift_name}}</text>
         </view>
-        <view class="flexNormal">
+        <view class="flexNormal" style="line-height: 20px;overflow: hidden;height: 20px;display: block;">
           <view class="repurseBottom fontSmallGray">
             <view>
               <text class="numberColor">{{item.cash==0 && item.point==0?'免费':(item.cash==0 && item.point!=0)?item.point + '积分':(item.cash !=0 && item.point==0)?'¥'+item.cash/100 : '¥'+item.cash/100 +' + '+ item.point +'积分'}}</text>
@@ -189,14 +201,15 @@
           </view>
         </view>
       </view>
-      <view class="goodsNumber flexRow" wx:if="{{gifts[item.id].num}}">
+      <!-- gifts[item.id].num -->
+      <view class="goodsNumber flexRow" wx:if="{{gifts.length>0 && gifts[0].id==item.id}}">
         <image src="{{imageUrl}}goods_reduce.png" bindtap="eveReduceBtnTap" />
-        <text>{{gifts[item.id].num}}</text>
+        <text>{{gifts[0].num}}</text>
         <image mode="scaleToFill" src="{{imageUrl}}goods_add2.png" />
       </view>
-      <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}" wx:if="{{!gifts[item.id].num}}">换购</button>
+      <button class="repurseBtn" hover-class="none" bindtap="eveAddRepurseTap" data-activity_id="{{item.activity_id}}" data-gift_id="{{item.gift_id}}" data-id="{{item.id}}" data-cash="{{item.cash}}" data-point="{{item.point}}" data-gift_price="{{item.gift_price}}" wx:if="{{gifts.length==0 || gifts[0].id!==item.id}}">换购</button>
     </view>
-    <view class="repursePrice" wx:if="{{gifts[gift_id].num}}">
+    <view class="repursePrice" wx:if="{{gifts.length>0 && gifts[0].id}}">
       <text class="fontTwentySix">小计</text>
       <text class="fontFourty fontBold">{{gifts_price}}</text>
     </view>
@@ -235,7 +248,6 @@
     </form>
   </view>
 </view>
-<!-- 提示弹框 -->
 <i-toast id="toast" />
 <!-- 各种订单商品状态 -->
 <confirm content="{{content}}" confirmButtonText="重新选择" cancelButtonText="继续结算" mask="{{mask}}" modalShow="{{modalShow}}" bindCounterPlusOne="bindCounterPlusOne" isType="orderConfirm" />

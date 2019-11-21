@@ -2,6 +2,7 @@ import { baseUrl, imageUrl, wxGet, wxSet } from '../../common/js/baseUrl'
 import { loginByPhone, sendCode } from '../../common/js/login'
 import { navigateTo } from '../../common/js/router.js'
 const { $Toast } = require('../../../iview-weapp/base/index');
+import { UpdatewxUserInfo } from '../../../pages/common/js/my';//用于登录后拿微信信息同步给后台
 
 let timeCount;
 var app = getApp();
@@ -34,7 +35,8 @@ Page({
     this.setData({
       phone: e.phone,
       _sid,
-      isnew: true
+      isnew: true,
+      countTime:60
     });
     this.timeDate()
   },
@@ -50,46 +52,49 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.timestamp !== 0) {
-      let timestampNew = new Date().getTime();
-      let counts = parseInt((timestampNew - this.data.timestamp) / 1000);
-      if (counts > 0) {
-        this.setData({
-          isnew: true,
-          countTime: this.data.countTime - counts
-        })
-      } else {
-        this.setData({
-          isnew: false,
-          countTime: 60,
-        })
-      }
-    }
+    this.timeDate()
+
+    // if (this.data.timestamp !== 0) {
+    //   let timestampNew = new Date().getTime();
+    //   let counts = parseInt((timestampNew - this.data.timestamp) / 1000);
+    //   if (counts > 0) {
+    //     this.setData({
+    //       isnew: true,
+    //       countTime: this.data.countTime - counts
+    //     })
+    //   } else {
+    //     this.setData({
+    //       isnew: false,
+    //       countTime: 60,
+    //     })
+    //   }
+    // }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    let timestamp = new Date().getTime();
-    this.setData({
-      timestamp,
-      countTime: this.data.countTime,
-      focus: false
-    })
+    // let timestamp = new Date().getTime();
+    // this.setData({
+    //   countTime: this.data.countTime,
+    //   focus: false
+    // })
+    // clearInterval(timeCount)
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    clearInterval(timeCount)
     // 页面被关闭
     this.setData({
       isnew: false,
       countTime: 60,
       focus: false
     });
-    clearInterval(timeCount)
+    
   },
 
   /**
@@ -113,7 +118,6 @@ Page({
 
   },
   bindFocus() {
-    console.log('11');
     setTimeout(() => {
       this.onFocus();
     }, 100);
@@ -124,6 +128,7 @@ Page({
     });
   },
   async onBlur() {
+    var that = this;
     const { phone, value } = this.data;
     const {  ...rest } = wxGet('rest');
     const _sid = wxGet('_sid');
@@ -141,11 +146,34 @@ Page({
       // 成功
       app.globalData._sid = res.data._sid;
       wxSet('_sid', res.data._sid);
-      wxSet('userInfo',res.data);
       wxSet('user_id', res.data.user_id);
-      wx.navigateBack({
-        delta: 2
-      })
+
+      if (app.globalData.avatarUrl && app.globalData.avatarUrl != '') {
+        res.data.head_img = app.globalData.avatarUrl;
+      }
+      if (app.globalData.nickName && app.globalData.nickName != '') {
+        res.data.nick_name = app.globalData.nickName;
+      }
+      wxSet('userInfo',res.data);
+ 
+      //如果能获得就传给后台更新
+      if (app.globalData.nickName && app.globalData.nickName!=''){
+        UpdatewxUserInfo({
+          _sid: res.data._sid,
+          head_img: app.globalData.avatarUrl,
+          nick_name: app.globalData.nickName
+        }).then(r => {
+          //r不做任何处理
+          res.data.head_img = app.globalData.avatarUrl;
+          res.data.nick_name = app.globalData.nickName;
+          wxSet('userInfo', res.data);
+          wx.navigateBack({ delta: 2 })
+        })
+      }else{
+        app.globalData.nickName = res.data.nick_name;
+        app.globalData.avatarUrl = res.data.head_img;
+        wx.navigateBack({ delta: 2 })
+      }
     } else {
       // 其他
       $Toast({
@@ -156,31 +184,35 @@ Page({
   },
   // 倒计时60
   timeDate(e) {
-    this.setData({
-      isnew: true,
-    });
-    if (e && e.currentTarget.dataset.is == 1) {
-      this.getcodeFn()
-    }
+    clearInterval(timeCount)
     var time = this.data.countTime;
-    timeCount = setInterval(() => {
-      time--;
-      this.setData({
-        countTime: time
-      });
-      if (time <= 0) {
-        this.setData({
-          isnew: false,
-          countTime: 60
-        });
-        clearInterval(timeCount)
-      }
-    }, 1000)
+    //重新获取验证码
+    if (e && e.currentTarget.dataset.is == 1) {
+      clearInterval(timeCount)
+      this.getcodeFn()
+    }else{//正在倒计时
+      timeCount = setInterval(() => {
+        time--;
+        if (time< 1){
+          this.setData({
+            isnew: false,
+            countTime: 60
+          });
+          clearInterval(timeCount)
+        }else{
+          this.setData({
+            countTime: time
+          });
+        }
+      }, 1000)
+    }
   },
   inputValue(e) {
     var value = e.detail.value;
+    // var cursor = value.length + 1;
     this.setData({
       value: value
+      // cursor: cursor
     });
     if (value.length == 4) {
       this.onBlur()

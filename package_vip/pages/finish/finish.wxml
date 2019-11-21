@@ -1,217 +1,226 @@
 <!--package_vip/pages/finish/finish.wxml-->
-<import src="/utils/wxParse/wxParse.wxml" />
-<template is="wxParse" data="{{wxParseData:content.nodes}}" />
+<import src="/utils/wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:content.nodes}}"/>
 <view class="bg">
-  <!-- 兑换完成页，页面分虚拟和邮寄实物和门店领取实物，并且页面分为成功和失败两种状态 -->
-  <!-- 虚拟物品 成功 false => 假的 -->
-  <view class="false" wx:if="{{!fail}}">
-    <view class="success">
-      <view class="icon-wrap">
-        <image class="icon-success" mode="scaleToFill" src="{{imageUrl}}success.png" />
-        <view class="text-success">兑换成功</view>
-      </view>
-    </view>
-    <view class="p-detail">
-      <image class="p-img" mode="scaleToFill" src="{{imageUrl2 + d.goods_pic}}" />
-      <view class="p-right" style="flex:1">
-        <view class="p-title">
-          {{d.goods_name}}
+    <!-- 兑换完成页，页面分虚拟和邮寄实物和门店领取实物，并且页面分为成功和失败两种状态 -->
+    <!-- 虚拟物品 成功 false => 假的 -->
+    <view class="false" wx:if="{{!fail}}">
+        <view class="success">
+            <view class="icon-wrap">
+                <image class="icon-success" mode="scaleToFill" src="{{imageUrl}}success.png"/>
+                <view class="text-success">兑换成功</view>
+            </view>
         </view>
-        <view class="p-price">
-          {{d.order_point == 0 ? '' : d.order_point+'积分' }} {{d.exchange_type == 2 ? '+' : ''}} {{d.order_amount == 0 ? '' : d.order_amount + '元'}} {{(d.order_point == 0 && d.order_amount == 0 )?'免费领取':''}}
+        <view class="p-detail">
+            <image class="p-img" mode="scaleToFill" src="{{imageUrl2 + d.goods_pic}}"/>
+            <view class="p-right" style="flex:1">
+                <view class="p-title">
+                    {{d.goods_name}}
+                </view>
+                <view class="p-price">
+                    {{d.order_point == 0 ? '' : d.order_point+'积分' }} {{d.exchange_type == 2 ? '+' : ''}}  {{d.order_amount == 0 ? '' : d.order_amount + '元'}}
+                    {{(d.order_point == 0 && d.order_amount == 0 )?'免费领取':''}}
+                </view>
+            </view>
+            <view class="to-use" catchtap="toUse" wx:if="{{1 == (d.goods_detail_type)}}">去使用</view>
+            <view class="btn" wx:if="{{ '4'==(d.goods_detail_type) || '3' == (d.goods_detail_type)}}" catchtap="contact">联系客服</view>
         </view>
-      </view>
-      <view class="to-use" catchtap="toUse" wx:if="{{1 == (d.goods_detail_type)}}">去使用</view>
-      <view class="btn" wx:if="{{ '4'==(d.goods_detail_type) || '3' == (d.goods_detail_type)}}" catchtap="contact">联系客服</view>
-    </view>
-    <!-- 到店领取 -->
-    <view class="user-detail" wx:if="{{d.receive_type == 1}}">
-      <view class="user-list" wx:if="{{d.user_address_name}}">
-        <view class="user-left">
-          领取人
+        <!-- 到店领取 -->
+        <view class="user-detail" wx:if="{{d.receive_type == 1}}">
+            <view class="user-list" wx:if="{{d.user_address_name}}">
+                <view class="user-left">
+                    领取人
+                </view>
+                <view class="user-right">
+                    {{d.user_address_name}}
+                </view>
+            </view>
+            <view class="user-list">
+                <view class="user-left" wx:if="{{d.user_address_phone}}">
+                    领取手机号码
+                </view>
+                <view class="user-right">
+                    {{d.user_address_phone}}
+                </view>
+            </view>
+            <view class="user-list" wx:if="{{d.shop_name}}">
+                <view class="user-left">
+                    领取门店
+                </view>
+                <view class="user-right">
+                    <view class="shop-name"> {{d.shop_name}}</view>
+                    <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" catchtap="guide">导航</view>
+                </view>
+            </view>
+            <view class="user-list" wx:if="{{d.shop_name}}">
+                <view class="user-left">
+                </view>
+                <view class="user-right">
+                    <view class="user-address">
+                        {{d.province}} {{d.city}} {{d.district}} {{d.address}}
+                    </view>
+                </view>
+            </view>
+            <view class="hint hr colorNine" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
+                温馨提示：可到会员专享>兑换记录中查看
+            </view>
+            <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
+                返回会员专享
+            </view>
+            <view class="li-button gray" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" catchtap="navigateTo" data-query="{{ {id:d.id} }}">
+                查看订单
+            </view>
         </view>
-        <view class="user-right">
-          {{d.user_address_name}}
+        <!-- 公司邮寄 -->
+        <view wx:if="{{d.receive_type == 2}}">
+            <view class="address" wx:if="{{ d.user_address_name}}" catchtap="toAddAddress">
+                <view class="address-title">
+                    <view>{{d.user_address_name}} {{d.user_address_phone}}</view>
+                    <view class="address-sm">{{d.province}}{{d.city}}{{d.district}}{{d.user_address_detail_address}}</view>
+                </view>
+            </view>
+            <view class="copy" wx:if="{{d.get_code}}">
+                <view class="copy-left">兑换码：{{d.get_code}}</view>
+                <view class="copy-right" data-text="{{d.get_code}}" catchtap="handleCopy">复制</view>
+            </view>
+            <view class="explain" wx:if="{{d.exchange_intro}}">
+                <view class="explain-title">兑换说明</view>
+                <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}"/>
+
+                <!--<view class="explain-detail">
+                在<text>http://www.ebeecake.com</text> 输入兑换码兑换；<view>活动所有权归本公司所有。</view></view> -->
+            </view>
+            <!--<view class="explain" wx:if="{{d.intro}}"><view class="explain-title">商品</view><rich-text nodes="{{d._intro}}"></rich-text><view class="explain-detail"><view>全场通用</view><view>活动所有权归本公司所有。</view></view></view> -->
+            <view class="hint colorNine" wx:if="{{!d.get_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
+                温馨提示：可到会员专享>兑换记录中查看
+            </view>
+            <view class="hint colorNine" wx:if="{{d.get_code}}">
+                温馨提示：可到
+                <text style="color:#999">我的>卡劵</text> 中查看
+            </view>
+            <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
+                返回会员专享
+            </view>
+            <view class="li-button gray" catchtap="navigateTo" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" data-query="{{ {id:d.id} }}">
+                查看订单
+            </view>
         </view>
-      </view>
-      <view class="user-list">
-        <view class="user-left" wx:if="{{d.user_address_phone}}">
-          领取手机号码
+        <!-- 无需发货 -->
+        <view wx:if="{{d.receive_type == 0}}">
+            <view class="copy" wx:if="{{d.gift_code}}">
+                <view class="copy-left">兑换码：{{d.gift_code}}</view>
+                <view class="copy-right" data-text="{{d.gift_code}}" catchtap="handleCopy">复制</view>
+            </view>
+            <view class="explain" wx:if="{{d.exchange_intro}}">
+                <view class="explain-title">兑换说明</view>
+                <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}"/>
+            </view>
+            <view class="hint" wx:if="{{d.gift_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
+                温馨提示：可到会员专享>兑换记录中查看
+            </view>
+            <view class="hint colorNine" wx:if="{{!d.gift_code}}">
+                温馨提示：可到
+                <text style="color:#999" data-url="/package_my/pages/coupon/coupon" catchtap="liTo">我的>卡劵</text> 中查看
+            </view>
+            <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
+                返回会员专享
+            </view>
+            <view class="li-button gray" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" catchtap="navigateTo" data-query="{{ {id:d.id} }}">
+                查看订单
+            </view>
         </view>
-        <view class="user-right">
-          {{d.user_address_phone}}
-        </view>
-      </view>
-      <view class="user-list" wx:if="{{d.shop_name}}">
-        <view class="user-left">
-          领取门店
-        </view>
-        <view class="user-right">
-          <view class="shop-name"> {{d.shop_name}}</view>
-          <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" catchtap="guide">导航</view>
-        </view>
-      </view>
-      <view class="user-list" wx:if="{{d.shop_name}}">
-        <view class="user-left">
-        </view>
-        <view class="user-right">
-          <view class="user-address">
-            {{d.province}} {{d.city}} {{d.district}} {{d.address}}
-          </view>
-        </view>
-      </view>
-      <view class="hint hr colorNine" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
-        温馨提示：可到会员专享>兑换记录中查看
-      </view>
-      <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
-        返回会员专享
-      </view>
-      <view class="li-button gray" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" catchtap="navigateTo" data-query="{{ {id:d.id} }}">
-        查看订单
-      </view>
-    </view>
-    <!-- 公司邮寄 -->
-    <view wx:if="{{d.receive_type == 2}}">
-      <view class="address" wx:if="{{ d.user_address_name}}" catchtap="toAddAddress">
-        <view class="address-title">
-          <view>{{d.user_address_name}} {{d.user_address_phone}}</view>
-          <view class="address-sm">{{d.province}}{{d.city}}{{d.district}}{{d.user_address_detail_address}}</view>
-        </view>
-      </view>
-      <view class="copy" wx:if="{{d.get_code}}">
-        <view class="copy-left">兑换码：{{d.get_code}}</view>
-        <view class="copy-right" data-text="{{d.get_code}}" catchtap="handleCopy">复制</view>
-      </view>
-      <view class="explain" wx:if="{{d.exchange_intro}}">
-        <view class="explain-title">兑换说明</view>
-        <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}" />
-        <view class="hint colorNine" wx:if="{{!d.get_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
-          温馨提示：可到会员专享>兑换记录中查看
-        </view>
-        <view class="hint colorNine" wx:if="{{d.get_code}}">
-          温馨提示：可到
-          <text style="color:#999">我的>卡劵</text> 中查看
-        </view>
-        <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
-          返回会员专享
-        </view>
-        <view class="li-button gray" catchtap="navigateTo" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" data-query="{{ {id:d.id} }}">
-          查看订单
-        </view>
-      </view>
-      <!-- 无需发货 -->
-      <view wx:if="{{d.receive_type == 0}}">
-        <view class="copy" wx:if="{{d.gift_code}}">
-          <view class="copy-left">兑换码：{{d.gift_code}}</view>
-          <view class="copy-right" data-text="{{d.gift_code}}" catchtap="handleCopy">复制</view>
-        </view>
-        <view class="explain" wx:if="{{d.exchange_intro}}">
-          <view class="explain-title">兑换说明</view>
-          <template is="wxParse" data="{{wxParseData:_exchange_intro.nodes}}" />
-        </view>
-        <view class="hint" wx:if="{{d.gift_code}}" data-url="/package_vip/pages/exchangelist/exchangelist" catchtap="liTo">
-          温馨提示：可到会员专享>兑换记录中查看
-        </view>
-        <view class="hint colorNine" wx:if="{{!d.gift_code}}">
-          温馨提示：可到
-          <text style="color:#999" data-url="/package_my/pages/coupon/coupon" catchtap="liTo">我的>卡劵</text> 中查看
-        </view>
-        <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
-          返回会员专享
-        </view>
-        <view class="li-button gray" data-url="/package_vip/pages/exchangelist/exchangedetail/exchangedetail" catchtap="navigateTo" data-query="{{ {id:d.id} }}">
-          查看订单
-        </view>
-      </view>
     </view>
     <!-- 虚拟物品 失败-->
     <view class="false" wx:if="{{fail}}">
-      <view class="success">
-        <view class="icon-wrap">
-          <image class="icon-success" mode="scaleToFill" src="{{imageUrl}}fail.png" />
-          <view class="text-success">兑换失败</view>
-          <view class="fail-reason">{{d.status_name}}</view>
-        </view>
-      </view>
-      <view class="p-detail">
-        <image class="p-img" mode="scaleToFill" src="{{imageUrl2 + d.goods_pic}}" />
-        <view class="p-right" style="flex:1">
-          <view class="p-title">
-            {{d.goods_name}}
-          </view>
-          <view class="p-price">
-            {{d.order_point}}积分 {{d.exchange_type == 2 ? '+' : ''}} {{d.order_amount == 0 ? '' : d.order_amount + '元'}}
-          </view>
-        </view>
-        <view class="btn" catchtap="contact">联系客服</view>
-      </view>
-      <view class="user-detail" wx:if="{{ d.receive_type == 1}}">
-        <view class="user-list" wx:if="{{d.user_address_name}}">
-          <view class="user-left">
-            领取人
-          </view>
-          <view class="user-right">
-            {{d.user_address_name}}
-          </view>
-        </view>
-        <view class="user-list">
-          <view class="user-left" wx:if="{{d.user_address_phone}}">
-            领取手机号码
-          </view>
-          <view class="user-right">
-            {{d.user_address_phone}}
-          </view>
-        </view>
-        <view class="user-list" wx:if="{{d.shop_name}}">
-          <view class="user-left">
-            领取门店
-          </view>
-          <view class="user-right">
-            <view class="shop-name"> {{d.shop_name}}</view>
-            <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" catchtap="guide">导航</view>
-          </view>
-        </view>
-        <view class="user-list" wx:if="{{d.shop_name}}">
-          <view class="user-left">
-          </view>
-          <view class="user-right">
-            <view class="user-address">
-              {{d.province}} {{d.city}} {{d.district}} {{d.address}}
+        <view class="success">
+            <view class="icon-wrap">
+                <image class="icon-success" mode="scaleToFill" src="{{imageUrl}}fail.png"/>
+                <view class="text-success">兑换失败</view>
+                <view class="fail-reason">{{d.status_name}}</view>
             </view>
-          </view>
         </view>
-      </view>
-      <view wx:if="{{d.receive_type == 2}}">
-        <view class="address" wx:if="{{ d.user_address_name}}" catchtap="toAddAddress">
-          <view class="address-title">
-            <view>{{d.user_address_name}} {{d.user_address_phone}}</view>
-            <view class="address-sm">{{d.province}}{{d.city}}{{d.district}}{{d.user_address_detail_address}}</view>
-          </view>
+        <view class="p-detail">
+            <image class="p-img" mode="scaleToFill" src="{{imageUrl2 + d.goods_pic}}"/>
+            <view class="p-right" style="flex:1">
+                <view class="p-title">
+                    {{d.goods_name}}
+                </view>
+                <view class="p-price">
+                    {{d.order_point}}积分 {{d.exchange_type == 2 ? '+' : ''}}  {{d.order_amount == 0 ? '' : d.order_amount + '元'}}
+                </view>
+            </view>
+            <view class="btn" catchtap="contact">联系客服</view>
         </view>
-      </view>
-      <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
-        返回会员专享
-      </view>
+        <view class="user-detail" wx:if="{{ d.receive_type == 1}}">
+            <view class="user-list" wx:if="{{d.user_address_name}}">
+                <view class="user-left">
+                    领取人
+                </view>
+                <view class="user-right">
+                    {{d.user_address_name}}
+                </view>
+            </view>
+            <view class="user-list">
+                <view class="user-left" wx:if="{{d.user_address_phone}}">
+                    领取手机号码
+                </view>
+                <view class="user-right">
+                    {{d.user_address_phone}}
+                </view>
+            </view>
+            <view class="user-list" wx:if="{{d.shop_name}}">
+                <view class="user-left">
+                    领取门店
+                </view>
+                <view class="user-right">
+                    <view class="shop-name"> {{d.shop_name}}</view>
+                    <view class="code-button" data-shop_longitude="{{d.shop_gd_longitude}}" data-shop_latitude="{{d.shop_gd_latitude}}" data-shop_name="{{d.shop_name}}" data-address="{{d.address}}" catchtap="guide">导航</view>
+                </view>
+            </view>
+            <view class="user-list" wx:if="{{d.shop_name}}">
+                <view class="user-left">
+                </view>
+                <view class="user-right">
+                    <view class="user-address">
+                        {{d.province}} {{d.city}} {{d.district}} {{d.address}}
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{d.receive_type == 2}}">
+            <view class="address" wx:if="{{ d.user_address_name}}" catchtap="toAddAddress">
+                <view class="address-title">
+                    <view>{{d.user_address_name}} {{d.user_address_phone}}</view>
+                    <view class="address-sm">{{d.province}}{{d.city}}{{d.district}}{{d.user_address_detail_address}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="li-button" data-url="/pages/vip/index/index" catchtap="navigateTo">
+            返回会员专享
+        </view>
     </view>
     <!-- 邮寄物品 -->
-  </view>
-  <!-- 专享 -->
-  <view class="code-wrap-wrap" wx:if="{{open2}}" showClose="{{ false }}">
+</view>
+<!-- 专享 -->
+<view class="code-wrap-wrap" wx:if="{{open2}}" showClose="{{ false }}">
     <wxs module="m2">
-      var slice = function(value, start, end) {
-        return value.slice(start, end)
-      }
-      module.exports.slice = slice;
+        var slice= function (value,start,end) {
+        return value.slice(start,end)
+        }
+        module.exports.slice=slice;
     </wxs>
-    <view class="code-wrap">
-      <view class="code-head">
-        <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel" />
-      </view>
-      <image class="code-img" mode="scaleToFill" src="{{codeImg}}" />
-      <view class="code-phone">
-        {{m2.slice(d.user_phone,0,3)}} **** {{m2.slice(d.user_phone,7,11)}}
-      </view>
+<view class="code-wrap" >
+    <view class="code-head">
+        <image class="close" mode="scaleToFill" src="{{imageUrl}}close1.png" catchtap="closeModel"/>
     </view>
-  </view>
+    <image class="code-img" mode="scaleToFill" src="{{codeImg}}"/>
+    <view class="code-phone">
+        {{m2.slice(d.user_phone,0,3)}} **** {{m2.slice(d.user_phone,7,11)}}
+    </view>
+    <!-- <view class="code-pay" catchtap="wait">
+      确认支付
+    </view> -->
+</view>
+</view>
 
-  <i-toast id='toast' />
+<i-toast id='toast' />

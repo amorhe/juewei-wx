@@ -62,7 +62,7 @@ Page({
     remark: '口味偏好等要求', // 备注
     goodsReal: [], // 非赠品
     goodsInvented: [], // 赠品
-    gifts: {}, // 选择的换购商品
+    gifts: [], // 选择的换购商品
     gifts_price: '', // 换购商品价格
     gift_id: '', // 换购商品id
     order_price: '', //订单总价
@@ -84,7 +84,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // 外卖
+    // 外卖默认地址
     if (app.globalData.type == 1) {
       this.funGetDefault();
     }
@@ -96,7 +96,6 @@ Page({
       obj5 = {},
       obj6 = {},
       goodlist = [];
-      // 购物车数据转换
     for (let key in goodsList) {
       if (goodsList[key].goods_discount) {
         if (goodsList[key].num > goodsList[key].goods_order_limit) {
@@ -132,13 +131,11 @@ Page({
       goodsList: goodlist,
       shopObj: self
     })
-    // 自提
     if (app.globalData.type == 2) {
       const shop_id = wxGet('shop_id');
       const phone = wxGet('userInfo').phone;
       let ott = tx_decrypt(wxGet('lng'), wxGet('lat'));
       let location_s = tx_decrypt(self.location[0], self.location[1]);
-      // 地图标记
       let arr = [{
           longitude: ott.lng,
           latitude: ott.lat,
@@ -192,13 +189,15 @@ Page({
         remark: app.globalData.remarks
       })
     }
-    // 优惠券码
-    if (app.globalData.coupon_code) {
+    if (app.globalData.coupon_code && app.globalData.coupon_code!='') {
       this.setData({
         coupon_code: app.globalData.coupon_code,
       })
+    }else{
+      this.setData({
+        coupon_code: '',
+      })
     }
-    // 是否使用优惠券
     if (app.globalData.notUse == 1) {
       this.setData({
         notUse: true
@@ -208,7 +207,6 @@ Page({
         notUse: false
       })
     }
-    // 地址id
     if (app.globalData.address_id) {
       this.funGetAddress(app.globalData.address_id, wxGet('_sid'))
     } else {
@@ -217,13 +215,18 @@ Page({
         addressList: []
       })
     }
-    let gifts = [];
-    if (this.data.gifts[this.data.gift_id]) {
-      gifts.push(this.data.gifts[this.data.gift_id]);
-      this.setData({
-        gifts
-      })
-    }
+
+    //获取选中的加价购商品
+    //这块不可用
+    // [{ "activity_id": "56", "gift_id": "419", "id": "135" }] gifts格式是数组格式，这里面所有处理是对象格式，需要修正
+    // let gifts = [];
+    // if (this.data.gifts[this.data.gift_id]) {
+    //   gifts.push(this.data.gifts[this.data.gift_id]);
+    //   this.setData({
+    //     gifts
+    //   })
+    // }
+ 
     this.funConfirmOrder(wxGet('shop_id'), JSON.stringify(this.data.goodsList));
   },
 
@@ -263,11 +266,12 @@ Page({
   },
   // 换购显示
   eveAddRepurseTap(e) {
-    let gifts = {},
+    let gifts = [],
       gifts_price = '',
       order_price = '',
       trueprice = 0;
-    gifts[e.currentTarget.dataset.id] = {
+
+    gifts.push({
       "activity_id": e.currentTarget.dataset.activity_id,
       "gift_id": e.currentTarget.dataset.gift_id,
       "id": e.currentTarget.dataset.id,
@@ -275,7 +279,7 @@ Page({
       "cash": e.currentTarget.dataset.cash,
       "point": e.currentTarget.dataset.point,
       "gift_price": e.currentTarget.dataset.gift_price
-    }
+    });
     if (e.currentTarget.dataset.cash == 0 && e.currentTarget.dataset.point == 0) {
       gifts_price = `¥0`;
       order_price = `¥${this.data.orderInfo.real_price / 100}`;
@@ -307,7 +311,7 @@ Page({
   // 减
   eveReduceBtnTap(e) {
     this.setData({
-      gifts: {},
+      gifts: [],
       gift_id: '',
       order_price: `¥${this.data.orderInfo.real_price / 100}`,
       trueprice: this.data.orderInfo.sum_price / 100 - this.data.orderInfo.dispatch_price / 100
@@ -384,9 +388,9 @@ Page({
     })
     // 重新选择商品
     if (data.detail.isType == 'orderConfirm' && data.detail.type == 1) {
-      wx.navigateBack({
-        delta: 1
-      });
+      redirectTo({
+        url: '/pages/home/goodslist/goodslist'
+      })
       return;
     }
     // 继续结算
@@ -453,10 +457,21 @@ Page({
   // 订单确认
   funConfirmOrder(shop_id, goods) {
     let notUse = 0;
+    const gifts = app.globalData.gifts;
+    let giftslist = [];
     if (app.globalData.notUse) {
       notUse = app.globalData.notUse
     }
-    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, this.data.repurseList, notUse, (app.globalData.freetf?app.globalData.freeId:''), wxGet('_sid'), 2).then((res) => {
+ 
+    //提交确认订单
+    // 这里面遇到了选中的换商品字符串无法传入到后台的情况
+    let gift_list_confirm=[];
+    // if(this.data.gifts.length>0){
+    //   gift_list_confirm.push({
+    //     "activity_id": "56", "gift_id": "419", "id": "135"
+    //   })
+    // }
+    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, JSON.stringify([]), notUse, (app.globalData.freetf?app.globalData.freeId:''), wxGet('_sid'), 2).then((res) => {
       let goodsList = wxGet('goodsList');
       if (res.code == 0) {
         let goodsReal = [],
@@ -483,9 +498,7 @@ Page({
         }
         // 参与加价购的商品
         // 加购商品列表
-        const gifts = app.globalData.gifts;
-        let repurseTotalPrice = 0,
-          arr_money = [];
+        let repurseTotalPrice = 0, arr_money = [];
         if (app.globalData.repurseGoods) {
           if (Object.keys(gifts).length > 0) {
             for (let key in gifts) {
@@ -493,28 +506,26 @@ Page({
                 val.goods_count = 0;
                 val.goods_choose = true
               })
-              arr_money.push(key);
+              arr_money.push(parseInt(key));
             }
           }
-          // 换购商品不指定
+          // 换购商品不指定,全部换购
           if (app.globalData.repurseGoods.length == 0) {
-            arr_money.push(res.data.activity_list[''].real_price);
+            let sort_real_price = parseInt(res.data.activity_list[''].real_price);
+            if (arr_money.indexOf(sort_real_price)==-1){//没有重复的
+              arr_money.push(sort_real_price);
+            }else{//和价格相互重复了
+              sort_real_price = sort_real_price+1;
+              arr_money.push(sort_real_price);
+            }
             arr_money.sort((a, b) => {
               return a - b;
             });
-            let k = arr_money.findIndex(item => item == res.data.activity_list[''].real_price);
-            if (res.data.activity_list[''].real_price >= arr_money[k - 1]) {
-              this.setData({
-                showRepurse: true,
-                repurseList: gifts[arr_money[k - 1]]
-              })
-            }
-            if (res.data.activity_list[''].real_price >= arr_money[k]) {
-              this.setData({
-                showRepurse: true,
-                repurseList: gifts[arr_money[k]]
-              })
-            }
+            let k = arr_money.findIndex(item => item == sort_real_price);//这里永远会大于
+            this.setData({
+              showRepurse: true,
+              repurseList: gifts[arr_money[k - 1]]
+            })
           } else { // 换购商品为指定
             for (let item of app.globalData.repurseGoods) {
               for (let value of goodsReal) {
@@ -523,17 +534,21 @@ Page({
                 }
               }
             }
-            arr_money.push(repurseTotalPrice);
+            let all_repurseTotalPrice = repurseTotalPrice;
+            if (arr_money.indexOf(all_repurseTotalPrice) == -1) {//没有重复的
+              arr_money.push(all_repurseTotalPrice);
+            } else {//和价格相互重复了
+              all_repurseTotalPrice = all_repurseTotalPrice + 1;
+              arr_money.push(all_repurseTotalPrice);
+            }
             arr_money.sort((a, b) => {
               return a - b;
             });
-            let i = arr_money.findIndex(item => item == repurseTotalPrice);
-            if (repurseTotalPrice >= arr_money[i - 1]) {
-              this.setData({
-                showRepurse: true,
-                repurseList: gifts[arr_money[i - 1]]
-              })
-            }
+            let i = arr_money.findIndex(item => item == all_repurseTotalPrice);
+            this.setData({
+              showRepurse: true,
+              repurseList: gifts[arr_money[i - 1]]
+            })
           }
         }
         //  优惠券
@@ -543,16 +558,29 @@ Page({
         } else if (res.data.activity_list[''].reduce_detail.length > 1) {
           coupon_money = res.data.activity_list[''].reduce_detail[res.data.activity_list[''].reduce_detail.findIndex(val => Math.max(val.coupon.reduce))].coupon.reduce;
         }
+        
+        //由于orderconfirm不能承接换购商品，所以采用了前端判断换购商品策略
+        let order_price_num = (res.data.activity_list[''].real_price / 100);
+        let order_price_point='';
+        if (this.data.gifts && this.data.gifts.length>0){
+          if(parseInt(this.data.gifts[0].cash)>0){
+            order_price_num = order_price_num + (this.data.gifts[0].cash / 100);
+          }
+          if (parseInt(this.data.gifts[0].point)>0){
+            order_price_point = '+' + this.data.gifts[0].point+'积分';
+          }
+        }
+        console.log(this.data.gifts, order_price_num, order_price_point);
         this.setData({
           goodsReal,
           goodsInvented,
           orderInfo: res.data.activity_list[''],
-          order_price: `¥${res.data.activity_list[''].real_price / 100}`,
+          order_price: `¥${order_price_num}${order_price_point}`,
           trueprice: res.data.activity_list[''].sum_price / 100 - res.data.activity_list[''].dispatch_price / 100,
           coupon_money,
           orderDetail: res.data
         })
-      } else if (res.code == 277) {
+      }else if (res.code == 277) {
         this.setData({
           mask: true,
           modalShow: true,
@@ -568,11 +596,17 @@ Page({
           confirmText:'重新选择',
           confirmColor:'#E60012',
           success(conf){
-            wx.navigateBack({
-              delta: 1
+            redirectTo({
+              url: '/pages/home/goodslist/goodslist'
             })
           }
         })
+      
+      
+      } else if (res.code == 30106){
+        //用户未登录状态
+        // 直接跳转
+
       } else {
         this.setData({
           mask: true,
@@ -641,9 +675,14 @@ Page({
       remark = app.globalData.remarks
     }
     if (Object.keys(this.data.gifts).length > 0) {
-      giftObj['activity_id'] = this.data.gifts[this.data.gift_id].activity_id;
-      giftObj['gift_id'] = this.data.gifts[this.data.gift_id].gift_id;
-      giftObj['id'] = this.data.gifts[this.data.gift_id].id;
+      // giftObj['activity_id'] = this.data.gifts[this.data.gift_id].activity_id;
+      // giftObj['gift_id'] = this.data.gifts[this.data.gift_id].gift_id;
+      // giftObj['id'] = this.data.gifts[this.data.gift_id].id;
+
+      giftObj['activity_id'] = this.data.gifts[0].activity_id;
+      giftObj['gift_id'] = this.data.gifts[0].gift_id;
+      giftObj['id'] = this.data.gifts[0].id;
+
       gift_arr.push(giftObj);
       str_gift = JSON.stringify(gift_arr);
     }
@@ -688,6 +727,7 @@ Page({
               signType: val.data.signType,
               paySign: val.data.paySign,
               success(conf) {
+                // console.log(conf)
                 add_lng_lat(res.data.order_no, typeClass, lng, lat).then((confs) => {
                   if (confs.CODE == 'A100') {
                     wx.removeStorageSync('goodsList');
@@ -714,6 +754,10 @@ Page({
             })
           }
         })
+      
+      } else if (res.code == 30106){
+        //用户未登录状态
+        
       } else {
         $Toast({
           content: res.msg,

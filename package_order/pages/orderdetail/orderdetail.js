@@ -72,6 +72,35 @@ Page({
     ],
 
 
+    // takeOutState: [
+    //   '等待支付',
+    //   '订单已提交',
+    //   '商家已接单',
+    //   '骑手正在送货',
+    //   '订单已完成',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '骑手已接单',
+    // ],
+
+    // pickUpState: [
+    //   '等待支付',
+    //   '等待接单',
+    //   '商家已接单',
+    //   '等待取餐',
+    //   '订单已完成',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消',
+    //   '订单已取消'
+    // ],
+
     cancelReasonList: [
       { reason: '下错单/临时不想要了', value: true, cancel_code: 9 },
       { reason: '订单长时间未分配骑手', value: false, cancel_code: 1 },
@@ -334,7 +363,11 @@ Page({
           // 骑手已接单 骑手正在送货 订单已完成 去掉骑手已接单
           dis_tag != 'ZPS' ? curTimeArr : (curTimeArr.splice(curTimeArr.findIndex(item => item == 4), 1));
         };
-        curOrderState = curTimeArr.map(item => timeArr[item - 1])     
+        curOrderState = curTimeArr.map(item => timeArr[item - 1])
+        console.log(curOrderState);
+        //这两句话已经不用了，原因是已经不需要判断状态了，上面的状态已经判断好了
+        // (takeout_status == 2 && order_status_info.dis_status == 2 && dis_tag != 'ZPS' && dis_get_time) ? curTimeArr.push(4) : curTimeArr;
+        // (takeout_status == 4 && dis_take_time != '0000-00-00 00:00:00') ? curTimeArr.push(5) : curTimeArr;
       }
 
       // 门店自取
@@ -362,6 +395,7 @@ Page({
           state,
           time: time.split(' ')[1]
         }));
+        log(timeArr);
         // 自提显示数组
         // 0，等待支付 1 order_status==0
         // 1，等待接单 1,2 order_status==1

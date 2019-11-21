@@ -1,4 +1,4 @@
-.activeFont {
+/* pages/home/orderform/chooseCoupon/chooseCoupon.wxss */.activeFont {
   font-weight: bold
 }
 .couponUl {
@@ -40,6 +40,7 @@
   font-weight: 600
 }
 .couponMiddle {
+  /* width: 154rpx; */
   display: flex;
   flex-direction: column;
   color: #fff

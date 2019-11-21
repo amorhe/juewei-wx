@@ -1,7 +1,9 @@
 // pages/order/list/list.js
 import {
-  imageUrl
+  imageUrl,
+  wxGet
 } from '../../common/js/baseUrl'
+ 
 import {
   contact,
   guide,
@@ -88,6 +90,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
+    //地柜时间
     this.eventReduceTime()
   },
 
@@ -103,18 +107,30 @@ Page({
    */
   onShow: async function() {
     // 校验用户是否登录
-    // 校验是否 需要刷新
-    if (app.globalData.refresh == true) {
-      $Toast({
-        content: '取消成功'
+    const userinfo=wxGet('userInfo');
+    //判断用户是否登录如果没有登录提示
+    if (userinfo && userinfo.user_id && userinfo.user_id!=''){
+        // 校验是否 需要刷新
+        if (app.globalData.refresh == true) {
+          $Toast({
+            content: '取消成功'
+          });
+          app.globalData.refresh = false
+        }
+
+        return this.setData({
+          cur: app.globalData.refresh_state || 0
+        }, () => this.refresh())
+    }else{
+      MODAL({
+        title: '',
+        content: '用户未登录',
+        confirmText: '登录',
+        confirm: isloginFn
       });
-      app.globalData.refresh = false
     }
 
 
-    return this.setData({
-      cur: app.globalData.refresh_state || 0
-    }, () => this.refresh())
   },
 
   /**
@@ -256,22 +272,32 @@ Page({
    */
 
   async changeMenu(e) {
-    const {
-      cur
-    } = e.currentTarget.dataset;
-    if (this.data.cur === cur) {
-      return
-    }
-    setTimeout(() => {
-      this.setData({
-        cur
-      }, () => {
+    //判断用户是否是空
+    const userinfo = wxGet('userInfo');
+    //判断用户是否登录如果没有登录提示
+    if (userinfo && userinfo.user_id && userinfo.user_id != '') {
+        const { cur } = e.currentTarget.dataset;
+        if (this.data.cur === cur) {
+          return
+        }
         setTimeout(() => {
-          this.refresh();
-          app.globalData.refresh_state = cur
-        })
-      }, 0)
-    }, 0)
+          this.setData({
+            cur
+          }, () => {
+            setTimeout(() => {
+              this.refresh();
+              app.globalData.refresh_state = cur
+            })
+          }, 0)
+        }, 0)
+    }else{
+      MODAL({
+        title: '',
+        content: '用户未登录',
+        confirmText: '登录',
+        confirm: isloginFn
+      });
+    }
   },
 
 
@@ -294,10 +320,7 @@ Page({
       return
     }
     menuList[cur].page++;
-    let {
-      data,
-      code
-    } = await Request.orderList({
+    let { data, code } = await Request.orderList({
       page_size: 20,
       page,
       dis_type

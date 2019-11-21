@@ -58,7 +58,7 @@
 <!-- 搜索列表 -->
 <view class="mask_vciew" style="{{isOnfoucs?'':'display:none'}}"></view>
 <view class="shopsearch_view" wx:if="{{searchResult.length>0 && inputAddress!=''}}">
-  <view class="shopsearch" wx:for="{{searchResult}}" wx:key="unique" bindtap="eveChooseshop" data-address="{{item.address}}" data-lng="{{item.location.lng}}" data-lat="{{item.location.lat}}" data-name="{{item.name}}">
+  <view class="shopsearch" wx:for="{{searchResult}}" wx:key="unique" bindtap="eveChooseshop" data-address="{{item.address}}" data-lng="{{item.location.lng}}" data-lat="{{item.location.lat}}" data-name="{{item.name}}" data-results="{{item}}">
     <view class="searchTitle">
       <text class="fontBold">{{item.name}}</text>
       <text>{{item.detail_info.distance}}m</text>

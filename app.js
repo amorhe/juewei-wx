@@ -9,12 +9,19 @@ import {
 } from "./pages/common/js/baseUrl";
 
 App({
-  onLaunch: function(options) {
+  onLaunch: function (options) {
+    let that = this;
+    // 清除所有缓存
+    // try {
+    //   wx.clearStorageSync()
+    // } catch (e) {
+    //   // Do something when catch error
+    // }
     // options.scene == 1035 &&  这里不判断场景，原因是会有很多场景
     if (options && options.query && options.query.go && options.query.go != '') {
       this.globalData.gopages = options.query.go;
-    } else {
-      this.globalData.gopages = '';
+    }else{
+    	this.globalData.gopages ='';
     }
     // 获取用户信息
     wx.getSetting({
@@ -24,24 +31,33 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              const {
-                userInfo,
-                ...rest
-              } = res;
-              console.log(res);
-              const {
-                user_id
-              } = wxGet('userInfo') || {
-                user_id: ''
-              };
-              if (!user_id) {
-                wxSet('rest', rest);
-                wxSet('userInfo', userInfo);
-                return console.log('user_id不存在，此时不需要授权', '获取到用户信息')
+              const { userInfo, ...rest } = res;
+              if (userInfo && userInfo.nickName){ 
+                that.globalData.nickName = userInfo.nickName 
+              }else{
+                that.globalData.nickName ='';
               }
-              WX_LOGIN({ ...rest });
-              // 分享
-              this.funShare()
+              if (userInfo && userInfo.avatarUrl) { 
+                that.globalData.avatarUrl = userInfo.avatarUrl 
+              }else{
+                that.globalData.avatarUrl ='';
+              }
+              wxSet('rest', rest);
+              WX_LOGIN(res);
+
+
+              // wxSet('userInfo', userInfo);
+              // console.log('getUserInfo', res, userInfo, rest);
+              // const { user_id } = userInfo || { user_id: '' };
+              // if (!user_id) {
+              //   wxSet('userInfo', userInfo);
+              //   return console.log('user_id不存在，此时不需要授权', '获取到用户信息')
+              // }
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              // if (this.userInfoReadyCallback) {
+              //   this.userInfoReadyCallback(res)
+              // }
             }
           })
         } else {
@@ -50,6 +66,7 @@ App({
         }
       }
     })
+    this.funShare()
   },
   onShow() {
     let that = this;
@@ -57,19 +74,19 @@ App({
       success: res => {
         let modelmes = res.model;
         //判断iphone x以上的手机
-        if (modelmes.search('iPhone') > -1 && res.statusBarHeight > 20) {
+        if (modelmes.search('iPhone') > -1 && res.statusBarHeight>20){
           that.globalData.isIphoneX = true
-        } else {
+        }else{
           that.globalData.isIphoneX = false
         }
       }
     })
   },
   //重写分享方法
-  funShare: function() {
+  funShare: function () {
     //监听路由切换
     //间接实现全局设置分享内容
-    wx.onAppRoute(function(res) {
+    wx.onAppRoute(function (res) {
       //获取加载的页面
       let pages = getCurrentPages(),
         //获取当前页面的对象
@@ -79,7 +96,7 @@ App({
         data = view.data;
         if (!data.isOverShare) {
           data.isOverShare = true;
-          view.onShareAppMessage = function() {
+          view.onShareAppMessage = function () {
             //分享配置
             return {
               title: '会员专享服务，便捷 实惠 放心',
@@ -109,13 +126,13 @@ App({
     gifts: null, //加购商品
     type: 1, // 默认外卖
     coupon_code: null, //优惠券
-    scrollTop: null,  // 当前页面滑动位置距离顶部
-    province: null,   // 省
-    city: null,      // 市
-    chooseBool: false,    // 是否选择过城市
-    isSelf: false,  // 自提
+    scrollTop: null,
+    province: null,
+    city: null,
+    chooseBool: false,
+    isSelf: false,
     refresh: false, // 当前页面是否需要刷新
     gopages: '', //跳转到相应文件
-    isIphoneX: false,  // 判断手机机型是否为iphoneX以上
+    isIphoneX: false,
   }
 });

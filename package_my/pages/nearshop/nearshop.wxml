@@ -12,7 +12,7 @@
 </view>
 <view class="mapView" wx:if="{{!isSearch}}">
   <map id="map" style="width:100%;height:100%" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markersArray}}" scale="12" />
-  <cover-view class="shopBox" style="max-height: {{height}}rpx">
+  <cover-view class="shopBox" style="max-height: {{height}}vh">
     <cover-view class="shopLi" wx:for="{{shopList}}" wx:key="unique">
       <cover-view>
         <cover-view class="flexNormal wqe">

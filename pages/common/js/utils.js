@@ -1,9 +1,7 @@
 import { wxParse } from '../../../utils/wxParse/wxParse.js';
-
 import Request from "./li-ajax";
-import { wxGet } from "./baseUrl";
+import { wxSet, wxGet } from "./baseUrl";
 import { navigateTo, redirectTo } from "./router";
-
 const {
   $Toast
 } = require('../../../iview-weapp/base/index');
@@ -153,6 +151,10 @@ export const event_getNavHeight = () => {
  * @function 跳转登录页面
  */
 export const isloginFn = () => {
+  //这里要清除掉登录信息来让用户重新登录
+  wxSet('_sid', '');
+  wxSet('userInfo', {});
+  wx.removeStorageSync('user_id');
   wx.navigateTo({
     url: '/pages/login/auth/auth'
   });

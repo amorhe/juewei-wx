@@ -13,6 +13,7 @@ page{
 }
 
 .header{
+    /* height: 940rpx; */
     border-radius: 0 0 20rpx 20rpx;
     background: white;
     overflow: hidden;
@@ -32,6 +33,7 @@ page{
 
 .coast{
     margin: 0 32rpx;
+    /* margin-top: 10rpx; */
     margin-bottom: 21rpx;
     font-size: 56rpx;
     color:#e60012;
@@ -44,6 +46,8 @@ page{
 }
 
 .bottom{
+    /* position: absolute;
+    bottom: -50rpx; */
     height: 32rpx;
     width: 750rpx;
     text-align: center;

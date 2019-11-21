@@ -13,6 +13,7 @@
 
 .tabs_tt {
   display: flex;
+  padding-top: 10rpx;
 }
 
 .button {

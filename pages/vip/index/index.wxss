@@ -11,7 +11,8 @@ page {
   z-index: 9999;
   position: fixed;
   top: 0;
-  font-size: 36rpx;
+  /* width: 100vw; */
+  font-size: 27rpx;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   text-align: center;
@@ -22,6 +23,7 @@ page {
   position: fixed;
   top: 0;
   width: 100vw;
+  overflow: hidden;
 }
 
 .header-title-s text {
@@ -39,6 +41,7 @@ page {
 }
 
 .vip {
+  /* background: linear-gradient(180deg, #FB5332 0,#FB5332 200rpx, rgba(255, 255, 255, 0) 300rpx); */
   min-height: 100vh;
 }
 
@@ -122,8 +125,11 @@ page {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 27rpx 32rpx;
+  padding: 27rpx 32rpx;
+  box-sizing: border-box;
+  width:100vw;
 }
+
 
 .ul .li {
   width: 333rpx;
@@ -197,7 +203,7 @@ page {
 }
 
 .toast {
-  z-index: 999;
+  z-index: 99999;
   position: absolute;
   width: 240rpx;
   left: -120rpx;

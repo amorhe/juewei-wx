@@ -2,9 +2,9 @@
     <view class="myTop flexNormal">
         <!-- 没有登录过的 -->
         <button class="flexSpecial" bindtap="isloginFn" hover-class="none" wx:if="{{!showNo}}">
-            <image class="avatar" mode="scaleToFill" src="{{ user_id ? head_img : imageUrl+'default_head2.png' }}"/>
+            <image class="avatar" mode="scaleToFill" src="{{ imageUrl+'default_head2.png' }}"/>
             <view class="fontFourtyWeight">
-                <view>{{ user_id ? nick_name : '登录' }}</view>
+                <view>登录</view>
             </view>
         </button>
         <button bindtap="isloginFn" hover-class="none" wx:if="{{!showNo}}">
@@ -12,9 +12,9 @@
         </button>
         <!-- 已登录过的 -->
         <button class="flexSpecial" bindgetuserinfo="bindgetuserinfo"  open-type="getUserInfo" hover-class="none" wx:if="{{showNo}}">
-            <image class="avatar" mode="scaleToFill" src="{{ user_id ? head_img : imageUrl+'default_head2.png' }}"/>
+            <image class="avatar" mode="scaleToFill" src="{{ (head_img!='') ? head_img : imageUrl+'default_head1.png' }}"/>
             <view class="fontFourtyWeight">
-                <view>{{ user_id ? nick_name : '登录' }}</view>
+                <view>{{ (nick_name!='') ? nick_name : '绝味会员' }}</view>
             </view>
         </button>
         <button bindgetuserinfo="bindgetuserinfo" open-type="getUserInfo" hover-class="none" wx:if="{{showNo}}">

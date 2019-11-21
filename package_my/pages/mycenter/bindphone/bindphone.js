@@ -61,7 +61,7 @@ Page({
    */
   onHide: function() {
     this.setData({
-      focus:false
+      focus: false
     })
   },
 
@@ -121,7 +121,11 @@ Page({
       phone: this.data.phone
     }
     sendCode(data).then(res => {
-
+      if (res.code==0){ }else{
+        $Toast({
+          content: res.msg
+        });
+      }
     })
   },
   eveBindFocus() {
@@ -131,6 +135,16 @@ Page({
       this.onFocus();
     }, 100);
   },
+  // onFocus() {
+  //   this.setData({
+  //     focus: true,
+  //   });
+  // },
+  // bindblur() {
+  //   this.setData({
+  //     focus: false,
+  //   });
+  // },
   inputValue(e) {
     var value = e.detail.value
     this.setData({

@@ -54,6 +54,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log('load');
     if (options.type) {
       this.setData({
         isSuccess: true,
@@ -75,11 +76,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    console.log('show');
     const _sid = wxGet('_sid');
     const lng = wxGet('lng');
     const lat = wxGet('lat');
     const location = `${lng},${lat}`;
     let arr1 = [];
+    //
+    if (app.globalData.chooseBool) {
+      app.globalData.chooseBool = false;
+      this.setData({
+        city: app.globalData.choosecity
+      })
+    } else {
+      this.setData({
+        city: app.globalData.city
+      })
+    }
+ 
     //获取用户收货地址,一次性获取下来
     if (_sid) {
       addressList(_sid, 'normal', location).then((res) => {
@@ -92,21 +106,21 @@ Page({
           })
         }else if(res.code==30106){//获取地址提示用户未登录
           //删除以前的id
+          wxSet('_sid', '');
+          wxSet('userInfo', {});
           wx.removeStorageSync('user_id');
         }else{
+          //其他情况
 
         }
       });
     }else{//没有sid
-      
+      // wx.navigateTo({
+      //   url: '/pages/login/auth/auth'
+      // });
     }
     if (app.globalData.address) {
       this.funGetAddressList(location, lat, lng);
-    }
-    if (app.globalData.chooseBool) {
-      this.setData({
-        city: app.globalData.city
-      })
     }
   },
 
@@ -162,6 +176,8 @@ Page({
     }else{
       this.setData({
         inputAddress: e.detail.value 
+        // isOnfoucs: false,
+        // noResult: false
       })
       this.searchShop(e.detail.value);
     }
@@ -178,7 +194,7 @@ Page({
   searchShop(value) {
     let that = this;
     //附近地址列表
-    let url = 'https://api.map.baidu.com/geocoding/v3/?address=' + encodeURI(this.data.city + ',' + value) +'&output=json&ak='+ ak
+    let url = 'https://api.map.baidu.com/geocoding/v3/?address=' + encodeURI(this.data.city + value) +'&output=json&ak='+ ak
     wx.request({
       url,
       success: (res) => {
@@ -215,8 +231,21 @@ Page({
       }
     })
   },
-  // 选择门店
+  // 搜索模式选择门店
   eveChooseshop(e) {
+    wxSet('lat', e.currentTarget.dataset.lat);
+    wxSet('lng', e.currentTarget.dataset.lng);
+    app.globalData.position=e.currentTarget.dataset.results
+    app.globalData.position.district = e.currentTarget.dataset.results.area;
+    app.globalData.position.cityAdcode = '';
+    app.globalData.position.districtAdcode = '';
+    app.globalData.position.latitude = e.currentTarget.dataset.results.location.lat;
+    app.globalData.position.longitude = e.currentTarget.dataset.results.location.lng;
+    app.globalData.shopIng = null;
+    //额外添加两个
+    app.globalData.city = e.currentTarget.dataset.results.city;
+    app.globalData.province = e.currentTarget.dataset.results.province;
+    //运行
     this.funGetLbsShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.name, 'click');
     this.funGetNearbyShop(e.currentTarget.dataset.lng, e.currentTarget.dataset.lat, e.currentTarget.dataset.name, 'click');
   },
@@ -328,6 +357,7 @@ Page({
     app.globalData.position = e.currentTarget.dataset.info;
     app.globalData.position.city = e.currentTarget.dataset.info.city;
     app.globalData.position.district = e.currentTarget.dataset.info.area;
+    app.globalData.position.province = e.currentTarget.dataset.info.province;
     app.globalData.position.cityAdcode = '';
     app.globalData.position.districtAdcode = '';
     app.globalData.shopIng = null;
@@ -338,12 +368,10 @@ Page({
       app.globalData.position.latitude = lat;
       app.globalData.position.longitude = lng;
     }
-
-    app.globalData.position.province = e.currentTarget.dataset.info.province;
     //额外添加两个
     app.globalData.city = e.currentTarget.dataset.info.city;
     app.globalData.province = e.currentTarget.dataset.info.province;
-    app.globalData.position.district = e.currentTarget.dataset.info.area;
+    
     let address = '';
     if (e.currentTarget.dataset.type == 1) {
       address = e.currentTarget.dataset.address;
@@ -352,7 +380,6 @@ Page({
     }
     this.funGetLbsShop(app.globalData.position.longitude, app.globalData.position.latitude, address, 'click');
     this.funGetNearbyShop(app.globalData.position.longitude, app.globalData.position.latitude, address, 'click')
-
   },
   // 选择我的收货地址
   eveSwitchPositionAddress(e) {
@@ -392,11 +419,20 @@ Page({
 
         // 按照goods_num做降序排列
         let shopArray = shopArr1.concat(shopArr2);
+        // shopArray.sort((a, b) => {
+        //   var value1 = a.goods_num,
+        //     value2 = b.goods_num;
+        //   if (value1 <= value2) {
+        //     return a.distance - b.distance;
+        //   }
+        //   return value2 - value1;
+        // });
         shopArray[0]['jingxuan'] = true;
         app.globalData.position.cityAdcode = shopArray[0].city_id
         app.globalData.position.districtAdcode = shopArray[0].district_id
         app.globalData.type = 1;
         wxSet('takeout', shopArray); // 保存外卖门店到本地
+        // that.funGetNearbyShop(lng, lat, address);
         if (str) {
           reLaunch({
             url: '/pages/home/goodslist/goodslist'
@@ -460,6 +496,9 @@ Page({
           shopArr2.push(res[i]);
         }
       }
+      // 根据距离最近排序
+      // shopArr1.sort(sortNum('distance'));
+      // shopArr2.sort(sortNum('distance'));
       const shopArray = shopArr1.concat(shopArr2);
       shopArray[0]['jingxuan'] = true;
       app.globalData.address = address;

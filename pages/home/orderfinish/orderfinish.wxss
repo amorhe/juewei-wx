@@ -185,3 +185,16 @@
   margin: auto;
   z-index: 10
 }
+.wrap_close{
+  position: absolute;
+  left: 50%;
+  bottom: 50rpx;
+  width:72rpx;
+  height:72rpx;
+  margin-left:-36rpx;
+}
+.wrap_close_image{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}

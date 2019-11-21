@@ -1,4 +1,3 @@
-<!-- touchstart阻止遮罩下页面滑动 -->
 <view catchtouchmove="touchstart">
   <view class="fullReduce" wx:if="{{activityText!='' && !showShopcar}}">{{activityText}}</view>
   <view class="shopcart">
@@ -11,6 +10,8 @@
         <text>{{priceAll/100}}</text>
       </view>
       <view wx:if="{{type==1}}">
+        <!-- <view wx:if="{{!freeShow}}">另需配送费{{dispatch_price}}元</view>
+        <view wx:if="{{freeShow}}">{{freeText}}</view> -->
         <view>{{freeText!=''?freeText:'另需配送费 ' + dispatch_price + '元'}}</view>
       </view>
     </view>
@@ -25,7 +26,7 @@
     </form>
   </view>
 </view>
-<!-- 购物车列表 -->
+<!-- 购物车弹框 -->
 <view wx:if="{{showShopcar && shopcartAll.length>0}}" class="shopcarContent" style="bottom:{{h}}" catchtouchmove="touchstart">
   <view class="fullReduce fontSmall" wx:if="{{activityText!=''}}">{{activityText}}</view>
   <view class="clearShopcar" bindtap="eveClearShopcart">

@@ -52,7 +52,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.eveClose();
   },
 
   /**
@@ -150,10 +150,11 @@ Page({
           })
         }
       })
-
     }else{
-      //获取订单详情错误
-
+      //获取详情订单失败
+      this.setData({
+        newUserShow: false
+      })
     }
   },
 
@@ -172,11 +173,9 @@ Page({
    * @function 获取礼包列表
    */
 
-  funGetCouponsList() {
-    let res = ajax({url:'/mini/coupons/list', data:{
-      get_type: 'new_user'
-    }})
-    if (res.CODE === 'A100' && res.DATA.new_user && res.DATA.new_user.length>0) {
+  async funGetCouponsList() {
+    let res = await ajax({url:'/mini/coupons/list', data:{ get_type: 'new_user'}})
+    if (res.CODE === 'A100' && res.DATA.new_user && res.DATA.new_user.length> 0) {
       let new_user = res.DATA.new_user
         .map(({
           end_time,
@@ -186,6 +185,7 @@ Page({
           ...item
         }))
       this.setData({
+        newUserShow: true,
         new_user
       })
     }else{//没有获取到新用户礼包
@@ -197,9 +197,11 @@ Page({
   },
 
   eveToTakeIn() {
-    this.eveClose()
     redirectTo({
       url: '/pages/home/goodslist/goodslist'
     });
   },
+  evenotap(){
+
+  }
 })
