@@ -20,7 +20,9 @@ import {
 } from '../../../../pages/common/js/map'
 let region = []
 var app = getApp()
-const { $Toast } = require('../../../../iview-weapp/base/index');
+const {
+  $Toast
+} = require('../../../../iview-weapp/base/index');
 // 引入百度地图微信小程序
 var bmap = require('../../../../utils/libs/bmap-wx.js');
 var BMap = new bmap.BMapWX({
@@ -106,7 +108,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (app.globalData.addAddressInfo) {
+      console.log(app.globalData.addAddressInfo)
+      let obj = app.globalData.addAddressInfo
+      this.setData({
+        province: obj.province,
+        city: obj.city,
+        district: obj.area,
+        map_address: obj.name,
+        longitude: obj.location.lng,
+        latitude: obj.location.lat,
+        detailAdd: obj.province + obj.city + obj.area + obj.address
+      })
+    }
   },
 
   /**
@@ -219,52 +233,55 @@ Page({
   },
   // 选择地址
   chooseLocation() {
-    var that = this
-    wx.chooseLocation({
-      success: (res) => {
-        console.log(res)
-        var resadd = res.address
-        var map_address = res.name ? res.name : res.address
-        let map_position = bd_encrypt(res.longitude, res.latitude);
-        console.log(res, '选择')
-        wx.request({
-          url: 'https://api.map.baidu.com/geocoder/v2/?ak=' + ak + '&location=' + res.latitude + ',' + res.longitude + '&output=json&coordtype=wgs84ll',
-          success: (res) => {
-            that.setData({
-              province: res.data.result.addressComponent.province,
-              city: res.data.result.addressComponent.city,
-              district: res.data.result.addressComponent.district,
-              detailAdd: res.data.result.addressComponent.province + res.data.result.addressComponent.city + res.data.result.addressComponent.district + resadd
-            })
-          },
-        });
-        wx.request({
-          url: 'https://api.map.baidu.com/geosearch/v3/nearby?ak=' + ak + '&geotable_id=' + geotable_id + '&location=' + res.longitude + ',' + res.latitude + '&radius=3000',
-          success: (res) => {
-            var arr = []
-            res.data.contents.forEach(item => {
-              arr.push(item.shop_id)
-            })
-            that.data.shop_id = arr.join(',')
-            if (that.data.shop_id === '') {
-              wx.showModal({
-                title: '您所选的地址周边无可配送门店，请换个地址试试吧！',
-                showCancel: false,
-                confirmColor: "#E60012"
-              })
-            }
-          },
-        });
-        that.setData({
-          longitude: map_position.lng,
-          latitude: map_position.lat,
-          map_address: map_address
-        })
-      },
-      fail(err) {
-        console.log(err, '错误')
-      }
-    });
+    wx.navigateTo({
+      url: '/package_my/pages/myaddress/selectaddress/selectaddress?address='
+    })
+    // var that = this
+    // wx.chooseLocation({
+    //   success: (res) => {
+    //     console.log(res)
+    //     var resadd = res.address
+    //     var map_address = res.name ? res.name : res.address
+    //     let map_position = bd_encrypt(res.longitude, res.latitude);
+    //     console.log(res, '选择')
+    //     wx.request({
+    //       url: 'https://api.map.baidu.com/geocoder/v2/?ak=' + ak + '&location=' + res.latitude + ',' + res.longitude + '&output=json&coordtype=wgs84ll',
+    //       success: (res) => {
+    //         that.setData({
+    //           province: res.data.result.addressComponent.province,
+    //           city: res.data.result.addressComponent.city,
+    //           district: res.data.result.addressComponent.district,
+    //           detailAdd: res.data.result.addressComponent.province + res.data.result.addressComponent.city + res.data.result.addressComponent.district + resadd
+    //         })
+    //       },
+    //     });
+    //     wx.request({
+    //       url: 'https://api.map.baidu.com/geosearch/v3/nearby?ak=' + ak + '&geotable_id=' + geotable_id + '&location=' + res.longitude + ',' + res.latitude + '&radius=3000',
+    //       success: (res) => {
+    //         var arr = []
+    //         res.data.contents.forEach(item => {
+    //           arr.push(item.shop_id)
+    //         })
+    //         that.data.shop_id = arr.join(',')
+    //         if (that.data.shop_id === '') {
+    //           wx.showModal({
+    //             title: '您所选的地址周边无可配送门店，请换个地址试试吧！',
+    //             showCancel: false,
+    //             confirmColor: "#E60012"
+    //           })
+    //         }
+    //       },
+    //     });
+    //     that.setData({
+    //       longitude: map_position.lng,
+    //       latitude: map_position.lat,
+    //       map_address: map_address
+    //     })
+    //   },
+    //   fail(err) {
+    //     console.log(err, '错误')
+    //   }
+    // });
   },
   getAddressList() {
     let [curProvince, curCity, curCountry] = this.data.defaultAddress;
@@ -483,8 +500,8 @@ Page({
     wx.showModal({
       content: '是否删除该配送地址?',
       confirmColor: "#E60012",
-      success(res){
-        if(res.confirm){
+      success(res) {
+        if (res.confirm) {
           that.rmaddress()
         }
       }

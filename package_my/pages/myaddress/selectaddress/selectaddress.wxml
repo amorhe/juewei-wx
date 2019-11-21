@@ -1,2 +1,37 @@
-<!--package_my/pages/myaddress/selectaddress/selectaddress.wxml-->
-<text>package_my/pages/myaddress/selectaddress/selectaddress.wxml</text>
+<view class="addressView">
+  <view class="searchView" style="background:#fff">
+    <view style="width: 694rpx;">
+      <view class="positionAddress" bindtap="eveChoosecityTap">
+        <text>{{city}}</text>
+        <image src="{{imageUrl}}arrow_down1.png" />
+      </view>
+      <view class="searchBox">
+        <view>
+          <image class="searchIcon" src="{{imageUrl}}search.png" />
+          <input value="{{inputAddress}}" confirm-type="search" placeholder="小区/写字楼/学校等" placeholder-class="colorGray" bindinput="evebindinput" bindfocus="funOnfocus" bindblur="funOutfocus" adjust-position="false" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="mapView">
+    <map id="map" style="width:100%;height:100%;" bindregionchange="mapTap" bindtap="mapTap" optimize="{{true}}" show-location latitude="{{latitude}}" longitude="{{longitude}}" scale="14" markers="{{ mapInfo }}"></map>
+    <cover-view class="addressshopBox">
+      <cover-view class="addressItem" wx:if="{{addressList.length>0}}" wx:for="{{addressList}}" wx:key="unique" data-info="{{item}}" bindtap="eveSwitchAddress">
+        <cover-view class="iconImgView">
+          <cover-image wx:if="{{index==0}}" src="{{ imageUrl }}position.png" class="iconImg" />
+          <cover-image wx:if="{{index!=0}}" src="{{ imageUrl }}order2.png" class="iconImg" />
+        </cover-view>
+        <cover-view>
+          <cover-view>{{item.name}}</cover-view>
+          <cover-view class="addressInfo">{{item.address}}</cover-view>
+        </cover-view>
+      </cover-view>
+    </cover-view>
+  </view>
+  <cover-view class="noSearchResult" wx:if="{{ noSearchResult }}">
+    <cover-image class="position_icon" mode="scaleToFill" src="{{imageUrl}}bg_position.png" />
+    <cover-view class="text">找不到地址</cover-view>
+    <cover-view class="noresultText">请尝试只输入小区、写字楼或学校名，详细地址（如门牌号）可稍后输入哦。</cover-view>
+  </cover-view>
+</view>

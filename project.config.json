@@ -51,7 +51,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 29,
+			"current": 31,
 			"list": [
 				{
 					"id": -1,
@@ -261,6 +261,20 @@
 					"name": "商品详情",
 					"pathName": "pages/home/goodslist/goodsdetail/goodsdetail",
 					"query": "goods_code=A1QLT3",
+					"scene": null
+				},
+				{
+					"id": 30,
+					"name": "我去恶趣味",
+					"pathName": "package_my/pages/myaddress/selectaddress/selectaddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "wqre",
+					"pathName": "package_my/pages/myaddress/addaddress/addaddress",
+					"query": "",
 					"scene": null
 				}
 			]
