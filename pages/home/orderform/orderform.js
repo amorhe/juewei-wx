@@ -26,7 +26,9 @@ import {
   redirectTo,
   reLaunch
 } from '../../common/js/router.js'
-const { $Toast } = require('../../../iview-weapp/base/index');
+const {
+  $Toast
+} = require('../../../iview-weapp/base/index');
 var app = getApp();
 Page({
 
@@ -77,7 +79,7 @@ Page({
     trueprice: 0, //真实的总价价格
     send_price: 0,
     price_no_count: false,
-    goodsOrder:{}
+    goodsOrder: {}
   },
 
   /**
@@ -189,11 +191,11 @@ Page({
         remark: app.globalData.remarks
       })
     }
-    if (app.globalData.coupon_code && app.globalData.coupon_code!='') {
+    if (app.globalData.coupon_code && app.globalData.coupon_code != '') {
       this.setData({
         coupon_code: app.globalData.coupon_code,
       })
-    }else{
+    } else {
       this.setData({
         coupon_code: '',
       })
@@ -226,7 +228,7 @@ Page({
     //     gifts
     //   })
     // }
- 
+
     this.funConfirmOrder(wxGet('shop_id'), JSON.stringify(this.data.goodsList));
   },
 
@@ -462,16 +464,16 @@ Page({
     if (app.globalData.notUse) {
       notUse = app.globalData.notUse
     }
- 
+
     //提交确认订单
     // 这里面遇到了选中的换商品字符串无法传入到后台的情况
-    let gift_list_confirm=[];
+    let gift_list_confirm = [];
     // if(this.data.gifts.length>0){
     //   gift_list_confirm.push({
     //     "activity_id": "56", "gift_id": "419", "id": "135"
     //   })
     // }
-    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, JSON.stringify([]), notUse, (app.globalData.freetf?app.globalData.freeId:''), wxGet('_sid'), 2).then((res) => {
+    confirmOrder(this.data.orderType, shop_id, goods, shop_id, this.data.coupon_code, JSON.stringify([]), notUse, (app.globalData.freetf ? app.globalData.freeId : ''), wxGet('_sid'), 2).then((res) => {
       let goodsList = wxGet('goodsList');
       if (res.code == 0) {
         let goodsReal = [],
@@ -498,7 +500,8 @@ Page({
         }
         // 参与加价购的商品
         // 加购商品列表
-        let repurseTotalPrice = 0, arr_money = [];
+        let repurseTotalPrice = 0,
+          arr_money = [];
         if (app.globalData.repurseGoods) {
           if (Object.keys(gifts).length > 0) {
             for (let key in gifts) {
@@ -512,16 +515,16 @@ Page({
           // 换购商品不指定,全部换购
           if (app.globalData.repurseGoods.length == 0) {
             let sort_real_price = parseInt(res.data.activity_list[''].real_price);
-            if (arr_money.indexOf(sort_real_price)==-1){//没有重复的
+            if (arr_money.indexOf(sort_real_price) == -1) { //没有重复的
               arr_money.push(sort_real_price);
-            }else{//和价格相互重复了
-              sort_real_price = sort_real_price+1;
+            } else { //和价格相互重复了
+              sort_real_price = sort_real_price + 1;
               arr_money.push(sort_real_price);
             }
             arr_money.sort((a, b) => {
               return a - b;
             });
-            let k = arr_money.findIndex(item => item == sort_real_price);//这里永远会大于
+            let k = arr_money.findIndex(item => item == sort_real_price); //这里永远会大于
             this.setData({
               showRepurse: true,
               repurseList: gifts[arr_money[k - 1]]
@@ -535,9 +538,9 @@ Page({
               }
             }
             let all_repurseTotalPrice = repurseTotalPrice;
-            if (arr_money.indexOf(all_repurseTotalPrice) == -1) {//没有重复的
+            if (arr_money.indexOf(all_repurseTotalPrice) == -1) { //没有重复的
               arr_money.push(all_repurseTotalPrice);
-            } else {//和价格相互重复了
+            } else { //和价格相互重复了
               all_repurseTotalPrice = all_repurseTotalPrice + 1;
               arr_money.push(all_repurseTotalPrice);
             }
@@ -558,16 +561,16 @@ Page({
         } else if (res.data.activity_list[''].reduce_detail.length > 1) {
           coupon_money = res.data.activity_list[''].reduce_detail[res.data.activity_list[''].reduce_detail.findIndex(val => Math.max(val.coupon.reduce))].coupon.reduce;
         }
-        
+
         //由于orderconfirm不能承接换购商品，所以采用了前端判断换购商品策略
         let order_price_num = (res.data.activity_list[''].real_price / 100);
-        let order_price_point='';
-        if (this.data.gifts && this.data.gifts.length>0){
-          if(parseInt(this.data.gifts[0].cash)>0){
+        let order_price_point = '';
+        if (this.data.gifts && this.data.gifts.length > 0) {
+          if (parseInt(this.data.gifts[0].cash) > 0) {
             order_price_num = order_price_num + (this.data.gifts[0].cash / 100);
           }
-          if (parseInt(this.data.gifts[0].point)>0){
-            order_price_point = '+' + this.data.gifts[0].point+'积分';
+          if (parseInt(this.data.gifts[0].point) > 0) {
+            order_price_point = '+' + this.data.gifts[0].point + '积分';
           }
         }
         console.log(this.data.gifts, order_price_num, order_price_point);
@@ -580,7 +583,7 @@ Page({
           coupon_money,
           orderDetail: res.data
         })
-      }else if (res.code == 277) {
+      } else if (res.code == 277) {
         this.setData({
           mask: true,
           modalShow: true,
@@ -589,21 +592,21 @@ Page({
           content: res.msg + '，系统已经更新,是否确认结算',
           newArr: res.data
         })
-      }else if(res.code == 'A123'){
+      } else if (res.code == 'A123') {
         wx.showModal({
           content: res.msg,
-          showCancel:false,
-          confirmText:'重新选择',
-          confirmColor:'#E60012',
-          success(conf){
+          showCancel: false,
+          confirmText: '重新选择',
+          confirmColor: '#E60012',
+          success(conf) {
             redirectTo({
               url: '/pages/home/goodslist/goodslist'
             })
           }
         })
-      
-      
-      } else if (res.code == 30106){
+
+
+      } else if (res.code == 30106) {
         //用户未登录状态
         // 直接跳转
 
@@ -754,10 +757,10 @@ Page({
             })
           }
         })
-      
-      } else if (res.code == 30106){
+
+      } else if (res.code == 30106) {
         //用户未登录状态
-        
+
       } else {
         $Toast({
           content: res.msg,

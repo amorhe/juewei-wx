@@ -1,6 +1,6 @@
 import { baseUrl, imageUrl, wxGet, wxSet } from '../../common/js/baseUrl'
 import { loginByPhone, sendCode } from '../../common/js/login'
-import { navigateTo } from '../../common/js/router.js'
+import { navigateTo,redirectTo } from '../../common/js/router.js'
 const { $Toast } = require('../../../iview-weapp/base/index');
 import { UpdatewxUserInfo } from '../../../pages/common/js/my';//用于登录后拿微信信息同步给后台
 
@@ -25,6 +25,7 @@ Page({
     getCode: true,
     // cursor: 0,
     timestamp: 0, //当前时间戳
+    next:false
   },
 
   /**
@@ -36,7 +37,8 @@ Page({
       phone: e.phone,
       _sid,
       isnew: true,
-      countTime:60
+      countTime:60,
+      next:e.next
     });
     this.timeDate()
   },
@@ -167,11 +169,23 @@ Page({
           res.data.head_img = app.globalData.avatarUrl;
           res.data.nick_name = app.globalData.nickName;
           wxSet('userInfo', res.data);
+          if (this.data.next) {
+            redirectTo({
+              url: '/pages/home/orderform/orderform'
+            })
+            return
+          }
           wx.navigateBack({ delta: 2 })
         })
       }else{
         app.globalData.nickName = res.data.nick_name;
         app.globalData.avatarUrl = res.data.head_img;
+        if (this.data.next) {
+          redirectTo({
+            url: '/pages/home/orderform/orderform'
+          })
+          return
+        }
         wx.navigateBack({ delta: 2 })
       }
     } else {

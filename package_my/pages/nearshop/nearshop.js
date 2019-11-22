@@ -43,16 +43,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    if (options && options.re && options.re==1){
-      app.globalData.choosecity2 = '';
-    }
+    // if (options && options.re && options.re==1){
+    //   app.globalData.choosecity2 = '';
+    // }
     this.nearShop(wxGet('lng'), wxGet('lat'));
     let ott = tx_decrypt(wxGet('lng'), wxGet('lat'))
     this.setData({
       longitude: ott.lng,
       latitude: ott.lat,
       selfshop: false,
-      city: app.globalData.choosecity2 || app.globalData.position.city || app.globalData.city
+      // city: app.globalData.choosecity2 || app.globalData.position.city || app.globalData.city
     })
   },
 
@@ -185,7 +185,8 @@ Page({
             })
           this.setData({
             markersArray: arr,
-            shopList: conf
+            shopList: conf,
+            city: conf[0].city || app.globalData.city
           })
           app.globalData.shopIng1 = conf[0];
           app.globalData.address1 = conf[0].address

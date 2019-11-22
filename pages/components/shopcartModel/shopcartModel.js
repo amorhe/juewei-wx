@@ -351,7 +351,7 @@ Component({
       let userinfo = wxGet('userInfo') || '';
       if (userinfo == '' || userinfo.user_id == undefined) {
         navigateTo({
-          url: '/pages/login/auth/auth'
+          url: '/pages/login/auth/auth?next=true'
         })
         return
       }
