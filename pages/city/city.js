@@ -105,7 +105,5 @@ Page({
         delta: 1
       })
     }
-    app.globalData.city = e.currentTarget.dataset.name;
-    app.globalData.position.city = e.currentTarget.dataset.name;
   } 
 })
