@@ -350,6 +350,7 @@ Component({
       // 未登录
       let userinfo = wxGet('userInfo') || '';
       if (userinfo == '' || userinfo.user_id == undefined) {
+         // 11-22  提交商品未登录跳转到登录页，然后登录过后跳转到订单页（hs）
         navigateTo({
           url: '/pages/login/auth/auth?next=true'
         })

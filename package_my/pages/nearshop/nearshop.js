@@ -186,7 +186,7 @@ Page({
           this.setData({
             markersArray: arr,
             shopList: conf,
-            city: conf[0].city || app.globalData.city
+            city: conf[0].city || app.globalData.city   //11-22附近门店（hs）
           })
           app.globalData.shopIng1 = conf[0];
           app.globalData.address1 = conf[0].address

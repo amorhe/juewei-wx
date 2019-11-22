@@ -169,6 +169,7 @@ Page({
           res.data.head_img = app.globalData.avatarUrl;
           res.data.nick_name = app.globalData.nickName;
           wxSet('userInfo', res.data);
+          // 11-22  提交商品未登录跳转到登录页，然后登录过后跳转到订单页（何帅）
           if (this.data.next) {
             redirectTo({
               url: '/pages/home/orderform/orderform'
@@ -180,6 +181,7 @@ Page({
       }else{
         app.globalData.nickName = res.data.nick_name;
         app.globalData.avatarUrl = res.data.head_img;
+        // 11-22  提交商品未登录跳转到登录页，然后登录过后跳转到订单页（何帅）
         if (this.data.next) {
           redirectTo({
             url: '/pages/home/orderform/orderform'

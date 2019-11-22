@@ -209,6 +209,7 @@ Page({
         $Toast({
           content: '短信发送成功'
         })
+        // 11-22  提交商品未登录跳转到登录页，然后登录过后跳转到订单页（何帅）
         redirectTo({
           url: '/pages/login/verifycode/verifycode?phone=' + data.phone + '&next=' + this.data.next
         });
@@ -289,13 +290,14 @@ Page({
             wxSet('userInfo', { ...rest,
               ...res.data
             });
-            //快捷登录 后退到前一个页面
+             // 11-22  提交商品未登录跳转到登录页，然后登录过后跳转到订单页（hs）
             if(this.data.next){
               redirectTo({
                 url: '/pages/home/orderform/orderform'
               })
               return
             }
+            //快捷登录 后退到前一个页面
             wx.navigateBack({
               delta: 1
             })
@@ -303,6 +305,7 @@ Page({
         } else {
           app.globalData.nickName = res.data.nick_name;
           app.globalData.avatarUrl = res.data.head_img;
+          // 11-22  提交商品未登录跳转到登录页，然后登录过后跳转到订单页（hs）
           if (this.data.next) {
             redirectTo({
               url: '/pages/home/orderform/orderform'
