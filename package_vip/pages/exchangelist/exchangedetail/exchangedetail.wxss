@@ -399,6 +399,16 @@ page {
     color: white;
     align-self: flex-end
 }
+.no-use {
+    width: 140rpx;
+    height: 64rpx;
+    background: #f5f5f5;
+    border-radius: 32rpx;
+    text-align: center;
+    line-height: 64rpx;
+    color: #999;
+    align-self: flex-end
+}
 
 .code-img {
     width: 380rpx;

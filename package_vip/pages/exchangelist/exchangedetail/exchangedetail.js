@@ -42,6 +42,7 @@ Page({
 
 
     time: '',
+    overdue:false,
 
     cancelReasonList: [{
         reason: '下错单/临时不想要了',
@@ -168,6 +169,8 @@ Page({
     let {
       remaining_pay_minute,
       remaining_pay_second,
+      overdue,
+      way,
       ...item
     } = detail || {
       remaining_pay_minute: -1,
@@ -181,11 +184,19 @@ Page({
       --remaining_pay_minute;
       remaining_pay_second = 59
     }
+    let bol = false;
+    if (overdue == 1 || way == ''){
+      bol = true
+    }else{
+      bol = false
+    }
     this.setData({
       detail: { ...item,
         remaining_pay_second,
-        remaining_pay_minute
+        remaining_pay_minute,
+        way
       },
+      overdue: bol
     });
     setTimeout(() => {
       this.eventReduceTime();

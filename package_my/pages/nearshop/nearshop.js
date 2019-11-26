@@ -116,7 +116,7 @@ Page({
   // 输入地址搜索门店
   searchShop(value, bol) {
     let that = this;
-    let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&output=json&ak=${ak}`
+    let url = `https://api.map.baidu.com/geocoding/v3/?address=${this.data.city}${value}&city=${this.data.city}&output=json&ak=${ak}`
     url = encodeURI(url);
     wx.request({
       url,
