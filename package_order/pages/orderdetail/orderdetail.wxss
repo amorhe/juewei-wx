@@ -6,7 +6,7 @@ page {
 
 .board {
   background: white;
-  width: 702rpx;
+  width: 701.5rpx;
   margin: 16rpx auto;
   padding: 40rpx 0 24rpx;
   border-radius: 10rpx;
